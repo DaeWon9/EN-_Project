@@ -9,6 +9,6 @@ namespace LectureTimeTable
     internal class Constant
     {
         public const string USER_ID = "20003321";
-        public const string USER_PASSWORD = "1111111";
+        public const string USER_PASSWORD = "11111111";
     }
 }
