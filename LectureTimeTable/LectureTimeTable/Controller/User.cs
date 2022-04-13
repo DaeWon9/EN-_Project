@@ -16,10 +16,12 @@ namespace LectureTimeTable.Controller
             this.password = password;
         }
 
-        public string GetInputData()
+        public string GetInputData() // id, pw입력받을때 예외처리 필요
         {
             string userInput;
+            /*
             ConsoleKeyInfo keyInfo;
+
             while (true)
             {
                 keyInfo = Console.ReadKey();
@@ -27,7 +29,18 @@ namespace LectureTimeTable.Controller
                 if (keyInfo.Key == ConsoleKey.Enter)
                     break;
             }
+            */
+            userInput = Console.ReadLine();
             return userInput;
         }
+
+        public bool LoginCheck(User userData, string id, string password)
+        {
+            if (userData.id == id && userData.password == password)
+                return true;
+            else
+                return false;
+        }
+
     }
 }
