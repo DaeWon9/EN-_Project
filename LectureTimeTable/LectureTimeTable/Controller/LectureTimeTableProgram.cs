@@ -35,8 +35,33 @@ namespace LectureTimeTable.Controller
 
             Console.Clear();
 
-            Array fullLectureData = lectureData.GetLectureDataArray();
-            //ui.DrawLectureTime(lectureData.GetLectureData());
+            Array fullLecture = lectureData.GetLectureDataArray();
+
+            List<List<string>> fullLectureDataList = lectureData.GetLectureDataList();
+
+
+            
+            for (int i=0; i<fullLectureDataList.Count; i++)
+            {
+                for (int j=0; j<fullLectureDataList[0].Count; j++)
+                {
+                    Console.Write(fullLectureDataList[i][j]);
+                    Console.Write(" ");
+                }
+                Console.WriteLine();
+            }
+            
+
+            
+      
+            //lectureData.GetLectureDataList();
+            //Console.WriteLine(fullLectureDataList.Count);
+
+
+            //Console.WriteLine(fullLectureData.Count);
+
+
+            //ui.DrawLectureTime(fullLecture);
 
             /*
             Array selectColumnIndex = Array.CreateInstance(typeof(int),12);

@@ -99,8 +99,8 @@ namespace LectureTimeTable.Controller
         {
             for (int row = 1; row <= numberOfLine; row++)
             {
-                if (fullLectureArray.GetValue(row, option).Equals("컴퓨터")) ; //일단은 컴공만 -> 나중에 사용자 입력값으로 처리
-                matchingIndex.Add(row);
+                if (fullLectureArray.GetValue(row, option).Equals("컴퓨터")) //일단은 컴공만 -> 나중에 사용자 입력값으로 처리
+                    matchingIndex.Add(row);
             }
         }
 
