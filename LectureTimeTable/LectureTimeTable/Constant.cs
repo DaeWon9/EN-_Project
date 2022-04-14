@@ -11,6 +11,8 @@ namespace LectureTimeTable
         public const string USER_ID = "20003321";
         public const string USER_PASSWORD = "11111111";
 
+        public const int ERROR_NUMBER = 1;
+
 
         public const int USER_INPUT_OPTOIN_INDEX_DEPARTMENT = 0;
         public const int USER_INPUT_OPTOIN_INDEX_DIVISION = 1;

@@ -40,9 +40,11 @@ namespace LectureTimeTable.Controller
             //////////////////////////////////////// 장바구니에 담기
             lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
             lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 6);
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 5);
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 4);
+            lectureTimeBasket.RemoveList(4);
+            lectureTimeBasket.RemoveList(4);
             Console.WriteLine(lectureTimeBasket.basketList.Count);
 
 
