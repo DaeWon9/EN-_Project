@@ -12,6 +12,12 @@ namespace LectureTimeTable
         public const string USER_PASSWORD = "11111111";
 
 
+        public const int USER_INPUT_OPTOIN_INDEX_DEPARTMENT = 0;
+        public const int USER_INPUT_OPTOIN_INDEX_DIVISION = 1;
+        public const int USER_INPUT_OPTOIN_INDEX_LECTURE_NAME = 2;
+        public const int USER_INPUT_OPTOIN_INDEX_PROFESSOR_NAME = 3;
+        public const int USER_INPUT_OPTOIN_INDEX_GRADE = 4;
+
         public const int DATA_NO = 0;
         public const int DATA_DEPARTMENT = 1;  
         public const int DATA_HAGSU_NUMBER = 2;   

@@ -42,6 +42,15 @@ namespace LectureTimeTable.Controller
                 return false;
         }
 
+        public bool IsUserInputData(List<string> list, int index)
+        {
+            if (list[index] == "")
+                return false;
+            else
+                return true;
+        }
+
+
         public List<int> GetSelectOptionList(bool isOptionDepartment, bool isOptionDivison, bool isOptionLectureName, bool isOptionProfessorName, bool isOptionGrade)
         {
             List<int> selectOptionList = new List<int>();
@@ -60,51 +69,46 @@ namespace LectureTimeTable.Controller
         }
 
 
-        public List<List<int>> SearchAttentionLectureIndex(List<List<string>> lectureList, List<int> selectOptionList)
+        public List<List<int>> SearchAttentionLectureIndex(List<List<string>> lectureList, List<int> selectOptionList, List<string> userInputOptionList)
         {
             int numberOfLine = lectureList.Count;
             List<List<int>> matchingIndex = new List<List<int>>();
-
 
             foreach (int option in selectOptionList)
             {
                 switch (option)
                 {
                     case Constant.DATA_DEPARTMENT:
-                        compareData(lectureList, option); //-> 터짐
-                        matchingIndex.Add(new List<int>(compareData(lectureList, option)));
+                        matchingIndex.Add(new List<int>(compareData(lectureList, option, userInputOptionList[Constant.USER_INPUT_OPTOIN_INDEX_DEPARTMENT])));
                         break;
                     case Constant.DATA_DIVISION:
-                        compareData(lectureList, option); //-> 터짐
-                        matchingIndex.Add(new List<int>(compareData(lectureList, option)));
+                        matchingIndex.Add(new List<int>(compareData(lectureList, option, userInputOptionList[Constant.USER_INPUT_OPTOIN_INDEX_DIVISION])));
                         break;
                     case Constant.DATA_LECUTRE_NAME:
+                        matchingIndex.Add(new List<int>(compareData(lectureList, option, userInputOptionList[Constant.USER_INPUT_OPTOIN_INDEX_LECTURE_NAME])));
                         break;
                     case Constant.DATA_PROFESSOR_NAME:
+                        matchingIndex.Add(new List<int>(compareData(lectureList, option, userInputOptionList[Constant.USER_INPUT_OPTOIN_INDEX_PROFESSOR_NAME])));
                         break;
                     case Constant.DATA_GRADE:
+                        matchingIndex.Add(new List<int>(compareData(lectureList, option, userInputOptionList[Constant.USER_INPUT_OPTOIN_INDEX_GRADE])));
                         break;
                     default:
                         break;
                 }
             }
-
-
-            // matchinIndex가 같은놈들만 빼서 리턴 해야함
             return matchingIndex;
         }
 
 
-        public List<int> compareData(List<List<string>> lectureList, int option)
+        public List<int> compareData(List<List<string>> lectureList, int option, string userInputData)
         {
             List<int> semiMactchingIndex = new List<int>();
             int numberOfLine = lectureList.Count;
             for (int row = 0; row < numberOfLine; row++)
             {
-                //Console.WriteLine(lectureList[row][option]);
-                if (lectureList[row][option].Contains("컴퓨터"))//일단은 컴공만 -> 나중에 사용자 입력값으로 처리
+                if (lectureList[row][option].Contains(userInputData))
                 {
-                    //Console.WriteLine(row);
                     semiMactchingIndex.Add(row);
                 }
             }

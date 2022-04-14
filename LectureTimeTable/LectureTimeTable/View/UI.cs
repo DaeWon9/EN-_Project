@@ -11,12 +11,26 @@ namespace LectureTimeTable.View
     {
         public void DrawFirstScreen()
         {
+            Console.Clear();
             Console.WriteLine("-----------------------------  Sejong University ------------------------------");
-            Console.WriteLine("세종대학교");
-            Console.WriteLine("학사정보시스템");
+            Console.WriteLine("세종대학교                                                                     ");
+            Console.WriteLine("학사정보시스템                                                                 ");
             Console.WriteLine("                                                   ID :                        ");
             Console.WriteLine("                                                   PW :                        ");
             Console.WriteLine("-------------------------------------------------------------------------------");
+        }
+
+        public void DrawSearchScreen()
+        {
+            Console.Clear();
+            Console.WriteLine("-----------------------------  강의시간표 조회   ------------------------------");
+            Console.WriteLine("개설학과전공                                                                   ");
+            Console.WriteLine("이수구분                                                                       ");
+            Console.WriteLine("교과목명                                                                       ");
+            Console.WriteLine("교수명                                                                         ");
+            Console.WriteLine("학년                                                                           ");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+
         }
 
         public void DrawMessage(string message, bool isClear = true)
@@ -56,7 +70,6 @@ namespace LectureTimeTable.View
 
         public void DrawAttentionLecture(List<List<string>> lectureList, List<int> matchingIndex)
         {
-            int numberOfLine = lectureList.Count;
             Console.WriteLine("==================================================================================================================================================");
             foreach (var row in matchingIndex)
             {
