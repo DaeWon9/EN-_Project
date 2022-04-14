@@ -49,7 +49,7 @@ namespace LectureTimeTable.View
             Console.WriteLine("======================================================================================================================================================================================");
             for (int row = 0; row < numberOfLine; row++)
             {
-                for (int column = 0; column < lectureList[0].Count; column++)
+                for (int column = 0; column < lectureList[row].Count; column++)
                 {
                     Console.Write("{0}", lectureList[row][column] + "".PadRight(GetPadLength(GetSortLength(column), lectureList[row][column])));
                 }
@@ -63,11 +63,10 @@ namespace LectureTimeTable.View
 
         public void DrawAttentionLecture(List<List<string>> lectureList, List<int> matchingIndex)
         {
-            int sortLength;
             Console.WriteLine("======================================================================================================================================================================================");
             foreach (var row in matchingIndex)
             {
-                for (int column = 0; column < lectureList[0].Count; column++)
+                for (int column = 0; column < lectureList[row].Count; column++)
                 {
                     Console.Write("{0}", lectureList[row][column] + "".PadRight(GetPadLength(GetSortLength(column), lectureList[row][column])));
                 }

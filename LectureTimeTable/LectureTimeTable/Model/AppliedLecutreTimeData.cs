@@ -8,18 +8,31 @@ namespace LectureTimeTable.Model
 {
     class AppliedLecutreTimeData
     {
-        private List<List<string>> myLectureTimeData;
-        /*
-        public MyLecutreTimeData(List<List<string>> lectureTimeData)
-        {
-            this.myLectureTimeData = lectureTimeData;
-        }
-        */
+        public List<List<string>> appliedLectureTimeData;
+        public List<string> subData = new List<string>();
 
-        public List<List<string>> ListData
+        public AppliedLecutreTimeData(List<List<string>> lectureTimeData)
         {
-            get { return myLectureTimeData; } 
-            set { myLectureTimeData = value; } 
+            this.appliedLectureTimeData = lectureTimeData;
+        }
+
+
+        public void AddList(List<List<string>> lectureData, int targetIndex)
+        {
+            for (int row = 0; row < appliedLectureTimeData.Count; row++)
+            {
+                if(appliedLectureTimeData[row][0].Equals(targetIndex.ToString()))
+                {
+                    Console.WriteLine("중복값입니다.");
+                    return;
+                }
+            }
+            subData.Clear();
+            for (int column = 0; column < lectureData[targetIndex].Count; column++)
+            {
+                subData.Add(lectureData[targetIndex][column]);
+            }
+            appliedLectureTimeData.Add(new List<string>(subData));
         }
     }
 }

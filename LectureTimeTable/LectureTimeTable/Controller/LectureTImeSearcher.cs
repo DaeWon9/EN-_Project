@@ -9,7 +9,7 @@ namespace LectureTimeTable.Controller
 {
     internal class LectureTImeSearcher
     {
-        public void SearchAttentionLecture(User user, UI ui, List<List<string>> lectureList)
+        public void SearchLectureTime(User user, UI ui, List<List<string>> lectureList)
         {
             bool isUserInputDepartmentOption = false;
             bool isUserInputDivisionOption = false;
@@ -57,11 +57,10 @@ namespace LectureTimeTable.Controller
                 }
             }
 
-
             List<int> isSlectOptionList = new List<int>();
             isSlectOptionList = GetSelectOptionList(isUserInputDepartmentOption, isUserInputDivisionOption, isUserInputLectureNameOption, isUserInputProfessorNameOption, isUserInputGradeOption);
 
-            List<int> resultAttentionIndex = SearchAttentionLectureIndex(lectureList, isSlectOptionList, userInputOptionList);
+            List<int> resultAttentionIndex = SearchLectureTimeIndex(lectureList, isSlectOptionList, userInputOptionList);
 
             ui.DrawAttentionLecture(lectureList, resultAttentionIndex);
             Console.ReadKey();
@@ -87,7 +86,7 @@ namespace LectureTimeTable.Controller
             return selectOptionList;
         }
 
-        public List<int> SearchAttentionLectureIndex(List<List<string>> lectureList, List<int> selectOptionList, List<string> userInputOptionList)
+        public List<int> SearchLectureTimeIndex(List<List<string>> lectureList, List<int> selectOptionList, List<string> userInputOptionList)
         {
             List<List<int>> matchingIndex = new List<List<int>>();
 

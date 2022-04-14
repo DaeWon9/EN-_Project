@@ -15,8 +15,8 @@ namespace LectureTimeTable.Controller
             UI ui = new UI();
             User user = new User(Constant.USER_ID, Constant.USER_PASSWORD);
             LectureTimeData lectureTimeData = new LectureTimeData();
-            LectureTimeBasket lectureTimeBasket = new LectureTimeBasket();
-            AppliedLecutreTimeData appliedLecutreTimeData = new AppliedLecutreTimeData();
+            LectureTimeBasket lectureTimeBasket = new LectureTimeBasket(new List<List<string>>());
+            AppliedLecutreTimeData appliedLecutreTimeData = new AppliedLecutreTimeData(new List<List<string>>());
             LectureTImeSearcher lectureTimeSearcher = new LectureTImeSearcher();  
 
             List<List<string>> fullLectureTimeDataList = lectureTimeData.GetLectureDataList();
@@ -33,13 +33,17 @@ namespace LectureTimeTable.Controller
              * 
             while (true)
             {
-                lectureTimeSearcher.SearchAttentionLecture(user, ui, fullLectureTimeDataList);
+                lectureTimeSearcher.SearchLectureTime(user, ui, fullLectureTimeDataList);
             }
             */
 
             //////////////////////////////////////// 장바구니에 담기
-            lectureTimeBasket.ListData = fullLectureTimeDataList;
-            lectureTimeSearcher.SearchAttentionLecture(user, ui, lectureTimeBasket.ListData);
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
+            Console.WriteLine(lectureTimeBasket.basketList.Count);
 
 
         }
