@@ -8,7 +8,9 @@ using Excel = Microsoft.Office.Interop.Excel;
 namespace LectureTimeTable.Model
 {
     class LectureData
-    { 
+    {
+        List<List<string>> dataList = new List<List<string>>();
+        List<string> subList = new List<string>();
         public List<List<string>> GetLectureDataList()
         {
             try
@@ -31,9 +33,7 @@ namespace LectureTimeTable.Model
                 // 설정한 범위만큼 데이터 담기 (Value2 -셀의 기본 값 제공)
                 Array dataArray = cellRange.Cells.Value2;
 
-                // 2중 리스트형식에 옮겨담기
-                List<List<string>> dataList = new List<List<string>>();
-                List<string> subList = new List<string>();
+                // 리스트형식에 옮겨담기
                 int numberOfLine = dataArray.Length / dataArray.GetLength(1);
                 for (int row = 1; row <= numberOfLine; row++)
                 {
@@ -61,7 +61,7 @@ namespace LectureTimeTable.Model
             {
                 Console.WriteLine(e.Message);
             }
-            return null;
+            return dataList;
         }
     }
 }

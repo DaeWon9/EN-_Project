@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LectureTimeTable.Model;
 
+
 namespace LectureTimeTable.View
 {
     class UI
@@ -48,46 +49,91 @@ namespace LectureTimeTable.View
         public void DrawLectureTime(List<List<string>> lectureList)
         {
             int numberOfLine = lectureList.Count;
-            Console.WriteLine("==================================================================================================================================================");
+            Console.WriteLine("======================================================================================================================================================================================");
             for (int row = 0; row < numberOfLine; row++)
             {
-                //Console.WriteLine("{0,-4}{1,-8}{2,-4}", lectureArrary.GetValue(i, 1), lectureArrary.GetValue(i, 2), lectureArrary.GetValue(i, 3));
-                
                 for (int column = 0; column < lectureList[0].Count; column++)
                 {
-                    Console.Write(lectureList[row][column]);
-                    if (column == Constant.DATA_DEPARTMENT)
-                        Console.Write("\t\t");
-                    else
-                        Console.Write("\t");
+                    Console.Write("{0}", lectureList[row][column] + "".PadRight(GetPadLength(GetSortLength(column), lectureList[row][column])));
                 }
                 Console.Write("\n");
-
             }
-            Console.WriteLine("==================================================================================================================================================");
+            Console.WriteLine("======================================================================================================================================================================================");
 
         }
 
+        //Console.Write("{0}", strToPrint1 + "".PadRight(padLen));
+
         public void DrawAttentionLecture(List<List<string>> lectureList, List<int> matchingIndex)
         {
-            Console.WriteLine("==================================================================================================================================================");
+            int sortLength;
+            Console.WriteLine("======================================================================================================================================================================================");
             foreach (var row in matchingIndex)
             {
-                //Console.WriteLine("{0,-4}{1,-8}{2,-4}", lectureArrary.GetValue(i, 1), lectureArrary.GetValue(i, 2), lectureArrary.GetValue(i, 3));
-
                 for (int column = 0; column < lectureList[0].Count; column++)
                 {
-                    Console.Write(lectureList[row][column]);
-                    if (column == Constant.DATA_DEPARTMENT)
-                        Console.Write("\t\t");
-                    else
-                        Console.Write("\t");
+                    Console.Write("{0}", lectureList[row][column] + "".PadRight(GetPadLength(GetSortLength(column), lectureList[row][column])));
                 }
                 Console.Write("\n");
-
             }
-            Console.WriteLine("==================================================================================================================================================");
+            Console.WriteLine("======================================================================================================================================================================================");
+        }
 
+        public int GetPadLength(int sortLength, string str)
+        {
+            int bytesString;
+            if (str == null)
+                bytesString = 0;
+            else
+            {
+                bytesString = Encoding.Default.GetBytes(str).Length;
+            }
+            return sortLength - bytesString;
+        }
+        public int GetSortLength(int column)
+        {
+            int sortLength;
+            switch (column)
+            {
+                case Constant.DATA_NO:
+                    sortLength = 4;
+                    break;
+                case Constant.DATA_DEPARTMENT:
+                    sortLength = 19;
+                    break;
+                case Constant.DATA_HAGSU_NUMBER:
+                    sortLength = 9;
+                    break;
+                case Constant.DATA_CLASS_NUMBER:
+                    sortLength = 5; 
+                    break;
+                case Constant.DATA_LECUTRE_NAME:
+                    sortLength = 33; 
+                    break;
+                case Constant.DATA_DIVISION:
+                    sortLength = 13; 
+                    break;
+                case Constant.DATA_GRADE:
+                case Constant.DATA_GRADES:
+                    sortLength = 6; 
+                    break;
+                case Constant.DATA_TIME:
+                    sortLength = 31; 
+                    break;
+                case Constant.DATA_LECTURE_ROOM:
+                    sortLength = 14; 
+                    break;
+                case Constant.DATA_PROFESSOR_NAME:
+                    sortLength = 27; 
+                    break;
+                case Constant.DATA_LANGUAGE:
+                    sortLength = 12; 
+                    break;
+                default:
+                    sortLength = 100;
+                    break;
+            }
+            return sortLength;
         }
     }
 }

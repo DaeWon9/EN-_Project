@@ -23,7 +23,7 @@ namespace LectureTimeTable
         public const int DATA_HAGSU_NUMBER = 2;   
         public const int DATA_CLASS_NUMBER = 3;
         public const int DATA_LECUTRE_NAME = 4;
-        public const int DATA_DIVISION = 5; //이수구분
+        public const int DATA_DIVISION = 5;
         public const int DATA_GRADE = 6; // 학년
         public const int DATA_GRADES= 7; // 학점
         public const int DATA_TIME = 8;
