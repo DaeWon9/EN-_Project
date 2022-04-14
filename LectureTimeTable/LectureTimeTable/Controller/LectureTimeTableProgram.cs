@@ -22,14 +22,14 @@ namespace LectureTimeTable.Controller
             Thread.Sleep(500);
             */
 
-            /*
+
             while (true)
             {
                 user.SearchAttentionLecture(user, ui, fullLectureDataList);
             }
-            */
 
-            ui.DrawLectureTime(fullLectureDataList);
+
+            //ui.DrawLectureTime(fullLectureDataList);
 
 
 

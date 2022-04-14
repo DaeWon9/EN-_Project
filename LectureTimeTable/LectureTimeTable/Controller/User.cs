@@ -185,12 +185,23 @@ namespace LectureTimeTable.Controller
         {
             List<int> semiMactchingIndex = new List<int>();
             int numberOfLine = lectureList.Count;
-            semiMactchingIndex.Add(0);
-            for (int row = 1; row < numberOfLine; row++)
+            semiMactchingIndex.Add(0); // 0인덱스는 항상 추가
+
+            if (userInputData.Equals("전체")) // 모든 인덱스 추가
             {
-                if (lectureList[row][option].Contains(userInputData))
+                for (int row = 1; row < numberOfLine; row++)
                 {
                     semiMactchingIndex.Add(row);
+                }
+            }
+            else
+            {
+                for (int row = 1; row < numberOfLine; row++)
+                {
+                    if (lectureList[row][option].Contains(userInputData))
+                    {
+                        semiMactchingIndex.Add(row);
+                    }
                 }
             }
             return semiMactchingIndex;

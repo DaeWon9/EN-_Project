@@ -14,7 +14,7 @@ namespace LectureTimeTable
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(200, 30);
+            Console.SetWindowSize(190, 30);
 
             LectureTimeTableProgram lectureTimeTableProgram = new LectureTimeTableProgram();
             lectureTimeTableProgram.Start();
