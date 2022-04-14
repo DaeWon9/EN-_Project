@@ -15,12 +15,12 @@ namespace LectureTimeTable.Controller
         {
             string id, password;
             bool isLogin = false;
-
-
-
             UI ui = new UI();
             User user = new User(Constant.USER_ID, Constant.USER_PASSWORD);
             LectureData lectureData = new LectureData();
+            List<List<string>> fullLectureDataList = lectureData.GetLectureDataList();
+            
+
 
             ////////////////// Login
             while (!isLogin)
@@ -35,51 +35,33 @@ namespace LectureTimeTable.Controller
 
             Console.Clear();
 
-            Array fullLecture = lectureData.GetLectureDataArray();
 
-            List<List<string>> fullLectureDataList = lectureData.GetLectureDataList();
+            //ui.DrawLectureTime(fullLectureDataList);
+
+   
+            List<int> selectOptionList = new List<int>();
+
+            selectOptionList = user.GetSelectOptionList(true, true, false, false, false); // 매개변수값 유저한테 입력받은 값으로 처리하는걸로 바꿔야함 일단은 전공만
+            //Console.WriteLine(selectOptionList[1]);
 
 
-            
-            for (int i=0; i<fullLectureDataList.Count; i++)
+            user.SearchAttentionLectureIndex(fullLectureDataList, selectOptionList);
+            List<List<int>> attentionIndex = user.SearchAttentionLectureIndex(fullLectureDataList, selectOptionList);
+            Console.WriteLine("크기 : {0}",attentionIndex[0].Count);
+
+            for (int i = 0; i < attentionIndex.Count; i++)
             {
-                for (int j=0; j<fullLectureDataList[0].Count; j++)
+                for (int j = 0; j < attentionIndex[i].Count; j++)
                 {
-                    Console.Write(fullLectureDataList[i][j]);
-                    Console.Write(" ");
+                    Console.WriteLine(attentionIndex[i][j]);
                 }
-                Console.WriteLine();
             }
             
 
-            
-      
-            //lectureData.GetLectureDataList();
-            //Console.WriteLine(fullLectureDataList.Count);
+
+            //ui.DrawAttentionLecture(fullLectureDataList, user.SearchAttentionLectureIndex(fullLectureDataList, selectOptionList));
 
 
-            //Console.WriteLine(fullLectureData.Count);
-
-
-            //ui.DrawLectureTime(fullLecture);
-
-            /*
-            Array selectColumnIndex = Array.CreateInstance(typeof(int),12);
-            selectColumnIndex.SetValue(Constant.DATA_NO, 0);
-            selectColumnIndex.SetValue(Constant.DATA_DEPARTMENT, 1);
-            selectColumnIndex.SetValue(Constant.DATA_HAGSU_NUMBER, 2);
-            Console.WriteLine(selectColumnIndex.GetValue(11));
-            Console.WriteLine(selectColumnIndex.Length);
-            */
-            List<int> selectOptionList = new List<int>();
-
-            selectOptionList = user.GetSelectOptionList(true, false, false, false, false); // 매개변수값 유저한테 입력받은 값으로 처리하는걸로 바꿔야함 일단은 전공만
-            
-
-            //ui.DrawAttentionLecture(fullLectureData, user.SearchAttentionLectureIndex(fullLectureData, selectOptionList));
-
-
-            //user.SearchAttentionLecture(lectureData.GetLectureData(), lectureData.GetLectureData());
 
 
 

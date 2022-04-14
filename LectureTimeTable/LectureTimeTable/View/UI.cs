@@ -31,17 +31,17 @@ namespace LectureTimeTable.View
                 Console.WriteLine(message);
         }
 
-        public void DrawLectureTime(Array lectureArrary)
+        public void DrawLectureTime(List<List<string>> lectureList)
         {
-            int numberOfLine = lectureArrary.Length / lectureArrary.GetLength(1);
+            int numberOfLine = lectureList.Count;
             Console.WriteLine("==================================================================================================================================================");
-            for (int row = 1; row <= numberOfLine; row++)
+            for (int row = 0; row < numberOfLine; row++)
             {
                 //Console.WriteLine("{0,-4}{1,-8}{2,-4}", lectureArrary.GetValue(i, 1), lectureArrary.GetValue(i, 2), lectureArrary.GetValue(i, 3));
                 
-                for (int column = 1; column <= lectureArrary.GetLength(1); column++)
+                for (int column = 0; column < lectureList[0].Count; column++)
                 {
-                    Console.Write(lectureArrary.GetValue(row, column));
+                    Console.Write(lectureList[row][column]);
                     if (column == Constant.DATA_DEPARTMENT)
                         Console.Write("\t\t");
                     else
@@ -54,17 +54,17 @@ namespace LectureTimeTable.View
 
         }
 
-        public void DrawAttentionLecture(Array fullLectureArrary, List<int> matchingIndex)
+        public void DrawAttentionLecture(List<List<string>> lectureList, List<int> matchingIndex)
         {
-            int numberOfLine = fullLectureArrary.Length / fullLectureArrary.GetLength(1);
+            int numberOfLine = lectureList.Count;
             Console.WriteLine("==================================================================================================================================================");
             foreach (var row in matchingIndex)
             {
                 //Console.WriteLine("{0,-4}{1,-8}{2,-4}", lectureArrary.GetValue(i, 1), lectureArrary.GetValue(i, 2), lectureArrary.GetValue(i, 3));
 
-                for (int column = 1; column <= fullLectureArrary.GetLength(1); column++)
+                for (int column = 0; column < lectureList[0].Count; column++)
                 {
-                    Console.Write(fullLectureArrary.GetValue(row, column));
+                    Console.Write(lectureList[row][column]);
                     if (column == Constant.DATA_DEPARTMENT)
                         Console.Write("\t\t");
                     else

@@ -10,7 +10,7 @@ using LectureTimeTable.Model;
 
 namespace LectureTimeTable
 {
-    class Program
+    class MainProgram
     {
         static void Main(string[] args)
         {
