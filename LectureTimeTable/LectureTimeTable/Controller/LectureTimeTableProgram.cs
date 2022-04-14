@@ -38,6 +38,7 @@ namespace LectureTimeTable.Controller
             */
 
             //////////////////////////////////////// 장바구니에 담기
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 0);
             lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
             lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
             lectureTimeBasket.AddList(fullLectureTimeDataList, 6);
@@ -45,7 +46,8 @@ namespace LectureTimeTable.Controller
             lectureTimeBasket.AddList(fullLectureTimeDataList, 4);
             lectureTimeBasket.RemoveList(4);
             lectureTimeBasket.RemoveList(4);
-            Console.WriteLine(lectureTimeBasket.basketList.Count);
+            ui.DrawLectureTime(lectureTimeBasket.basketList);
+            Console.WriteLine("등록가능 학점 : {0}\t신청한 학점 : {1}", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
 
 
         }

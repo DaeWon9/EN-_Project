@@ -13,7 +13,6 @@ namespace LectureTimeTable
 
         public const int ERROR_NUMBER = 1;
 
-
         public const int USER_INPUT_OPTOIN_INDEX_DEPARTMENT = 0;
         public const int USER_INPUT_OPTOIN_INDEX_DIVISION = 1;
         public const int USER_INPUT_OPTOIN_INDEX_LECTURE_NAME = 2;
@@ -32,5 +31,7 @@ namespace LectureTimeTable
         public const int DATA_LECTURE_ROOM = 9;
         public const int DATA_PROFESSOR_NAME = 10;
         public const int DATA_LANGUAGE = 11;
+
+        public const int MAX_GRADES = 24;
     }
 }

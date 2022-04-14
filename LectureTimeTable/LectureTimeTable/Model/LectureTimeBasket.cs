@@ -55,5 +55,15 @@ namespace LectureTimeTable.Model
             return Constant.ERROR_NUMBER;
 
         }
+
+        public int GetGrades()
+        {
+            int grades = 0;
+            for (int row = 1; row < basketList.Count; row++) //0은 "학점" 데이터가 담겨있음
+            {
+                grades = grades + int.Parse(basketList[row][Constant.DATA_GRADES]);
+            }
+            return grades;  
+        }
     }
 }
