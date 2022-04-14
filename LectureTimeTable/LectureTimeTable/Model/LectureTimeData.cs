@@ -7,7 +7,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LectureTimeTable.Model
 {
-    class LectureData
+    class LectureTimeData
     {
         List<List<string>> dataList = new List<List<string>>();
         List<string> subList = new List<string>();
