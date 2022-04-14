@@ -20,6 +20,7 @@ namespace LectureTimeTable.Controller
             LectureTImeSearcher lectureTimeSearcher = new LectureTImeSearcher();  
 
             List<List<string>> fullLectureTimeDataList = lectureTimeData.GetLectureDataList();
+            lectureTimeBasket.AddList(fullLectureTimeDataList, 0);
             /////////////////////////////////////////Login
             /*
             ////////////////// Login
@@ -38,17 +39,35 @@ namespace LectureTimeTable.Controller
             */
 
             //////////////////////////////////////// 장바구니에 담기
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 0);
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 7);
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 6);
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 5);
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 4);
-            lectureTimeBasket.RemoveList(4);
-            lectureTimeBasket.RemoveList(4);
-            ui.DrawLectureTime(lectureTimeBasket.basketList);
-            Console.WriteLine("등록가능 학점 : {0}\t신청한 학점 : {1}", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
 
+            while (true)
+            {
+                ui.DrawBasketScreen();
+
+                int inputNumber = int.Parse(user.GetInputData());
+                if (inputNumber == 1) // 담을래
+                {
+                    Console.Write("담을과목의 번호를 입력하세요 :");
+                    int secondInputNumber = int.Parse(user.GetInputData()); // 1~184까지만 가능
+                    lectureTimeBasket.AddList(fullLectureTimeDataList, secondInputNumber);
+                }
+                else if (inputNumber == 2) //삭제할래
+                {
+                    ui.DrawLectureTime(lectureTimeBasket.basketList);
+                    Console.Write("삭제할과목의 번호를 입력하세요 :");
+                    int secondInputNumber = int.Parse(user.GetInputData()); // 1~184까지만 가능
+                    lectureTimeBasket.RemoveList(secondInputNumber);
+                }
+                else
+                {
+                    continue;
+                }
+
+                ui.DrawLectureTime(lectureTimeBasket.basketList);
+                Console.WriteLine("등록가능 학점 : {0}\t신청한 학점 : {1}", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
+                //Thread.Sleep(1000);
+                Console.ReadKey();
+            }
 
         }
 

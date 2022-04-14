@@ -28,7 +28,18 @@ namespace LectureTimeTable.View
             Console.WriteLine("교수명                                                                         ");
             Console.WriteLine("학년                                                                           ");
             Console.WriteLine("-------------------------------------------------------------------------------");
+        }
 
+        public void DrawBasketScreen()
+        {
+            Console.Clear();
+            Console.WriteLine("-----------------------------    관심과목 담기   ------------------------------");
+            Console.WriteLine("1. 과목담기                                                                    ");
+            Console.WriteLine("2. 과목삭제                                                                    ");
+            Console.WriteLine("                                                                               ");
+            Console.WriteLine("                                                                               ");
+            Console.WriteLine("                                                                               ");
+            Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
         public void DrawMessage(string message, bool isClear = true)

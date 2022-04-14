@@ -35,19 +35,20 @@ namespace LectureTimeTable.Model
             basketList.Add(new List<string>(subList));
         }
 
-        public void RemoveList(int targetIndex)
+        public void RemoveList(int targetIndex) // 오류있음 ->>>>>> list[1] list[2] list[3] 이 있을때 list[2]를 지우면 list[3]이 list[2]위치로 옮겨가나?? 봐야함 자고일어나서 볼것.
         {
             int removeListIndex = GetTargetIndex(targetIndex);
+            Console.WriteLine("{0}번 인덱스의 과목을 지웁니다", removeListIndex);
             if (removeListIndex != Constant.ERROR_NUMBER)
                 basketList.RemoveAt(GetTargetIndex(targetIndex));
         }
         public int GetTargetIndex(int targetIndex)
         {
-            for (int row = 0; row < basketList.Count; row++)
+            for (int row = 1; row < basketList.Count; row++)
             {
                 if (basketList[row][0].Equals(targetIndex.ToString()))
                 {
-                    //Console.WriteLine("해당 번호의 과목을 지웁니다.{0} index : {1}", targetIndex, row);
+                    Console.WriteLine("해당 번호의 과목을 지웁니다.{0} index : {1}", targetIndex, row);
                     return row;
                 }
             }
