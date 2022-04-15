@@ -54,6 +54,18 @@ namespace LectureTimeTable.View
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
+        public void DrawApplyingScreen()
+        {
+            Console.Clear();
+            Console.WriteLine("-----------------------------    수강신청 메뉴   ------------------------------");
+            Console.WriteLine("1. 수강과목 검색                                                               ");
+            Console.WriteLine("2. 수강신청 내역                                                               ");
+            Console.WriteLine("3. 수강신청 시간표                                                             ");
+            Console.WriteLine("4. 수강과목 삭제                                                               ");
+            Console.WriteLine("5. 뒤로가기                                                                    ");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+        }
+
         public void DrawTimeTableScreen()
         {
             Console.Clear();

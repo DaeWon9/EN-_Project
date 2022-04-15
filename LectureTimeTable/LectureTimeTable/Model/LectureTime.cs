@@ -26,10 +26,16 @@ namespace LectureTimeTable.Model
             lectureTimeList.Add(new List<string>(subList));
         }
 
-        public void AddList(List<List<string>> lectureData, int targetIndex, List<int> showedLectureNoList)
+        public void AddList(List<List<string>> lectureData, int targetIndex, List<int> showedLectureNoList, int possibleGrades, string successMessage)
         {
             if (showedLectureNoList.Contains(targetIndex))
             {
+                if (int.Parse(lectureData[targetIndex][Constant.DATA_GRADES]) > possibleGrades) // 학점 초과
+                {
+                    Console.WriteLine("학점이 초과되어 불가능합니다.");
+                    return;
+                }
+
                 for (int row = 1; row < lectureTimeList.Count; row++) // 중복check
                 {
                     if (lectureTimeList[row][Constant.DATA_NO].Equals(targetIndex.ToString()))
@@ -47,23 +53,23 @@ namespace LectureTimeTable.Model
                 lectureTimeList.Add(new List<string>(subList));
 
                 if (targetIndex != 0)
-                    Console.WriteLine("관심과목 담기에 성공했습니다.");
+                    Console.WriteLine("{0}.", successMessage);
             }
             else
             {
-                Console.WriteLine("{0}번 과목이 조회되지 않은 과목입니다.", targetIndex);
+                Console.WriteLine("{0}번 과목은 조회되지 않은 과목입니다.", targetIndex);
                 return;
             }
         }
 
-        public void RemoveList(int targetIndex)
+        public void RemoveList(int targetIndex, string successMessage)
         {
             int removeListIndex = GetTargetIndex(targetIndex);
             //Console.WriteLine("{0}번 인덱스의 과목을 지웁니다", removeListIndex);
             if (removeListIndex != Constant.ERROR_NUMBER)
             {
                 lectureTimeList.RemoveAt(removeListIndex);
-                Console.WriteLine("관심과목 삭제에 성공했습니다.");
+                Console.WriteLine("{0}.", successMessage);
             }
         }
 
@@ -101,13 +107,13 @@ namespace LectureTimeTable.Model
             }
             return timeList;
         }
-        public List<List<string>> GetTimeSplitList(List<string> basketTimeList)
+        public List<List<string>> GetTimeSplitList(List<string> TimeList)
         {
             List<List<string>> splitList = new List<List<string>>();
 
-            for (int row = 1; row< basketTimeList.Count; row++)
+            for (int row = 1; row< TimeList.Count; row++)
             {
-                splitList.Add(new List<string>(basketTimeList[row].Split().ToList()));
+                splitList.Add(new List<string>(TimeList[row].Split().ToList()));
             }
             return splitList;
         }

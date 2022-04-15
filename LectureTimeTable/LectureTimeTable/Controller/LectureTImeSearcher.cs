@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LectureTimeTable.View;
+using LectureTimeTable.Model;
 
 namespace LectureTimeTable.Controller
 {
     class LectureTImeSearcher
     {
+        int inputNoNumber;
+        ConsoleKeyInfo key;
+
         public List<int> GetSearchedLectureTimeIndex(User user, UI ui, List<List<string>> lectureList)
         {
             bool isUserInputDepartmentOption = false;
@@ -151,6 +155,161 @@ namespace LectureTimeTable.Controller
                 }
             }
             return semiMactchingIndex;
+        }
+
+        public void SearchAttentionLecture(User user, UI ui, List<List<string>> fullLectureTimeData, LectureTime lectureTimeBasket)
+        {
+            Console.Clear();
+            List<int> searchedLectureTimeIndex = GetSearchedLectureTimeIndex(user, ui, fullLectureTimeData);
+            ui.DrawAttentionLecture(fullLectureTimeData, searchedLectureTimeIndex);
+            while (true)
+            {
+                //Console.Clear();
+                Console.Write("등록가능 학점 : {0}\t담은 학점 : {1}\t\t담을과목 NO : ", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
+                inputNoNumber = int.Parse(user.GetInputData()); //1~184만 입력가능하게 예외처리 해야함
+                lectureTimeBasket.AddList(fullLectureTimeData, inputNoNumber, searchedLectureTimeIndex, Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), "관심과목을 담았습니다.");
+                Console.Write("뒤로가기 : ESC | 다시담기 : ENTER");
+                key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+            }
+        }
+    
+        public void HistoryAttentrionLecture(UI ui, LectureTime lectureTimeBasket)
+        {
+            Console.Clear();
+            Console.WriteLine("======================================================================================================================================================================================");
+            Console.WriteLine("등록가능 학점 : {0}\t담은 학점 : {1}", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
+            ui.DrawLectureTime(lectureTimeBasket.lectureTimeList);
+        }
+
+        public void TimeTableAttentionLecture(UI ui, LectureTime lectureTimeBasket)
+        {
+            Console.Clear();
+            List<string> timeList = lectureTimeBasket.GetTimeList();
+            List<List<string>> timeSplitList = lectureTimeBasket.GetTimeSplitList(timeList);
+
+            ui.DrawTimeTableScreen();
+            for (int i = 0; i< timeSplitList.Count; i++)
+            {
+                for (int j = 0; j < timeSplitList[i].Count; j++)
+                {
+                    Console.Write(timeSplitList[i][j]);
+                    Console.Write(" ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void RemoveAttentionLecture(User user, UI ui, LectureTime lectureTimeBasket)
+        {
+            while (true)
+            {
+                Console.Clear();
+                ui.DrawLectureTime(lectureTimeBasket.lectureTimeList);
+                if (lectureTimeBasket.lectureTimeList.Count > 1)
+                {
+                    Console.Write("등록가능 학점 : {0}\t담은 학점 : {1}\t\t삭제할과목 NO : ", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
+                    inputNoNumber = int.Parse(user.GetInputData()); //1~184만 입력가능하게 예외처리 해야함
+                    lectureTimeBasket.RemoveList(inputNoNumber, "관심과목을 삭제했습니다.");
+                    Console.Write("뒤로가기 : ESC | 다른과목삭제 : ENTER");
+                    key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("삭제가능한 과목이 없습니다.");
+                    Console.Write("뒤로가기 : ESC");
+                    key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        public void SearchApplyingLecture(User user, UI ui, List<List<string>> fullLectureTimeData, LectureTime appliedLectureTime)
+        {
+            Console.Clear();
+            List<int> searchedLectureTimeIndex = GetSearchedLectureTimeIndex(user, ui, fullLectureTimeData);
+            ui.DrawAttentionLecture(fullLectureTimeData, searchedLectureTimeIndex);
+            while (true)
+            {
+                //Console.Clear();
+                Console.Write("신청가능 학점 : {0}\t수강 학점 : {1}\t\t수강신청 NO : ", Constant.MAX_APPLYING_GRADES - appliedLectureTime.GetGrades(), appliedLectureTime.GetGrades());
+                inputNoNumber = int.Parse(user.GetInputData()); //1~184만 입력가능하게 예외처리 해야함
+                appliedLectureTime.AddList(fullLectureTimeData, inputNoNumber, searchedLectureTimeIndex, Constant.MAX_APPLYING_GRADES - appliedLectureTime.GetGrades(), "수강신청에 성공하였습니다.");
+                Console.Write("뒤로가기 : ESC | 다시신청 : ENTER");
+                key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+            }
+        }
+
+        public void HistoryApplyingLecture(UI ui, LectureTime appliedLectureTime)
+        {
+            Console.Clear();
+            Console.WriteLine("======================================================================================================================================================================================");
+            Console.WriteLine("신청가능 학점 : {0}\t수강 학점 : {1}", Constant.MAX_APPLYING_GRADES - appliedLectureTime.GetGrades(), appliedLectureTime.GetGrades());
+            ui.DrawLectureTime(appliedLectureTime.lectureTimeList);
+        }
+
+        public void TimeTableApplyingLecture(UI ui, LectureTime appliedLectureTime)
+        {
+            Console.Clear();
+            List<string> timeList = appliedLectureTime.GetTimeList();
+            List<List<string>> TimeSplitList = appliedLectureTime.GetTimeSplitList(timeList);
+
+            ui.DrawTimeTableScreen();
+            for (int i = 0; i< TimeSplitList.Count; i++)
+            {
+                for (int j = 0; j < TimeSplitList[i].Count; j++)
+                {
+                    Console.Write(TimeSplitList[i][j]);
+                    Console.Write(" ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void RemoveApplyingLecture(User user, UI ui, LectureTime appliedLectureTime)
+        {
+            while (true)
+            {
+                Console.Clear();
+                ui.DrawLectureTime(appliedLectureTime.lectureTimeList);
+                if (appliedLectureTime.lectureTimeList.Count > 1)
+                {
+                    Console.Write("신청가능 학점 : {0}\t수강 학점 : {1}\t\t삭제할과목 NO : ", Constant.MAX_GRADES - appliedLectureTime.GetGrades(), appliedLectureTime.GetGrades());
+                    inputNoNumber = int.Parse(user.GetInputData()); //1~184만 입력가능하게 예외처리 해야함
+                    appliedLectureTime.RemoveList(inputNoNumber, "수강과목을 삭제했습니다.");
+                    Console.Write("뒤로가기 : ESC | 다른과목삭제 : ENTER");
+                    key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("삭제가능한 과목이 없습니다.");
+                    Console.Write("뒤로가기 : ESC");
+                    key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
 

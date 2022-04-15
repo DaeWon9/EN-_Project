@@ -32,13 +32,20 @@ namespace LectureTimeTable
         public const int MENU_NUMBER_SEARCH_APPLY = 4;
         public const int MENU_NUMBER_BACK = 5;
 
+        //attention&applying menu number
+        public const int MENU_NUMBER_SEARCH = 1;
+        public const int MENU_NUMBER_HISTORY = 2;
+        public const int MENU_NUMBER_TIME_TABLE = 3;
+        public const int MENU_NUMBER_REMOVE = 4;
 
+        //
         public const int USER_INPUT_OPTOIN_INDEX_DEPARTMENT = 0;
         public const int USER_INPUT_OPTOIN_INDEX_DIVISION = 1;
         public const int USER_INPUT_OPTOIN_INDEX_LECTURE_NAME = 2;
         public const int USER_INPUT_OPTOIN_INDEX_PROFESSOR_NAME = 3;
         public const int USER_INPUT_OPTOIN_INDEX_GRADE = 4;
 
+        //
         public const int DATA_NO = 0;
         public const int DATA_DEPARTMENT = 1;  
         public const int DATA_HAGSU_NUMBER = 2;   
@@ -52,6 +59,8 @@ namespace LectureTimeTable
         public const int DATA_PROFESSOR_NAME = 10;
         public const int DATA_LANGUAGE = 11;
 
+        //
         public const int MAX_GRADES = 24;
+        public const int MAX_APPLYING_GRADES = 21;
     }
 }
