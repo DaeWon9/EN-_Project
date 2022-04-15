@@ -47,8 +47,10 @@ namespace LectureTimeTable.Controller
             bool isLogin = false;
             while (!isLogin)
             {
-                ui.DrawFirstScreen();
+                ui.DrawLoginScreen();
+                Console.SetCursorPosition(Constant.CURSOR_X_POS_ID, Constant.CURSOR_Y_POS_ID);
                 id = user.GetInputData();
+                Console.SetCursorPosition(Constant.CURSOR_X_POS_PW, Constant.CURSOR_Y_POS_PW);
                 password = user.GetInputData();
 
                 isLogin = user.LoginCheck(user, id, password);

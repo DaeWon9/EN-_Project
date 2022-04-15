@@ -22,11 +22,11 @@ namespace LectureTimeTable.Controller
             List<string> userInputOptionList = new List<string>();
 
             //5개 입력받기
-            userInputOptionList.Add(user.GetInputData());
-            userInputOptionList.Add(user.GetInputData());
-            userInputOptionList.Add(user.GetInputData());
-            userInputOptionList.Add(user.GetInputData());
-            userInputOptionList.Add(user.GetInputData());
+            for (int repeat = 0; repeat < 5; repeat++)
+            {
+                Console.SetCursorPosition(Constant.CURSOR_X_POS_SEARCH, Constant.CURSOR_Y_POS_SEARCH + repeat);
+                userInputOptionList.Add(user.GetInputData());
+            }
 
             for (int index = 0; index < userInputOptionList.Count; index++)
             {
@@ -63,7 +63,6 @@ namespace LectureTimeTable.Controller
             List<int> resultAttentionIndex = SearchLectureTimeIndex(lectureList, isSlectOptionList, userInputOptionList);
 
             ui.DrawAttentionLecture(lectureList, resultAttentionIndex);
-            Console.ReadKey();
         }
 
         public List<int> GetSelectOptionList(bool isOptionDepartment, bool isOptionDivison, bool isOptionLectureName, bool isOptionProfessorName, bool isOptionGrade)

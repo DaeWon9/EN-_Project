@@ -7,7 +7,7 @@ namespace LectureTimeTable.View
 {
     class UI
     {
-        public void DrawFirstScreen()
+        public void DrawLoginScreen()
         {
             Console.Clear();
             Console.WriteLine("-----------------------------  Sejong University ------------------------------");
@@ -18,15 +18,27 @@ namespace LectureTimeTable.View
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
+        public void DrawMenuScreen()
+        {
+            Console.Clear();
+            Console.WriteLine("---------------------------- 강좌조회 및 수강신청 -----------------------------");
+            Console.WriteLine("1. 강의 시간표 조회                                                            ");
+            Console.WriteLine("2. 관심과목 담기                                                               ");
+            Console.WriteLine("3. 수강신청                                                                    ");
+            Console.WriteLine("4. 수강내역조회                                                                ");
+            Console.WriteLine("5. 뒤로가기                                                                    ");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+        }
+
         public void DrawSearchScreen()
         {
             Console.Clear();
             Console.WriteLine("-----------------------------  강의시간표 조회   ------------------------------");
-            Console.WriteLine("개설학과전공                                                                   ");
-            Console.WriteLine("이수구분                                                                       ");
-            Console.WriteLine("교과목명                                                                       ");
-            Console.WriteLine("교수명                                                                         ");
-            Console.WriteLine("학년                                                                           ");
+            Console.WriteLine("개설학과전공 :                                                                 ");
+            Console.WriteLine("  이수구분   :                                                                 ");
+            Console.WriteLine("  교과목명   :                                                                 ");
+            Console.WriteLine("   교수명    :                                                                 ");
+            Console.WriteLine("    학년     :                                                                 ");
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
@@ -34,11 +46,11 @@ namespace LectureTimeTable.View
         {
             Console.Clear();
             Console.WriteLine("-----------------------------    관심과목 담기   ------------------------------");
-            Console.WriteLine("1. 과목담기                                                                    ");
-            Console.WriteLine("2. 과목삭제                                                                    ");
-            Console.WriteLine("                                                                               ");
-            Console.WriteLine("                                                                               ");
-            Console.WriteLine("                                                                               ");
+            Console.WriteLine("1. 관심과목 검색                                                               ");
+            Console.WriteLine("2. 관심과목 내역                                                               ");
+            Console.WriteLine("3. 관심과목 시간표                                                             ");
+            Console.WriteLine("4. 관심과목 삭제                                                               ");
+            Console.WriteLine("5. 뒤로가기                                                                    ");
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 

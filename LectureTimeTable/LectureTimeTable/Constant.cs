@@ -8,10 +8,29 @@ namespace LectureTimeTable
 {
     class Constant
     {
+        // user info
         public const string USER_ID = "20003321";
         public const string USER_PASSWORD = "11111111";
 
-        public const int ERROR_NUMBER = 1;
+        
+        // cursor pos
+        public const int CURSOR_X_POS_ID = 56;
+        public const int CURSOR_Y_POS_ID = 3;
+        public const int CURSOR_X_POS_PW = 56;
+        public const int CURSOR_Y_POS_PW = 4;
+
+        public const int CURSOR_X_POS_SEARCH = 15;
+        public const int CURSOR_Y_POS_SEARCH = 1;
+        // error number
+        public const int ERROR_NUMBER = -1;
+
+        // menu number
+        public const int MENU_NUMBER_SEARCH_LECTURE_TIME = 1;
+        public const int MENU_NUMBER_BASKET = 2;
+        public const int MENU_NUMBER_APPLY = 3;
+        public const int MENU_NUMBER_SEARCH_APPLY = 4;
+        public const int MENU_NUMBER_BACK = 5;
+
 
         public const int USER_INPUT_OPTOIN_INDEX_DEPARTMENT = 0;
         public const int USER_INPUT_OPTOIN_INDEX_DIVISION = 1;
