@@ -26,7 +26,7 @@ namespace LectureTimeTable.View
             Console.WriteLine("2. 관심과목 담기                                                               ");
             Console.WriteLine("3. 수강신청                                                                    ");
             Console.WriteLine("4. 수강내역조회                                                                ");
-            Console.WriteLine("5. 뒤로가기                                                                    ");
+            Console.WriteLine("5. 로그아웃                                                                    ");
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
@@ -52,6 +52,14 @@ namespace LectureTimeTable.View
             Console.WriteLine("4. 관심과목 삭제                                                               ");
             Console.WriteLine("5. 뒤로가기                                                                    ");
             Console.WriteLine("-------------------------------------------------------------------------------");
+        }
+
+        public void DrawTimeTableScreen()
+        {
+            Console.Clear();
+            Console.WriteLine("-----------------------------  관심과목 시간표   ------------------------------");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+
         }
 
         public void DrawMessage(string message, bool isClear = true)

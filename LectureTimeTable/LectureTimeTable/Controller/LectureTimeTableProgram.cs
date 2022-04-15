@@ -20,7 +20,7 @@ namespace LectureTimeTable.Controller
             LectureTImeSearcher lectureTimeSearcher = new LectureTImeSearcher();  
 
             List<List<string>> fullLectureTimeDataList = lectureTimeData.GetLectureDataList();
-            lectureTimeBasket.AddList(fullLectureTimeDataList, 0);
+            lectureTimeBasket.AddFirstList(fullLectureTimeDataList, 0);
 
 
             bool isEntireLoop = true;
@@ -50,10 +50,6 @@ namespace LectureTimeTable.Controller
                     selectMenu = int.Parse(user.GetInputData()); // 한글입력시 예외처리 해야함
                     switch (selectMenu)
                     {
-                        case Constant.MENU_NUMBER_BACK:
-                            isSelectMenuScreen=false;
-                            isLoginScreen=true;
-                            break;
                         case Constant.MENU_NUMBER_SEARCH_LECTURE_TIME:
                             isSelectMenuScreen=false;
                             isSearchLectureTimeScreen=true;
@@ -70,6 +66,10 @@ namespace LectureTimeTable.Controller
                             isSelectMenuScreen=false;
                             isSearchApplyScreen=true;
                             break;
+                        case Constant.MENU_NUMBER_BACK:
+                            isSelectMenuScreen=false;
+                            isLoginScreen=true;
+                            break;
                         default:
                             break;
                     }
@@ -77,8 +77,9 @@ namespace LectureTimeTable.Controller
 
                 while (isSearchLectureTimeScreen)
                 {
-                    lectureTimeSearcher.SearchLectureTime(user, ui, fullLectureTimeDataList);
-                    Console.Write("뒤로가기 : ESC | 다시조회 : 아무키");
+                    List<int> searchedLectureTimeIndex = lectureTimeSearcher.GetSearchedLectureTimeIndex(user, ui, fullLectureTimeDataList);
+                    ui.DrawAttentionLecture(fullLectureTimeDataList, searchedLectureTimeIndex);
+                    Console.Write("뒤로가기 : ESC | 다시조회 : ENTER");
                     ConsoleKeyInfo key = Console.ReadKey();
                     if (key.Key == ConsoleKey.Escape)
                     {
@@ -86,39 +87,100 @@ namespace LectureTimeTable.Controller
                         isSelectMenuScreen = true;
                     }
                 }
-                //////////////////////////////////////// 장바구니에 담기
-                ///
+
                 while (isBasketScreen)
                 {
+                    ConsoleKeyInfo key;
                     ui.DrawBasketScreen();
                     Console.Write("메뉴를 선택하세요 : ");
                     int inputNumber = int.Parse(user.GetInputData());
-                    if (inputNumber == 1) // 담을래
+                    int inputNoNumber;
+                    switch (inputNumber) // case 숫자 상수처리하기 & 케이스별 실행부분 함수화하기 -> 나중에
                     {
-                        Console.Write("담을과목의 번호를 입력하세요 :");
-                        int secondInputNumber1 = int.Parse(user.GetInputData()); // 1~184까지만 가능
-                        lectureTimeBasket.AddList(fullLectureTimeDataList, secondInputNumber1);
-                    }
-                    else if (inputNumber == 2) //삭제할래
-                    {
-                        Console.WriteLine("======================================================================================================================================================================================");
-                        Console.WriteLine("등록가능 학점 : {0}\t담은 학점 : {1}", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
-                        ui.DrawLectureTime(lectureTimeBasket.basketList);
-                        Console.Write("삭제할과목의 번호를 입력하세요 :");
-                        int secondInputNumber2 = int.Parse(user.GetInputData()); // 1~184까지만 가능
-                        lectureTimeBasket.RemoveList(secondInputNumber2);
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                        case 1: // 검색 후 담기
+                            Console.Clear();
+                            List<int> searchedLectureTimeIndex = lectureTimeSearcher.GetSearchedLectureTimeIndex(user, ui, fullLectureTimeDataList);
+                            ui.DrawAttentionLecture(fullLectureTimeDataList, searchedLectureTimeIndex);
+                            while (true)
+                            {
+                                //Console.Clear();
+                                Console.Write("등록가능 학점 : {0}\t담은 학점 : {1}\t\t담을과목 NO : ", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
+                                inputNoNumber = int.Parse(user.GetInputData()); //1~184만 입력가능하게 예외처리 해야함
+                                lectureTimeBasket.AddList(fullLectureTimeDataList, inputNoNumber, searchedLectureTimeIndex);
+                                Console.Write("뒤로가기 : ESC | 다시담기 : ENTER");
+                                key = Console.ReadKey();
+                                if (key.Key == ConsoleKey.Escape)
+                                {
+                                    break;
+                                }
+                            }
+                            break;
+                        case 2: // 내역
+                            Console.Clear();
+                            Console.WriteLine("======================================================================================================================================================================================");
+                            Console.WriteLine("등록가능 학점 : {0}\t담은 학점 : {1}", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
+                            ui.DrawLectureTime(lectureTimeBasket.basketList);
+                            Console.Write("뒤로가기 : ESC");
+                            key = Console.ReadKey();
+                            if (key.Key == ConsoleKey.Escape)
+                            {
+                                isSearchLectureTimeScreen = false;
+                                isSelectMenuScreen = true;
+                            }
+                            break;
+                        case 3: // 시간표
+                            Console.Clear();
+                            List<string> basketTimeList = lectureTimeBasket.GetBasketTimeList();
+                            List<List<string>> basketTimeSplitList = lectureTimeBasket.GetBasketTimeSplitList(basketTimeList);
 
-                    Console.WriteLine("======================================================================================================================================================================================");
-                    Console.WriteLine("등록가능 학점 : {0}\t신청한 학점 : {1}", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
-                    ui.DrawLectureTime(lectureTimeBasket.basketList);
-                    //Thread.Sleep(1000);
-                    Console.WriteLine("아무키나 입력하세요");
-                    Console.ReadKey();
+                            ui.DrawTimeTableScreen();
+                            for (int i = 0; i< basketTimeSplitList.Count; i++)
+                            {
+                                for (int j = 0; j < basketTimeSplitList[i].Count; j++)
+                                {
+                                    Console.Write(basketTimeSplitList[i][j]);
+                                    Console.Write(" ");
+                                }
+                                Console.WriteLine();
+                            }
+                            Console.ReadKey();
+                            break;
+                        case 4: // 삭제 
+                            while (true)
+                            {
+                                Console.Clear();
+                                ui.DrawLectureTime(lectureTimeBasket.basketList);
+                                if (lectureTimeBasket.basketList.Count > 1)
+                                {
+                                    Console.Write("등록가능 학점 : {0}\t담은 학점 : {1}\t\t삭제할과목 NO : ", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
+                                    inputNoNumber = int.Parse(user.GetInputData()); //1~184만 입력가능하게 예외처리 해야함
+                                    lectureTimeBasket.RemoveList(inputNoNumber);
+                                    Console.Write("뒤로가기 : ESC | 다른과목삭제 : ENTER");
+                                    key = Console.ReadKey();
+                                    if (key.Key == ConsoleKey.Escape)
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("삭제가능한 과목이 없습니다.");
+                                    Console.Write("뒤로가기 : ESC");
+                                    key = Console.ReadKey();
+                                    if (key.Key == ConsoleKey.Escape)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        case Constant.MENU_NUMBER_BACK:
+                            isSelectMenuScreen=true;
+                            isBasketScreen=false;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }

@@ -7,9 +7,9 @@ using LectureTimeTable.View;
 
 namespace LectureTimeTable.Controller
 {
-    internal class LectureTImeSearcher
+    class LectureTImeSearcher
     {
-        public void SearchLectureTime(User user, UI ui, List<List<string>> lectureList)
+        public List<int> GetSearchedLectureTimeIndex(User user, UI ui, List<List<string>> lectureList)
         {
             bool isUserInputDepartmentOption = false;
             bool isUserInputDivisionOption = false;
@@ -62,7 +62,7 @@ namespace LectureTimeTable.Controller
 
             List<int> resultAttentionIndex = SearchLectureTimeIndex(lectureList, isSlectOptionList, userInputOptionList);
 
-            ui.DrawAttentionLecture(lectureList, resultAttentionIndex);
+            return resultAttentionIndex;
         }
 
         public List<int> GetSelectOptionList(bool isOptionDepartment, bool isOptionDivison, bool isOptionLectureName, bool isOptionProfessorName, bool isOptionGrade)
@@ -152,5 +152,7 @@ namespace LectureTimeTable.Controller
             }
             return semiMactchingIndex;
         }
+
+
     }
 }

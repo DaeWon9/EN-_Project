@@ -16,27 +16,44 @@ namespace LectureTimeTable.Model
             this.basketList = lectureTimeData;
         }
 
-
-        public void AddList(List<List<string>> lectureData, int targetIndex)
+        public void AddFirstList(List<List<string>> lectureData, int targetIndex)
         {
-            for (int row = 1; row < basketList.Count; row++) // NO Check
-            {
-                if (basketList[row][Constant.DATA_NO].Equals(targetIndex.ToString()))
-                {
-                    Console.WriteLine("{0}번 과목이 이미 담겨있습니다.", targetIndex);
-                    return;
-                }
-            }
-
             subList.Clear();
             for (int column = 0; column < lectureData[targetIndex].Count; column++)
             {
                 subList.Add(lectureData[targetIndex][column]);
             }
             basketList.Add(new List<string>(subList));
+        }
 
-            if (targetIndex != 0)
-                Console.WriteLine("관심과목 담기에 성공했습니다.");
+        public void AddList(List<List<string>> lectureData, int targetIndex, List<int> showedLectureNoList)
+        {
+            if (showedLectureNoList.Contains(targetIndex))
+            {
+                for (int row = 1; row < basketList.Count; row++) // 중복check
+                {
+                    if (basketList[row][Constant.DATA_NO].Equals(targetIndex.ToString()))
+                    {
+                        Console.WriteLine("{0}번 과목이 이미 담겨있습니다.", targetIndex);
+                        return;
+                    }
+                }
+
+                subList.Clear();
+                for (int column = 0; column < lectureData[targetIndex].Count; column++)
+                {
+                    subList.Add(lectureData[targetIndex][column]);
+                }
+                basketList.Add(new List<string>(subList));
+
+                if (targetIndex != 0)
+                    Console.WriteLine("관심과목 담기에 성공했습니다.");
+            }
+            else
+            {
+                Console.WriteLine("{0}번 과목이 조회되지 않은 과목입니다.", targetIndex);
+                return;
+            }
         }
 
         public void RemoveList(int targetIndex)
@@ -49,6 +66,7 @@ namespace LectureTimeTable.Model
                 Console.WriteLine("관심과목 삭제에 성공했습니다.");
             }
         }
+
         public int GetTargetIndex(int targetIndex)
         {
             for (int row = 1; row < basketList.Count; row++)
@@ -72,6 +90,27 @@ namespace LectureTimeTable.Model
                 grades = grades + int.Parse(basketList[row][Constant.DATA_GRADES]);
             }
             return grades;  
+        }
+
+        public List<string> GetBasketTimeList()
+        {
+            List<string> basketTimeList = new List<string>();
+            for (int row = 1; row < basketList.Count; row++)
+            {
+                basketTimeList.Add(basketList[row][Constant.DATA_TIME]);
+            }
+            return basketTimeList;
+        }
+        public List<List<string>> GetBasketTimeSplitList(List<string> basketTimeList)
+        {
+            List<List<string>> basketDayList = new List<List<string>>();
+            List<string> subList = new List<string>();
+
+            for (int row = 1; row< basketTimeList.Count; row++)
+            {
+                basketDayList.Add(new List<string>(basketTimeList[row].Split().ToList()));
+            }
+            return basketDayList;
         }
     }
 }

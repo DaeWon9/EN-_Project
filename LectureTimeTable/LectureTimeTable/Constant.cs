@@ -23,6 +23,7 @@ namespace LectureTimeTable
         public const int CURSOR_Y_POS_SEARCH = 1;
         // error number
         public const int ERROR_NUMBER = -1;
+        public const int ESC_NUMBER = -1;
 
         // menu number
         public const int MENU_NUMBER_SEARCH_LECTURE_TIME = 1;

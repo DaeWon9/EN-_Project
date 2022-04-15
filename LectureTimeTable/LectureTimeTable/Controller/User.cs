@@ -45,13 +45,14 @@ namespace LectureTimeTable.Controller
         public void Login(User user, UI ui)
         {
             bool isLogin = false;
+            string id, password;
             while (!isLogin)
             {
                 ui.DrawLoginScreen();
                 Console.SetCursorPosition(Constant.CURSOR_X_POS_ID, Constant.CURSOR_Y_POS_ID);
-                id = user.GetInputData();
+                id = user.GetValueKey();
                 Console.SetCursorPosition(Constant.CURSOR_X_POS_PW, Constant.CURSOR_Y_POS_PW);
-                password = user.GetInputData();
+                password = user.GetValueKey(true);
 
                 isLogin = user.LoginCheck(user, id, password);
             }
@@ -65,5 +66,40 @@ namespace LectureTimeTable.Controller
             return true;
         }
 
+        public string GetValueKey(bool isPassword = false)
+        {
+            string input = "";
+            bool isInputEnter = false;
+            while (!isInputEnter)
+            {               
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.Key != ConsoleKey.Enter)
+                {
+                    if (key.Key != ConsoleKey.Backspace)
+                    {
+                        input += key.KeyChar.ToString();
+                        if (isPassword)
+                            Console.Write("*");
+                        else
+                            Console.Write(key.KeyChar.ToString());
+                    }
+                    else
+                    {
+                        if (input.Length > 0)
+                        {
+                            input = input.Substring(0, input.Length-1);
+                        }
+                        Console.Write("\b \b");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine();
+                    isInputEnter = true;
+                }
+
+            }
+            return input;
+        }
     }
 }
