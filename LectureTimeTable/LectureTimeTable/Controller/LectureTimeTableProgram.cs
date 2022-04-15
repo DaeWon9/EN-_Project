@@ -15,12 +15,13 @@ namespace LectureTimeTable.Controller
             UI ui = new UI();
             User user = new User(Constant.USER_ID, Constant.USER_PASSWORD);
             LectureTimeData lectureTimeData = new LectureTimeData();
-            LectureTimeBasket lectureTimeBasket = new LectureTimeBasket(new List<List<string>>());
-            AppliedLecutreTimeData appliedLecutreTimeData = new AppliedLecutreTimeData(new List<List<string>>());
-            LectureTImeSearcher lectureTimeSearcher = new LectureTImeSearcher();  
+            LectureTImeSearcher lectureTimeSearcher = new LectureTImeSearcher();
+
+            LectureTime lectureTimeBasket = new LectureTime(new List<List<string>>());
+            LectureTime appliedLectureTime = new LectureTime(new List<List<string>>());
 
             List<List<string>> fullLectureTimeDataList = lectureTimeData.GetLectureDataList();
-            lectureTimeBasket.AddFirstList(fullLectureTimeDataList, 0);
+            lectureTimeBasket.AddTitleList(fullLectureTimeDataList, 0);
 
 
             bool isEntireLoop = true;
@@ -119,7 +120,7 @@ namespace LectureTimeTable.Controller
                             Console.Clear();
                             Console.WriteLine("======================================================================================================================================================================================");
                             Console.WriteLine("등록가능 학점 : {0}\t담은 학점 : {1}", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
-                            ui.DrawLectureTime(lectureTimeBasket.basketList);
+                            ui.DrawLectureTime(lectureTimeBasket.lectureTimeList);
                             Console.Write("뒤로가기 : ESC");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape)
@@ -130,8 +131,8 @@ namespace LectureTimeTable.Controller
                             break;
                         case 3: // 시간표
                             Console.Clear();
-                            List<string> basketTimeList = lectureTimeBasket.GetBasketTimeList();
-                            List<List<string>> basketTimeSplitList = lectureTimeBasket.GetBasketTimeSplitList(basketTimeList);
+                            List<string> basketTimeList = lectureTimeBasket.GetTimeList();
+                            List<List<string>> basketTimeSplitList = lectureTimeBasket.GetTimeSplitList(basketTimeList);
 
                             ui.DrawTimeTableScreen();
                             for (int i = 0; i< basketTimeSplitList.Count; i++)
@@ -143,14 +144,20 @@ namespace LectureTimeTable.Controller
                                 }
                                 Console.WriteLine();
                             }
-                            Console.ReadKey();
+                            Console.Write("뒤로가기 : ESC");
+                            key = Console.ReadKey();
+                            if (key.Key == ConsoleKey.Escape)
+                            {
+                                isSearchLectureTimeScreen = false;
+                                isSelectMenuScreen = true;
+                            }
                             break;
                         case 4: // 삭제 
                             while (true)
                             {
                                 Console.Clear();
-                                ui.DrawLectureTime(lectureTimeBasket.basketList);
-                                if (lectureTimeBasket.basketList.Count > 1)
+                                ui.DrawLectureTime(lectureTimeBasket.lectureTimeList);
+                                if (lectureTimeBasket.lectureTimeList.Count > 1)
                                 {
                                     Console.Write("등록가능 학점 : {0}\t담은 학점 : {1}\t\t삭제할과목 NO : ", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
                                     inputNoNumber = int.Parse(user.GetInputData()); //1~184만 입력가능하게 예외처리 해야함
@@ -182,6 +189,35 @@ namespace LectureTimeTable.Controller
                             break;
                     }
                 }
+                
+                while (isApplyScreen)
+                {
+                    ConsoleKeyInfo key;
+                    Console.Clear();
+                    Console.WriteLine("준비중입니다...");
+                    Console.Write("뒤로가기 : ESC");
+                    key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        isApplyScreen = false;
+                        isSelectMenuScreen = true;
+                    }
+                }
+
+                while (isSearchApplyScreen)
+                {
+                    ConsoleKeyInfo key;
+                    Console.Clear();
+                    Console.WriteLine("준비중입니다...");
+                    Console.Write("뒤로가기 : ESC");
+                    key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        isSearchApplyScreen = false;
+                        isSelectMenuScreen = true;
+                    }
+                }
+
             }
         }
 
