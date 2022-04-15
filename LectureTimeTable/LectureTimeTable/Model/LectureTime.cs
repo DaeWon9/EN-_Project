@@ -53,7 +53,7 @@ namespace LectureTimeTable.Model
                 lectureTimeList.Add(new List<string>(subList));
 
                 if (targetIndex != 0)
-                    Console.WriteLine("{0}.", successMessage);
+                    Console.WriteLine("{0}", successMessage);
             }
             else
             {
@@ -69,7 +69,7 @@ namespace LectureTimeTable.Model
             if (removeListIndex != Constant.ERROR_NUMBER)
             {
                 lectureTimeList.RemoveAt(removeListIndex);
-                Console.WriteLine("{0}.", successMessage);
+                Console.WriteLine("{0}", successMessage);
             }
         }
 

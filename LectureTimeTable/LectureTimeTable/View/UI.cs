@@ -35,10 +35,42 @@ namespace LectureTimeTable.View
             Console.Clear();
             Console.WriteLine("-----------------------------  강의시간표 조회   ------------------------------");
             Console.WriteLine("개설학과전공 :                                                                 ");
-            Console.WriteLine("  이수구분   :                                                                 ");
-            Console.WriteLine("  교과목명   :                                                                 ");
-            Console.WriteLine("   교수명    :                                                                 ");
-            Console.WriteLine("    학년     :                                                                 ");
+            Console.WriteLine("이수구분     :                                                                 ");
+            Console.WriteLine("교과목명     :                                                                 ");
+            Console.WriteLine("교수명       :                                                                 ");
+            Console.WriteLine("학년         :                                                                 ");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+        }
+
+        public void DrawSearchScreenInApplying()
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------  수강신청 강의 검색  -----------------------------");
+            Console.WriteLine("1. 개설학과전공                                                                ");
+            Console.WriteLine("2. 학수번호/분반                                                               ");
+            Console.WriteLine("3. 교과목명                                                                    ");
+            Console.WriteLine("4. 교수명                                                                      ");
+            Console.WriteLine("5. 학년                                                                        ");
+            Console.WriteLine("6. 관심과목                                                                    ");
+            Console.WriteLine("7. 뒤로가기                                                                    ");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+        }
+
+        public void DrawSearchScreenInContents(string message)
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------  수강신청 강의 검색  -----------------------------");
+            Console.WriteLine("{0} :", message + "".PadRight(GetPadLength(12, message)));
+            Console.WriteLine("-------------------------------------------------------------------------------");
+        }
+
+
+        public void DrawSearchScreenInHagsu()
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------  수강신청 강의 검색  -----------------------------");
+            Console.WriteLine("학수번호     :                                                                 ");
+            Console.WriteLine("분반         :                                                                 ");
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
@@ -69,9 +101,8 @@ namespace LectureTimeTable.View
         public void DrawTimeTableScreen()
         {
             Console.Clear();
-            Console.WriteLine("-----------------------------  관심과목 시간표   ------------------------------");
+            Console.WriteLine("---------------------------------   시간표   ----------------------------------");
             Console.WriteLine("-------------------------------------------------------------------------------");
-
         }
 
         public void DrawMessage(string message, bool isClear = true)
@@ -81,7 +112,6 @@ namespace LectureTimeTable.View
                 Console.Clear();
                 Console.WriteLine(message);
             }
-
             else
                 Console.WriteLine(message);
         }
@@ -101,8 +131,6 @@ namespace LectureTimeTable.View
             Console.WriteLine("======================================================================================================================================================================================");
 
         }
-
-        //Console.Write("{0}", strToPrint1 + "".PadRight(padLen));
 
         public void DrawAttentionLecture(List<List<string>> lectureList, List<int> matchingIndex)
         {

@@ -38,9 +38,19 @@ namespace LectureTimeTable
         public const int MENU_NUMBER_TIME_TABLE = 3;
         public const int MENU_NUMBER_REMOVE = 4;
 
+        //contents number
+        public const int CONTENT_NUMBER_DEPARTMENT = 1;
+        public const int CONTENT_NUMBER_HAGSU_NUMBER = 2;
+        public const int CONTENT_NUMBER_LECUTRE_NAME = 3;
+        public const int CONTENT_NUMBER_PROFESSOR_NAME = 4;
+        public const int CONTENT_NUMBER_GRADE = 5;
+        public const int CONTENT_NUMBER_ATTENTION = 6;
+        public const int CONTENT_NUMBER_BACK = 7;
+
         //
         public const int USER_INPUT_OPTOIN_INDEX_DEPARTMENT = 0;
         public const int USER_INPUT_OPTOIN_INDEX_DIVISION = 1;
+        public const int USER_INPUT_OPTION_INDEX_HAGU_CLASS_NUMBER = 1;
         public const int USER_INPUT_OPTOIN_INDEX_LECTURE_NAME = 2;
         public const int USER_INPUT_OPTOIN_INDEX_PROFESSOR_NAME = 3;
         public const int USER_INPUT_OPTOIN_INDEX_GRADE = 4;
