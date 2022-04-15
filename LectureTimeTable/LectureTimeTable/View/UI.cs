@@ -56,19 +56,6 @@ namespace LectureTimeTable.View
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
-        public void DrawSearchScreenInAttention()
-        {
-            Console.Clear();
-            Console.WriteLine("----------------------------  관심과목 강의 검색  -----------------------------");
-            Console.WriteLine("1. 개설학과전공                                                                ");
-            Console.WriteLine("2. 학수번호/분반                                                               ");
-            Console.WriteLine("3. 교과목명                                                                    ");
-            Console.WriteLine("4. 교수명                                                                      ");
-            Console.WriteLine("5. 학년                                                                        ");
-            Console.WriteLine("6. 뒤로가기                                                                    ");
-            Console.WriteLine("-------------------------------------------------------------------------------");
-        }
-
         public void DrawSearchScreenInContents(string message)
         {
             Console.Clear();

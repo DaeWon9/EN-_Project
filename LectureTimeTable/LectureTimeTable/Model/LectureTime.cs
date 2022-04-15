@@ -40,7 +40,7 @@ namespace LectureTimeTable.Model
                 {
                     if (lectureTimeList[row][Constant.DATA_NO].Equals(targetIndex.ToString()))
                     {
-                        Console.WriteLine("{0}번 과목은 중복과목입니다..", targetIndex);
+                        Console.WriteLine("{0}번 과목이 이미 담겨있습니다.", targetIndex);
                         return;
                     }
                 }

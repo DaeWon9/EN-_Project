@@ -101,8 +101,6 @@ namespace LectureTimeTable.Controller
                             break;
                         case Constant.MENU_NUMBER_HISTORY:
                             lectureTimeSearcher.HistoryAttentrionLecture(ui, lectureTimeBasket);
-                            Console.Write("뒤로가기 : ESC");
-                            Console.ReadKey();
                             break;
                         case Constant.MENU_NUMBER_TIME_TABLE:
                             lectureTimeSearcher.TimeTableAttentionLecture(ui, lectureTimeBasket);
@@ -127,12 +125,55 @@ namespace LectureTimeTable.Controller
                     switch (inputNumber)
                     {
                         case Constant.MENU_NUMBER_SEARCH: // 수강신청과목 분야별 검색
-                            lectureTimeSearcher.SearchApplyingLecture(user, ui, fullLectureTimeDataList, appliedLectureTime, lectureTimeBasket);
+                            int selectMenu;
+                            List<int> searchedLectureTimeIndex;
+                            while (true)
+                            {
+                                Console.Clear();
+                                ui.DrawSearchScreenInApplying();
+                                Console.Write("메뉴를 골라주세요 : ");
+                                selectMenu = int.Parse(user.GetInputData());
+                                switch (selectMenu)
+                                {
+                                    case Constant.CONTENT_NUMBER_DEPARTMENT: //전공
+                                        searchedLectureTimeIndex = lectureTimeSearcher.GetSearchedByContentsIndex(user, ui, fullLectureTimeDataList, "개설학과전공", Constant.DATA_DEPARTMENT);
+                                        ui.DrawAttentionLecture(fullLectureTimeDataList, searchedLectureTimeIndex);
+                                        break;
+                                    case Constant.CONTENT_NUMBER_HAGSU_NUMBER: // 학수번호/분반
+                                        searchedLectureTimeIndex = lectureTimeSearcher.GetSearchedByContentsIndex(user, ui, fullLectureTimeDataList, "학수번호/분반", Constant.DATA_HAGSU_NUMBER);
+                                        ui.DrawAttentionLecture(fullLectureTimeDataList, searchedLectureTimeIndex);
+                                        break;
+                                    case Constant.CONTENT_NUMBER_LECUTRE_NAME: // 교과목명
+                                        searchedLectureTimeIndex = lectureTimeSearcher.GetSearchedByContentsIndex(user, ui, fullLectureTimeDataList, "교과목명", Constant.DATA_LECUTRE_NAME);
+                                        ui.DrawAttentionLecture(fullLectureTimeDataList, searchedLectureTimeIndex);
+                                        break;
+                                    case Constant.CONTENT_NUMBER_PROFESSOR_NAME: // 교수명
+                                        searchedLectureTimeIndex = lectureTimeSearcher.GetSearchedByContentsIndex(user, ui, fullLectureTimeDataList, "교수명", Constant.DATA_PROFESSOR_NAME);
+                                        ui.DrawAttentionLecture(fullLectureTimeDataList, searchedLectureTimeIndex);
+                                        break;
+                                    case Constant.CONTENT_NUMBER_GRADE: // 학년
+                                        searchedLectureTimeIndex = lectureTimeSearcher.GetSearchedByContentsIndex(user, ui, fullLectureTimeDataList, "학년", Constant.DATA_GRADE);
+                                        ui.DrawAttentionLecture(fullLectureTimeDataList, searchedLectureTimeIndex);
+                                        break;
+                                    case Constant.CONTENT_NUMBER_ATTENTION: // 관심과목
+                                        lectureTimeSearcher.HistoryAttentrionLecture(ui, lectureTimeBasket);
+                                        break;
+                                    case Constant.CONTENT_NUMBER_BACK: // 뒤로가기
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                Console.Write("뒤로가기 : ESC | 다시조회 : ENTER");
+                                ConsoleKeyInfo key = Console.ReadKey();
+                                if (key.Key == ConsoleKey.Escape)
+                                {
+                                    break;
+                                }
+                            }
+
                             break;
                         case Constant.MENU_NUMBER_HISTORY:
                             lectureTimeSearcher.HistoryApplyingLecture(ui, appliedLectureTime);
-                            Console.Write("뒤로가기 : ESC");
-                            Console.ReadKey();
                             break;
                         case Constant.MENU_NUMBER_TIME_TABLE:
                             lectureTimeSearcher.TimeTableApplyingLecture(ui, appliedLectureTime);
