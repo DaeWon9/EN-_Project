@@ -45,6 +45,8 @@ namespace LectureTimeTable.Model
                     }
                 }
 
+
+
                 subList.Clear();
                 for (int column = 0; column < lectureData[targetIndex].Count; column++)
                 {

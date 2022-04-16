@@ -334,6 +334,8 @@ namespace LectureTimeTable.Controller
                         posX = Constant.CURSOR_X_POS_TIME_TABLE_THR;
                     if (dayList[i][j].Equals("금"))
                         posX = Constant.CURSOR_X_POS_TIME_TABLE_FRI;
+                    if (dayList[i][j].Equals("공"))
+                        posX = 0;
 
                     switch (firstTimeList[i][j])  // 분
                     {
@@ -676,6 +678,8 @@ namespace LectureTimeTable.Controller
                         posX = Constant.CURSOR_X_POS_TIME_TABLE_THR;
                     if (dayList[i][j].Equals("금"))
                         posX = Constant.CURSOR_X_POS_TIME_TABLE_FRI;
+                    if (dayList[i][j].Equals("공"))
+                        posX = 0;
 
                     switch (firstTimeList[i][j])  // 분
                     {
