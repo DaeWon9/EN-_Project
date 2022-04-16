@@ -132,13 +132,13 @@ namespace LectureTimeTable.Model
 
             for (int row = 0; row< TimeList.Count; row++)
             {
-                if (TimeList[row] ==  "") //공백이 아닐때 분할가능한거임.
+                if (TimeList[row] == null) 
                 {
-                    splitList.Add(new List<string>(TimeList[row].Split().ToList()));
+                    splitList.Add(new List<string>("공 23:00~23:30".Split().ToList()));
                 }
                 else
                 {
-                    splitList.Add(new List<string>("공 23:00~23:30".Split().ToList()));
+                    splitList.Add(new List<string>(TimeList[row].Split().ToList()));
                 }
             }
             return splitList;

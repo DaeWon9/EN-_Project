@@ -160,10 +160,11 @@ namespace LectureTimeTable.Controller
                 while (isHistoryApplyScreen) //draw 시간표 & 엑셀파일저장 기능 
                 {
                     ConsoleKeyInfo key;
-                    Console.Clear();
                     lectureTimeSearcher.TimeTableApplyingLecture(ui, appliedLectureTime);
-                    Console.Write("뒤로가기 : ESC");
+                    Console.SetCursorPosition(0, 0);
+                    Console.CursorVisible = false;
                     key = Console.ReadKey();
+                    Console.CursorVisible = true;
                     if (key.Key == ConsoleKey.Escape)
                     {
                         isHistoryApplyScreen = false;
