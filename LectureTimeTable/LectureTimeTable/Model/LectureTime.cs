@@ -98,6 +98,25 @@ namespace LectureTimeTable.Model
             return grades;
         }
 
+        public List<string> GetRoomList()
+        {
+            List<string> roomList = new List<string>();
+            for (int row = 1; row < lectureTimeList.Count; row++)
+            {
+                roomList.Add(lectureTimeList[row][Constant.DATA_LECTURE_ROOM]);
+            }
+            return roomList;
+        }
+        public List<string> GetNameList()
+        {
+            List<string> nameList = new List<string>();
+            for (int row = 1; row < lectureTimeList.Count; row++)
+            {
+                nameList.Add(lectureTimeList[row][Constant.DATA_LECTURE_NAME]);
+            }
+            return nameList;
+        }
+
         public List<string> GetTimeList()
         {
             List<string> timeList = new List<string>();
@@ -113,7 +132,14 @@ namespace LectureTimeTable.Model
 
             for (int row = 0; row< TimeList.Count; row++)
             {
-                splitList.Add(new List<string>(TimeList[row].Split().ToList()));
+                if (TimeList[row] ==  "") //공백이 아닐때 분할가능한거임.
+                {
+                    splitList.Add(new List<string>(TimeList[row].Split().ToList()));
+                }
+                else
+                {
+                    splitList.Add(new List<string>("공 23:00~23:30".Split().ToList()));
+                }
             }
             return splitList;
         }

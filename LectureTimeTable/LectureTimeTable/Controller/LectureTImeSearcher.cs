@@ -108,7 +108,7 @@ namespace LectureTimeTable.Controller
             if (isOptionDivison)
                 selectOptionList.Add(Constant.DATA_DIVISION);
             if (isOptionLectureName)
-                selectOptionList.Add(Constant.DATA_LECUTRE_NAME);
+                selectOptionList.Add(Constant.DATA_LECTURE_NAME);
             if (isOptionProfessorName)
                 selectOptionList.Add(Constant.DATA_PROFESSOR_NAME);
             if (isOptionGrade)
@@ -134,7 +134,7 @@ namespace LectureTimeTable.Controller
                     case Constant.DATA_DIVISION:
                         matchingIndex.Add(new List<int>(CompareData(lectureList, option, userInputOptionList[Constant.USER_INPUT_OPTOIN_INDEX_DIVISION])));
                         break;
-                    case Constant.DATA_LECUTRE_NAME:
+                    case Constant.DATA_LECTURE_NAME:
                         matchingIndex.Add(new List<int>(CompareData(lectureList, option, userInputOptionList[Constant.USER_INPUT_OPTOIN_INDEX_LECTURE_NAME])));
                         break;
                     case Constant.DATA_PROFESSOR_NAME:
@@ -171,7 +171,7 @@ namespace LectureTimeTable.Controller
                 switch (option)
                 {
                     case Constant.DATA_DEPARTMENT:
-                    case Constant.DATA_LECUTRE_NAME:
+                    case Constant.DATA_LECTURE_NAME:
                     case Constant.DATA_PROFESSOR_NAME:
                     case Constant.DATA_GRADE:
                         matchingIndex.Add(new List<int>(CompareData(lectureList, option, userInputOptionList[0])));
@@ -261,25 +261,171 @@ namespace LectureTimeTable.Controller
             ui.DrawLectureTime(lectureTimeBasket.lectureTimeList);
         }
 
-        public void TimeTableAttentionLecture(UI ui, LectureTime lectureTimeBasket)
+        public void TimeTableAttentionLecture(UI ui, LectureTime lectureTimeBasket) //시간체크 해야함
         {
             Console.Clear();
-            List<string> timeList = lectureTimeBasket.GetTimeList();
-            List<List<string>> timeSplitList = lectureTimeBasket.GetTimeSplitList(timeList);
+
+            List<string> getTimeList = lectureTimeBasket.GetTimeList();
+            List<List<string>> timeSplitList = lectureTimeBasket.GetTimeSplitList(getTimeList);
+            List<string> lectureNameList = lectureTimeBasket.GetNameList();
+            List<string> lectureRoomList = lectureTimeBasket.GetRoomList();
+
+            List<List<string>> dayList = new List<List<string>>();
+            List<List<int>> firstTimeList = new List<List<int>>();
+            List<List<int>> diffCount = new List<List<int>>();
+
+            List<string> semiDayList =  new List<string>();
+            List<int> semiFirstTimeList = new List<int>();
+            List<int> semiDiffCount = new List<int>();
+
+            int posX = 0;
+            int posY = 0;
 
             ui.DrawTimeTableScreen();
             for (int i = 0; i< timeSplitList.Count; i++)
             {
+                semiDayList.Clear();
+                semiFirstTimeList.Clear();
+                semiDiffCount.Clear();
                 for (int j = 0; j < timeSplitList[i].Count; j++)
                 {
-                    Console.Write(timeSplitList[i][j]);
-                    Console.Write(" ");
+                    if (timeSplitList[i][j].Length > 1) // 시간임
+                    {
+                        List<string> getStartTimeList = timeSplitList[i][j].Split('~').ToList();
+                        DateTime StartTime = Convert.ToDateTime(getStartTimeList[0]);
+                        DateTime EndTime = Convert.ToDateTime(getStartTimeList[1]);
+                        TimeSpan timeDiff = EndTime - StartTime;
+
+                        int diffHour = timeDiff.Hours; //시간차이
+                        int diffMinute = timeDiff.Minutes; //분차이
+
+                        diffMinute = diffMinute + diffHour*60;
+                        int diffcnt = diffMinute / 30;
+
+                        semiDiffCount.Add(diffcnt);
+                        semiFirstTimeList.Add(StartTime.Hour*60 + StartTime.Minute);
+                    }
+                    else // 요일임
+                        semiDayList.Add(timeSplitList[i][j]);
                 }
-                Console.WriteLine();
+
+                if (semiDayList.Count > semiFirstTimeList.Count) // 요일, 시간 개수 맞춰주기 최대 2개임
+                {
+                    semiFirstTimeList.Add(semiFirstTimeList[0]);
+                    semiDiffCount.Add(semiDiffCount[0]);
+                }
+
+                diffCount.Add(new List<int>(semiDiffCount));
+                firstTimeList.Add(new List<int>(semiFirstTimeList));
+                dayList.Add(new List<string>(semiDayList));
             }
-            Console.WriteLine("-------------------------------------------------------------------------------");
-            Console.Write("뒤로가기 : ESC");
-            Console.ReadKey();
+
+            for (int i = 0; i < dayList.Count; i++)
+            {
+                for (int j = 0; j < dayList[i].Count; j++)
+                {
+                    if (dayList[i][j].Equals("월"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_MON;
+                    if (dayList[i][j].Equals("화"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_TUE;
+                    if (dayList[i][j].Equals("수"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_WED;
+                    if (dayList[i][j].Equals("목"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_THR;
+                    if (dayList[i][j].Equals("금"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_FRI;
+
+                    switch (firstTimeList[i][j])  // 분
+                    {
+                        case 0:
+                            break;
+                        case 9 * 60: // 9:00
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE;
+                            break;
+                        case 9 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (1 * 2);
+                            break;
+                        case 10 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (2 * 2);
+                            break;
+                        case 10 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (3 * 2);
+                            break;
+                        case 11 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (4 * 2);
+                            break;
+                        case 11 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (5 * 2);
+                            break;
+                        case 12 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (6 * 2);
+                            break;
+                        case 12 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (7 * 2);
+                            break;
+                        case 13 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (8 * 2);
+                            break;
+                        case 13 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (9 * 2);
+                            break;
+                        case 14 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (10 * 2);
+                            break;
+                        case 14 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (11 * 2);
+                            break;
+                        case 15 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (12 * 2);
+                            break;
+                        case 15 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (13 * 2);
+                            break;
+                        case 16 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (14 * 2);
+                            break;
+                        case 16 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (15 * 2);
+                            break;
+                        case 17 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (16 * 2);
+                            break;
+                        case 17 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (17 * 2);
+                            break;
+                        case 18 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (18 * 2);
+                            break;
+                        case 18 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (19 * 2);
+                            break;
+                        case 19 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (20 * 2);
+                            break;
+                        case 19 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (21 * 2);
+                            break;
+                        case 20 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (22 * 2);
+                            break;
+                        case 20 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (23 * 2);
+                            break;
+                        default:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (24 * 2);
+                            break;
+                    }
+   
+                    for (int k=0; k<diffCount[i][j]; k++)
+                    {
+                        Console.SetCursorPosition(posX, posY + (k * 2));
+                        Console.Write(lectureNameList[i]);
+                        Console.SetCursorPosition(posX, posY + ((k * 2) + 1));
+                        Console.Write(lectureRoomList[i]);
+                    }
+                    
+                }
+            }
         }
 
         public void RemoveAttentionLecture(User user, UI ui, LectureTime lectureTimeBasket)
@@ -339,8 +485,8 @@ namespace LectureTimeTable.Controller
                     searchedLectureTimeIndex = GetSearchedByContentsIndex(user, ui, fullLectureTimeData, "학수번호/분반", Constant.DATA_HAGSU_NUMBER);
                     ui.DrawAttentionLecture(fullLectureTimeData, searchedLectureTimeIndex);
                     break;
-                case Constant.CONTENT_NUMBER_LECUTRE_NAME: // 교과목명
-                    searchedLectureTimeIndex = GetSearchedByContentsIndex(user, ui, fullLectureTimeData, "교과목명", Constant.DATA_LECUTRE_NAME);
+                case Constant.CONTENT_NUMBER_LECTURE_NAME: // 교과목명
+                    searchedLectureTimeIndex = GetSearchedByContentsIndex(user, ui, fullLectureTimeData, "교과목명", Constant.DATA_LECTURE_NAME);
                     ui.DrawAttentionLecture(fullLectureTimeData, searchedLectureTimeIndex);
                     break;
                 case Constant.CONTENT_NUMBER_PROFESSOR_NAME: // 교수명
@@ -406,8 +552,8 @@ namespace LectureTimeTable.Controller
                     searchedLectureTimeIndex = GetSearchedByContentsIndex(user, ui, fullLectureTimeData, "학수번호/분반", Constant.DATA_HAGSU_NUMBER);
                     ui.DrawAttentionLecture(fullLectureTimeData, searchedLectureTimeIndex);
                     break;
-                case Constant.CONTENT_NUMBER_LECUTRE_NAME: // 교과목명
-                    searchedLectureTimeIndex = GetSearchedByContentsIndex(user, ui, fullLectureTimeData, "교과목명", Constant.DATA_LECUTRE_NAME);
+                case Constant.CONTENT_NUMBER_LECTURE_NAME: // 교과목명
+                    searchedLectureTimeIndex = GetSearchedByContentsIndex(user, ui, fullLectureTimeData, "교과목명", Constant.DATA_LECTURE_NAME);
                     ui.DrawAttentionLecture(fullLectureTimeData, searchedLectureTimeIndex);
                     break;
                 case Constant.CONTENT_NUMBER_PROFESSOR_NAME: // 교수명
@@ -468,20 +614,158 @@ namespace LectureTimeTable.Controller
         public void TimeTableApplyingLecture(UI ui, LectureTime appliedLectureTime)
         {
             Console.Clear();
-            List<string> timeList = appliedLectureTime.GetTimeList();
-            List<List<string>> TimeSplitList = appliedLectureTime.GetTimeSplitList(timeList);
+            List<string> getTimeList = appliedLectureTime.GetTimeList();
+            List<List<string>> timeSplitList = appliedLectureTime.GetTimeSplitList(getTimeList);
+            List<string> lectureNameList = appliedLectureTime.GetNameList();
+            List<string> lectureRoomList = appliedLectureTime.GetRoomList();
+
+            List<List<string>> dayList = new List<List<string>>();
+            List<List<int>> firstTimeList = new List<List<int>>();
+            List<List<int>> diffCount = new List<List<int>>();
+
+            List<string> semiDayList = new List<string>();
+            List<int> semiFirstTimeList = new List<int>();
+            List<int> semiDiffCount = new List<int>();
+
+            int posX = 0;
+            int posY = 0;
 
             ui.DrawTimeTableScreen();
-            for (int i = 0; i< TimeSplitList.Count; i++)
+            for (int i = 0; i< timeSplitList.Count; i++)
             {
-                for (int j = 0; j < TimeSplitList[i].Count; j++)
+                semiDayList.Clear();
+                semiFirstTimeList.Clear();
+                semiDiffCount.Clear();
+                for (int j = 0; j < timeSplitList[i].Count; j++)
                 {
-                    Console.Write(TimeSplitList[i][j]);
-                    Console.Write(" ");
+                    if (timeSplitList[i][j].Length > 1) // 시간임
+                    {
+                        List<string> getStartTimeList = timeSplitList[i][j].Split('~').ToList();
+                        DateTime StartTime = Convert.ToDateTime(getStartTimeList[0]);
+                        DateTime EndTime = Convert.ToDateTime(getStartTimeList[1]);
+                        TimeSpan timeDiff = EndTime - StartTime;
+
+                        int diffHour = timeDiff.Hours; //시간차이
+                        int diffMinute = timeDiff.Minutes; //분차이
+
+                        diffMinute = diffMinute + diffHour*60;
+                        int diffcnt = diffMinute / 30;
+
+                        semiDiffCount.Add(diffcnt);
+                        semiFirstTimeList.Add(StartTime.Hour*60 + StartTime.Minute); // ->분으로 나옴.
+                    }
+                    else // 요일임
+                        semiDayList.Add(timeSplitList[i][j]);
                 }
-                Console.WriteLine();
+                diffCount.Add(new List<int>(semiDiffCount));
+                firstTimeList.Add(new List<int>(semiFirstTimeList));
+                dayList.Add(new List<string>(semiDayList));
             }
-            Console.WriteLine("-------------------------------------------------------------------------------");
+
+            for (int i = 0; i < dayList.Count; i++)
+            {
+                for (int j = 0; j < dayList[i].Count; j++)
+                {
+                    if (dayList[i][j].Equals("월"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_MON;
+                    if (dayList[i][j].Equals("화"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_TUE;
+                    if (dayList[i][j].Equals("수"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_WED;
+                    if (dayList[i][j].Equals("목"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_THR;
+                    if (dayList[i][j].Equals("금"))
+                        posX = Constant.CURSOR_X_POS_TIME_TABLE_FRI;
+
+                    switch (firstTimeList[i][j])  // 분
+                    {
+                        case 9 * 60: // 9:00
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE;
+                            break;
+                        case 9 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (1 * 2);
+                            break;
+                        case 10 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (2 * 2);
+                            break;
+                        case 10 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (3 * 2);
+                            break;
+                        case 11 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (4 * 2);
+                            break;
+                        case 11 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (5 * 2);
+                            break;
+                        case 12 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (6 * 2);
+                            break;
+                        case 12 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (7 * 2);
+                            break;
+                        case 13 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (8 * 2);
+                            break;
+                        case 13 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (9 * 2);
+                            break;
+                        case 14 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (10 * 2);
+                            break;
+                        case 14 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (11 * 2);
+                            break;
+                        case 15 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (12 * 2);
+                            break;
+                        case 15 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (13 * 2);
+                            break;
+                        case 16 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (14 * 2);
+                            break;
+                        case 16 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (15 * 2);
+                            break;
+                        case 17 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (16 * 2);
+                            break;
+                        case 17 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (17 * 2);
+                            break;
+                        case 18 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (18 * 2);
+                            break;
+                        case 18 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (19 * 2);
+                            break;
+                        case 19 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (20 * 2);
+                            break;
+                        case 19 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (21 * 2);
+                            break;
+                        case 20 * 60:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (22 * 2);
+                            break;
+                        case 20 * 60 + 30:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (23 * 2);
+                            break;
+                        default:
+                            posY = Constant.CURSOR_Y_POS_TIME_TABLE + (24 * 2);
+                            break;
+                    }
+
+                    for (int k = 0; k<diffCount[i][j]; k++)
+                    {
+                        Console.SetCursorPosition(posX, posY + (k * 2));
+                        Console.Write(lectureNameList[i]);
+                        Console.SetCursorPosition(posX, posY + ((k * 2) + 1));
+                        Console.Write(lectureRoomList[i]);
+                    }
+
+                }
+            }
         }
 
         public void RemoveApplyingLecture(User user, UI ui, LectureTime appliedLectureTime)

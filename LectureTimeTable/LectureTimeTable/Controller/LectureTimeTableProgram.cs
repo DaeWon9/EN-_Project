@@ -106,6 +106,10 @@ namespace LectureTimeTable.Controller
                             break;
                         case Constant.MENU_NUMBER_TIME_TABLE:
                             lectureTimeSearcher.TimeTableAttentionLecture(ui, lectureTimeBasket);
+                            Console.SetCursorPosition(0, 0);
+                            Console.CursorVisible = false;
+                            Console.ReadKey();
+                            Console.CursorVisible = true;
                             break;
                         case Constant.MENU_NUMBER_REMOVE:
                             lectureTimeSearcher.RemoveAttentionLecture(user, ui, lectureTimeBasket);
@@ -136,8 +140,10 @@ namespace LectureTimeTable.Controller
                             break;
                         case Constant.MENU_NUMBER_TIME_TABLE:
                             lectureTimeSearcher.TimeTableApplyingLecture(ui, appliedLectureTime);
-                            Console.Write("뒤로가기 : ESC");
+                            Console.SetCursorPosition(0, 0);
+                            Console.CursorVisible = false;
                             Console.ReadKey();
+                            Console.CursorVisible = true;
                             break;
                         case Constant.MENU_NUMBER_REMOVE: // 삭제 
                             lectureTimeSearcher.RemoveApplyingLecture(user, ui, appliedLectureTime);

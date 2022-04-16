@@ -17,10 +17,13 @@ namespace LectureTimeTable.Model
             {
                 // Excel Application 객체 생성
                 Excel.Application application = new Excel.Application();
-        
-                // Workbook 객체 생성 및 파일 오픈
-                Excel.Workbook workbook = application.Workbooks.Open(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\LectureTable.xlsx");
 
+                string paths = AppDomain.CurrentDomain.BaseDirectory;
+                //Console.WriteLine(paths);
+
+                // Workbook 객체 생성 및 파일 오픈
+                Excel.Workbook workbook = application.Workbooks.Open(paths + "\\LectureTable.xlsx");
+                
                 // sheets에 읽어온 엑셀값을 넣기 (한 workbook 내의 모든 sheet 가져옴)
                 Excel.Sheets sheets = workbook.Sheets;
 

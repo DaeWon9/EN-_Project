@@ -114,7 +114,58 @@ namespace LectureTimeTable.View
         public void DrawTimeTableScreen()
         {
             Console.Clear();
-            Console.WriteLine("---------------------------------   시간표   ----------------------------------");
+            Console.WriteLine("                                                                                                                              뒤로가기 : ESC    ");
+            Console.WriteLine("------------------------------------------------------------------   시간표   ------------------------------------------------------------------");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("\t\t\t월\t\t\t화\t\t\t수\t\t\t목\t\t\t금                                                                                                        ");
+            Console.WriteLine("09:00~09:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("09:30~10:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("10:00~10:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("10:30~11:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("11:00~11:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("11:30~12:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("12:00~12:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("12:30~13:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("13:00~13:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("13:30~14:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("14:00~14:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("14:30~15:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("15:00~15:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("15:30~16:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("16:00~16:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("16:30~17:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("17:00~17:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("17:30~18:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("18:00~18:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("18:30~19:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("19:00~19:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("19:30~20:00                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("20:00~20:30                                                                                                                                     ");
+            Console.WriteLine("                                                                                                                                                ");
+            Console.WriteLine("20:30~21:00                                                                                                                                     ");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------------");
         }
 
         public void DrawMessage(string message, bool isClear = true)
@@ -186,7 +237,7 @@ namespace LectureTimeTable.View
                 case Constant.DATA_CLASS_NUMBER:
                     sortLength = 5;
                     break;
-                case Constant.DATA_LECUTRE_NAME:
+                case Constant.DATA_LECTURE_NAME:
                     sortLength = 33;
                     break;
                 case Constant.DATA_DIVISION:

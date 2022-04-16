@@ -12,7 +12,13 @@ namespace LectureTimeTable
         public const string USER_ID = "20003321";
         public const string USER_PASSWORD = "11111111";
 
-        
+        //timetable cursor pos
+        public const int CURSOR_X_POS_TIME_TABLE_MON = 16;
+        public const int CURSOR_X_POS_TIME_TABLE_TUE = 40;
+        public const int CURSOR_X_POS_TIME_TABLE_WED = 64;
+        public const int CURSOR_X_POS_TIME_TABLE_THR = 88;
+        public const int CURSOR_X_POS_TIME_TABLE_FRI = 112;
+        public const int CURSOR_Y_POS_TIME_TABLE = 5;
         // cursor pos
         public const int CURSOR_X_POS_ID = 56;
         public const int CURSOR_Y_POS_ID = 3;
@@ -41,7 +47,7 @@ namespace LectureTimeTable
         //contents number
         public const int CONTENT_NUMBER_DEPARTMENT = 1;
         public const int CONTENT_NUMBER_HAGSU_NUMBER = 2;
-        public const int CONTENT_NUMBER_LECUTRE_NAME = 3;
+        public const int CONTENT_NUMBER_LECTURE_NAME = 3;
         public const int CONTENT_NUMBER_PROFESSOR_NAME = 4;
         public const int CONTENT_NUMBER_GRADE = 5;
         public const int CONTENT_NUMBER_ATTENTION = 6;
@@ -60,7 +66,7 @@ namespace LectureTimeTable
         public const int DATA_DEPARTMENT = 1;  
         public const int DATA_HAGSU_NUMBER = 2;   
         public const int DATA_CLASS_NUMBER = 3;
-        public const int DATA_LECUTRE_NAME = 4;
+        public const int DATA_LECTURE_NAME = 4;
         public const int DATA_DIVISION = 5;
         public const int DATA_GRADE = 6; // 학년
         public const int DATA_GRADES= 7; // 학점
