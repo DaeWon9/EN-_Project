@@ -659,10 +659,19 @@ namespace LectureTimeTable.Controller
                     else // 요일임
                         semiDayList.Add(timeSplitList[i][j]);
                 }
+
+                if (semiDayList.Count > semiFirstTimeList.Count) // 요일, 시간 개수 맞춰주기 최대 2개임
+                {
+                    semiFirstTimeList.Add(semiFirstTimeList[0]);
+                    semiDiffCount.Add(semiDiffCount[0]);
+                }
+
                 diffCount.Add(new List<int>(semiDiffCount));
                 firstTimeList.Add(new List<int>(semiFirstTimeList));
                 dayList.Add(new List<string>(semiDayList));
             }
+
+
 
             for (int i = 0; i < dayList.Count; i++)
             {

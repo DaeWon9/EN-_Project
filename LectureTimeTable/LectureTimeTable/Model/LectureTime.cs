@@ -28,6 +28,39 @@ namespace LectureTimeTable.Model
 
         public void AddList(List<List<string>> lectureData, int targetIndex, List<int> showedLectureNoList, int possibleGrades, string successMessage)
         {
+            List<List<int>> startTimeToMinList = GetstartTimeToMinList();
+            List<List<int>> endTimeToMinList = GetEntTimeToMinList();
+            List<List<string>> dayList = GetDayList();
+
+            string targetTime = lectureData[targetIndex][Constant.DATA_TIME];
+            List<string> targetTimeList = new List<string>();
+
+            List<int> targetStartTime = new List<int>();
+            List<int> targetEndTime = new List<int>();
+            List<string> targetDay = new List<string>();
+
+            if (targetTime == null)
+                targetTimeList = ("공 23:00~23:30".Split().ToList());
+            else
+                targetTimeList = targetTime.Split().ToList();
+            
+            for (int i = 0; i<targetTimeList.Count; i++)
+            {
+                if (targetTimeList[i].Length > 1) // 시간임
+                {
+                    List<string> getTargetStartTimeList = targetTimeList[i].Split('~').ToList();
+                    DateTime StartTime = Convert.ToDateTime(getTargetStartTimeList[0]);
+                    DateTime EndTime = Convert.ToDateTime(getTargetStartTimeList[1]);
+
+                    targetStartTime.Add(StartTime.Hour*60 + StartTime.Minute);
+                    targetEndTime.Add(EndTime.Hour*60 + EndTime.Minute);
+                }
+                else
+                {
+                    targetDay.Add(targetTimeList[i]);
+                }
+            } 
+
             if (showedLectureNoList.Contains(targetIndex))
             {
                 if (int.Parse(lectureData[targetIndex][Constant.DATA_GRADES]) > possibleGrades) // 학점 초과
@@ -36,16 +69,29 @@ namespace LectureTimeTable.Model
                     return;
                 }
 
-                for (int row = 1; row < lectureTimeList.Count; row++) // 중복check
+                for (int row = 1; row < lectureTimeList.Count; row++) // 중복과목 체크
                 {
-                    if (lectureTimeList[row][Constant.DATA_NO].Equals(targetIndex.ToString()))
+                    if (lectureTimeList[row][Constant.DATA_LECTURE_NAME].Equals(lectureData[targetIndex][Constant.DATA_LECTURE_NAME]))
                     {
-                        Console.WriteLine("{0}번 과목은 중복과목입니다..", targetIndex);
+                        Console.WriteLine("{0}번 과목은 중복과목입니다.", targetIndex);
                         return;
                     }
                 }
 
-
+                for (int i = 0; i < startTimeToMinList.Count; i++) // 중복시간 체크
+                {
+                    for(int j=0; j < startTimeToMinList[i].Count; j++)
+                    {
+                        if (dayList[i][j] == targetDay[j]) // 요일이 같은지 판단 후에 시간겹치는거 체크해야함.!!
+                        {
+                            if (startTimeToMinList[i][j] < targetEndTime[j] && targetStartTime[j] < endTimeToMinList[i][j]) // 시간이 겹치는거.!
+                            {
+                                Console.WriteLine("{0}번 과목은 시간이 겹칩니다.", targetIndex);
+                                return;
+                            }
+                        }
+                    }
+                }
 
                 subList.Clear();
                 for (int column = 0; column < lectureData[targetIndex].Count; column++)
@@ -109,6 +155,7 @@ namespace LectureTimeTable.Model
             }
             return roomList;
         }
+        
         public List<string> GetNameList()
         {
             List<string> nameList = new List<string>();
@@ -144,6 +191,80 @@ namespace LectureTimeTable.Model
                 }
             }
             return splitList;
+        }
+
+        public List<List<string>> GetDayList()
+        {
+            List<string> getTimeList = GetTimeList();
+            List<List<string>> timeSplitList = GetTimeSplitList(getTimeList);
+
+            List<List<string>> dayList = new List<List<string>>();
+            List<string> semiDayList = new List<string>();
+
+            for (int i = 0; i< timeSplitList.Count; i++)
+            {
+                semiDayList.Clear();
+                for (int j = 0; j < timeSplitList[i].Count; j++)
+                {
+                    if (timeSplitList[i][j].Length == 1) // 요일임
+                    {
+                        semiDayList.Add(timeSplitList[i][j]);
+                    }
+                }
+                dayList.Add(new List<string>(semiDayList));
+            }
+
+            return dayList;
+        }
+
+        public List<List<int>> GetstartTimeToMinList()
+        {
+            List<string> getTimeList = GetTimeList();
+            List<List<string>> timeSplitList = GetTimeSplitList(getTimeList);
+            List<List<int>> timeList = new List<List<int>>();
+            List<int> semiTimeList = new List<int>();
+
+            for (int i = 0; i< timeSplitList.Count; i++)
+            {
+                semiTimeList.Clear();
+                for (int j = 0; j < timeSplitList[i].Count; j++)
+                {
+                    if (timeSplitList[i][j].Length > 1) // 시간임
+                    {
+                        List<string> getStartTimeList = timeSplitList[i][j].Split('~').ToList();
+                        DateTime StartTime = Convert.ToDateTime(getStartTimeList[0]);
+                        semiTimeList.Add(StartTime.Hour*60 + StartTime.Minute);
+                    }
+                }
+                timeList.Add(new List<int>(semiTimeList));
+            }
+
+            return timeList;
+        }
+
+        public List<List<int>> GetEntTimeToMinList()
+        {
+            List<string> getTimeList = GetTimeList();
+            List<List<string>> timeSplitList = GetTimeSplitList(getTimeList);
+            List<List<int>> timeList = new List<List<int>>();
+            List<int> semiTimeList = new List<int>();
+
+            for (int i = 0; i< timeSplitList.Count; i++)
+            {
+                semiTimeList.Clear();
+                for (int j = 0; j < timeSplitList[i].Count; j++)
+                {
+                    if (timeSplitList[i][j].Length > 1) // 시간임
+                    {
+                        List<string> getStartTimeList = timeSplitList[i][j].Split('~').ToList();
+                        DateTime EndTime = Convert.ToDateTime(getStartTimeList[1]);
+                        semiTimeList.Add(EndTime.Hour*60 + EndTime.Minute);
+                    }
+                }
+                timeList.Add(new List<int>(semiTimeList));
+            }
+
+            return timeList;
         }
     }
 }
