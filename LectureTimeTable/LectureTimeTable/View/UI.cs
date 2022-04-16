@@ -111,10 +111,13 @@ namespace LectureTimeTable.View
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
-        public void DrawTimeTableScreen()
+        public void DrawTimeTableScreen(bool isExcel = false)
         {
             Console.Clear();
-            Console.WriteLine("                                                                                                                              뒤로가기 : ESC    ");
+            if (isExcel)
+                Console.WriteLine("                                                                                                         엑셀저장 : ENTER     뒤로가기 : ESC    ");
+            else
+                Console.WriteLine("                                                                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("------------------------------------------------------------------   시간표   ------------------------------------------------------------------");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------------");
             Console.WriteLine("\t\t\t월\t\t\t화\t\t\t수\t\t\t목\t\t\t금                                                                                                        ");

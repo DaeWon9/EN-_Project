@@ -78,5 +78,13 @@ namespace LectureTimeTable
         //
         public const int MAX_GRADES = 24;
         public const int MAX_APPLYING_GRADES = 21;
+
+        public const int EXCEL_POS_X_MON = 15;
+        public const int EXCEL_POS_X_TUE = 16;
+        public const int EXCEL_POS_X_WED = 17;
+        public const int EXCEL_POS_X_THR = 18;
+        public const int EXCEL_POS_X_FRI = 19;
+        public const int EXCEL_POS_X_NOT = 15;
+
     }
 }

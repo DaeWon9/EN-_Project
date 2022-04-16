@@ -160,7 +160,7 @@ namespace LectureTimeTable.Controller
                 while (isHistoryApplyScreen) //draw 시간표 & 엑셀파일저장 기능 
                 {
                     ConsoleKeyInfo key;
-                    lectureTimeSearcher.TimeTableApplyingLecture(ui, appliedLectureTime);
+                    lectureTimeSearcher.TimeTableApplyingLecture(ui, appliedLectureTime, true);
                     Console.SetCursorPosition(0, 0);
                     Console.CursorVisible = false;
                     key = Console.ReadKey();
@@ -169,6 +169,20 @@ namespace LectureTimeTable.Controller
                     {
                         isHistoryApplyScreen = false;
                         isSelectMenuScreen = true;
+                    }
+                    if (key.Key == ConsoleKey.Enter)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("저장하시겠습니까?         취소 : ESC     저장 : ENTER");
+                        key = Console.ReadKey();
+                        if (key.Key == ConsoleKey.Enter)
+                        {
+                            lectureTimeSearcher.SaveToExcel(appliedLectureTime);
+                            Console.Clear();
+                            Console.WriteLine("저장되었습니다.");
+                            Console.Write("뒤로가기 : ESC");
+                            Console.ReadKey();
+                        }
                     }
                 }
 
