@@ -56,6 +56,19 @@ namespace LectureTimeTable.View
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
+        public void DrawSearchScreenInAttention()
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------  관심과목 강의 검색  -----------------------------");
+            Console.WriteLine("1. 개설학과전공                                                                ");
+            Console.WriteLine("2. 학수번호/분반                                                               ");
+            Console.WriteLine("3. 교과목명                                                                    ");
+            Console.WriteLine("4. 교수명                                                                      ");
+            Console.WriteLine("5. 학년                                                                        ");
+            Console.WriteLine("6. 뒤로가기                                                                    ");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+        }
+
         public void DrawSearchScreenInContents(string message)
         {
             Console.Clear();
@@ -102,7 +115,6 @@ namespace LectureTimeTable.View
         {
             Console.Clear();
             Console.WriteLine("---------------------------------   시간표   ----------------------------------");
-            Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
         public void DrawMessage(string message, bool isClear = true)
@@ -172,29 +184,29 @@ namespace LectureTimeTable.View
                     sortLength = 9;
                     break;
                 case Constant.DATA_CLASS_NUMBER:
-                    sortLength = 5; 
+                    sortLength = 5;
                     break;
                 case Constant.DATA_LECUTRE_NAME:
-                    sortLength = 33; 
+                    sortLength = 33;
                     break;
                 case Constant.DATA_DIVISION:
-                    sortLength = 13; 
+                    sortLength = 13;
                     break;
                 case Constant.DATA_GRADE:
                 case Constant.DATA_GRADES:
-                    sortLength = 6; 
+                    sortLength = 6;
                     break;
                 case Constant.DATA_TIME:
-                    sortLength = 31; 
+                    sortLength = 31;
                     break;
                 case Constant.DATA_LECTURE_ROOM:
-                    sortLength = 14; 
+                    sortLength = 14;
                     break;
                 case Constant.DATA_PROFESSOR_NAME:
-                    sortLength = 27; 
+                    sortLength = 27;
                     break;
                 case Constant.DATA_LANGUAGE:
-                    sortLength = 12; 
+                    sortLength = 12;
                     break;
                 default:
                     sortLength = 100;

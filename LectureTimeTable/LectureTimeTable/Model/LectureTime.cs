@@ -40,7 +40,7 @@ namespace LectureTimeTable.Model
                 {
                     if (lectureTimeList[row][Constant.DATA_NO].Equals(targetIndex.ToString()))
                     {
-                        Console.WriteLine("{0}번 과목이 이미 담겨있습니다.", targetIndex);
+                        Console.WriteLine("{0}번 과목은 중복과목입니다..", targetIndex);
                         return;
                     }
                 }
@@ -95,7 +95,7 @@ namespace LectureTimeTable.Model
             {
                 grades = grades + int.Parse(lectureTimeList[row][Constant.DATA_GRADES]);
             }
-            return grades;  
+            return grades;
         }
 
         public List<string> GetTimeList()
@@ -111,7 +111,7 @@ namespace LectureTimeTable.Model
         {
             List<List<string>> splitList = new List<List<string>>();
 
-            for (int row = 1; row< TimeList.Count; row++)
+            for (int row = 0; row< TimeList.Count; row++)
             {
                 splitList.Add(new List<string>(TimeList[row].Split().ToList()));
             }
