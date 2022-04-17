@@ -33,7 +33,7 @@ namespace LectureTimeTable.Controller
             bool isHistoryApplyScreen = false;
 
 
-            while (isEntireLoop)
+            while (isEntireLoop) // 모듈화
             {
                 while (isLoginScreen)
                 {

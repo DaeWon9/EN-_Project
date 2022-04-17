@@ -171,7 +171,7 @@ namespace LectureTimeTable.View
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------------");
         }
 
-        public void DrawMessage(string message, bool isClear = true)
+        public void DrawMessage(string message, bool isClear = true) // is else 줄이기
         {
             if (isClear)
             {

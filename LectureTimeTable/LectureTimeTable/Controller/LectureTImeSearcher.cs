@@ -196,7 +196,7 @@ namespace LectureTimeTable.Controller
             //Linq 구문 이용해서 리스트에서 중복인 값 조회
             for (int i = 1; i < matchingIndex.Count; i++)
             {
-                var result = resultAttentionIndex.Where(x => matchingIndex[i].Any(y => y == x)).ToList();
+                List<int> result = resultAttentionIndex.Where(x => matchingIndex[i].Any(y => y == x)).ToList();
                 resultAttentionIndex = result;
             }
 
@@ -231,26 +231,6 @@ namespace LectureTimeTable.Controller
                 }
             }
             return semiMactchingIndex;
-        }
-
-        public void SearchAttentionLectureTest(User user, UI ui, List<List<string>> fullLectureTimeData, LectureTime lectureTimeBasket)
-        {
-            Console.Clear();
-            List<int> searchedLectureTimeIndex = GetSearchedLectureTimeIndex(user, ui, fullLectureTimeData);
-            ui.DrawAttentionLecture(fullLectureTimeData, searchedLectureTimeIndex);
-            while (true)
-            {
-                //Console.Clear();
-                Console.Write("등록가능 학점 : {0}\t담은 학점 : {1}\t\t담을과목 NO : ", Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), lectureTimeBasket.GetGrades());
-                inputNoNumber = int.Parse(user.GetInputData()); //1~184만 입력가능하게 예외처리 해야함
-                lectureTimeBasket.AddList(fullLectureTimeData, inputNoNumber, searchedLectureTimeIndex, Constant.MAX_GRADES - lectureTimeBasket.GetGrades(), "★ 관심과목을 담았습니다. ★");
-                Console.Write("뒤로가기 : ESC | 계속담기 : ENTER");
-                key = Console.ReadKey();
-                if (key.Key == ConsoleKey.Escape)
-                {
-                    break;
-                }
-            }
         }
 
         public void HistoryAttentrionLecture(UI ui, LectureTime lectureTimeBasket, bool isShowGrades = true)
@@ -786,7 +766,7 @@ namespace LectureTimeTable.Controller
 
         public void RemoveApplyingLecture(User user, UI ui, LectureTime appliedLectureTime)
         {
-            while (true)
+            while (true) //
             {
                 Console.Clear();
                 ui.DrawLectureTime(appliedLectureTime.lectureTimeList);
