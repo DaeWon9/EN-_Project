@@ -10,11 +10,11 @@ using LectureTimeTable.Model;
 
 namespace LectureTimeTable
 {
-    class MainProgram
+    class LectureTimeMain
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(190, 30);
+            Console.SetWindowSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT);
 
             LectureTimeTableProgram lectureTimeTableProgram = new LectureTimeTableProgram();
             lectureTimeTableProgram.Start();

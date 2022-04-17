@@ -65,7 +65,10 @@ namespace LectureTimeTable.Model
             {
                 if (int.Parse(lectureData[targetIndex][Constant.DATA_GRADES]) > possibleGrades) // 학점 초과
                 {
+                    Console.SetCursorPosition(Constant.EXCEPTION_CURSOR_POS_X, Console.CursorTop);
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("학점이 초과되어 불가능합니다.");
+                    Console.ForegroundColor = ConsoleColor.White;
                     return;
                 }
 
@@ -73,7 +76,10 @@ namespace LectureTimeTable.Model
                 {
                     if (lectureTimeList[row][Constant.DATA_LECTURE_NAME].Equals(lectureData[targetIndex][Constant.DATA_LECTURE_NAME]))
                     {
+                        Console.SetCursorPosition(Constant.EXCEPTION_CURSOR_POS_X, Console.CursorTop);
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("{0}번 과목은 중복과목입니다.", targetIndex);
+                        Console.ForegroundColor = ConsoleColor.White;
                         return;
                     }
                 }
@@ -86,7 +92,10 @@ namespace LectureTimeTable.Model
                         {
                             if (startTimeToMinList[i][j] < targetEndTime[j] && targetStartTime[j] < endTimeToMinList[i][j]) // 시간이 겹치는거.!
                             {
+                                Console.SetCursorPosition(Constant.EXCEPTION_CURSOR_POS_X, Console.CursorTop);
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("{0}번 과목은 시간이 겹칩니다.", targetIndex);
+                                Console.ForegroundColor = ConsoleColor.White;
                                 return;
                             }
                         }
@@ -101,11 +110,19 @@ namespace LectureTimeTable.Model
                 lectureTimeList.Add(new List<string>(subList));
 
                 if (targetIndex != 0)
+                {
+                    Console.SetCursorPosition(Constant.EXCEPTION_CURSOR_POS_X, Console.CursorTop);
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("{0}", successMessage);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(Constant.EXCEPTION_CURSOR_POS_X, Console.CursorTop);
                 Console.WriteLine("{0}번 과목은 조회되지 않은 과목입니다.", targetIndex);
+                Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
         }
@@ -113,11 +130,13 @@ namespace LectureTimeTable.Model
         public void RemoveList(int targetIndex, string successMessage)
         {
             int removeListIndex = GetTargetIndex(targetIndex);
-            //Console.WriteLine("{0}번 인덱스의 과목을 지웁니다", removeListIndex);
             if (removeListIndex != Constant.ERROR_NUMBER)
             {
                 lectureTimeList.RemoveAt(removeListIndex);
+                Console.SetCursorPosition(Constant.EXCEPTION_CURSOR_POS_X, Console.CursorTop);
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("{0}", successMessage);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -131,7 +150,10 @@ namespace LectureTimeTable.Model
                     return row;
                 }
             }
-            Console.WriteLine("{0}번 과목이 존재하지 않습니다.", targetIndex);
+            Console.SetCursorPosition(Constant.EXCEPTION_CURSOR_POS_X, Console.CursorTop - 1);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("{0}번 과목이 존재하지 않습니다.                 ", targetIndex);
+            Console.ForegroundColor = ConsoleColor.White;
             return Constant.ERROR_NUMBER;
 
         }

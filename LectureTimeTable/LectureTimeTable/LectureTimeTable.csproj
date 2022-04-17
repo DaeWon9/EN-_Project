@@ -68,7 +68,7 @@
     <Compile Include="Controller\User.cs" />
     <Compile Include="Model\LectureTime.cs" />
     <Compile Include="Model\LectureTimeData.cs" />
-    <Compile Include="MainProgram.cs" />
+    <Compile Include="LectureTimeMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\UI.cs" />
   </ItemGroup>

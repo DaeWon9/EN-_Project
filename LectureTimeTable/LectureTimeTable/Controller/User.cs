@@ -18,7 +18,7 @@ namespace LectureTimeTable.Controller
             this.password = password;
         }
 
-        public bool IsExceptionCheck(string stringValue, int exceptionType = Constant.EXCEPTION_TYPE_ANY)
+        public bool IsExceptionCheck(string stringValue, int exceptionType = Constant.EXCEPTION_TYPE_ANY) //문자열처리는 Utility쪽으로 빼보기
         {
             Regex regex = new Regex(@"^[a-zA-Z0-9가-힣]*$", RegexOptions.None);
             if (stringValue == null || stringValue.Length < 1)
@@ -44,17 +44,26 @@ namespace LectureTimeTable.Controller
 
             return regex.IsMatch(stringValue);
         }
-
+        public string GetInputData() // 예외처리 필요
+        {
+            string userInput;
+            userInput = Console.ReadLine();
+            return userInput;
+        }
         public string GetInputValues(UI ui, int posX, int posY, bool isPassword = false,  int exceptionType = Constant.EXCEPTION_TYPE_ANY, string message = "올바른 형식의 값을 입력하세요")
         {
             string input = "";
             bool isInputEnter = false;
-            if(posX == -1)
+
+            if (posX == -1)
                 posX = Console.CursorLeft;
             if (posY == -1)
                 posY = Console.CursorTop;
+
             while (!isInputEnter)
             {
+                
+                ui.ClearCurrentLine(posX, input.Length);
                 Console.SetCursorPosition(posX, posY);
                 if (isPassword)
                 {
@@ -62,11 +71,8 @@ namespace LectureTimeTable.Controller
                         Console.Write("*");
                 }
                 else
-                    Console.Write(input); //입력한값 출력이 필요할듯?
+                    Console.Write(input); 
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
-
-                if (key.Key != ConsoleKey.Backspace)
-                    Console.Write("\b \b"); // 지우고 
 
 
                 if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace) && (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입력받은 키가 예외처리에 통과하는지
@@ -95,18 +101,20 @@ namespace LectureTimeTable.Controller
                 }
                 else
                 {
+                    ui.ClearCurrentLine(posX, input.Length);
+                    Console.SetCursorPosition(posX, posY);
+                    if (isPassword)
+                    {
+                        for (int i = 0; i < input.Length; i++)
+                            Console.Write("*");
+                    }
+                    else
+                        Console.Write(input);
                     isInputEnter = true;
                 }
 
             }
             return input;
-        }
-
-        public string GetInputData() // 예외처리 필요
-        {
-            string userInput;
-            userInput = Console.ReadLine();
-            return userInput;
         }
 
         public bool LoginCheck(User userData, string id, string password)

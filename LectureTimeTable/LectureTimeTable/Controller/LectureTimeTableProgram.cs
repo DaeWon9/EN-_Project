@@ -81,6 +81,7 @@ namespace LectureTimeTable.Controller
                 while (isSearchLectureTimeScreen)
                 {
                     List<int> searchedLectureTimeIndex = lectureTimeSearcher.GetSearchedLectureTimeIndex(user, ui, fullLectureTimeDataList);
+                    Console.Clear();
                     ui.DrawAttentionLecture(fullLectureTimeDataList, searchedLectureTimeIndex);
                     Console.Write("뒤로가기 : ESC | 다시조회 : ENTER");
                     ConsoleKeyInfo key = Console.ReadKey();
@@ -112,7 +113,7 @@ namespace LectureTimeTable.Controller
                             {
                                 ConsoleKeyInfo key = Console.ReadKey();
                                 if (key.Key == ConsoleKey.Escape)
-                                    break;
+                                    isEscape = false;
                             }
                             break;
                         case Constant.MENU_NUMBER_TIME_TABLE:
@@ -123,7 +124,7 @@ namespace LectureTimeTable.Controller
                             {
                                 ConsoleKeyInfo key = Console.ReadKey();
                                 if (key.Key == ConsoleKey.Escape)
-                                    break;
+                                    isEscape = false;
                             }
                             Console.CursorVisible = true;
                             break;
@@ -155,22 +156,23 @@ namespace LectureTimeTable.Controller
                             break;
                         case Constant.MENU_NUMBER_HISTORY:
                             lectureTimeSearcher.HistoryApplyingLecture(ui, appliedLectureTime);
-                            while (isEscape)
+                            Console.Write("뒤로가기 : ESC");
+                            while (!isEscape)
                             {
                                 ConsoleKeyInfo key = Console.ReadKey();
                                 if (key.Key == ConsoleKey.Escape)
-                                    break;
+                                    isEscape = true;
                             }
                             break;
                         case Constant.MENU_NUMBER_TIME_TABLE:
                             lectureTimeSearcher.TimeTableApplyingLecture(ui, appliedLectureTime);
                             Console.SetCursorPosition(0, 0);
                             Console.CursorVisible = false;
-                            while (isEscape)
+                            while (!isEscape)
                             {
                                 ConsoleKeyInfo key = Console.ReadKey();
                                 if (key.Key == ConsoleKey.Escape)
-                                    break;
+                                    isEscape = true;
                             }
                             Console.CursorVisible = true;
                             break;

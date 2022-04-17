@@ -7,6 +7,23 @@ namespace LectureTimeTable.View
 {
     class UI
     {
+        public void ClearCurrentLine(int startPosX = 0, int lastPosX = -1)
+        {
+            string str = "";
+            if (startPosX == 0)
+                str = "\r";
+            if (lastPosX == -1)
+                str += new string(' ', Console.CursorLeft);
+            else
+                str += new string(' ', lastPosX);
+            if (startPosX == 0)
+                str += "\r";
+            Console.SetCursorPosition(startPosX + 1, Console.CursorTop);
+            Console.Write(str);
+            if (startPosX != 0)
+                Console.SetCursorPosition(startPosX, Console.CursorTop);
+        }
+
         public void DrawLoginScreen()
         {
             Console.Clear();
@@ -33,12 +50,12 @@ namespace LectureTimeTable.View
         public void DrawSearchScreen()
         {
             Console.Clear();
-            Console.WriteLine("-----------------------------  강의시간표 조회   ------------------------------");
-            Console.WriteLine("개설학과전공 :                                                                 ");
-            Console.WriteLine("이수구분     :                                                                 ");
-            Console.WriteLine("교과목명     :                                                                 ");
-            Console.WriteLine("교수명       :                                                                 ");
-            Console.WriteLine("학년         :                                                                 ");
+            Console.WriteLine("-----------------------------  강의시간표 조회   ------------------------------             * 원하는 옵션만 입력하세요");
+            Console.WriteLine(" 개설학과전공 :                                                                             * 컴퓨터공학과 소프트웨어학과 지능기전공학부 기계항공우주학부");
+            Console.WriteLine(" 이수구분     :                                                                             * >전체< 입력시 모든항목 조회가 가능합니다.");
+            Console.WriteLine(" 교과목명     :                                                                ");
+            Console.WriteLine(" 교수명       :                                                                ");
+            Console.WriteLine(" 학년         :                                                                ");
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
@@ -72,7 +89,10 @@ namespace LectureTimeTable.View
         public void DrawSearchScreenInContents(string message)
         {
             Console.Clear();
-            Console.WriteLine("----------------------------  수강신청 강의 검색  -----------------------------");
+            if (message == "개설학과전공") 
+                Console.WriteLine("----------------------------  수강신청 강의 검색  -----------------------------             * 컴퓨터공학과 소프트웨어학과 지능기전공학부 기계항공우주학부");
+            else
+                Console.WriteLine("----------------------------  수강신청 강의 검색  -----------------------------");
             Console.WriteLine("{0} :", message + "".PadRight(GetPadLength(12, message)));
             Console.WriteLine("-------------------------------------------------------------------------------");
         }

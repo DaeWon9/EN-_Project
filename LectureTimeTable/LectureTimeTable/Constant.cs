@@ -18,7 +18,9 @@ namespace LectureTimeTable
         public const int EXCEPTION_TYPE_KOREA = 3;
         public const int EXCEPTION_TYPE_ENGLISH = 4;
 
-
+        //
+        public const int WINDOW_WIDTH = 190;
+        public const int WINDOW_HEIGHT = 30;
 
 
         public const int EXCEPTION_CURSOR_POS_X = 80;
