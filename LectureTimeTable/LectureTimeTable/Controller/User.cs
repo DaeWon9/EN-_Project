@@ -65,11 +65,9 @@ namespace LectureTimeTable.Controller
                     Console.Write(input); //입력한값 출력이 필요할듯?
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
 
-                for (int i = 0; i < Encoding.Default.GetBytes(key.KeyChar.ToString()).Length; i++)
-                {
-                    if (key.Key != ConsoleKey.Backspace)
-                        Console.Write("\b \b"); // 지우고 
-                }
+                if (key.Key != ConsoleKey.Backspace)
+                    Console.Write("\b \b"); // 지우고 
+
 
                 if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace) && (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입력받은 키가 예외처리에 통과하는지
                 {
