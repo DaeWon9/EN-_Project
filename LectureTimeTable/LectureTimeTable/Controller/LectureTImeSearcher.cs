@@ -886,12 +886,12 @@ namespace LectureTimeTable.Controller
             SetColumnSize(ModRange, worksheet, 11, 30);
             SetColumnSize(ModRange, worksheet, 12, 10);
             SetColumnSize(ModRange, worksheet, 13, 6);
-            SetColumnSize(ModRange, worksheet, 14, 15);
-            SetColumnSize(ModRange, worksheet, 15, 15);
-            SetColumnSize(ModRange, worksheet, 16, 15);
-            SetColumnSize(ModRange, worksheet, 17, 15);
-            SetColumnSize(ModRange, worksheet, 18, 15);
-            SetColumnSize(ModRange, worksheet, 19, 15);
+            SetColumnSize(ModRange, worksheet, 14, 20);
+            SetColumnSize(ModRange, worksheet, 15, 20);
+            SetColumnSize(ModRange, worksheet, 16, 20);
+            SetColumnSize(ModRange, worksheet, 17, 20);
+            SetColumnSize(ModRange, worksheet, 18, 20);
+            SetColumnSize(ModRange, worksheet, 19, 20);
 
 
             ModRange = (Range)worksheet.get_Range("A1", "L1");
@@ -927,11 +927,11 @@ namespace LectureTimeTable.Controller
                 }
             }
             ////////////////////////시간표
-            InputExcelData(ModRange, worksheet, "월", 2, 15, 13, true);
-            InputExcelData(ModRange, worksheet, "화", 2, 16, 13, true);
-            InputExcelData(ModRange, worksheet, "수", 2, 17, 13, true);
-            InputExcelData(ModRange, worksheet, "목", 2, 18, 13, true);
-            InputExcelData(ModRange, worksheet, "금", 2, 19, 13, true);
+            InputExcelData(ModRange, worksheet, "월", 2, 15, 13, true, true);
+            InputExcelData(ModRange, worksheet, "화", 2, 16, 13, true, true);
+            InputExcelData(ModRange, worksheet, "수", 2, 17, 13, true, true);
+            InputExcelData(ModRange, worksheet, "목", 2, 18, 13, true, true);
+            InputExcelData(ModRange, worksheet, "금", 2, 19, 13, true, true);
 
             InputExcelData(ModRange, worksheet, "09:00~09:30", 3, 14, 13, true, true);
             InputExcelData(ModRange, worksheet, "09:30~10:00", 3 + (2 * 1), 14, 13, true, true);
