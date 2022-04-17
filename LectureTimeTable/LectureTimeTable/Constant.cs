@@ -19,6 +19,9 @@ namespace LectureTimeTable
         public const int EXCEPTION_TYPE_ENGLISH = 4;
 
 
+
+
+        public const int EXCEPTION_CURSOR_POS_X = 80;
         //timetable cursor pos
         public const int CURSOR_X_POS_TIME_TABLE_MON = 16;
         public const int CURSOR_X_POS_TIME_TABLE_TUE = 40;
@@ -27,9 +30,9 @@ namespace LectureTimeTable
         public const int CURSOR_X_POS_TIME_TABLE_FRI = 112;
         public const int CURSOR_Y_POS_TIME_TABLE = 5;
         // cursor pos
-        public const int CURSOR_X_POS_ID = 56;
+        public const int CURSOR_X_POS_ID = 57;
         public const int CURSOR_Y_POS_ID = 3;
-        public const int CURSOR_X_POS_PW = 56;
+        public const int CURSOR_X_POS_PW = 57;
         public const int CURSOR_Y_POS_PW = 4;
 
         public const int CURSOR_X_POS_SEARCH = 15;

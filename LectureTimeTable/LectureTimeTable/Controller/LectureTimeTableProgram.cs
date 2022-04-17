@@ -44,11 +44,14 @@ namespace LectureTimeTable.Controller
 
                 while (isSelectMenuScreen)
                 {
-                    int selectMenu;
+                    string selectMenu;
                     ui.DrawMenuScreen();
                     Console.Write("메뉴를 골라주세요 : ");
-                    selectMenu = int.Parse(user.GetInputData()); // 한글입력시 예외처리 해야함
-                    switch (selectMenu)
+                    selectMenu = user.GetInputValues(ui, -1, -1, false, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요");
+                    if (selectMenu.Length < 1)
+                        continue;
+
+                    switch (int.Parse(selectMenu))
                     {
                         case Constant.MENU_NUMBER_SEARCH_LECTURE_TIME:
                             isSelectMenuScreen=false;
@@ -90,10 +93,14 @@ namespace LectureTimeTable.Controller
 
                 while (isBasketScreen) //관심과목 담기
                 {
+                    bool isEscape = true;
+                    string selectMenu;
                     ui.DrawBasketScreen();
-                    Console.Write("메뉴를 선택하세요 : ");
-                    int inputNumber = int.Parse(user.GetInputData());
-                    switch (inputNumber)
+                    Console.Write("메뉴를 골라주세요 : ");
+                    selectMenu = user.GetInputValues(ui, -1, -1, false, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요");
+                    if (selectMenu.Length < 1)
+                        continue;
+                    switch (int.Parse(selectMenu))
                     {
                         case Constant.MENU_NUMBER_SEARCH:
                             lectureTimeSearcher.SearchAttentionLecture(user, ui, fullLectureTimeDataList, lectureTimeBasket);
@@ -101,13 +108,23 @@ namespace LectureTimeTable.Controller
                         case Constant.MENU_NUMBER_HISTORY:
                             lectureTimeSearcher.HistoryAttentrionLecture(ui, lectureTimeBasket);
                             Console.Write("뒤로가기 : ESC");
-                            Console.ReadKey();
+                            while (isEscape)
+                            {
+                                ConsoleKeyInfo key = Console.ReadKey();
+                                if (key.Key == ConsoleKey.Escape)
+                                    break;
+                            }
                             break;
                         case Constant.MENU_NUMBER_TIME_TABLE:
                             lectureTimeSearcher.TimeTableAttentionLecture(ui, lectureTimeBasket);
                             Console.SetCursorPosition(0, 0);
                             Console.CursorVisible = false;
-                            Console.ReadKey();
+                            while (isEscape)
+                            {
+                                ConsoleKeyInfo key = Console.ReadKey();
+                                if (key.Key == ConsoleKey.Escape)
+                                    break;
+                            }
                             Console.CursorVisible = true;
                             break;
                         case Constant.MENU_NUMBER_REMOVE:
@@ -124,24 +141,37 @@ namespace LectureTimeTable.Controller
 
                 while (isApplyScreen)
                 {
+                    bool isEscape=false;
+                    string selectMenu;
                     ui.DrawApplyingScreen();
                     Console.Write("메뉴를 선택하세요 : ");
-                    int inputNumber = int.Parse(user.GetInputData());
-                    switch (inputNumber)
+                    selectMenu = user.GetInputValues(ui, -1, -1, false, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요");
+                    if (selectMenu.Length < 1)
+                        continue;
+                    switch (int.Parse(selectMenu))
                     {
                         case Constant.MENU_NUMBER_SEARCH: // 수강신청과목 분야별 검색
                             lectureTimeSearcher.SearchApplyingLecture(user, ui, fullLectureTimeDataList, appliedLectureTime, lectureTimeBasket);
                             break;
                         case Constant.MENU_NUMBER_HISTORY:
                             lectureTimeSearcher.HistoryApplyingLecture(ui, appliedLectureTime);
-                            Console.Write("뒤로가기 : ESC");
-                            Console.ReadKey();
+                            while (isEscape)
+                            {
+                                ConsoleKeyInfo key = Console.ReadKey();
+                                if (key.Key == ConsoleKey.Escape)
+                                    break;
+                            }
                             break;
                         case Constant.MENU_NUMBER_TIME_TABLE:
                             lectureTimeSearcher.TimeTableApplyingLecture(ui, appliedLectureTime);
                             Console.SetCursorPosition(0, 0);
                             Console.CursorVisible = false;
-                            Console.ReadKey();
+                            while (isEscape)
+                            {
+                                ConsoleKeyInfo key = Console.ReadKey();
+                                if (key.Key == ConsoleKey.Escape)
+                                    break;
+                            }
                             Console.CursorVisible = true;
                             break;
                         case Constant.MENU_NUMBER_REMOVE: // 삭제 

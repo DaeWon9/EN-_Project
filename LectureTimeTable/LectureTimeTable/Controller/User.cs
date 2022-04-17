@@ -45,30 +45,43 @@ namespace LectureTimeTable.Controller
             return regex.IsMatch(stringValue);
         }
 
-        public string GetTest(UI ui, bool isPassword = false,  int exceptionType = Constant.EXCEPTION_TYPE_ANY, string message = "올바른 형식의 값을 입력하세요")
+        public string GetInputValues(UI ui, int posX, int posY, bool isPassword = false,  int exceptionType = Constant.EXCEPTION_TYPE_ANY, string message = "올바른 형식의 값을 입력하세요")
         {
             string input = "";
             bool isInputEnter = false;
+            if(posX == -1)
+                posX = Console.CursorLeft;
+            if (posY == -1)
+                posY = Console.CursorTop;
             while (!isInputEnter)
             {
-                ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
-                Console.Write("\b"); // 입력받은건 안보이게 지우고
-                if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Escape&& key.Key != ConsoleKey.Backspace) &&  (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입려받은 키가 예외처리에 통과하는지
+                Console.SetCursorPosition(posX, posY);
+                if (isPassword)
                 {
-                    ui.DrawMessage(message, -1, -1, false,  true);
-
-                    continue;
+                    for (int i = 0; i < input.Length; i++)
+                        Console.Write("*");
                 }
+                else
+                    Console.Write(input); //입력한값 출력이 필요할듯?
+                ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
+
+                for (int i = 0; i < Encoding.Default.GetBytes(key.KeyChar.ToString()).Length; i++)
+                {
+                    if (key.Key != ConsoleKey.Backspace)
+                        Console.Write("\b \b"); // 지우고 
+                }
+
+                if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace) && (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입력받은 키가 예외처리에 통과하는지
+                {
+                    ui.DrawMessage(message, Constant.EXCEPTION_CURSOR_POS_X, -1, false,  true);
+                    continue;
+                } 
 
                 if (key.Key != ConsoleKey.Enter)
                 {
                     if (key.Key != ConsoleKey.Backspace)
                     {
-                        input += key.KeyChar.ToString(); // 예외처리는 되는데 예외처리할때 누적된 입력값이 아닌 하나하나를 체크한 후에 인풋값에 플러스 해줘야함
-                        if (isPassword)
-                            Console.Write("*");
-                        else
-                            Console.Write(key.KeyChar.ToString());
+                        input += key.KeyChar.ToString();
                     }
                     else
                     {
@@ -76,12 +89,14 @@ namespace LectureTimeTable.Controller
                         {
                             input = input.Substring(0, input.Length-1);
                         }
-                        Console.Write("\b\b \b\b");
+
+                        Console.Write("\b \b"); // 지우고 
+                        Console.Write("  ");
+
                     }
                 }
                 else
                 {
-                    //Console.WriteLine();
                     isInputEnter = true;
                 }
 
@@ -110,10 +125,8 @@ namespace LectureTimeTable.Controller
             while (!isLogin)
             {
                 ui.DrawLoginScreen();
-                Console.SetCursorPosition(Constant.CURSOR_X_POS_ID, Constant.CURSOR_Y_POS_ID);
-                id = user.GetTest(ui,false,Constant.EXCEPTION_TYPE_NUMBER);
-                Console.SetCursorPosition(Constant.CURSOR_X_POS_PW, Constant.CURSOR_Y_POS_PW);
-                password = user.GetTest(ui,true, Constant.EXCEPTION_TYPE_NUMBER);
+                id = user.GetInputValues(ui, Constant.CURSOR_X_POS_ID, Constant.CURSOR_Y_POS_ID, false, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요");
+                password = user.GetInputValues(ui, Constant.CURSOR_X_POS_PW, Constant.CURSOR_Y_POS_PW, true, Constant.EXCEPTION_TYPE_ANY, "영어 & 숫자만 입력하세요");
 
                 isLogin = user.LoginCheck(user, id, password);
             }
