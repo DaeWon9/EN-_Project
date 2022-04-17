@@ -64,6 +64,7 @@ namespace LectureTimeTable.Controller
             {
                 Console.SetCursorPosition(Constant.CURSOR_X_POS_SEARCH, Constant.CURSOR_Y_POS_SEARCH + repeat);
                 userInputOptionList.Add(user.GetInputData());
+                // esc누르면 뒤로가는 기능 추가해야함
             }
 
             for (int index = 0; index < userInputOptionList.Count; index++)
@@ -160,8 +161,6 @@ namespace LectureTimeTable.Controller
                 List<int> result = resultAttentionIndex.Where(x => matchingIndex[i].Any(y => y == x)).ToList();
                  resultAttentionIndex = result;
             }
-
-
             return resultAttentionIndex;
         }
 
@@ -807,9 +806,6 @@ namespace LectureTimeTable.Controller
 
             // 워크시트 선택
             Worksheet worksheet = workbook.Worksheets.Item["Sheet1"];
-            //여러 시트를 하려면 인덱스를 추가해서 받아서 사용 (2번째 부터는)
-            //workbook.Worksheets.Add(After: workbook.Worksheets[index - 1]);
-            //Worksheet worksheet = workbook.Worksheets.Item[index];
 
             //시트 이름 변경
             worksheet.Name = "시간표";

@@ -13,8 +13,8 @@ namespace LectureTimeTable.View
             Console.WriteLine("-----------------------------  Sejong University ------------------------------");
             Console.WriteLine("세종대학교                                                                     ");
             Console.WriteLine("학사정보시스템                                                                 ");
-            Console.WriteLine("                                                   ID :                        ");
-            Console.WriteLine("                                                   PW :                        ");
+            Console.WriteLine("                                                 학번 :                        ");
+            Console.WriteLine("                                             비밀번호 :                        ");
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
@@ -171,15 +171,16 @@ namespace LectureTimeTable.View
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------------");
         }
 
-        public void DrawMessage(string message, bool isClear = true) // is else 줄이기
+        public void DrawMessage(string message, int posX = -1, int posY = -1, bool isClear = true, bool colorChangeRed = false)
         {
+            if (posX != -1 && posY != -1)
+                Console.SetCursorPosition(posX, posX);
+            if (colorChangeRed)
+                Console.ForegroundColor = ConsoleColor.Red;
             if (isClear)
-            {
                 Console.Clear();
-                Console.WriteLine(message);
-            }
-            else
-                Console.WriteLine(message);
+            Console.Write(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void DrawLectureTime(List<List<string>> lectureList)

@@ -38,7 +38,6 @@ namespace LectureTimeTable.Controller
                 while (isLoginScreen)
                 {
                     user.Login(user, ui);
-                    Thread.Sleep(500);
                     isLoginScreen = false;
                     isSelectMenuScreen = true;
                 }

@@ -12,6 +12,13 @@ namespace LectureTimeTable
         public const string USER_ID = "20003321";
         public const string USER_PASSWORD = "11111111";
 
+        //exception type
+        public const int EXCEPTION_TYPE_ANY = 1;
+        public const int EXCEPTION_TYPE_NUMBER = 2;
+        public const int EXCEPTION_TYPE_KOREA = 3;
+        public const int EXCEPTION_TYPE_ENGLISH = 4;
+
+
         //timetable cursor pos
         public const int CURSOR_X_POS_TIME_TABLE_MON = 16;
         public const int CURSOR_X_POS_TIME_TABLE_TUE = 40;
