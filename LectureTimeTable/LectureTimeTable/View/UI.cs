@@ -201,7 +201,7 @@ namespace LectureTimeTable.View
         public void DrawAttentionLecture(List<List<string>> lectureList, List<int> matchingIndex)
         {
             Console.WriteLine("======================================================================================================================================================================================");
-            foreach (var row in matchingIndex)
+            foreach (int row in matchingIndex)
             {
                 for (int column = 0; column < lectureList[row].Count; column++)
                 {

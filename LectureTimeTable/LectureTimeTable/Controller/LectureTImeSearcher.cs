@@ -151,14 +151,14 @@ namespace LectureTimeTable.Controller
                         break;
                 }
             }
-
+            
             // 중복체크
             List<int> resultAttentionIndex = matchingIndex[0]; //초기
             //Linq 구문 이용해서 리스트에서 중복인 값 조회
             for (int i = 1; i < matchingIndex.Count; i++)
             {
-                var result = resultAttentionIndex.Where(x => matchingIndex[i].Any(y => y == x)).ToList();
-                resultAttentionIndex = result;
+                List<int> result = resultAttentionIndex.Where(x => matchingIndex[i].Any(y => y == x)).ToList();
+                 resultAttentionIndex = result;
             }
 
 
@@ -415,7 +415,8 @@ namespace LectureTimeTable.Controller
 
         public void RemoveAttentionLecture(User user, UI ui, LectureTime lectureTimeBasket)
         {
-            while (true)
+            bool isNotEscape = true;
+            while (isNotEscape)
             {
                 Console.Clear();
                 ui.DrawLectureTime(lectureTimeBasket.lectureTimeList);
@@ -428,7 +429,7 @@ namespace LectureTimeTable.Controller
                     key = Console.ReadKey();
                     if (key.Key == ConsoleKey.Escape)
                     {
-                        break;
+                        isNotEscape = false;
                     }
                 }
                 else
@@ -438,7 +439,7 @@ namespace LectureTimeTable.Controller
                     key = Console.ReadKey();
                     if (key.Key == ConsoleKey.Escape)
                     {
-                        break;
+                        isNotEscape = false;
                     }
                 }
             }
@@ -766,7 +767,8 @@ namespace LectureTimeTable.Controller
 
         public void RemoveApplyingLecture(User user, UI ui, LectureTime appliedLectureTime)
         {
-            while (true) //
+            bool isNotEscape = true;
+            while (isNotEscape) //
             {
                 Console.Clear();
                 ui.DrawLectureTime(appliedLectureTime.lectureTimeList);
@@ -785,7 +787,7 @@ namespace LectureTimeTable.Controller
                 key = Console.ReadKey();
                 if (key.Key == ConsoleKey.Escape)
                 {
-                    break;
+                    isNotEscape = false;
                 }
             }
         }
