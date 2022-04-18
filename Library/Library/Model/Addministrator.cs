@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Controller
+namespace Library.Model
 {
-    class Login
+    internal class Addministrator
     {
-
     }
 }

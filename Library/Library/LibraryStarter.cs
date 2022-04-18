@@ -11,6 +11,8 @@ namespace Library
     {
         static void Main(string[] args)
         {
+            Console.SetWindowSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT);
+
             LibraryController libraryController = new LibraryController();
             libraryController.Start(); 
         }

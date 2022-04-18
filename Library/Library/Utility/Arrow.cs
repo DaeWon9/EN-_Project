@@ -8,53 +8,42 @@ namespace Library.Utility
 {
     class Arrow
     {
-        public bool cursur()
+        private bool isInputEnter = false;
+        private bool isInputEscape = false;
+        public int CursorMove(int posX, int posY)
         {
-            int Y = Constants.FIRSTY;
-            int JoinY = Constants.USER_Y;
-            int LoginY = Constants.ADMIN_Y;
-
-            while (Constants.ENTRANCE) // 참이면
+            int cursorPosX = posX;
+            int cursorPosY = posY;
+            isInputEnter = false;
+            isInputEscape = false;
+            while (!isInputEnter && !isInputEscape)
             {
-                Console.SetCursorPosition(Constants.FIRSTX, Y);
-                Constants.cursur = Console.ReadKey(true);
-
-                switch (Constants.cursur.Key)
+                Console.SetCursorPosition(cursorPosX, cursorPosY);
+                ConsoleKeyInfo key = Console.ReadKey();
+                switch (key.Key)
                 {
-                    // 상
                     case ConsoleKey.UpArrow:
-                        {
-                            Y--;
-                            if (Y < Constants.START_UP_Y) Y++; // 선택 외의 화면으로 커서 못나감
-                            break;
-                        }
-                    // 하
+                        cursorPosY--;
+                        if (cursorPosY < Constant.FIRST_MENU_CURSOR_MIN_POS_Y)
+                            cursorPosY++;
+                        break;
                     case ConsoleKey.DownArrow:
-                        {
-                            Y++;
-                            if (Y > Constants.START_DOWN_Y) Y--; // 선택 외의 화면으로 커서 못나감
-                            break;
-                        }
+                        cursorPosY++;
+                        if (cursorPosY > Constant.FIRST_MENU_CURSOR_MAX_POS_Y)
+                            cursorPosY--;
+                        break;
                     case ConsoleKey.Enter:
-                        {
-                            if (Y == JoinY) { Console.Clear(); JoinMember(); } // 회원가입
-                            if (Y == LoginY) { Console.Clear(); UserLogin(); } // 로그인
-                            break;
-                        }
-                    case ConsoleKey.F5:
-                        {
-                            return Constants.BACK_MENU;
-                        }
-
-                    case ConsoleKey.Escape: // 종료
-                        {
-                            break;
-                        }
-
-                    default: break;
-
+                        isInputEnter = true;
+                        break;
+                    case ConsoleKey.Escape:
+                        cursorPosY = Constant.INPUT_ESCAPE_IN_ARROW_KEY;
+                        isInputEscape = true;
+                        break;
+                    default:
+                        break;
                 }
             }
+            return cursorPosY; // -1 반환되면 esc / 다른값 -> enter
         }
     }
 }
