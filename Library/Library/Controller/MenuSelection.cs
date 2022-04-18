@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library
+namespace Library.Controller
 {
-    internal class Program
+    internal class MenuSelection
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }

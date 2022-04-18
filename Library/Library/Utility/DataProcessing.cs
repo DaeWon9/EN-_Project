@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Model
+namespace Library.Utility
 {
-    class BookData
+    internal class DataProcessing
     {
     }
 }

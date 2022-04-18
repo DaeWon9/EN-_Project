@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Model
+namespace Library
 {
-    class BookData
+    internal class Constant
     {
+        public const int FIRST_MENU_CURSOR_POS_Y = 
     }
 }

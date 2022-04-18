@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Model
+namespace Library.Controller
 {
-    class BookData
+    internal class Login
     {
     }
 }

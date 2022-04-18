@@ -86,12 +86,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Constant.cs" />
+    <Compile Include="Controller\LibraryController.cs" />
+    <Compile Include="Controller\TableFuntions.cs" />
+    <Compile Include="Model\BookData.cs" />
+    <Compile Include="LibraryStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Arrow.cs" />
+    <Compile Include="Utility\DataProcessing.cs" />
+    <Compile Include="View\Drawing.cs" />
+    <Compile Include="View\Message.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
