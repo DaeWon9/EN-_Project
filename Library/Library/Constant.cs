@@ -44,8 +44,12 @@ namespace Library
         public const int LOGIN_ID_POS_Y = 12;
         public const int LOGIN_PASSWORD_POS_Y = 13;
 
-
-
-
+        // administrator menu value
+        public const int MENU_BOOK_SEARCH = 12;
+        public const int MENU_BOOK_ADD = 13;
+        public const int MENU_BOOK_REMOVE = 14;
+        public const int MENU_BOOK_REVISE = 15;
+        public const int MENU_MEMBER_MANAGEMENT = 16;
+        public const int MENU_RENTAL_STATUS = 17;
     }
 }

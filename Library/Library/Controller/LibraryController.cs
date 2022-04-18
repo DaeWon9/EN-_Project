@@ -35,7 +35,7 @@ namespace Library.Controller
                     memberFuntions.MemberMenuSelect(menuSelection, memberScreen, arrow);
                     break;
                 case Constant.MODE_ADMINISTRATOR:
-                    administratorFuntions.Login(administratorScreen, message, dataProcessing);
+                    administratorFuntions.Login(administratorScreen, message, dataProcessing, menuSelection, arrow);
                     break;
                 default:
                     break;
