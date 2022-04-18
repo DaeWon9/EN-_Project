@@ -10,11 +10,25 @@ namespace Library.Controller
 {
     internal class MenuSelection
     {
-        public int ModeSelect(ModeScreen drawer, Arrow arrow)
+        private int menuValue;
+        public int UserModeSelect(ModeScreen modeScreen, Arrow arrow)
         {
-            int menuValue;
-            drawer.SelectModeScreenDraw();
-            menuValue = arrow.CursorMove(Constant.FIRST_MENU_CURSOR_POS_X, Constant.FIRST_MENU_CURSOR_MIN_POS_Y);
+            modeScreen.SelectUserModeScreenDraw(true);
+            menuValue = arrow.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.FIRST_MENU_CURSOR_MAX_POS_Y);
+            return menuValue;
+        }
+
+        public int MemberModeSelect(MemberScreen memberScreen, Arrow arrow)
+        {
+            memberScreen.MeberMainScreenDraw(true);
+            menuValue = arrow.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.FIRST_MENU_CURSOR_MAX_POS_Y);
+            return menuValue;
+        }
+
+        public int AddministratorMenuSelect(AdministratorScreen administratorScreen, Arrow arrow)
+        {
+            administratorScreen.MenuScreenDraw(true);
+            menuValue = arrow.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }
     }

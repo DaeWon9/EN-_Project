@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Model
 {
-    internal class Member
+    internal class MemberData
     {
     }
 }

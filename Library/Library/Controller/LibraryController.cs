@@ -14,27 +14,28 @@ namespace Library.Controller
         public void Start()
         {
             ModeScreen modeScreen = new ModeScreen();
-            LoginScreen loginScreen = new LoginScreen();
+            MemberScreen memberScreen = new MemberScreen();
+            AdministratorScreen administratorScreen = new AdministratorScreen();
             TableFuntions tableFuntions = new TableFuntions("Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;");
             MenuSelection menuSelection = new MenuSelection();
             Arrow arrow = new Arrow();
             Message message = new Message();
-            ScreenProcessing screenProcessing = new ScreenProcessing();
+            DataProcessing dataProcessing = new DataProcessing();
+            MemberFuntions memberFuntions = new MemberFuntions();
+            AdministratorFuntions administratorFuntions = new AdministratorFuntions();
             
             //tableFuntions.BookSelect("*", "book");
 
             int menuValue;
-            menuValue = menuSelection.ModeSelect(modeScreen, arrow);
+            menuValue = menuSelection.UserModeSelect(modeScreen, arrow);
             
             switch(menuValue)
             {
                 case Constant.MODE_MEMBER:
-                    loginScreen.MemberLoginScreenDraw(true);
-                    Console.ReadKey();
+                    memberFuntions.MemberMenuSelect(menuSelection, memberScreen, arrow);
                     break;
                 case Constant.MODE_ADMINISTRATOR:
-                    loginScreen.AdimistratorLoginScreenDraw(true);
-                    Console.ReadKey();
+                    administratorFuntions.Login(administratorScreen, message, dataProcessing);
                     break;
                 default:
                     break;

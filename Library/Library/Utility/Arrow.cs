@@ -10,7 +10,7 @@ namespace Library.Utility
     {
         private bool isInputEnter = false;
         private bool isInputEscape = false;
-        public int CursorMove(int posX, int posY)
+        public int CursorMove(int posX, int posY, int maxPosY)
         {
             int cursorPosX = posX;
             int cursorPosY = posY;
@@ -24,12 +24,12 @@ namespace Library.Utility
                 {
                     case ConsoleKey.UpArrow:
                         cursorPosY--;
-                        if (cursorPosY < Constant.FIRST_MENU_CURSOR_MIN_POS_Y)
+                        if (cursorPosY < posY)
                             cursorPosY++;
                         break;
                     case ConsoleKey.DownArrow:
                         cursorPosY++;
-                        if (cursorPosY > Constant.FIRST_MENU_CURSOR_MAX_POS_Y)
+                        if (cursorPosY > maxPosY)
                             cursorPosY--;
                         break;
                     case ConsoleKey.Enter:

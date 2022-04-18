@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Model
 {
-    internal class Addministrator
+    internal class AddministratorData
     {
     }
 }

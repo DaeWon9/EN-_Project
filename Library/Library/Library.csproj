@@ -87,20 +87,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constant.cs" />
+    <Compile Include="Controller\AdministratorFuntions.cs" />
     <Compile Include="Controller\LibraryController.cs" />
-    <Compile Include="Controller\Login.cs" />
+    <Compile Include="Controller\MemberFuntions.cs" />
     <Compile Include="Controller\MenuSelection.cs" />
     <Compile Include="Controller\TableFuntions.cs" />
-    <Compile Include="Model\Addministrator.cs" />
+    <Compile Include="Model\AddministratorData.cs" />
     <Compile Include="Model\BookData.cs" />
     <Compile Include="LibraryStarter.cs" />
-    <Compile Include="Model\Member.cs" />
+    <Compile Include="Model\MemberData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Arrow.cs" />
     <Compile Include="Utility\DataProcessing.cs" />
-    <Compile Include="Utility\ScreenProcessing.cs" />
+    <Compile Include="View\AdministratorScreen.cs" />
     <Compile Include="View\Label.cs" />
-    <Compile Include="View\LoginScreen.cs" />
+    <Compile Include="View\MemberScreen.cs" />
     <Compile Include="View\Message.cs" />
     <Compile Include="View\ModeScreen.cs" />
   </ItemGroup>

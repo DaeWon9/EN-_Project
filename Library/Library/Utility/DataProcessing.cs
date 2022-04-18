@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Library.View;
 
 namespace Library.Utility
 {
@@ -29,11 +30,98 @@ namespace Library.Utility
                 case Constant.EXCEPTION_TYPE_ENGLISH:
                     regex = new Regex(@"^[a-zA-Z]*$", RegexOptions.None);
                     break;
+                case Constant.EXCEPTION_TYPE_ENGLISH_NUMBER:
+                    regex = new Regex(@"^[0-9a-zA-Z]*$", RegexOptions.None);
+                    break;
                 default:
                     break;
             }
 
             return regex.IsMatch(stringValue);
+        }
+
+        public string GetInputValues(Message message, int posX, int posY, bool isPassword = false, int exceptionType = Constant.EXCEPTION_TYPE_ANY, string messageString = "올바른 형식의 값을 입력하세요")
+        {
+            string input = "";
+            bool isInputEnter = false;
+
+            if (posX == -1)
+                posX = Console.CursorLeft;
+            if (posY == -1)
+                posY = Console.CursorTop;
+
+            while (!isInputEnter)
+            {
+
+                ClearCurrentLine(posX, input.Length);
+                Console.SetCursorPosition(posX, posY);
+                if (isPassword)
+                {
+                    for (int i = 0; i < input.Length; i++)
+                        Console.Write("*");
+                }
+                else
+                    Console.Write(input);
+                ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
+
+
+                if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace) && (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입력받은 키가 예외처리에 통과하는지
+                {
+                    message.Draw(messageString, Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, true);
+                    continue;
+                }
+
+                if (key.Key != ConsoleKey.Enter)
+                {
+                    if (key.Key != ConsoleKey.Backspace)
+                    {
+                        input += key.KeyChar.ToString();
+                    }
+                    else
+                    {
+                        if (input.Length > 0)
+                        {
+                            input = input.Substring(0, input.Length-1);
+                        }
+
+                        Console.Write("\b \b"); // 지우고 
+                        Console.Write("  ");
+
+                    }
+                }
+                else
+                {
+                    ClearCurrentLine(posX, input.Length);
+                    Console.SetCursorPosition(posX, posY);
+                    if (isPassword)
+                    {
+                        for (int i = 0; i < input.Length; i++)
+                            Console.Write("*");
+                    }
+                    else
+                        Console.Write(input);
+                    isInputEnter = true;
+                }
+
+            }
+            return input;
+        }
+
+        public void ClearCurrentLine(int startPosX = 0, int lastPosX = -1)
+        {
+            string str = "";
+            if (startPosX == 0)
+                str = "\r";
+            if (lastPosX == -1)
+                str += new string(' ', Console.CursorLeft);
+            else
+                str += new string(' ', lastPosX);
+            if (startPosX == 0)
+                str += "\r";
+            Console.SetCursorPosition(startPosX + 1, Console.CursorTop);
+            Console.Write(str);
+            if (startPosX != 0)
+                Console.SetCursorPosition(startPosX, Console.CursorTop);
         }
     }
 }
