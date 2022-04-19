@@ -56,12 +56,16 @@ namespace Library.Controller
                     Console.ReadKey();
                     break;
                 case Constant.MENU_BOOK_ADD:
+                    tableFuntions.BookInsert("book", 100, "책이름", "테스트출판", "홍길동", 50000, 5);
                     break;
                 case Constant.MENU_BOOK_REMOVE:
                     break;
                 case Constant.MENU_BOOK_REVISE:
                     break;
                 case Constant.MENU_MEMBER_MANAGEMENT:
+                    Console.Clear();
+                    tableFuntions.MemberSelect("*", "member");
+                    Console.ReadKey();
                     break;
                 case Constant.MENU_RENTAL_STATUS:
                     break;
