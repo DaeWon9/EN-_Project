@@ -59,6 +59,7 @@ namespace Library.Controller
                     tableFuntions.BookInsert("book", 100, "책이름", "테스트출판", "홍길동", 50000, 5);
                     break;
                 case Constant.MENU_BOOK_REMOVE:
+                    tableFuntions.BookDelete("book", 100);
                     break;
                 case Constant.MENU_BOOK_REVISE:
                     break;

@@ -71,5 +71,17 @@ namespace Library.Controller
             }
         }
 
+        public void BookDelete(string tableName, int id)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectString))
+            {
+                connection.Open();
+                sqlstring = "DELETE FROM " + tableName + " WHERE id = " + id;
+                MySqlCommand command = new MySqlCommand(sqlstring, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+                reader.Close();
+            }
+        }
+
     }
 }
