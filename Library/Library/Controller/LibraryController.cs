@@ -17,14 +17,12 @@ namespace Library.Controller
             ModeScreen modeScreen = new ModeScreen();
             MemberScreen memberScreen = new MemberScreen();
             AdministratorScreen administratorScreen = new AdministratorScreen();
-            TableFuntions tableFuntions = new TableFuntions("Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;");
             MenuSelection menuSelection = new MenuSelection();
             Message message = new Message();
             DataProcessing dataProcessing = new DataProcessing();
             MemberFuntions memberFuntions = new MemberFuntions();
             AdministratorFuntions administratorFuntions = new AdministratorFuntions();
             
-            //tableFuntions.BookSelect("*", "book");
 
             int menuValue;
             bool isExit = false;

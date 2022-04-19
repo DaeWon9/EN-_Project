@@ -11,6 +11,7 @@ namespace Library.Controller
 {
     class AdministratorFuntions
     {
+        TableFuntions tableFuntions = new TableFuntions("Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;");
         public void Login(AdministratorScreen administratorScreen, Message message, DataProcessing dataProcessing, MenuSelection menuSelection) // id : admin1    pw: admin1
         {
             bool isLogin = false;
@@ -41,12 +42,16 @@ namespace Library.Controller
 
         private void MenuSelect(MenuSelection menuSelection, Message message, DataProcessing dataProcessing,  AdministratorScreen administratorScreen)
         {
+          
             int menuValue;
             menuValue = menuSelection.AddministratorMenuSelect(administratorScreen, dataProcessing);
 
             switch (menuValue)
             {
-                case Constant.MENU_BOOK_SEARCH:
+                case Constant.MENU_BOOK_SEARCH: //04.19 14:00 여기까지 진행함 
+                    Console.Clear();
+                    tableFuntions.BookSelect("*", "book");
+                    Console.ReadKey();
                     break;
                 case Constant.MENU_BOOK_ADD:
                     break;
