@@ -11,6 +11,7 @@ namespace Library.Controller
 {
     class LibraryController
     {
+   
         public void Start()
         {
             ModeScreen modeScreen = new ModeScreen();
@@ -18,7 +19,6 @@ namespace Library.Controller
             AdministratorScreen administratorScreen = new AdministratorScreen();
             TableFuntions tableFuntions = new TableFuntions("Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;");
             MenuSelection menuSelection = new MenuSelection();
-            Arrow arrow = new Arrow();
             Message message = new Message();
             DataProcessing dataProcessing = new DataProcessing();
             MemberFuntions memberFuntions = new MemberFuntions();
@@ -27,18 +27,25 @@ namespace Library.Controller
             //tableFuntions.BookSelect("*", "book");
 
             int menuValue;
-            menuValue = menuSelection.UserModeSelect(modeScreen, arrow);
-            
-            switch(menuValue)
+            bool isExit = false;
+            while (!isExit)
             {
-                case Constant.MODE_MEMBER:
-                    memberFuntions.MemberMenuSelect(menuSelection, memberScreen, arrow);
-                    break;
-                case Constant.MODE_ADMINISTRATOR:
-                    administratorFuntions.Login(administratorScreen, message, dataProcessing, menuSelection, arrow);
-                    break;
-                default:
-                    break;
+                menuValue = menuSelection.UserModeSelect(modeScreen, dataProcessing);
+
+                switch (menuValue)
+                {
+                    case Constant.MODE_MEMBER:
+                        memberFuntions.MemberMenuSelect(menuSelection, memberScreen, dataProcessing);
+                        break;
+                    case Constant.MODE_ADMINISTRATOR:
+                        administratorFuntions.Login(administratorScreen, message, dataProcessing, menuSelection);
+                        break;
+                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
+                        isExit = true;
+                        break;
+                    default:
+                        break;
+                }
             }
 
 

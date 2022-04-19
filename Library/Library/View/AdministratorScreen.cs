@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.View
 {
-    internal class AdministratorScreen : Label
+    class AdministratorScreen : Label
     {
         public void LoginScreenDraw(bool isClear = false)
         {

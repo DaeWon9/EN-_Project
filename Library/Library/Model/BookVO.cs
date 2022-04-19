@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Library.Model
 {
-    class BookData
+    class BookVO
     {
+        private static BookVO Instance = null;
+        private BookVO() { }
+
+        public static BookVO Get()
+        {
+            if (Instance == null)
+                Instance = new BookVO();
+            return Instance;
+        }
     }
 }

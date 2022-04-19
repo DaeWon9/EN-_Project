@@ -7,7 +7,7 @@ using Library.Controller;
 
 namespace Library
 {
-    internal class LibraryStarter
+    class LibraryStarter
     {
         static void Main(string[] args)
         {

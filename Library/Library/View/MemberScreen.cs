@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.View
 {
-    internal class MemberScreen : Label
+    class MemberScreen : Label
     {
 
         public void MeberMainScreenDraw(bool isClear = false)

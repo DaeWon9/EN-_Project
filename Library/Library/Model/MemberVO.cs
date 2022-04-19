@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Library.Model
 {
-    internal class MemberData
+    class MemberVO
     {
+        private static MemberVO Instance = null;
+        private MemberVO()
+        {
+        }
+
+        public static MemberVO Get()
+        {
+            if (Instance == null)
+                Instance = new MemberVO();
+            return Instance; 
+        }
     }
 }

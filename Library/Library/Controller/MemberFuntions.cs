@@ -8,12 +8,12 @@ using Library.Utility;
 
 namespace Library.Controller
 {
-    internal class MemberFuntions
+    class MemberFuntions
     {
-        public void MemberMenuSelect(MenuSelection menuSelection, MemberScreen memberScreen, Arrow arrow)
+        public void MemberMenuSelect(MenuSelection menuSelection, MemberScreen memberScreen, DataProcessing dataProcessing)
         {
             int menuValue;
-            menuValue = menuSelection.MemberModeSelect(memberScreen, arrow);
+            menuValue = menuSelection.MemberModeSelect(memberScreen, dataProcessing);
             switch (menuValue)
             {
                 case Constant.MODE_MEMBER_LOGIN:

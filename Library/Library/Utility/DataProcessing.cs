@@ -8,8 +8,45 @@ using Library.View;
 
 namespace Library.Utility
 {
-    internal class DataProcessing
+    class DataProcessing
     {
+        private bool isInputEnter = false;
+        private bool isInputEscape = false;
+        public int CursorMove(int posX, int posY, int maxPosY)
+        {
+            int cursorPosX = posX;
+            int cursorPosY = posY;
+            isInputEnter = false;
+            isInputEscape = false;
+            while (!isInputEnter && !isInputEscape)
+            {
+                Console.SetCursorPosition(cursorPosX, cursorPosY);
+                ConsoleKeyInfo key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        cursorPosY--;
+                        if (cursorPosY < posY)
+                            cursorPosY++;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        cursorPosY++;
+                        if (cursorPosY > maxPosY)
+                            cursorPosY--;
+                        break;
+                    case ConsoleKey.Enter:
+                        isInputEnter = true;
+                        break;
+                    case ConsoleKey.Escape:
+                        cursorPosY = Constant.INPUT_ESCAPE_IN_ARROW_KEY;
+                        isInputEscape = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return cursorPosY; // -1 반환되면 esc / 다른값 -> enter
+        }
         public bool IsExceptionCheck(string stringValue, int exceptionType = Constant.EXCEPTION_TYPE_ANY)
         {
             Regex regex = new Regex(@"^[a-zA-Z0-9가-힣]*$", RegexOptions.None);
@@ -43,14 +80,16 @@ namespace Library.Utility
         public string GetInputValues(Message message, int posX, int posY, bool isPassword = false, int exceptionType = Constant.EXCEPTION_TYPE_ANY, string messageString = "올바른 형식의 값을 입력하세요")
         {
             string input = "";
-            bool isInputEnter = false;
+            isInputEnter = false;
+            isInputEscape = false;
+            
 
             if (posX == -1)
                 posX = Console.CursorLeft;
             if (posY == -1)
                 posY = Console.CursorTop;
 
-            while (!isInputEnter)
+            while (!isInputEnter && !isInputEscape)
             {
 
                 ClearCurrentLine(posX, input.Length);
@@ -63,6 +102,12 @@ namespace Library.Utility
                 else
                     Console.Write(input);
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
+
+                if(key.Key == ConsoleKey.Escape) // Esc 눌리면
+                {
+                    isInputEscape = true;
+                    return Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString();
+                }
 
 
                 if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace) && (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입력받은 키가 예외처리에 통과하는지
