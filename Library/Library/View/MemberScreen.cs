@@ -25,8 +25,8 @@ namespace Library.View
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
-            Console.WriteLine("                             ID :                                                               ");
-            Console.WriteLine("                             PW :                                                               ");
+            Console.WriteLine("                                 ID :                                                           ");
+            Console.WriteLine("                                 PW :                                                           ");
             Console.WriteLine("                                                                                                ");
         }
     }

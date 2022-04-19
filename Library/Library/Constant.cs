@@ -52,7 +52,7 @@ namespace Library
         public const int MODE_MEMBER_SIGN_UP = 13;
 
         // login pos
-        public const int LOGIN_POS_X = 34;
+        public const int LOGIN_POS_X = 38;
         public const int LOGIN_ID_POS_Y = 12;
         public const int LOGIN_PASSWORD_POS_Y = 13;
 
