@@ -11,12 +11,16 @@ namespace Library
         //window size
         public const int WINDOW_WIDTH = 95;
         public const int WINDOW_HEIGHT = 50;
+        public const int CURSOR_POS_LEFT = 0;
+        public const int CURSOR_POS_RIGHT = 94;
+        public const int CURSOR_POS_NONE = -1;
         //exception type
         public const int EXCEPTION_TYPE_ANY = 1;
         public const int EXCEPTION_TYPE_NUMBER = 2;
         public const int EXCEPTION_TYPE_KOREA = 3;
         public const int EXCEPTION_TYPE_ENGLISH = 4;
         public const int EXCEPTION_TYPE_ENGLISH_NUMBER = 5;
+        
 
         // menu cursor pos
         public const int MENU_CURSOR_POS_X = 37;

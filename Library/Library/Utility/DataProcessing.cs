@@ -102,6 +102,7 @@ namespace Library.Utility
                 else
                     Console.Write(input);
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
+                ClearCurrentLine(Constant.EXCEPTION_CURSOR_POS_X, messageString.Length * 2, Constant.EXCEPTION_CURSOR_POS_Y);
 
                 if(key.Key == ConsoleKey.Escape) // Esc 눌리면
                 {
@@ -152,21 +153,29 @@ namespace Library.Utility
             return input;
         }
 
-        public void ClearCurrentLine(int startPosX = 0, int lastPosX = -1)
+        public void ClearCurrentLine(int startPosX = Constant.CURSOR_POS_LEFT, int lastPosX = Constant.CURSOR_POS_NONE, int posY = Constant.CURSOR_POS_NONE)
         {
             string str = "";
-            if (startPosX == 0)
+            int setPosY;
+            if (startPosX == Constant.CURSOR_POS_LEFT)
                 str = "\r";
-            if (lastPosX == -1)
+            if (lastPosX == Constant.CURSOR_POS_NONE)
                 str += new string(' ', Console.CursorLeft);
             else
                 str += new string(' ', lastPosX);
-            if (startPosX == 0)
+            if (startPosX == Constant.CURSOR_POS_LEFT)
                 str += "\r";
-            Console.SetCursorPosition(startPosX + 1, Console.CursorTop);
+
+            if (posY == Constant.CURSOR_POS_NONE)
+                setPosY = Console.CursorTop;
+            else
+                setPosY = posY;
+
+            Console.SetCursorPosition(startPosX, setPosY);
             Console.Write(str);
-            if (startPosX != 0)
-                Console.SetCursorPosition(startPosX, Console.CursorTop);
+
+            if (startPosX != Constant.CURSOR_POS_LEFT)
+                Console.SetCursorPosition(startPosX, setPosY);
         }
     }
 }

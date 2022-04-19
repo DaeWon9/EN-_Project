@@ -25,18 +25,20 @@ namespace Library.Controller
                 password = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, true, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요.");
                 if (password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                isLogin = LoginCheck(message, id, password);
+                isLogin = LoginCheck(message, dataProcessing, id, password);
             }
             if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString() || password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 처음 회원 or 관리자모드 선택으로 돌아가야함
                 return;
             MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
         }
 
-        private bool LoginCheck(Message message, string id, string password)
+        private bool LoginCheck(Message message, DataProcessing dataProcessing, string id, string password)
         {
             if (id == "admin1" && password == "admin1")
                 return true;
             message.Draw("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, true);
+            dataProcessing.ClearCurrentLine(Constant.LOGIN_POS_X, 90, Constant.LOGIN_ID_POS_Y);
+            dataProcessing.ClearCurrentLine(Constant.LOGIN_POS_X, 90, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
         }
 
