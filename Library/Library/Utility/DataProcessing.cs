@@ -70,6 +70,12 @@ namespace Library.Utility
                 case Constant.EXCEPTION_TYPE_ENGLISH_NUMBER:
                     regex = new Regex(@"^[0-9a-zA-Z]*$", RegexOptions.None);
                     break;
+                case Constant.EXCEPTION_TYPE_ID:
+                    regex = new Regex(@"^[0-9a-zA-Z]{6,10}$", RegexOptions.None);
+                    break;
+                case Constant.EXCEPTION_TYPE_PASSWORD:
+                    regex = new Regex(@"^[0-9a-zA-Z]{6,10}$", RegexOptions.None);
+                    break;
                 default:
                     break;
             }
@@ -77,23 +83,23 @@ namespace Library.Utility
             return regex.IsMatch(stringValue);
         }
 
-        public string GetInputValues(Message message, int posX, int posY, bool isPassword = false, int exceptionType = Constant.EXCEPTION_TYPE_ANY, string messageString = "올바른 형식의 값을 입력하세요")
+        public string GetInputValues(Message message, int posX, int posY, int maxIputLength, bool isPassword = false, int exceptionType = Constant.EXCEPTION_TYPE_ANY,  string messageString = "올바른 형식의 값을 입력하세요", int finalExceptionType = Constant.EXCEPTION_TYPE_ANY)
         {
             string input = "";
             isInputEnter = false;
             isInputEscape = false;
             
 
-            if (posX == -1)
+            if (posX == Constant.CURSOR_POS_NONE)
                 posX = Console.CursorLeft;
-            if (posY == -1)
+            if (posY == Constant.CURSOR_POS_NONE)
                 posY = Console.CursorTop;
 
-            while (!isInputEnter && !isInputEscape)
+            while (!isInputEnter && !isInputEscape) // enter or esc가 눌릴때까지
             {
 
-                ClearCurrentLine(posX, input.Length);
-                Console.SetCursorPosition(posX, posY);
+                ClearCurrentLine(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
+                Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
                 if (isPassword)
                 {
                     for (int i = 0; i < input.Length; i++)
@@ -101,10 +107,20 @@ namespace Library.Utility
                 }
                 else
                     Console.Write(input);
-                ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
-                ClearCurrentLine(Constant.EXCEPTION_CURSOR_POS_X, messageString.Length * 2, Constant.EXCEPTION_CURSOR_POS_Y);
 
-                if(key.Key == ConsoleKey.Escape) // Esc 눌리면
+                if (input.Length > maxIputLength) // 키입력받기전에 최대길이 넘어가는경우 체크
+                {
+                    input = input.Substring(0, input.Length-1);
+                    message.Draw("지정된 범위로 입력하세요", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, ConsoleColor.Red);
+                    continue;
+                }
+
+                ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
+                ClearCurrentLine(Constant.EXCEPTION_CURSOR_POS_X, Encoding.Default.GetBytes(messageString).Length + 2, Constant.EXCEPTION_CURSOR_POS_Y); //에러 메세지 지우고
+                Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
+
+
+                if (key.Key == ConsoleKey.Escape) // Esc 눌리면
                 {
                     isInputEscape = true;
                     return Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString();
@@ -113,11 +129,11 @@ namespace Library.Utility
 
                 if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace) && (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입력받은 키가 예외처리에 통과하는지
                 {
-                    message.Draw(messageString, Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, true);
+                    message.Draw(messageString, Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, ConsoleColor.Red);
                     continue;
                 }
 
-                if (key.Key != ConsoleKey.Enter)
+                if (key.Key != ConsoleKey.Enter) // 엔터키가 아닐때
                 {
                     if (key.Key != ConsoleKey.Backspace)
                     {
@@ -129,26 +145,22 @@ namespace Library.Utility
                         {
                             input = input.Substring(0, input.Length-1);
                         }
-
-                        Console.Write("\b \b"); // 지우고 
-                        Console.Write("  ");
-
                     }
                 }
                 else
                 {
-                    ClearCurrentLine(posX, input.Length);
-                    Console.SetCursorPosition(posX, posY);
-                    if (isPassword)
+                    if (IsExceptionCheck(input, finalExceptionType))
                     {
-                        for (int i = 0; i < input.Length; i++)
-                            Console.Write("*");
+                        message.Draw("[OK]", Constant.CHECK_MESSAGE_CURSOR_POS_X, Console.CursorTop, false, ConsoleColor.Green);
+                        isInputEnter = true;
                     }
                     else
-                        Console.Write(input);
-                    isInputEnter = true;
+                    {
+                        message.Draw("지정된 범위로 입력하세요", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, ConsoleColor.Red);
+                        ClearCurrentLine(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
+                        input = ""; // 입력받은값 초기화
+                    }
                 }
-
             }
             return input;
         }
