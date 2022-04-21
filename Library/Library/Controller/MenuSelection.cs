@@ -13,21 +13,29 @@ namespace Library.Controller
         private int menuValue;
         public int UserModeSelect(ModeScreen modeScreen, DataProcessing dataProcessing)
         {
-            modeScreen.SelectUserModeScreenDraw(Constant.IS_CONSOLE_CLEAR);
+            modeScreen.SelectUserModeScreenPrint(Constant.IS_CONSOLE_CLEAR);
             menuValue = dataProcessing.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.FIRST_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }
 
-        public int MemberModeSelect(MemberScreen memberScreen, DataProcessing dataProcessing)
+
+        public int MemberLoginOrSignUpSelect(MemberScreen memberScreen, DataProcessing dataProcessing)
         {
-            memberScreen.MeberMainScreenDraw(Constant.IS_CONSOLE_CLEAR);
+            memberScreen.MainScreenPrint(Constant.IS_CONSOLE_CLEAR);
             menuValue = dataProcessing.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.FIRST_MENU_CURSOR_MAX_POS_Y);
+            return menuValue;
+        }
+
+        public int MemberMenuSelect(MemberScreen memberScreen, DataProcessing dataProcessing)
+        {
+            memberScreen.MenuScreenPrint(Constant.IS_CONSOLE_CLEAR);
+            menuValue = dataProcessing.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MEMBER_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }
 
         public int AddministratorMenuSelect(AdministratorScreen administratorScreen, DataProcessing dataProcessing)
         {
-            administratorScreen.MenuScreenDraw(Constant.IS_CONSOLE_CLEAR);
+            administratorScreen.MenuScreenPrint(Constant.IS_CONSOLE_CLEAR);
             menuValue = dataProcessing.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }

@@ -8,9 +8,9 @@ namespace Library.View
 {
     class AdministratorScreen : Label
     {
-        public void LoginScreenDraw(bool isClear = false)
+        public void LoginScreenPrint(bool isClear = false)
         {
-            ExplainAdimistratorLoginLabelDraw(isClear);
+            ExplainAdimistratorLoginLabelPrint(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
@@ -19,9 +19,9 @@ namespace Library.View
             Console.WriteLine("                                                                                                ");
         }
 
-        public void MenuScreenDraw(bool isClear = false)
+        public void MenuScreenPrint(bool isClear = false)
         {
-            LibraryLabelDraw(isClear);
+            LibraryLabelPrint(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");

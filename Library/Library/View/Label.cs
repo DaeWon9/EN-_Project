@@ -4,7 +4,7 @@ namespace Library.View
 {
     class Label
     {
-        public void LibraryLabelDraw(bool isClear = false)
+        public void LibraryLabelPrint(bool isClear = false)
         {
             if (isClear)
                 Console.Clear();
@@ -19,7 +19,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *               ");
         }
 
-        public void ExplainMemberLoginLabelDraw(bool isClear = false)
+        public void ExplainMemberLoginLabelPrint(bool isClear = false)
         {
             if (isClear)
                 Console.Clear();
@@ -35,7 +35,7 @@ namespace Library.View
         }
 
 
-        public void ExplainAdimistratorLoginLabelDraw(bool isClear = false)
+        public void ExplainAdimistratorLoginLabelPrint(bool isClear = false)
         {
             if (isClear)
                 Console.Clear();

@@ -20,6 +20,33 @@ namespace Library
         public const string QUERY_STRING_INSERT = "INSERT INTO book VALUES ({1}, {2}, {3}, {4}, {5}, {6})";
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
 
+        // Mysql Table 
+        public const string TABLE_NAME_ADMINISTRATOR = "administrator";
+        public const string TABLE_NAME_BOOK = "book";
+        public const string TABLE_NAME_MEMBER = "member";
+
+        // Administrator Filed
+        public const string ADMINISTRATOR_FILED_ID = "id";
+        public const string ADMINISTRATOR_FILED_PASSWORD = "pw";
+
+        // Member Filed
+        public const string MEMBER_FILED_NAME = "name";
+        public const string MEMBER_FILED_ID = "id";
+        public const string MEMBER_FILED_PASSWORD = "pw";
+        public const string MEMBER_FILED_AGE = "age";
+        public const string MEMBER_FILED_ADDRESS = "address";
+        public const string MEMBER_FILED_PHONENUMBER = "phonenumber";
+
+        // Book Filed
+        public const string FILED_ALL = "*";
+        public const string BOOK_FILED_ID = "id";
+        public const string BOOK_FILED_NAME = "name";
+        public const string BOOK_FILED_PUBLISHER = "publish";
+        public const string BOOK_FILED_AUTHOR = "author";
+        public const string BOOK_FILED_PRICE = "price";
+        public const string BOOK_FILED_QUANTITY = "quantity";
+
+
 
         public const bool IS_NOT_CONSOLE_CLEAR = false;
         public const bool IS_CONSOLE_CLEAR = true;
@@ -50,6 +77,7 @@ namespace Library
         public const int MENU_CURSOR_MIN_POS_Y = 12;
         public const int FIRST_MENU_CURSOR_MAX_POS_Y = 13;
         public const int ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y = 17;
+        public const int MEMBER_MENU_CURSOR_MAX_POS_Y = 15;
 
         //exception cursor pos
         public const int EXCEPTION_CURSOR_POS_X = 37;
@@ -76,11 +104,17 @@ namespace Library
         public const int LOGIN_PASSWORD_POS_Y = 13;
 
         // administrator menu value //이것도 1씩증가하는거라 바꿀 수 있을 듯??
-        public const int MENU_BOOK_SEARCH = 12;
-        public const int MENU_BOOK_ADD = 13;
-        public const int MENU_BOOK_REMOVE = 14;
-        public const int MENU_BOOK_REVISE = 15;
-        public const int MENU_MEMBER_MANAGEMENT = 16;
-        public const int MENU_RENTAL_STATUS = 17;
+        public const int ADMINISTRATOR_MENU_BOOK_SEARCH = 12;
+        public const int ADMINISTRATOR_MENU_BOOK_ADD = 13;
+        public const int ADMINISTRATOR_MENU_BOOK_REMOVE = 14;
+        public const int ADMINISTRATOR_MENU_BOOK_REVISE = 15;
+        public const int ADMINISTRATOR_MENU_MEMBER_MANAGEMENT = 16;
+        public const int ADMINISTRATOR_MENU_RENTAL_STATUS = 17;
+
+        // member menu value //이것도 1씩증가하는거라 바꿀 수 있을 듯??
+        public const int MEMBER_MENU_BOOK_SEARCH = 12;
+        public const int MEMBER_MENU_BOOK_RENTAL = 13;
+        public const int MEMBER_MENU_RENTAL_BOOK_CHECK = 14;
+        public const int MEMBER_MENU_MODIFICATION_MEMBER_INFORMATION = 15;
     }
 }

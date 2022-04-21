@@ -39,19 +39,49 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlstring, connection);
             MySqlDataReader reader = command.ExecuteReader();
 
-            while (reader.Read())
+
+            if (filed == Constant.FILED_ALL) // 전체
             {
-                Console.WriteLine(reader["id"]);
-                Console.WriteLine(reader["name"]);
-                Console.WriteLine(reader["publisher"]);
-                Console.WriteLine(reader["author"]);
-                Console.WriteLine(reader["price"]);
-                Console.WriteLine(reader["quantity"]);
-                Console.WriteLine("-----------------------------------------------------");
-                //Console.WriteLine("{0} {1} {2} {3} {4} {5}", reader["id"], reader["name"], reader["publisher"], reader["author"], reader["price"], reader["quantity"]);
+                while (reader.Read())
+                {
+                    Console.WriteLine(reader[Constant.BOOK_FILED_ID]);
+                    Console.WriteLine(reader[Constant.BOOK_FILED_NAME]);
+                    Console.WriteLine(reader[Constant.BOOK_FILED_PUBLISHER]);
+                    Console.WriteLine(reader[Constant.BOOK_FILED_AUTHOR]);
+                    Console.WriteLine(reader[Constant.BOOK_FILED_PRICE]);
+                    Console.WriteLine(reader[Constant.BOOK_FILED_QUANTITY]);
+                }
+            }
+            else
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine(reader[string.Format("{0}", filed)]);
+                }
             }
             reader.Close();
+            connection.Close();
         }
 
+        public List<string> GetSelectedElements(string filed, string tableName, string conditionalString = "")
+        {
+            List<string> selectedElements = new List<string>();
+
+            connection.Open();
+            if (conditionalString == "") // 조건문 없을때
+                sqlstring = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
+            else
+                sqlstring =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
+
+            MySqlCommand command = new MySqlCommand(sqlstring, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                selectedElements.Add(reader[string.Format("{0}", filed)].ToString());
+            }
+            reader.Close();
+            connection.Close();
+            return selectedElements;
+        }
     }
 }

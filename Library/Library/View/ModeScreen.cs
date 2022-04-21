@@ -8,9 +8,9 @@ namespace Library.View
 {
     class ModeScreen : Label
     {
-        public void SelectUserModeScreenDraw(bool isClear = false)
+        public void SelectUserModeScreenPrint(bool isClear = false)
         {
-            LibraryLabelDraw(isClear);
+            LibraryLabelPrint(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                              선택 : ENTER        종료 : ESC    ");
             Console.WriteLine("                                                                                                ");

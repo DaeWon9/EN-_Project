@@ -11,12 +11,11 @@ namespace Library.Controller
 {
     class AdministratorFuntions
     {
-        DataBase tableFuntions = new DataBase(Constant.DATABASE_CONNECTION_INFORMATION); //  DATABASE 기능들 싱글톤으로 구성할거라 개체 생성후에 사용하는  방식 갈아엎기
         public void Login(AdministratorScreen administratorScreen, Message message, DataProcessing dataProcessing, MenuSelection menuSelection) // id : admin1    pw: admin1
         {
             bool isLogin = false;
             string id = "", password = "";
-            administratorScreen.LoginScreenDraw(Constant.IS_CONSOLE_CLEAR);
+            administratorScreen.LoginScreenPrint(Constant.IS_CONSOLE_CLEAR);
             while (!isLogin)
             {
                 id = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ID);
@@ -34,8 +33,15 @@ namespace Library.Controller
 
         private bool LoginCheck(Message message, DataProcessing dataProcessing, string id, string password)
         {
-            if (id == "admin1" && password == "admin1")
-                return true;
+            List<string> administratorId = DataBaseTestSingleton.Instance.GetSelectedElements(Constant.ADMINISTRATOR_FILED_ID, Constant.TABLE_NAME_ADMINISTRATOR);
+            List<string> administratorPassword = DataBaseTestSingleton.Instance.GetSelectedElements(Constant.ADMINISTRATOR_FILED_PASSWORD, Constant.TABLE_NAME_ADMINISTRATOR);
+
+            for (int repeat = 0; repeat < administratorId.Count; repeat++)
+            {
+                if (id == administratorId[repeat] && password == administratorPassword[repeat])
+                    return true;
+            }
+
             message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
             dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_Y, Constant.LOGIN_ID_POS_Y);
             dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_Y, Constant.LOGIN_PASSWORD_POS_Y);
@@ -49,31 +55,27 @@ namespace Library.Controller
 
             switch (menuValue)
             {
-                case Constant.MENU_BOOK_SEARCH: // DATABASE 기능들 싱글톤으로 구성할거라 개체 생성후에 사용하는  방식 갈아엎기
+                case Constant.ADMINISTRATOR_MENU_BOOK_SEARCH: // DATABASE 기능들 싱글톤으로 구성할거라 개체 생성후에 사용하는  방식 갈아엎기
                     Console.Clear();
-                    tableFuntions.BookSelect("*", "book");
                     Console.ReadKey();
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
-                case Constant.MENU_BOOK_ADD:
-                    tableFuntions.BookInsert("book", 100, "테스트", "테스트출판", "홍길동", 50000, 5);
+                case Constant.ADMINISTRATOR_MENU_BOOK_ADD:
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
-                case Constant.MENU_BOOK_REMOVE:
-                    tableFuntions.BookDelete("book", 100);
+                case Constant.ADMINISTRATOR_MENU_BOOK_REMOVE:
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
-                case Constant.MENU_BOOK_REVISE:
-                    DataBaseTestSingleton.Instance.Select("*", "book");
+                case Constant.ADMINISTRATOR_MENU_BOOK_REVISE:
+                    DataBaseTestSingleton.Instance.Select("publisher", "book");
                     Console.ReadKey();
                     break;
-                case Constant.MENU_MEMBER_MANAGEMENT:
+                case Constant.ADMINISTRATOR_MENU_MEMBER_MANAGEMENT:
                     Console.Clear();
-                    tableFuntions.MemberSelect("*", "member");
                     Console.ReadKey();
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
-                case Constant.MENU_RENTAL_STATUS:
+                case Constant.ADMINISTRATOR_MENU_RENTAL_STATUS:
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.INPUT_ESCAPE_IN_ARROW_KEY:

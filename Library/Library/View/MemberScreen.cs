@@ -9,9 +9,9 @@ namespace Library.View
     class MemberScreen : Label
     {
 
-        public void MeberMainScreenDraw(bool isClear = false)
+        public void MainScreenPrint(bool isClear = false)
         {
-            LibraryLabelDraw(isClear);
+            LibraryLabelPrint(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
@@ -19,14 +19,26 @@ namespace Library.View
             Console.WriteLine("                                      ▶  회원가입                                              ");
             Console.WriteLine("                                                                                                ");
         }
-        public void MemberLoginScreenDraw(bool isClear = false)
+        public void LoginScreenPrint(bool isClear = false)
         {
-            ExplainMemberLoginLabelDraw(isClear);
+            ExplainMemberLoginLabelPrint(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                 ID :                                                           ");
             Console.WriteLine("                                 PW :                                                           ");
+            Console.WriteLine("                                                                                                ");
+        }
+        public void MenuScreenPrint(bool isClear = false)
+        {
+            LibraryLabelPrint(isClear);
+            Console.WriteLine("                                                                                                ");
+            Console.WriteLine("                                                                              뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                                                ");
+            Console.WriteLine("                                      ▶  도서찾기                                              ");
+            Console.WriteLine("                                      ▶  도서대여                                              ");
+            Console.WriteLine("                                      ▶  대여도서확인                                          ");
+            Console.WriteLine("                                      ▶  회원정보수정                                          ");
             Console.WriteLine("                                                                                                ");
         }
     }

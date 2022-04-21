@@ -60,7 +60,7 @@ namespace Library.Controller
                 switch (menuValue)
                 {
                     case Constant.MODE_MEMBER:
-                        memberFuntions.MemberMenuSelect(menuSelection, memberScreen, dataProcessing);
+                        memberFuntions.LoginOrSignUpSelect(menuSelection, message, memberScreen, dataProcessing);
                         break;
                     case Constant.MODE_ADMINISTRATOR:
                         administratorFuntions.Login(administratorScreen, message, dataProcessing, menuSelection);
