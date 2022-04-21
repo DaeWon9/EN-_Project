@@ -83,5 +83,15 @@ namespace Library.Model
             connection.Close();
             return selectedElements;
         }
+
+        public void MemberInsert(string tableName, string name, string id, string password, int age, string address, string phonenumber)
+        {
+            connection.Open();
+            sqlstring = string.Format(Constant.QUERY_STRING_INSERT, tableName, name, id, password, age, address, phonenumber);
+            MySqlCommand command = new MySqlCommand(sqlstring, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
     }
 }

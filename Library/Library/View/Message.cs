@@ -19,7 +19,7 @@ namespace Library.View
 
             Console.SetCursorPosition(posX, posY);
             Console.ForegroundColor = color;
-            Console.WriteLine(message);
+            Console.Write(message);
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

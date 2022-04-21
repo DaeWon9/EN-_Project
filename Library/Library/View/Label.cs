@@ -49,5 +49,20 @@ namespace Library.View
             Console.WriteLine("           *                                                                     *              ");
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *               ");
         }
+
+        public void ExplainMemberSignUpLabelPrint(bool isClear = false)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *               ");
+            Console.WriteLine("           *                           < 회 원 가 입 >                           *              ");
+            Console.WriteLine("          *                                                                       *             ");
+            Console.WriteLine("         *                ●                                                       *            ");
+            Console.WriteLine("        *                 ●                                                        *           ");
+            Console.WriteLine("         *                ●                                                       *            ");
+            Console.WriteLine("          *                                                                       *             ");
+            Console.WriteLine("           *                                                                     *              ");
+            Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *               ");
+        }
     }
 }

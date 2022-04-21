@@ -53,7 +53,7 @@ namespace Library.Model
                 MySqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Console.WriteLine("{0} {1} {2} {3} {4} {5}", reader["name"], reader["id"], reader["pw"], reader["age"], reader["address"], reader["phonenumber"]);
+                    Console.WriteLine("{0} {1} {2} {3} {4} {5}", reader["name"], reader["id"], reader["pw"], reader["age"], reader["address"], reader["PHONE_NUMBER"]);
                 }
                 reader.Close();
             }

@@ -43,8 +43,8 @@ namespace Library.Controller
             }
 
             message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
-            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_Y, Constant.LOGIN_ID_POS_Y);
-            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_Y, Constant.LOGIN_PASSWORD_POS_Y);
+            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
+            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
         }
 
@@ -55,27 +55,27 @@ namespace Library.Controller
 
             switch (menuValue)
             {
-                case Constant.ADMINISTRATOR_MENU_BOOK_SEARCH: // DATABASE 기능들 싱글톤으로 구성할거라 개체 생성후에 사용하는  방식 갈아엎기
+                case (int)Constant.AdministratorMenu.BOOK_SEARCH: // DATABASE 기능들 싱글톤으로 구성할거라 개체 생성후에 사용하는  방식 갈아엎기
                     Console.Clear();
                     Console.ReadKey();
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
-                case Constant.ADMINISTRATOR_MENU_BOOK_ADD:
+                case (int)Constant.AdministratorMenu.BOOK_ADD:
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
-                case Constant.ADMINISTRATOR_MENU_BOOK_REMOVE:
+                case (int)Constant.AdministratorMenu.BOOK_REMOVE:
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
-                case Constant.ADMINISTRATOR_MENU_BOOK_REVISE:
+                case (int)Constant.AdministratorMenu.BOOK_REVISE:
                     DataBaseTestSingleton.Instance.Select("publisher", "book");
                     Console.ReadKey();
                     break;
-                case Constant.ADMINISTRATOR_MENU_MEMBER_MANAGEMENT:
+                case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
                     Console.Clear();
                     Console.ReadKey();
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
-                case Constant.ADMINISTRATOR_MENU_RENTAL_STATUS:
+                case (int)Constant.AdministratorMenu.RENTAL_STATUS:
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.INPUT_ESCAPE_IN_ARROW_KEY:

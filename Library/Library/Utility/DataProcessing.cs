@@ -47,43 +47,16 @@ namespace Library.Utility
             }
             return cursorPosY; // -1 반환되면 esc / 다른값 -> enter
         }
-        public bool IsExceptionCheck(string stringValue, int exceptionType = Constant.EXCEPTION_TYPE_ANY)
+        public bool IsExceptionCheck(string stringValue, string exceptionType)
         {
-            Regex regex = new Regex(@"^[a-zA-Z0-9가-힣]*$", RegexOptions.None);
+            Regex regex = new Regex(exceptionType, RegexOptions.None);
             if (stringValue == "" || stringValue.Length < 1)
                 return false;
-
-            switch (exceptionType)
-            {
-                case Constant.EXCEPTION_TYPE_ANY:
-                    regex = new Regex(@"^[a-zA-Z0-9가-힣]*$", RegexOptions.None);
-                    break;
-                case Constant.EXCEPTION_TYPE_NUMBER:
-                    regex = new Regex(@"^[0-9]*$", RegexOptions.None);
-                    break;
-                case Constant.EXCEPTION_TYPE_KOREA:
-                    regex = new Regex(@"^[가-힣]*$", RegexOptions.None);
-                    break;
-                case Constant.EXCEPTION_TYPE_ENGLISH:
-                    regex = new Regex(@"^[a-zA-Z]*$", RegexOptions.None);
-                    break;
-                case Constant.EXCEPTION_TYPE_ENGLISH_NUMBER:
-                    regex = new Regex(@"^[0-9a-zA-Z]*$", RegexOptions.None);
-                    break;
-                case Constant.EXCEPTION_TYPE_ID:
-                    regex = new Regex(@"^[0-9a-zA-Z]{6,10}$", RegexOptions.None);
-                    break;
-                case Constant.EXCEPTION_TYPE_PASSWORD:
-                    regex = new Regex(@"^[0-9a-zA-Z]{6,10}$", RegexOptions.None);
-                    break;
-                default:
-                    break;
-            }
 
             return regex.IsMatch(stringValue);
         }
 
-        public string GetInputValues(Message message, int posX, int posY, int maxIputLength, bool isPassword = false, int exceptionType = Constant.EXCEPTION_TYPE_ANY,  string messageString = "올바른 형식의 값을 입력하세요", int finalExceptionType = Constant.EXCEPTION_TYPE_ANY)
+        public string GetInputValues(Message message, int posX, int posY, int maxIputLength, bool isPassword = false, string exceptionType = Constant.EXCEPTION_TYPE_ANY,  string messageString = "올바른 형식의 값을 입력하세요", string finalExceptionType = Constant.EXCEPTION_TYPE_ANY)
         {
             string input = "";
             isInputEnter = false;
@@ -97,7 +70,6 @@ namespace Library.Utility
 
             while (!isInputEnter && !isInputEscape) // enter or esc가 눌릴때까지
             {
-
                 ConsoleLineClear(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
                 Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
                 if (isPassword)
@@ -116,7 +88,7 @@ namespace Library.Utility
                 }
 
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
-                ConsoleLineClear(Constant.EXCEPTION_CURSOR_POS_X, Encoding.Default.GetBytes(messageString).Length + 2, Constant.EXCEPTION_CURSOR_POS_Y); //에러 메세지 지우고
+                ConsoleLineClear(Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_CURSOR_POS_Y); //에러 메세지 지우고
                 Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
 
 
@@ -147,16 +119,17 @@ namespace Library.Utility
                         }
                     }
                 }
-                else
+                else // 엔터키 눌리면
                 {
                     if (IsExceptionCheck(input, finalExceptionType))
                     {
-                        message.PrintMessage("[OK]", Constant.CHECK_MESSAGE_CURSOR_POS_X, Console.CursorTop, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
+                        int ErrormessagePosX = posX + Encoding.Default.GetBytes(input).Length + 1;
+                        message.PrintMessage("[OK]", ErrormessagePosX, Console.CursorTop, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
                         isInputEnter = true;
                     }
                     else
                     {
-                        message.PrintMessage("지정된 범위로 입력하세요", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+                        message.PrintMessage("지정된 형식으로 입력하세요", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
                         ConsoleLineClear(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
                         input = ""; // 입력받은값 초기화
                     }

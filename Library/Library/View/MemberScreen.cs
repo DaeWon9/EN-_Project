@@ -25,8 +25,8 @@ namespace Library.View
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
-            Console.WriteLine("                                 ID :                                                           ");
-            Console.WriteLine("                                 PW :                                                           ");
+            Console.WriteLine("                                    ID :                                                        ");
+            Console.WriteLine("                                    PW :                                                        ");
             Console.WriteLine("                                                                                                ");
         }
         public void MenuScreenPrint(bool isClear = false)
@@ -39,6 +39,22 @@ namespace Library.View
             Console.WriteLine("                                      ▶  도서대여                                              ");
             Console.WriteLine("                                      ▶  대여도서확인                                          ");
             Console.WriteLine("                                      ▶  회원정보수정                                          ");
+            Console.WriteLine("                                                                                                ");
+        }
+
+        public void SignUpScreenPrint(bool isClear = false)
+        {
+            ExplainMemberSignUpLabelPrint(isClear);
+            Console.WriteLine("                                                                                                ");
+            Console.WriteLine("                                                                              뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                                                ");
+            Console.WriteLine("                               이름          :                                                  ");
+            Console.WriteLine("                               아이디        :                                                  ");
+            Console.WriteLine("                               비밀번호      :                                                  ");
+            Console.WriteLine("                               비밀번호 확인 :                                                  ");
+            Console.WriteLine("                               나이          :                                                  ");
+            Console.WriteLine("                               주소          :                                                  ");
+            Console.WriteLine("                               핸드폰번호    :                                                  ");
             Console.WriteLine("                                                                                                ");
         }
     }
