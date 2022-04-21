@@ -98,7 +98,7 @@ namespace Library.Utility
             while (!isInputEnter && !isInputEscape) // enter or esc가 눌릴때까지
             {
 
-                ClearCurrentLine(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
+                ConsoleLineClear(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
                 Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
                 if (isPassword)
                 {
@@ -116,7 +116,7 @@ namespace Library.Utility
                 }
 
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
-                ClearCurrentLine(Constant.EXCEPTION_CURSOR_POS_X, Encoding.Default.GetBytes(messageString).Length + 2, Constant.EXCEPTION_CURSOR_POS_Y); //에러 메세지 지우고
+                ConsoleLineClear(Constant.EXCEPTION_CURSOR_POS_X, Encoding.Default.GetBytes(messageString).Length + 2, Constant.EXCEPTION_CURSOR_POS_Y); //에러 메세지 지우고
                 Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
 
 
@@ -157,7 +157,7 @@ namespace Library.Utility
                     else
                     {
                         message.PrintMessage("지정된 범위로 입력하세요", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, ConsoleColor.Red);
-                        ClearCurrentLine(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
+                        ConsoleLineClear(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
                         input = ""; // 입력받은값 초기화
                     }
                 }
@@ -165,7 +165,7 @@ namespace Library.Utility
             return input;
         }
 
-        public void ClearCurrentLine(int startPosX = Constant.CURSOR_POS_LEFT, int lastPosX = Constant.CURSOR_POS_NONE, int posY = Constant.CURSOR_POS_NONE)
+        public void ConsoleLineClear(int startPosX = Constant.CURSOR_POS_LEFT, int lastPosX = Constant.CURSOR_POS_NONE, int posY = Constant.CURSOR_POS_NONE)
         {
             string str = "";
             int setPosY;
