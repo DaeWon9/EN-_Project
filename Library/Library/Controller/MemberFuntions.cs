@@ -85,6 +85,8 @@ namespace Library.Controller
                     isIdDuplicate = IsIdDuplicate(id);
                     if (isIdDuplicate)
                         message.PrintMessage("이미 등록되어있는 ID입니다.", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+                    if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
+                        break;
                 }
                 if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
                     break;
