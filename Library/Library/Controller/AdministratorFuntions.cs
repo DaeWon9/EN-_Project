@@ -11,7 +11,7 @@ namespace Library.Controller
 {
     class AdministratorFuntions
     {
-        TableFuntions tableFuntions = new TableFuntions("Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;");
+        DataBase tableFuntions = new DataBase("Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;"); // Contant처리
         public void Login(AdministratorScreen administratorScreen, Message message, DataProcessing dataProcessing, MenuSelection menuSelection) // id : admin1    pw: admin1
         {
             bool isLogin = false;
@@ -36,15 +36,14 @@ namespace Library.Controller
         {
             if (id == "admin1" && password == "admin1")
                 return true;
-            message.Draw("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, ConsoleColor.Red);
+            message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, ConsoleColor.Red);
             dataProcessing.ClearCurrentLine(Constant.LOGIN_POS_X, 90, Constant.LOGIN_ID_POS_Y);
             dataProcessing.ClearCurrentLine(Constant.LOGIN_POS_X, 90, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
         }
 
         private void MenuSelect(MenuSelection menuSelection, Message message, DataProcessing dataProcessing,  AdministratorScreen administratorScreen)
-        {
-          
+        { 
             int menuValue;
             menuValue = menuSelection.AddministratorMenuSelect(administratorScreen, dataProcessing);
 
@@ -54,21 +53,27 @@ namespace Library.Controller
                     Console.Clear();
                     tableFuntions.BookSelect("*", "book");
                     Console.ReadKey();
+                    MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.MENU_BOOK_ADD:
-                    tableFuntions.BookInsert("book", 100, "책이름", "테스트출판", "홍길동", 50000, 5);
+                    tableFuntions.BookInsert("book", 100, "테스트", "테스트출판", "홍길동", 50000, 5);
+                    MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.MENU_BOOK_REMOVE:
                     tableFuntions.BookDelete("book", 100);
+                    MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.MENU_BOOK_REVISE:
+                    MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.MENU_MEMBER_MANAGEMENT:
                     Console.Clear();
                     tableFuntions.MemberSelect("*", "member");
                     Console.ReadKey();
+                    MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.MENU_RENTAL_STATUS:
+                    MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                     Login(administratorScreen, message, dataProcessing, menuSelection);

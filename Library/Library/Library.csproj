@@ -91,11 +91,8 @@
     <Compile Include="Controller\LibraryController.cs" />
     <Compile Include="Controller\MemberFuntions.cs" />
     <Compile Include="Controller\MenuSelection.cs" />
-    <Compile Include="Controller\TableFuntions.cs" />
-    <Compile Include="Model\AdministratorVO.cs" />
-    <Compile Include="Model\BookVO.cs" />
+    <Compile Include="Model\DataBase.cs" />
     <Compile Include="LibraryStarter.cs" />
-    <Compile Include="Model\MemberVO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\DataProcessing.cs" />
     <Compile Include="View\AdministratorScreen.cs" />

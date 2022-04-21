@@ -11,6 +11,8 @@ namespace Library
         //window size
         public const int WINDOW_WIDTH = 95;
         public const int WINDOW_HEIGHT = 50;
+
+        // cursor pos
         public const int CURSOR_POS_LEFT = 0;
         public const int CURSOR_POS_RIGHT = 94;
         public const int CURSOR_POS_NONE = -1;

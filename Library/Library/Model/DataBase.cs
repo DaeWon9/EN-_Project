@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace Library.Controller
+namespace Library.Model
 {
-    class TableFuntions
+    class DataBase
     {
         private string connectString;
         private string sqlstring;
-        public TableFuntions(string connectString)
+        public DataBase(string connectString)
         {
             this.connectString = connectString;
         }

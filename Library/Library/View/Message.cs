@@ -8,11 +8,11 @@ namespace Library.View
 {
     class Message
     {
-        public void Draw(string message, int posX = -1, int posY = -1, bool isClear = true, ConsoleColor color = ConsoleColor.White)
+        public void PrintMessage(string message, int posX, int posY, bool isClear = true, ConsoleColor color = ConsoleColor.White)
         {
-            if (posX == -1)
+            if (posX == Constant.CURSOR_POS_NONE)
                 posX = Console.CursorLeft;
-            if (posY == -1)
+            if (posY == Constant.CURSOR_POS_NONE)
                 posY = Console.CursorTop;
             if (isClear)
                 Console.Clear();
