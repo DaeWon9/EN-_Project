@@ -37,8 +37,8 @@ namespace Library.Controller
             if (id == "admin1" && password == "admin1")
                 return true;
             message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, ConsoleColor.Red);
-            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, 90, Constant.LOGIN_ID_POS_Y);
-            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, 90, Constant.LOGIN_PASSWORD_POS_Y);
+            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_Y, Constant.LOGIN_ID_POS_Y);
+            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_Y, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
         }
 
