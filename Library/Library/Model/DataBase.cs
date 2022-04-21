@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace Library.Model
 {
-    class DataBase
+    class DataBase // 싱글톤으로 하기
     {
         private string connectString;
         private string sqlstring;

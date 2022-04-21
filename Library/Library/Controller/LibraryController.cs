@@ -38,7 +38,8 @@ namespace Library.Controller
                 DeleteMenu(sysMenu, SC_MAXIMIZE, MF_BYCOMMAND);
                 DeleteMenu(sysMenu, SC_SIZE, MF_BYCOMMAND);//resize
             }
-            Console.SetWindowSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT);
+
+            Console.SetWindowSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT); // 기능 완성 후에 각 UI별로 크기조정하기
 
             ModeScreen modeScreen = new ModeScreen();
             MemberScreen memberScreen = new MemberScreen();

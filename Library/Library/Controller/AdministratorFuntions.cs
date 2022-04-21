@@ -11,18 +11,18 @@ namespace Library.Controller
 {
     class AdministratorFuntions
     {
-        DataBase tableFuntions = new DataBase("Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;"); // Contant처리
+        DataBase tableFuntions = new DataBase(Constant.DATABASE_CONNECTION_INFORMATION); //  DATABASE 기능들 싱글톤으로 구성할거라 개체 생성후에 사용하는  방식 갈아엎기
         public void Login(AdministratorScreen administratorScreen, Message message, DataProcessing dataProcessing, MenuSelection menuSelection) // id : admin1    pw: admin1
         {
             bool isLogin = false;
             string id = "", password = "";
-            administratorScreen.LoginScreenDraw(true);
+            administratorScreen.LoginScreenDraw(Constant.IS_CONSOLE_CLEAR);
             while (!isLogin)
             {
-                id = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, false, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ID);
+                id = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ID);
                 if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                password = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, true, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_PASSWORD);
+                password = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, Constant.IS_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_PASSWORD);
                 if (password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
                 isLogin = LoginCheck(message, dataProcessing, id, password);
@@ -36,7 +36,7 @@ namespace Library.Controller
         {
             if (id == "admin1" && password == "admin1")
                 return true;
-            message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, false, ConsoleColor.Red);
+            message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
             dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_Y, Constant.LOGIN_ID_POS_Y);
             dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_Y, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
@@ -49,7 +49,7 @@ namespace Library.Controller
 
             switch (menuValue)
             {
-                case Constant.MENU_BOOK_SEARCH: //04.19 14:00 여기까지 진행함 
+                case Constant.MENU_BOOK_SEARCH: // DATABASE 기능들 싱글톤으로 구성할거라 개체 생성후에 사용하는  방식 갈아엎기
                     Console.Clear();
                     tableFuntions.BookSelect("*", "book");
                     Console.ReadKey();
@@ -64,7 +64,8 @@ namespace Library.Controller
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case Constant.MENU_BOOK_REVISE:
-                    MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
+                    DataBaseTestSingleton.Instance.Select("*", "book");
+                    Console.ReadKey();
                     break;
                 case Constant.MENU_MEMBER_MANAGEMENT:
                     Console.Clear();

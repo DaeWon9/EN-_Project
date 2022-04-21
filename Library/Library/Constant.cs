@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//reader["name"], reader["id"], reader["pw"], reader["age"], reader["address"], reader["phonenumber"]);
 namespace Library
 {
     class Constant
@@ -12,15 +12,32 @@ namespace Library
         public const int WINDOW_WIDTH = 95;
         public const int WINDOW_HEIGHT = 50;
 
+        // SQL
+        public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
+        // QUERY String
+        public const string QUERY_STRING_SELECT = "SELECT {0} FROM {1}";
+        public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
+        public const string QUERY_STRING_INSERT = "INSERT INTO book VALUES ({1}, {2}, {3}, {4}, {5}, {6})";
+        public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
+
+
+        public const bool IS_NOT_CONSOLE_CLEAR = false;
+        public const bool IS_CONSOLE_CLEAR = true;
+
+        public const bool IS_NOT_PASSWORD = false;
+        public const bool IS_PASSWORD = true;
+
         // cursor pos
         public const int CURSOR_POS_LEFT = 0;
         public const int CURSOR_POS_RIGHT = 94;
         public const int CURSOR_POS_NONE = -1;
+
+        public const int EXCEPTION_MESSAGE_MAX_POS_Y = 90;
         //Max length
         public const int MAX_LENGTH_ID = 10;
         public const int MAX_LENGTH_PASSWORD = 10;
         //exception type
-        public const int EXCEPTION_TYPE_ANY = 1;
+        public const int EXCEPTION_TYPE_ANY = 1; // -> enum으로 하거나 or 갈아엎기 
         public const int EXCEPTION_TYPE_NUMBER = 2;
         public const int EXCEPTION_TYPE_KOREA = 3;
         public const int EXCEPTION_TYPE_ENGLISH = 4;
@@ -58,7 +75,7 @@ namespace Library
         public const int LOGIN_ID_POS_Y = 12;
         public const int LOGIN_PASSWORD_POS_Y = 13;
 
-        // administrator menu value
+        // administrator menu value //이것도 1씩증가하는거라 바꿀 수 있을 듯??
         public const int MENU_BOOK_SEARCH = 12;
         public const int MENU_BOOK_ADD = 13;
         public const int MENU_BOOK_REMOVE = 14;
