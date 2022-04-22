@@ -8,9 +8,9 @@ namespace Library.View
 {
     class AdministratorScreen : Label
     {
-        public void LoginScreenPrint(bool isClear = false)
+        public void PrintLoginScreen(bool isClear = false)
         {
-            ExplainAdimistratorLoginLabelPrint(isClear);
+            PrintExplainAdimistratorLoginLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                                            뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                              ");
@@ -19,9 +19,9 @@ namespace Library.View
             Console.WriteLine("                                                                                              ");
         }
 
-        public void MenuScreenPrint(bool isClear = false)
+        public void PrintMenuScreen(bool isClear = false)
         {
-            LibraryLabelPrint(isClear);
+            PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                                            뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                              ");
@@ -34,9 +34,9 @@ namespace Library.View
             Console.WriteLine("                                                                                              ");
         }
 
-        public void BookSearchScreenPrint(bool isClear = false)
+        public void PrintBookSearchScreen(bool isClear = false)
         {
-            ExplainBookSearchLabelPrint(isClear);
+            PrintExplainBookSearchLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                                            뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                              ");
@@ -51,9 +51,9 @@ namespace Library.View
             Console.WriteLine("----------------------------------------------------------------------------------------------");
         }
 
-        public void BookSearchResultScreenPrint(bool isClear = false)
+        public void PrintSearchResultScreen(bool isClear = false)
         {
-            LibraryLabelPrint(isClear);
+            PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                      다시검색 : ENTER      뒤로가기 : ESC    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------");

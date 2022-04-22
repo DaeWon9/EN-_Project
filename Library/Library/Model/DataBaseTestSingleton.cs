@@ -10,8 +10,7 @@ namespace Library.Model
     internal class DataBaseTestSingleton
     {
         private static DataBaseTestSingleton instance;
-        private string sqlstring;
-
+        private string sqlString;
         MySqlConnection connection = new MySqlConnection(Constant.DATABASE_CONNECTION_INFORMATION);
 
         private DataBaseTestSingleton() { }
@@ -27,54 +26,34 @@ namespace Library.Model
             }
         }
 
-        public void Select(string filed, string tableName, string conditionalString = "")
+        public MySqlDataReader Select(string filed, string tableName, string conditionalString = "")
         {
-            connection.Open();
+            if(!connection.Ping())
+                connection.Open();
 
             if (conditionalString == "") // 조건문이 없는경우
-                sqlstring = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
+                sqlString = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
             else
-                sqlstring =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
+                sqlString =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
 
-            MySqlCommand command = new MySqlCommand(sqlstring, connection);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
 
-
-            if (filed == Constant.FILED_ALL) // 전체
-            {
-                while (reader.Read()) // view 로 빼기
-                {
-                    Console.WriteLine("도서아이디 : " + reader[Constant.BOOK_FILED_ID]);
-                    Console.WriteLine("도서명     : " + reader[Constant.BOOK_FILED_NAME]);
-                    Console.WriteLine("출판사     : " + reader[Constant.BOOK_FILED_PUBLISHER]);
-                    Console.WriteLine("저자       : " + reader[Constant.BOOK_FILED_AUTHOR]);
-                    Console.WriteLine("도서가격   : " + reader[Constant.BOOK_FILED_PRICE]);
-                    Console.WriteLine("도서수량   : " + reader[Constant.BOOK_FILED_QUANTITY]);
-                    Console.WriteLine("----------------------------------------------------------------------------------------------");
-                }
-            }
-            else
-            {
-                while (reader.Read())
-                {
-                    Console.WriteLine(reader[string.Format("{0}", filed)]);
-                }
-            }
-            reader.Close();
-            connection.Close();
+            return reader; // 다른곳에서 reader 닫아주는중
         }
 
         public List<string> GetSelectedElements(string filed, string tableName, string conditionalString = "")
         {
             List<string> selectedElements = new List<string>();
 
-            connection.Open();
+            if (!connection.Ping())
+                connection.Open();
             if (conditionalString == "") // 조건문 없을때
-                sqlstring = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
+                sqlString = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
             else
-                sqlstring =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
+                sqlString =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
 
-            MySqlCommand command = new MySqlCommand(sqlstring, connection);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -85,11 +64,27 @@ namespace Library.Model
             return selectedElements;
         }
 
-        public void MemberInsert(string tableName, string name, string id, string password, int age, string address, string phonenumber)
+        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber)
         {
-            connection.Open();
-            sqlstring = string.Format(Constant.QUERY_STRING_INSERT, tableName, name, id, password, age, address, phonenumber);
-            MySqlCommand command = new MySqlCommand(sqlstring, connection);
+            if (!connection.Ping())
+                connection.Open();
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT, tableName, name, id, password, age, address, phonenumber);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+
+        public void Delete(string tableName, string conditionalString)
+        {
+            if (!connection.Ping())
+                connection.Open();
+
+            sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_DELETE, tableName, conditionalString);
+
+
+            //sqlString = "DELETE FROM " + tableName + " WHERE id = " + id;
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
             connection.Close();

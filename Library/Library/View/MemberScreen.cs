@@ -9,9 +9,9 @@ namespace Library.View
     class MemberScreen : Label
     {
 
-        public void MainScreenPrint(bool isClear = false)
+        public void PrintMainScreen(bool isClear = false)
         {
-            LibraryLabelPrint(isClear);
+            PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
@@ -19,9 +19,9 @@ namespace Library.View
             Console.WriteLine("                                      ▶  회원가입                                              ");
             Console.WriteLine("                                                                                                ");
         }
-        public void LoginScreenPrint(bool isClear = false)
+        public void PrintLoginScreen(bool isClear = false)
         {
-            ExplainMemberLoginLabelPrint(isClear);
+            PrintExplainMemberLoginLabel(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
@@ -29,9 +29,9 @@ namespace Library.View
             Console.WriteLine("                                    PW :                                                        ");
             Console.WriteLine("                                                                                                ");
         }
-        public void MenuScreenPrint(bool isClear = false)
+        public void PrintMenuScreen(bool isClear = false)
         {
-            LibraryLabelPrint(isClear);
+            PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
@@ -42,9 +42,9 @@ namespace Library.View
             Console.WriteLine("                                                                                                ");
         }
 
-        public void SignUpScreenPrint(bool isClear = false)
+        public void PrintSignUpScreen(bool isClear = false)
         {
-            ExplainMemberSignUpLabelPrint(isClear);
+            PrintExplainMemberSignUpLabel(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");
@@ -58,9 +58,9 @@ namespace Library.View
             Console.WriteLine("                                                                                                ");
         }
 
-        public void BookSearchScreenPrint(bool isClear = false)
+        public void PrintBookSearchScreen(bool isClear = false)
         {
-            ExplainBookSearchLabelPrint(isClear);
+            PrintExplainBookSearchLabel(isClear);
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                                                              뒤로가기 : ESC    ");
             Console.WriteLine("                                                                                                ");

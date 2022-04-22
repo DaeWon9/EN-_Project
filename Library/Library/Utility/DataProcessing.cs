@@ -83,12 +83,12 @@ namespace Library.Utility
                 if (input.Length > maxIputLength) // 키입력받기전에 최대길이 넘어가는경우 체크
                 {
                     input = input.Substring(0, input.Length-1);
-                    message.PrintMessage("지정된 범위로 입력하세요", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+                    message.PrintMessage("지정된 범위로 입력하세요", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
                     continue;
                 }
 
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
-                ConsoleLineClear(Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_CURSOR_POS_Y); //에러 메세지 지우고
+                ConsoleLineClear(Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //에러 메세지 지우고
                 Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
 
 
@@ -102,7 +102,7 @@ namespace Library.Utility
 
                 if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace) && (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입력받은 키가 예외처리에 통과하는지
                 {
-                    message.PrintMessage(messageString, Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+                    message.PrintMessage(messageString, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
                     continue;
                 }
 
@@ -130,7 +130,7 @@ namespace Library.Utility
                     }
                     else
                     {
-                        message.PrintMessage("지정된 형식으로 입력하세요", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+                        message.PrintMessage("지정된 형식으로 입력하세요", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
                         ConsoleLineClear(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
                         input = ""; // 입력받은값 초기화
                     }

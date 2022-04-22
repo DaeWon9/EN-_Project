@@ -16,7 +16,7 @@ namespace Library.Controller
         {
             bool isLoginCheck = false;
             string id = "", password = "";
-            memberScreen.LoginScreenPrint(Constant.IS_CONSOLE_CLEAR);
+            memberScreen.PrintLoginScreen(Constant.IS_CONSOLE_CLEAR);
             while (!isLoginCheck)
             {
                 id = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ID);
@@ -43,7 +43,7 @@ namespace Library.Controller
                     return true;
             }
 
-            message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+            message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
             dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
             dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
@@ -72,7 +72,7 @@ namespace Library.Controller
         {
             bool isSignUp = false, isIdDuplicate, isPasswordCorrect;
             string name = "", id = "", password = "", passwordCheck = "", age = "", address = "", phoneNumber = "";
-            memberScreen.SignUpScreenPrint(Constant.IS_CONSOLE_CLEAR);
+            memberScreen.PrintSignUpScreen(Constant.IS_CONSOLE_CLEAR);
             while (!isSignUp)
             {
                 name = dataProcessing.GetInputValues(message, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.NAME, Constant.MAX_LENGTH_NAME, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_KOREA, "올바른 글자만 입력하세요", Constant.EXCEPTION_TYPE_NAME);
@@ -86,7 +86,7 @@ namespace Library.Controller
                         break;
                     isIdDuplicate = IsIdDuplicate(id);
                     if (isIdDuplicate)
-                        message.PrintMessage("이미 등록되어있는 ID입니다.", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+                        message.PrintMessage("이미 등록되어있는 ID입니다.", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
                 }
                 if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
                     break;
@@ -103,7 +103,7 @@ namespace Library.Controller
                         break;
                     isPasswordCorrect = IsPasswordCorrect(password, passwordCheck);
                     if (!isPasswordCorrect)
-                        message.PrintMessage("비밀번호가 일치하지 않습니다.", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+                        message.PrintMessage("비밀번호가 일치하지 않습니다.", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
                 }
                 if (passwordCheck == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
                     break;
@@ -122,14 +122,14 @@ namespace Library.Controller
                     isSignUp = true;
             }
 
-            DataBaseTestSingleton.Instance.MemberInsert(Constant.TABLE_NAME_MEMBER, name, id, password, int.Parse(age), address, phoneNumber);
-            message.PrintMessage("회원가입에 성공하였습니다!", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Blue);
+            DataBaseTestSingleton.Instance.InsertMember(Constant.TABLE_NAME_MEMBER, name, id, password, int.Parse(age), address, phoneNumber);
+            message.PrintMessage("회원가입에 성공하였습니다!", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Blue);
             Console.ReadKey();
 
         }
 
 
-        public void LoginOrSignUpSelect(MenuSelection menuSelection, Message message, MemberScreen memberScreen, DataProcessing dataProcessing)
+        public void LoginOrSignUpSelect(MenuSelection menuSelection, Message message, MemberScreen memberScreen, BothScreen bothScreen, DataProcessing dataProcessing)
         {
             menuValue = menuSelection.MemberLoginOrSignUpSelect(memberScreen, dataProcessing);
             switch (menuValue)

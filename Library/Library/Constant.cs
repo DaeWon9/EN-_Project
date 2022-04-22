@@ -59,7 +59,9 @@ namespace Library
         public const int CURSOR_POS_RIGHT = 94;
         public const int CURSOR_POS_NONE = -1;
 
+        // message
         public const int EXCEPTION_MESSAGE_MAX_POS_X = 39;
+
         //Max length
         public const int MAX_LENGTH_ID = 10;
         public const int MAX_LENGTH_PASSWORD = 10;
@@ -105,9 +107,10 @@ namespace Library
         public const int ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y = 17;
         public const int MEMBER_MENU_CURSOR_MAX_POS_Y = 15;
 
-        //exception cursor pos
-        public const int EXCEPTION_CURSOR_POS_X = 37;
-        public const int EXCEPTION_CURSOR_POS_Y = 10;
+        //message
+        public const int EXCEPTION_MESSAGE_CURSOR_POS_X = 37;
+        public const int EXCEPTION_MESSAGE_CURSOR_POS_Y = 10;
+        public const int YES_OR_NO_MESSAGE_CURSOR_POS_X = 35;
 
         //check message cursor pos
         public const int CHECK_MESSAGE_CURSOR_POS_X = 80;
