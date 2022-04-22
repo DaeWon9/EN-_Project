@@ -91,9 +91,8 @@
     <Compile Include="Controller\LibraryController.cs" />
     <Compile Include="Controller\MemberFuntions.cs" />
     <Compile Include="Controller\MenuSelection.cs" />
-    <Compile Include="Model\DataBase.cs" />
     <Compile Include="LibraryStarter.cs" />
-    <Compile Include="Model\DataBaseTestSingleton.cs" />
+    <Compile Include="Model\DataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\DataProcessing.cs" />
     <Compile Include="View\AdministratorScreen.cs" />

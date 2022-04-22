@@ -34,8 +34,8 @@ namespace Library.Controller
 
         private bool IsLogin(Message message, DataProcessing dataProcessing, string id, string password)
         {
-            List<string> memberId = DataBaseTestSingleton.Instance.GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
-            List<string> memberPassword = DataBaseTestSingleton.Instance.GetSelectedElements(Constant.MEMBER_FILED_PASSWORD, Constant.TABLE_NAME_MEMBER);
+            List<string> memberId = DataBase.Instance.GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
+            List<string> memberPassword = DataBase.Instance.GetSelectedElements(Constant.MEMBER_FILED_PASSWORD, Constant.TABLE_NAME_MEMBER);
 
             for (int repeat = 0; repeat < memberId.Count; repeat++)
             {
@@ -44,15 +44,15 @@ namespace Library.Controller
             }
 
             message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
-            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
-            dataProcessing.ConsoleLineClear(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
+            dataProcessing.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
+            dataProcessing.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
         }
 
 
         private bool IsIdDuplicate(string id)
         {
-            List<string> memberIdList = DataBaseTestSingleton.Instance.GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
+            List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
             for (int repeat = 0; repeat < memberIdList.Count; repeat++)
             {
                 if (memberIdList[repeat] == id)
@@ -122,7 +122,7 @@ namespace Library.Controller
                     isSignUp = true;
             }
 
-            DataBaseTestSingleton.Instance.InsertMember(Constant.TABLE_NAME_MEMBER, name, id, password, int.Parse(age), address, phoneNumber);
+            DataBase.Instance.InsertMember(Constant.TABLE_NAME_MEMBER, name, id, password, int.Parse(age), address, phoneNumber);
             message.PrintMessage("회원가입에 성공하였습니다!", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Blue);
             Console.ReadKey();
 

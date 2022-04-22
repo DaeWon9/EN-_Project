@@ -110,7 +110,7 @@ namespace Library
         //message
         public const int EXCEPTION_MESSAGE_CURSOR_POS_X = 37;
         public const int EXCEPTION_MESSAGE_CURSOR_POS_Y = 10;
-        public const int YES_OR_NO_MESSAGE_CURSOR_POS_X = 35;
+        public const int YES_OR_NO_MESSAGE_CURSOR_POS_X = 33;
 
         //check message cursor pos
         public const int CHECK_MESSAGE_CURSOR_POS_X = 80;

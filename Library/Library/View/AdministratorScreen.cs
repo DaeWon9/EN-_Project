@@ -46,7 +46,7 @@ namespace Library.View
             Console.WriteLine("                               저자          :                                                ");
             Console.WriteLine("                               도서가격      :                                                ");
             Console.WriteLine("                               도서수량      :                                                ");
-            Console.WriteLine("                               <검색하기>                                               ");
+            Console.WriteLine("                               <검색하기>                                                     ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
         }

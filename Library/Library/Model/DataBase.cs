@@ -7,81 +7,87 @@ using MySql.Data.MySqlClient;
 
 namespace Library.Model
 {
-    class DataBase // 싱글톤으로 하기
+    internal class DataBase
     {
-        private string connectString;
+        private static DataBase instance;
         private string sqlString;
-        public DataBase(string connectString)
-        {
-            this.connectString = connectString;
-        }
+        MySqlConnection connection = new MySqlConnection(Constant.DATABASE_CONNECTION_INFORMATION);
 
-        public void BookSelect(string filed, string tableName, string conditionalString = "")
+        private DataBase() { }
+        public static DataBase Instance
         {
-            using (MySqlConnection connection = new MySqlConnection(connectString))
+            get
             {
-                connection.Open();
-
-                if (conditionalString == "") // 조건문이 없는경우
-                    sqlString = "SELECT " + filed + " FROM " + tableName;
-                else
-                    sqlString = "SELECT " + filed + " FROM " + tableName + " WHERE " + conditionalString;
-
-         
-                MySqlCommand command = new MySqlCommand(sqlString, connection);
-                MySqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                if (instance == null)
                 {
-                    Console.WriteLine("{0} {1} {2} {3} {4} {5}", reader["id"], reader["name"], reader["publisher"], reader["author"], reader["price"], reader["quantity"]);
+                    instance = new DataBase();
                 }
-                reader.Close();
+                return instance;
             }
         }
-        public void MemberSelect(string filed, string tableName, string conditionalString = "")
+
+        public MySqlDataReader Select(string filed, string tableName, string conditionalString = "")
         {
-            using (MySqlConnection connection = new MySqlConnection(connectString))
-            {
+            if(!connection.Ping())
                 connection.Open();
 
-                if (conditionalString == "") // 조건문이 없는경우
-                    sqlString = "SELECT " + filed + " FROM " + tableName;
-                else
-                    sqlString = "SELECT " + filed + " FROM " + tableName + " WHERE " + conditionalString;
+            if (conditionalString == "") // 조건문이 없는경우
+                sqlString = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
+            else
+                sqlString =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
 
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
 
-                MySqlCommand command = new MySqlCommand(sqlString, connection);
-                MySqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    Console.WriteLine("{0} {1} {2} {3} {4} {5}", reader["name"], reader["id"], reader["pw"], reader["age"], reader["address"], reader["PHONE_NUMBER"]);
-                }
-                reader.Close();
-            }
+            return reader; // 다른곳에서 reader 닫아주는중
         }
 
-        public void BookInsert(string tableName, int id, string name, string publisher, string author, int price, int quantity)
+        public List<string> GetSelectedElements(string filed, string tableName, string conditionalString = "")
         {
-            using (MySqlConnection connection = new MySqlConnection(connectString))
-            {
+            List<string> selectedElements = new List<string>();
+
+            if (!connection.Ping())
                 connection.Open();
-                sqlString = "INSERT INTO " + tableName + "(id, name, publisher, author, price, quantity) VALUES " + "('" + id + "','" + name + "','" + publisher + "','" + author + "','" + price + "','" + quantity +"')";
-                MySqlCommand command = new MySqlCommand(sqlString, connection);
-                MySqlDataReader reader = command.ExecuteReader();
-                reader.Close();
+            if (conditionalString == "") // 조건문 없을때
+                sqlString = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
+            else
+                sqlString =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
+
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                selectedElements.Add(reader[string.Format("{0}", filed)].ToString());
             }
+            reader.Close();
+            connection.Close();
+            return selectedElements;
         }
 
-        public void BookDelete(string tableName, int id)
+        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectString))
-            {
+            if (!connection.Ping())
                 connection.Open();
-                sqlString = "DELETE FROM " + tableName + " WHERE id = " + id;
-                MySqlCommand command = new MySqlCommand(sqlString, connection);
-                MySqlDataReader reader = command.ExecuteReader();
-                reader.Close();
-            }
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT, tableName, name, id, password, age, address, phonenumber);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
         }
 
+        public void Delete(string tableName, string conditionalString)
+        {
+            if (!connection.Ping())
+                connection.Open();
+
+            sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_DELETE, tableName, conditionalString);
+
+
+            //sqlString = "DELETE FROM " + tableName + " WHERE id = " + id;
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
     }
 }

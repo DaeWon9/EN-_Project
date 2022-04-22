@@ -70,7 +70,7 @@ namespace Library.Utility
 
             while (!isInputEnter && !isInputEscape) // enter or esc가 눌릴때까지
             {
-                ConsoleLineClear(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
+                ClearConsoleLine(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
                 Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
                 if (isPassword)
                 {
@@ -88,14 +88,14 @@ namespace Library.Utility
                 }
 
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
-                ConsoleLineClear(Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //에러 메세지 지우고
+                ClearConsoleLine(Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //에러 메세지 지우고
                 Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
 
 
                 if (key.Key == ConsoleKey.Escape) // Esc 눌리면
                 {
                     isInputEscape = true;
-                    ConsoleLineClear(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
+                    ClearConsoleLine(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
                     return Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString();
                 }
 
@@ -131,7 +131,7 @@ namespace Library.Utility
                     else
                     {
                         message.PrintMessage("지정된 형식으로 입력하세요", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
-                        ConsoleLineClear(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
+                        ClearConsoleLine(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
                         input = ""; // 입력받은값 초기화
                     }
                 }
@@ -139,7 +139,7 @@ namespace Library.Utility
             return input;
         }
 
-        public void ConsoleLineClear(int startPosX = Constant.CURSOR_POS_LEFT, int lastPosX = Constant.CURSOR_POS_NONE, int posY = Constant.CURSOR_POS_NONE)
+        public void ClearConsoleLine(int startPosX = Constant.CURSOR_POS_LEFT, int lastPosX = Constant.CURSOR_POS_NONE, int posY = Constant.CURSOR_POS_NONE)
         {
             string str = "";
             int setPosY;
@@ -164,11 +164,6 @@ namespace Library.Utility
                 Console.SetCursorPosition(startPosX, setPosY);
         }
     
-        public int GetConsoleCursorPosY()
-        {
-            return Console.CursorTop;
-        }
-
         public int GetEnterOrEsc()
         {
             int enterOrEsc = 0;
