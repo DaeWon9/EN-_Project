@@ -10,30 +10,30 @@ using Library.View;
 
 namespace Library.Controller
 {
-    class AdministratorFuntions
+    class AdministratorFuntions : MenuSelection
     {
         private bool isInputEscape = false;
-        public void Login(AdministratorScreen administratorScreen, BothScreen bothScreen, Message message, DataProcessing dataProcessing, MenuSelection menuSelection) // id : admin1    pw: admin1
+        public void Login(AdministratorScreen administratorScreen) // id : admin1    pw: admin1
         {
             bool isLogin = false;
             string id = "", password = "";
             administratorScreen.PrintLoginScreen(Constant.IS_CONSOLE_CLEAR);
             while (!isLogin)
             {
-                id = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ID);
+                id = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ID);
                 if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                password = dataProcessing.GetInputValues(message, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, Constant.IS_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_PASSWORD);
+                password = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
                 if (password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                isLogin = CheckLogin(message, dataProcessing, id, password);
+                isLogin = CheckLogin(administratorScreen, id, password);
             }
             if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString() || password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 처음 회원 or 관리자모드 선택으로 돌아가야함
                 return;
-            SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+            SelectMenu(administratorScreen);
         }
 
-        private bool CheckLogin(Message message, DataProcessing dataProcessing, string id, string password)
+        private bool CheckLogin(AdministratorScreen administratorScreen, string id, string password)
         {
             List<string> administratorId = DataBase.Instance.GetSelectedElements(Constant.ADMINISTRATOR_FILED_ID, Constant.TABLE_NAME_ADMINISTRATOR);
             List<string> administratorPassword = DataBase.Instance.GetSelectedElements(Constant.ADMINISTRATOR_FILED_PASSWORD, Constant.TABLE_NAME_ADMINISTRATOR);
@@ -44,9 +44,9 @@ namespace Library.Controller
                     return true;
             }
 
-            message.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
-            dataProcessing.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
-            dataProcessing.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
+            administratorScreen.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+            DataProcessing.Instance.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
+            DataProcessing.Instance.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
         }
 
@@ -58,7 +58,7 @@ namespace Library.Controller
             return false;
         }
 
-        private void InputBookSearchOption(AdministratorScreen administratorScreen, BothScreen bothScreen, Message message, DataProcessing dataProcessing, MenuSelection menuSelection)
+        private void InputBookSearchOption(AdministratorScreen administratorScreen)
         {
             string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
             int currentConsoleCursorPosY;
@@ -67,36 +67,36 @@ namespace Library.Controller
             Console.CursorVisible = true;
 
             administratorScreen.PrintBookSearchScreen(Constant.IS_CONSOLE_CLEAR);
-            bothScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
 
             while (!isInputEscape && !isSearchCompleted)
             {
-                currentConsoleCursorPosY = dataProcessing.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
                 isInputEscape = IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.BookSearchPosY.ID:
-                        bookId = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_ID);
+                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_ID);
                         break;
                     case (int)Constant.BookSearchPosY.NAME:
-                        bookName = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ANY, "", Constant.EXCEPTION_TYPE_BOOK_NAME);
+                        bookName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.EXCEPTION_TYPE_ANY, "", Constant.EXCEPTION_TYPE_BOOK_NAME);
                         break;
                     case (int)Constant.BookSearchPosY.PUBLISHER:
-                        bookPublisher = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ANY, "", Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
+                        bookPublisher = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.EXCEPTION_TYPE_ANY, "", Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
                         break;
                     case (int)Constant.BookSearchPosY.AUTHOR:
-                        bookAuthor = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, "", Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
+                        bookAuthor = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, "", Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
                         break;
                     case (int)Constant.BookSearchPosY.PRICE:
-                        bookPrice = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        bookPrice = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_PRICE);
                         break;
                     case (int)Constant.BookSearchPosY.QUANTITY:
-                        bookQuantity = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        bookQuantity = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
                         break;
                     case (int)Constant.BookSearchPosY.SEARCH:
-                        SearchBook(administratorScreen, bothScreen, message, dataProcessing, menuSelection, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+                        SearchBook(administratorScreen, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
                         isSearchCompleted = true;
                         break;
                     default:
@@ -105,7 +105,7 @@ namespace Library.Controller
                 }
             }
             if (!isSearchCompleted)
-                SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+                SelectMenu(administratorScreen);
         }
 
         private string GetConditionalStringBySelectBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
@@ -182,60 +182,60 @@ namespace Library.Controller
             return conditionalString;
         }
 
-        private void SearchBook(AdministratorScreen administratorScreen, BothScreen bothScreen, Message message, DataProcessing dataProcessing, MenuSelection menuSelection, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
+        private void SearchBook(AdministratorScreen administratorScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
         {
             int GetYesOrNoBySearching, GetYesOrNoByResearching; // 아래 문자열 기능완성 후 constant로 빼기
-            message.PrintMessage("검색하시겠습니까??", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
-            message.PrintMessage("< YES : ENTER | NO : ESC >", Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
-            GetYesOrNoBySearching = dataProcessing.GetEnterOrEscape();
+            administratorScreen.PrintMessage("검색하시겠습니까??", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
+            administratorScreen.PrintMessage("< YES : ENTER | NO : ESC >", Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
+            GetYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
 
             if (GetYesOrNoBySearching == Constant.INPUT_ENTER)
             {
                 administratorScreen.PrintSearchResultScreen(Constant.IS_CONSOLE_CLEAR);
-                bothScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringBySelectBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK);
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringBySelectBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
-                GetYesOrNoByResearching = dataProcessing.GetEnterOrEscape();
+                GetYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
                 if (GetYesOrNoByResearching == Constant.INPUT_ENTER)
-                    InputBookSearchOption(administratorScreen, bothScreen, message, dataProcessing, menuSelection);
+                    InputBookSearchOption(administratorScreen);
                 if (GetYesOrNoByResearching == Constant.INPUT_ESCAPE)
-                    SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+                    SelectMenu(administratorScreen);
             }
             if (GetYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
                 administratorScreen.PrintBookSearchScreen(Constant.IS_CONSOLE_CLEAR);
-                bothScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
             }
         }
 
-        private void SelectMenu(MenuSelection menuSelection, Message message, DataProcessing dataProcessing, AdministratorScreen administratorScreen, BothScreen bothScreen)
+        private void SelectMenu(AdministratorScreen administratorScreen)
         {
             int menuValue;
-            menuValue = menuSelection.AddministratorMenuSelect(administratorScreen, dataProcessing);
+            menuValue = AddministratorMenuSelect(administratorScreen);
 
             switch (menuValue)
             {
                 case (int)Constant.AdministratorMenu.BOOK_SEARCH://책이름이 ㄱㄴㄷㄹ. 이런식으로 시작할수도 있을거임 이거 나중에 처리해주기.
-                    InputBookSearchOption(administratorScreen, bothScreen, message, dataProcessing, menuSelection);
+                    InputBookSearchOption(administratorScreen);
                     break;
                 case (int)Constant.AdministratorMenu.BOOK_ADD:
-                    SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+                    SelectMenu(administratorScreen);
                     break;
                 case (int)Constant.AdministratorMenu.BOOK_REMOVE:
-                    SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+                    SelectMenu(administratorScreen);
                     break;
                 case (int)Constant.AdministratorMenu.BOOK_REVISE:
                     break;
                 case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
-                    SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+                    SelectMenu(administratorScreen);
                     break;
                 case (int)Constant.AdministratorMenu.RENTAL_STATUS:
-                    SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+                    SelectMenu(administratorScreen);
                     break;
                 case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
-                    Login(administratorScreen, bothScreen, message, dataProcessing, menuSelection);
+                    Login(administratorScreen);
                     break;
                 default:
                     break;

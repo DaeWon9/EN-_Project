@@ -20,8 +20,6 @@ namespace Library.Controller
             MemberScreen memberScreen = new MemberScreen();
             AdministratorScreen administratorScreen = new AdministratorScreen();
             MenuSelection menuSelection = new MenuSelection();
-            Message message = new Message();
-            DataProcessing dataProcessing = new DataProcessing();
             MemberFuntions memberFuntions = new MemberFuntions();
             AdministratorFuntions administratorFuntions = new AdministratorFuntions();
             
@@ -29,15 +27,15 @@ namespace Library.Controller
             bool isExit = false;
             while (!isExit)
             {
-                menuValue = menuSelection.UserModeSelect(bothScreen, dataProcessing);
+                menuValue = menuSelection.UserModeSelect(bothScreen);
 
                 switch (menuValue)
                 {
                     case Constant.MODE_MEMBER:
-                        memberFuntions.LoginOrSignUpSelect(menuSelection, message, memberScreen, bothScreen, dataProcessing);
+                        memberFuntions.LoginOrSignUpSelect(memberScreen);
                         break;
                     case Constant.MODE_ADMINISTRATOR:
-                        administratorFuntions.Login(administratorScreen, bothScreen, message, dataProcessing, menuSelection);
+                        administratorFuntions.Login(administratorScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isExit = true;

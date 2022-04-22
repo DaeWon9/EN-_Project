@@ -10,8 +10,22 @@ namespace Library.Utility
 {
     class DataProcessing
     {
+        private static DataProcessing instance;
         private bool isInputEnter = false;
         private bool isInputEscape = false;
+
+        private DataProcessing() { }
+        public static DataProcessing Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DataProcessing();
+                }
+                return instance;
+            }
+        }
 
         public int CursorMove(int posX, int posY, int minPosY, int maxPosY)
         {
@@ -57,7 +71,7 @@ namespace Library.Utility
             return regex.IsMatch(stringValue);
         }
 
-        public string GetInputValues(Message message, int posX, int posY, int maxIputLength, bool isPassword = false, string exceptionType = Constant.EXCEPTION_TYPE_ANY,  string messageString = "올바른 형식의 값을 입력하세요", string finalExceptionType = Constant.EXCEPTION_TYPE_ANY)
+        public string GetInputValues(Message message, int posX, int posY, int maxIputLength, string exceptionType = Constant.EXCEPTION_TYPE_ANY,  string messageString = "올바른 형식의 값을 입력하세요", string finalExceptionType = Constant.EXCEPTION_TYPE_ANY, bool isPassword = false)
         {
             string input = "";
             isInputEnter = false;
