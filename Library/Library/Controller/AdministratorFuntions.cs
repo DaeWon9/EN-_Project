@@ -62,15 +62,16 @@ namespace Library.Controller
         {
             string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
             int currentConsoleCursorPosY;
+            bool isSearchCompleted = false;
             isInputEscape = false;
             Console.CursorVisible = true;
 
             administratorScreen.PrintBookSearchScreen(Constant.IS_CONSOLE_CLEAR);
-            bothScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK),Constant.TABLE_NAME_BOOK);
+            bothScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
 
-            while (!isInputEscape)
+            while (!isInputEscape && !isSearchCompleted)
             {
                 currentConsoleCursorPosY = dataProcessing.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
                 isInputEscape = IsInputEscape(currentConsoleCursorPosY.ToString());
@@ -96,15 +97,17 @@ namespace Library.Controller
                         break;
                     case (int)Constant.BookSearchPosY.SEARCH:
                         SearchBook(administratorScreen, bothScreen, message, dataProcessing, menuSelection, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+                        isSearchCompleted = true;
                         break;
                     default:
                         break;
 
                 }
             }
-            SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+            if (!isSearchCompleted)
+                SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
         }
-        
+
         private string GetConditionalStringBySelectBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
         {
             string conditionalString = ""; // 아래쪽 부분 기능완성 후 Constant로 빼기
@@ -181,30 +184,34 @@ namespace Library.Controller
 
         private void SearchBook(AdministratorScreen administratorScreen, BothScreen bothScreen, Message message, DataProcessing dataProcessing, MenuSelection menuSelection, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
         {
-            int GetyesOrNoBySearching, GetyesOrNoByResearching; // 아래 문자열 기능완성 후 constant로 빼기
+            int GetYesOrNoBySearching, GetYesOrNoByResearching; // 아래 문자열 기능완성 후 constant로 빼기
             message.PrintMessage("검색하시겠습니까??", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
             message.PrintMessage("< YES : ENTER | NO : ESC >", Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
-            GetyesOrNoBySearching = dataProcessing.GetEnterOrEsc();
+            GetYesOrNoBySearching = dataProcessing.GetEnterOrEscape();
 
-            if (GetyesOrNoBySearching == Constant.INPUT_ENTER)
+            if (GetYesOrNoBySearching == Constant.INPUT_ENTER)
             {
                 administratorScreen.PrintSearchResultScreen(Constant.IS_CONSOLE_CLEAR);
                 bothScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringBySelectBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
-                GetyesOrNoByResearching = dataProcessing.GetEnterOrEsc();
-                if (GetyesOrNoByResearching == Constant.INPUT_ENTER)
+                GetYesOrNoByResearching = dataProcessing.GetEnterOrEscape();
+                if (GetYesOrNoByResearching == Constant.INPUT_ENTER)
                     InputBookSearchOption(administratorScreen, bothScreen, message, dataProcessing, menuSelection);
-                SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
+                if (GetYesOrNoByResearching == Constant.INPUT_ESCAPE)
+                    SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
             }
-            administratorScreen.PrintBookSearchScreen(Constant.IS_CONSOLE_CLEAR);
-            bothScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
-            Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
-            Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
+            if (GetYesOrNoBySearching == Constant.INPUT_ESCAPE)
+            {
+                administratorScreen.PrintBookSearchScreen(Constant.IS_CONSOLE_CLEAR);
+                bothScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
+                Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
+                Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
+            }
         }
 
-        private void SelectMenu(MenuSelection menuSelection, Message message, DataProcessing dataProcessing,  AdministratorScreen administratorScreen, BothScreen bothScreen)
-        { 
+        private void SelectMenu(MenuSelection menuSelection, Message message, DataProcessing dataProcessing, AdministratorScreen administratorScreen, BothScreen bothScreen)
+        {
             int menuValue;
             menuValue = menuSelection.AddministratorMenuSelect(administratorScreen, dataProcessing);
 
@@ -222,8 +229,6 @@ namespace Library.Controller
                 case (int)Constant.AdministratorMenu.BOOK_REVISE:
                     break;
                 case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
-                    Console.Clear();
-                    Console.ReadKey();
                     SelectMenu(menuSelection, message, dataProcessing, administratorScreen, bothScreen);
                     break;
                 case (int)Constant.AdministratorMenu.RENTAL_STATUS:

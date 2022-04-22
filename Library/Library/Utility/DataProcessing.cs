@@ -164,7 +164,7 @@ namespace Library.Utility
                 Console.SetCursorPosition(startPosX, setPosY);
         }
     
-        public int GetEnterOrEsc()
+        public int GetEnterOrEscape()
         {
             int enterOrEsc = 0;
             isInputEnter = false;

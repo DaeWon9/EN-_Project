@@ -2,7 +2,7 @@
 
 namespace Library.View
 {
-    class Label
+    class Label : Message
     {
         public void PrintLibraryLabel(bool isClear = false)
         {

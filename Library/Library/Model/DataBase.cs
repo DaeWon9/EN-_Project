@@ -64,7 +64,7 @@ namespace Library.Model
             return selectedElements;
         }
 
-        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber)
+        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber) //오버라이드로 insertbook이랑 묶기
         {
             if (!connection.Ping())
                 connection.Open();
