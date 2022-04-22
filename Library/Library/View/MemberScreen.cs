@@ -57,5 +57,20 @@ namespace Library.View
             Console.WriteLine("                               핸드폰번호    :                                                  ");
             Console.WriteLine("                                                                                                ");
         }
+
+        public void BookSearchScreenPrint(bool isClear = false)
+        {
+            ExplainBookSearchLabelPrint(isClear);
+            Console.WriteLine("                                                                                                ");
+            Console.WriteLine("                                                                              뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                                                ");
+            Console.WriteLine("                               도서아이디    :                                                  ");
+            Console.WriteLine("                               도서명        :                                                  ");
+            Console.WriteLine("                               출판사        :                                                  ");
+            Console.WriteLine("                               저자          :                                                  ");
+            Console.WriteLine("                               도서가격      :                                                  ");
+            Console.WriteLine("                               도서수량      :                                                  ");
+            Console.WriteLine("                                                                                                ");
+        }
     }
 }

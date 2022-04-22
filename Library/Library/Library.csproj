@@ -100,7 +100,7 @@
     <Compile Include="View\Label.cs" />
     <Compile Include="View\MemberScreen.cs" />
     <Compile Include="View\Message.cs" />
-    <Compile Include="View\ModeScreen.cs" />
+    <Compile Include="View\BothScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

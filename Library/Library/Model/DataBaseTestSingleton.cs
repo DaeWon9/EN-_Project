@@ -42,14 +42,15 @@ namespace Library.Model
 
             if (filed == Constant.FILED_ALL) // 전체
             {
-                while (reader.Read())
+                while (reader.Read()) // view 로 빼기
                 {
-                    Console.WriteLine(reader[Constant.BOOK_FILED_ID]);
-                    Console.WriteLine(reader[Constant.BOOK_FILED_NAME]);
-                    Console.WriteLine(reader[Constant.BOOK_FILED_PUBLISHER]);
-                    Console.WriteLine(reader[Constant.BOOK_FILED_AUTHOR]);
-                    Console.WriteLine(reader[Constant.BOOK_FILED_PRICE]);
-                    Console.WriteLine(reader[Constant.BOOK_FILED_QUANTITY]);
+                    Console.WriteLine("도서아이디 : " + reader[Constant.BOOK_FILED_ID]);
+                    Console.WriteLine("도서명     : " + reader[Constant.BOOK_FILED_NAME]);
+                    Console.WriteLine("출판사     : " + reader[Constant.BOOK_FILED_PUBLISHER]);
+                    Console.WriteLine("저자       : " + reader[Constant.BOOK_FILED_AUTHOR]);
+                    Console.WriteLine("도서가격   : " + reader[Constant.BOOK_FILED_PRICE]);
+                    Console.WriteLine("도서수량   : " + reader[Constant.BOOK_FILED_QUANTITY]);
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
                 }
             }
             else

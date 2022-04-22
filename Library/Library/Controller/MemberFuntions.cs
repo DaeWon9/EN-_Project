@@ -82,11 +82,11 @@ namespace Library.Controller
                 while (isIdDuplicate)
                 {
                     id = dataProcessing.GetInputValues(message, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ID, Constant.MAX_LENGTH_ID, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ID);
+                    if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
+                        break;
                     isIdDuplicate = IsIdDuplicate(id);
                     if (isIdDuplicate)
                         message.PrintMessage("이미 등록되어있는 ID입니다.", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
-                    if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
-                        break;
                 }
                 if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
                     break;
@@ -99,11 +99,11 @@ namespace Library.Controller
                 while (!isPasswordCorrect)
                 {
                     passwordCheck = dataProcessing.GetInputValues(message, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD_CHECK, Constant.MAX_LENGTH_PASSWORD, Constant.IS_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_PASSWORD);
+                    if (passwordCheck == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
+                        break;
                     isPasswordCorrect = IsPasswordCorrect(password, passwordCheck);
                     if (!isPasswordCorrect)
                         message.PrintMessage("비밀번호가 일치하지 않습니다.", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
-                    if (passwordCheck == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
-                        break;
                 }
                 if (passwordCheck == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
                     break;

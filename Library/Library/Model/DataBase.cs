@@ -10,7 +10,7 @@ namespace Library.Model
     class DataBase // 싱글톤으로 하기
     {
         private string connectString;
-        private string sqlstring;
+        private string sqlString;
         public DataBase(string connectString)
         {
             this.connectString = connectString;
@@ -23,12 +23,12 @@ namespace Library.Model
                 connection.Open();
 
                 if (conditionalString == "") // 조건문이 없는경우
-                    sqlstring = "SELECT " + filed + " FROM " + tableName;
+                    sqlString = "SELECT " + filed + " FROM " + tableName;
                 else
-                    sqlstring = "SELECT " + filed + " FROM " + tableName + " WHERE " + conditionalString;
+                    sqlString = "SELECT " + filed + " FROM " + tableName + " WHERE " + conditionalString;
 
          
-                MySqlCommand command = new MySqlCommand(sqlstring, connection);
+                MySqlCommand command = new MySqlCommand(sqlString, connection);
                 MySqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -44,12 +44,12 @@ namespace Library.Model
                 connection.Open();
 
                 if (conditionalString == "") // 조건문이 없는경우
-                    sqlstring = "SELECT " + filed + " FROM " + tableName;
+                    sqlString = "SELECT " + filed + " FROM " + tableName;
                 else
-                    sqlstring = "SELECT " + filed + " FROM " + tableName + " WHERE " + conditionalString;
+                    sqlString = "SELECT " + filed + " FROM " + tableName + " WHERE " + conditionalString;
 
 
-                MySqlCommand command = new MySqlCommand(sqlstring, connection);
+                MySqlCommand command = new MySqlCommand(sqlString, connection);
                 MySqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -64,8 +64,8 @@ namespace Library.Model
             using (MySqlConnection connection = new MySqlConnection(connectString))
             {
                 connection.Open();
-                sqlstring = "INSERT INTO " + tableName + "(id, name, publisher, author, price, quantity) VALUES " + "('" + id + "','" + name + "','" + publisher + "','" + author + "','" + price + "','" + quantity +"')";
-                MySqlCommand command = new MySqlCommand(sqlstring, connection);
+                sqlString = "INSERT INTO " + tableName + "(id, name, publisher, author, price, quantity) VALUES " + "('" + id + "','" + name + "','" + publisher + "','" + author + "','" + price + "','" + quantity +"')";
+                MySqlCommand command = new MySqlCommand(sqlString, connection);
                 MySqlDataReader reader = command.ExecuteReader();
                 reader.Close();
             }
@@ -76,8 +76,8 @@ namespace Library.Model
             using (MySqlConnection connection = new MySqlConnection(connectString))
             {
                 connection.Open();
-                sqlstring = "DELETE FROM " + tableName + " WHERE id = " + id;
-                MySqlCommand command = new MySqlCommand(sqlstring, connection);
+                sqlString = "DELETE FROM " + tableName + " WHERE id = " + id;
+                MySqlCommand command = new MySqlCommand(sqlString, connection);
                 MySqlDataReader reader = command.ExecuteReader();
                 reader.Close();
             }

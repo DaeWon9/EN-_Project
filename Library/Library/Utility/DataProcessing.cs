@@ -12,7 +12,8 @@ namespace Library.Utility
     {
         private bool isInputEnter = false;
         private bool isInputEscape = false;
-        public int CursorMove(int posX, int posY, int maxPosY)
+
+        public int CursorMove(int posX, int posY, int minPosY, int maxPosY)
         {
             int cursorPosX = posX;
             int cursorPosY = posY;
@@ -26,7 +27,7 @@ namespace Library.Utility
                 {
                     case ConsoleKey.UpArrow:
                         cursorPosY--;
-                        if (cursorPosY < posY)
+                        if (cursorPosY < minPosY)
                             cursorPosY++;
                         break;
                     case ConsoleKey.DownArrow:
@@ -61,8 +62,7 @@ namespace Library.Utility
             string input = "";
             isInputEnter = false;
             isInputEscape = false;
-            
-
+           
             if (posX == Constant.CURSOR_POS_NONE)
                 posX = Console.CursorLeft;
             if (posY == Constant.CURSOR_POS_NONE)
@@ -95,6 +95,7 @@ namespace Library.Utility
                 if (key.Key == ConsoleKey.Escape) // Esc 눌리면
                 {
                     isInputEscape = true;
+                    ConsoleLineClear(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
                     return Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString();
                 }
 
@@ -161,6 +162,35 @@ namespace Library.Utility
 
             if (startPosX != Constant.CURSOR_POS_LEFT)
                 Console.SetCursorPosition(startPosX, setPosY);
+        }
+    
+        public int GetConsoleCursorPosY()
+        {
+            return Console.CursorTop;
+        }
+
+        public int GetEnterOrEsc()
+        {
+            int enterOrEsc = 0;
+            isInputEnter = false;
+            isInputEscape = false;
+            Console.CursorVisible = false;
+            while (!isInputEnter && !isInputEscape) // enter or esc가 눌릴때까지
+            {
+                ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
+                if (key.Key == ConsoleKey.Escape) // Esc
+                {
+                    isInputEscape = true;
+                    enterOrEsc =  Constant.INPUT_ESCAPE;
+                }
+                if (key.Key == ConsoleKey.Enter) // Enter
+                {
+                    isInputEnter = true;
+                    enterOrEsc =  Constant.INPUT_ENTER;
+                }
+            }
+            Console.CursorVisible = true;
+            return enterOrEsc;
         }
     }
 }

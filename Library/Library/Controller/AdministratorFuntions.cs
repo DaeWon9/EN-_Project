@@ -48,6 +48,145 @@ namespace Library.Controller
             return false;
         }
 
+        private void InputBookSearchOption(AdministratorScreen administratorScreen, Message message, DataProcessing dataProcessing)
+        {
+            string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
+            int currentCursorPosY;
+            Console.CursorVisible = true;
+            administratorScreen.BookSearchScreenPrint(Constant.IS_CONSOLE_CLEAR);
+            DataBaseTestSingleton.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK);
+            Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
+            Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID);
+            while (true)
+            {
+                currentCursorPosY = dataProcessing.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
+                switch (currentCursorPosY)
+                {
+                    case (int)Constant.BookSearchPosY.ID:
+                        bookId = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_ID);
+                        break;
+                    case (int)Constant.BookSearchPosY.NAME:
+                        bookName = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ANY, "", Constant.EXCEPTION_TYPE_BOOK_NAME);
+                        break;
+                    case (int)Constant.BookSearchPosY.PUBLISHER:
+                        bookPublisher = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ANY, "", Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
+                        break;
+                    case (int)Constant.BookSearchPosY.AUTHOR:
+                        bookAuthor = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, "", Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
+                        break;
+                    case (int)Constant.BookSearchPosY.PRICE:
+                        bookPrice = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        break;
+                    case (int)Constant.BookSearchPosY.QUANTITY:
+                        bookQuantity = dataProcessing.GetInputValues(message, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.IS_NOT_PASSWORD, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        break;
+                    case (int)Constant.BookSearchPosY.SEARCH:
+                        BookSearch(administratorScreen, message, dataProcessing, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+        }
+        
+
+        private string GetConditionalString(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
+        {
+            string conditionalString = "";
+
+            if (bookId != "" && bookId != "-1")
+                if (conditionalString == "")
+                    conditionalString += Constant.BOOK_FILED_ID + "=" + bookId;
+                else
+                {
+                    conditionalString += " AND ";
+                    conditionalString += Constant.BOOK_FILED_ID + "=" + bookId;
+                }
+            if (bookName != "" && bookName != "-1")
+                if (conditionalString == "")
+                {
+                    conditionalString += "(" + Constant.BOOK_FILED_NAME + " LIKE " + "'" + bookName + "%' OR ";
+                    conditionalString += Constant.BOOK_FILED_NAME + " LIKE " + "'%" + bookName + "' OR ";
+                    conditionalString += Constant.BOOK_FILED_NAME + " LIKE " + "'%" + bookName + "%')";
+                }
+                else
+                {
+                    conditionalString += " AND ";
+                    conditionalString += "(" + Constant.BOOK_FILED_NAME + " LIKE " + "'" + bookName + "%' OR ";
+                    conditionalString += Constant.BOOK_FILED_NAME + " LIKE " + "'%" + bookName + "' OR ";
+                    conditionalString += Constant.BOOK_FILED_NAME + " LIKE " + "'%" + bookName + "%')";
+                }
+            if (bookPublisher != "" && bookPublisher != "-1")
+                if (conditionalString == "")
+                {
+                    conditionalString += "(" + Constant.BOOK_FILED_PUBLISHER + " LIKE " + "'" + bookPublisher + "%' OR ";
+                    conditionalString += Constant.BOOK_FILED_PUBLISHER + " LIKE " + "'%" + bookPublisher + "' OR ";
+                    conditionalString += Constant.BOOK_FILED_PUBLISHER + " LIKE " + "'%" + bookPublisher + "%')";
+                }
+                else
+                {
+                    conditionalString += " AND ";
+                    conditionalString += "(" + Constant.BOOK_FILED_PUBLISHER + " LIKE " + "'" + bookPublisher + "%' OR ";
+                    conditionalString += Constant.BOOK_FILED_PUBLISHER + " LIKE " + "'%" + bookPublisher + "' OR ";
+                    conditionalString += Constant.BOOK_FILED_PUBLISHER + " LIKE " + "'%" + bookPublisher + "%')";
+                }
+            if (bookAuthor != "" && bookAuthor != "-1")
+                if (conditionalString == "")
+                {
+                    conditionalString += "(" + Constant.BOOK_FILED_AUTHOR + " LIKE " + "'" + bookAuthor + "%' OR ";
+                    conditionalString += Constant.BOOK_FILED_AUTHOR + " LIKE " + "'%" + bookAuthor + "' OR ";
+                    conditionalString += Constant.BOOK_FILED_AUTHOR + " LIKE " + "'%" + bookAuthor + "%')";
+                }
+                else
+                {
+                    conditionalString += " AND ";
+                    conditionalString += "(" + Constant.BOOK_FILED_AUTHOR + " LIKE " + "'" + bookAuthor + "%' OR ";
+                    conditionalString += Constant.BOOK_FILED_AUTHOR + " LIKE " + "'%" + bookAuthor + "' OR ";
+                    conditionalString += Constant.BOOK_FILED_AUTHOR + " LIKE " + "'%" + bookAuthor + "%')";
+                }
+            if (bookPrice != "" && bookPrice != "-1")
+                if (conditionalString == "")
+                    conditionalString += Constant.BOOK_FILED_PRICE + "=" + bookPrice;
+                else
+                {
+                    conditionalString += " AND ";
+                    conditionalString += Constant.BOOK_FILED_PRICE + "=" + bookPrice;
+                }
+            if (bookQuantity != "" && bookQuantity != "-1")
+                if (conditionalString == "")
+                    conditionalString += Constant.BOOK_FILED_QUANTITY + "=" + bookQuantity;
+                else
+                {
+                    conditionalString += " AND ";
+                    conditionalString += Constant.BOOK_FILED_QUANTITY + "=" + bookQuantity;
+                }
+
+            return conditionalString;
+        }
+
+        private void BookSearch(AdministratorScreen administratorScreen, Message message, DataProcessing dataProcessing, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
+        {
+            int yesOrNo;
+            message.PrintMessage("검색하시겠습니까??", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y - 1, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Blue);
+            message.PrintMessage("\r\t\t\t\tYES : ENTER\tNO : ESC", Constant.EXCEPTION_CURSOR_POS_X, Constant.EXCEPTION_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Blue);
+            yesOrNo = dataProcessing.GetEnterOrEsc();
+
+         
+
+            if (yesOrNo == Constant.INPUT_ENTER)
+            {
+                administratorScreen.BookSearchResultScreenPrint(Constant.IS_CONSOLE_CLEAR);
+                DataBaseTestSingleton.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalString(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity));
+                Console.SetCursorPosition(0, 0);
+                Console.CursorVisible = false;
+                Console.ReadKey();
+                InputBookSearchOption(administratorScreen, message, dataProcessing);
+            }
+            else
+                InputBookSearchOption(administratorScreen, message, dataProcessing);
+        }
+
         private void MenuSelect(MenuSelection menuSelection, Message message, DataProcessing dataProcessing,  AdministratorScreen administratorScreen)
         { 
             int menuValue;
@@ -55,10 +194,9 @@ namespace Library.Controller
 
             switch (menuValue)
             {
-                case (int)Constant.AdministratorMenu.BOOK_SEARCH: // DATABASE 기능들 싱글톤으로 구성할거라 개체 생성후에 사용하는  방식 갈아엎기
-                    Console.Clear();
+                case (int)Constant.AdministratorMenu.BOOK_SEARCH://책이름이 ㄱㄴㄷㄹ. 이런식으로 시작할수도 있을거임 이거 나중에 처리해주기.
+                    InputBookSearchOption(administratorScreen, message, dataProcessing);
                     Console.ReadKey();
-                    MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case (int)Constant.AdministratorMenu.BOOK_ADD:
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
@@ -67,8 +205,6 @@ namespace Library.Controller
                     MenuSelect(menuSelection, message, dataProcessing, administratorScreen);
                     break;
                 case (int)Constant.AdministratorMenu.BOOK_REVISE:
-                    DataBaseTestSingleton.Instance.Select("publisher", "book");
-                    Console.ReadKey();
                     break;
                 case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
                     Console.Clear();
