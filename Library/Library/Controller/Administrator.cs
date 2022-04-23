@@ -10,20 +10,20 @@ using Library.View;
 
 namespace Library.Controller
 {
-    class AdministratorFuntions : MenuSelection
+    class Administrator : MenuSelection
     {
         private bool isInputEscape = false;
         public void Login(AdministratorScreen administratorScreen) // id : admin1    pw: admin1
         {
             bool isLogin = false;
             string id = "", password = "";
-            administratorScreen.PrintLoginScreen(Constant.IS_CONSOLE_CLEAR);
+            administratorScreen.PrintLoginScreen();
             while (!isLogin)
             {
-                id = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ID);
+                id = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ID);
                 if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                password = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
+                password = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
                 if (password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
                 isLogin = CheckLogin(administratorScreen, id, password);
@@ -44,17 +44,9 @@ namespace Library.Controller
                     return true;
             }
 
-            administratorScreen.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Red);
+            administratorScreen.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
             DataProcessing.Instance.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
             DataProcessing.Instance.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
-            return false;
-        }
-
-
-        private bool IsInputEscape(string stringValue)
-        {
-            if (stringValue == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
-                return true;
             return false;
         }
 
@@ -62,55 +54,53 @@ namespace Library.Controller
         {
             string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
             int currentConsoleCursorPosY;
-            bool isSearchCompleted = false;
+            bool isSearchBookCompleted = false;
             isInputEscape = false;
             Console.CursorVisible = true;
 
-            administratorScreen.PrintBookSearchScreen(Constant.IS_CONSOLE_CLEAR);
+            administratorScreen.PrintBookSearchScreen();
             administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
 
-            while (!isInputEscape && !isSearchCompleted)
+            while (!isInputEscape && !isSearchBookCompleted)
             {
                 currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
-                isInputEscape = IsInputEscape(currentConsoleCursorPosY.ToString());
+                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.BookSearchPosY.ID:
-                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_ID);
+                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
                         break;
                     case (int)Constant.BookSearchPosY.NAME:
-                        bookName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.EXCEPTION_TYPE_ANY, "", Constant.EXCEPTION_TYPE_BOOK_NAME);
+                        bookName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, "", Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
                         break;
                     case (int)Constant.BookSearchPosY.PUBLISHER:
-                        bookPublisher = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.EXCEPTION_TYPE_ANY, "", Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
+                        bookPublisher = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, "", Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
                         break;
                     case (int)Constant.BookSearchPosY.AUTHOR:
-                        bookAuthor = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, "", Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
+                        bookAuthor = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, "", Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
                         break;
                     case (int)Constant.BookSearchPosY.PRICE:
-                        bookPrice = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        bookPrice = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
                         break;
                     case (int)Constant.BookSearchPosY.QUANTITY:
-                        bookQuantity = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.EXCEPTION_TYPE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        bookQuantity = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
                         break;
                     case (int)Constant.BookSearchPosY.SEARCH:
-                        SearchBook(administratorScreen, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
-                        isSearchCompleted = true;
+                        isSearchBookCompleted = IsSearchBookCompleted(administratorScreen, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
                         break;
                     default:
                         break;
-
                 }
             }
-            if (!isSearchCompleted)
+            if (!isSearchBookCompleted)
                 SelectMenu(administratorScreen);
         }
 
-        private string GetConditionalStringBySelectBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
+        private string GetConditionalStringBySelectBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)// 아래쪽 부분 기능완성 후 Constant로 빼기
         {
-            string conditionalString = ""; // 아래쪽 부분 기능완성 후 Constant로 빼기
+            string conditionalString = "";
 
             if (bookId != "" && bookId != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
@@ -182,16 +172,24 @@ namespace Library.Controller
             return conditionalString;
         }
 
-        private void SearchBook(AdministratorScreen administratorScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
+        private bool IsSearchBookCompleted(AdministratorScreen administratorScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
         {
             int GetYesOrNoBySearching, GetYesOrNoByResearching; // 아래 문자열 기능완성 후 constant로 빼기
-            administratorScreen.PrintMessage("검색하시겠습니까??", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
-            administratorScreen.PrintMessage("< YES : ENTER | NO : ESC >", Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, Constant.IS_NOT_CONSOLE_CLEAR, ConsoleColor.Green);
+
+            if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()) && (bookName == "" || bookName == Constant.INPUT_ESCAPE.ToString()) && (bookPublisher == "" || bookPublisher == Constant.INPUT_ESCAPE.ToString()) && (bookAuthor == "" || bookAuthor == Constant.INPUT_ESCAPE.ToString()) && (bookPrice == "" || bookPrice == Constant.INPUT_ESCAPE.ToString()) && (bookQuantity == "" || bookQuantity == Constant.INPUT_ESCAPE.ToString()))
+            {
+                administratorScreen.PrintMessage("옵션을 입력해주세요", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
+                return false;
+            }
+
+            administratorScreen.PrintMessage("검색하시겠습니까??", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Green);
+            administratorScreen.PrintMessage("< YES : ENTER | NO : ESC >", Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Green);
             GetYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
 
             if (GetYesOrNoBySearching == Constant.INPUT_ENTER)
             {
-                administratorScreen.PrintSearchResultScreen(Constant.IS_CONSOLE_CLEAR);
+                administratorScreen.PrintSearchResultScreen();
                 administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringBySelectBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
@@ -203,21 +201,22 @@ namespace Library.Controller
             }
             if (GetYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
-                administratorScreen.PrintBookSearchScreen(Constant.IS_CONSOLE_CLEAR);
+                administratorScreen.PrintBookSearchScreen();
                 administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
             }
+            return true;
         }
 
         private void SelectMenu(AdministratorScreen administratorScreen)
         {
             int menuValue;
-            menuValue = AddministratorMenuSelect(administratorScreen);
+            menuValue = GetAddministratorMenu(administratorScreen);
 
             switch (menuValue)
             {
-                case (int)Constant.AdministratorMenu.BOOK_SEARCH://책이름이 ㄱㄴㄷㄹ. 이런식으로 시작할수도 있을거임 이거 나중에 처리해주기.
+                case (int)Constant.AdministratorMenu.BOOK_SEARCH:
                     InputBookSearchOption(administratorScreen);
                     break;
                 case (int)Constant.AdministratorMenu.BOOK_ADD:

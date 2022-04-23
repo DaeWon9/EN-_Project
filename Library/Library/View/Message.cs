@@ -8,7 +8,7 @@ namespace Library.View
 {
     class Message
     {
-        public void PrintMessage(string message, int posX, int posY, bool isClear = true, ConsoleColor color = ConsoleColor.White)
+        public void PrintMessage(string message, int posX, int posY, ConsoleColor color = ConsoleColor.White, bool isClear = false)
         {
             if (posX == Constant.CURSOR_POS_NONE)
                 posX = Console.CursorLeft;

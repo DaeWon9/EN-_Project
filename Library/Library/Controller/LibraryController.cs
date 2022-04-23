@@ -20,19 +20,19 @@ namespace Library.Controller
             MemberScreen memberScreen = new MemberScreen();
             AdministratorScreen administratorScreen = new AdministratorScreen();
             MenuSelection menuSelection = new MenuSelection();
-            MemberFuntions memberFuntions = new MemberFuntions();
-            AdministratorFuntions administratorFuntions = new AdministratorFuntions();
+            Member memberFuntions = new Member();
+            Administrator administratorFuntions = new Administrator();
             
             int menuValue;
             bool isExit = false;
             while (!isExit)
             {
-                menuValue = menuSelection.UserModeSelect(bothScreen);
+                menuValue = menuSelection.GetUserMode(bothScreen);
 
                 switch (menuValue)
                 {
                     case Constant.MODE_MEMBER:
-                        memberFuntions.LoginOrSignUpSelect(memberScreen);
+                        memberFuntions.SelectLoginOrSignUp(memberScreen);
                         break;
                     case Constant.MODE_ADMINISTRATOR:
                         administratorFuntions.Login(administratorScreen);

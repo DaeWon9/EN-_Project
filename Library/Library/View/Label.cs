@@ -4,7 +4,7 @@ namespace Library.View
 {
     class Label : Message
     {
-        public void PrintLibraryLabel(bool isClear = false)
+        public void PrintLibraryLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -19,7 +19,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintExplainMemberLoginLabel(bool isClear = false)
+        public void PrintExplainMemberLoginLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -35,7 +35,7 @@ namespace Library.View
         }
 
 
-        public void PrintExplainAdimistratorLoginLabel(bool isClear = false)
+        public void PrintExplainAdimistratorLoginLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -50,7 +50,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintExplainMemberSignUpLabel(bool isClear = false)
+        public void PrintExplainMemberSignUpLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -65,7 +65,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintExplainBookSearchLabel(bool isClear = false)
+        public void PrintExplainBookSearchLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -80,7 +80,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintResultBookSearchLabel(bool isClear = false)
+        public void PrintResultBookSearchLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();

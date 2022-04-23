@@ -42,6 +42,26 @@ namespace Library.Model
             return reader; // 다른곳에서 reader 닫아주는중
         }
 
+        public string GetSelectedElement(string filed, string tableName, string conditionalString)
+        {
+            string selectedElement = "";
+
+            if (!connection.Ping())
+                connection.Open();
+            sqlString =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
+
+
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+                selectedElement = reader[string.Format("{0}", filed)].ToString();
+
+            reader.Close();
+            connection.Close();
+            return selectedElement;
+        }
+
         public List<string> GetSelectedElements(string filed, string tableName, string conditionalString = "")
         {
             List<string> selectedElements = new List<string>();
@@ -64,7 +84,7 @@ namespace Library.Model
             return selectedElements;
         }
 
-        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber) //오버라이드로 insertbook이랑 묶기
+        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber) //오버라이드로 or 그냥 다른이름
         {
             if (!connection.Ping())
                 connection.Open();

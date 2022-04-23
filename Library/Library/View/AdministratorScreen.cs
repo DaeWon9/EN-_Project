@@ -8,7 +8,7 @@ namespace Library.View
 {
     class AdministratorScreen : BothScreen
     {
-        public void PrintLoginScreen(bool isClear = false)
+        public void PrintLoginScreen(bool isClear = true)
         {
             PrintExplainAdimistratorLoginLabel(isClear);
             Console.WriteLine("                                                                                              ");
@@ -19,7 +19,7 @@ namespace Library.View
             Console.WriteLine("                                                                                              ");
         }
 
-        public void PrintMenuScreen(bool isClear = false)
+        public void PrintMenuScreen(bool isClear = true)
         {
             PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                              ");
@@ -34,29 +34,5 @@ namespace Library.View
             Console.WriteLine("                                                                                              ");
         }
 
-        public void PrintBookSearchScreen(bool isClear = false)
-        {
-            PrintExplainBookSearchLabel(isClear);
-            Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                                            뒤로가기 : ESC    ");
-            Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                               도서아이디    :                                                ");
-            Console.WriteLine("                               도서명        :                                                ");
-            Console.WriteLine("                               출판사        :                                                ");
-            Console.WriteLine("                               저자          :                                                ");
-            Console.WriteLine("                               도서가격      :                                                ");
-            Console.WriteLine("                               도서수량      :                                                ");
-            Console.WriteLine("                               <검색하기>                                                     ");
-            Console.WriteLine("                                                                                              ");
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-        }
-
-        public void PrintSearchResultScreen(bool isClear = false)
-        {
-            PrintLibraryLabel(isClear);
-            Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                      다시검색 : ENTER      뒤로가기 : ESC    ");
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-        }
     }
 }

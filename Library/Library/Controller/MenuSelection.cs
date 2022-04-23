@@ -11,31 +11,32 @@ namespace Library.Controller
     class MenuSelection
     {
         private int menuValue;
-        public int UserModeSelect(BothScreen bothScreen)
+
+        public int GetUserMode(BothScreen bothScreen)
         {
-            bothScreen.PrintSelectUserModeScreen(Constant.IS_CONSOLE_CLEAR);
+            bothScreen.PrintSelectUserModeScreen();
             menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.FIRST_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }
 
-
-        public int MemberLoginOrSignUpSelect(MemberScreen memberScreen)
+        public int GetMemberLoginOrSignUp(MemberScreen memberScreen)
         {
-            memberScreen.PrintMainScreen(Constant.IS_CONSOLE_CLEAR);
+            memberScreen.PrintMainScreen();
             menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.FIRST_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }
 
-        public int MemberMenuSelect(MemberScreen memberScreen)
+        public int GetMemberMenu(MemberScreen memberScreen, string welcomeString)
         {
-            memberScreen.PrintMenuScreen(Constant.IS_CONSOLE_CLEAR);
+            memberScreen.PrintMenuScreen();
+            memberScreen.PrintMessage(welcomeString, Constant.WELCOME_MESSAGE_CURSOR_POS_X, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y,  Constant.MEMBER_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }
 
-        public int AddministratorMenuSelect(AdministratorScreen administratorScreen)
+        public int GetAddministratorMenu(AdministratorScreen administratorScreen)
         {
-            administratorScreen.PrintMenuScreen(Constant.IS_CONSOLE_CLEAR);
+            administratorScreen.PrintMenuScreen();
             menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }

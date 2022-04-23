@@ -11,6 +11,8 @@ namespace Library
         //window size
         public const int WINDOW_WIDTH = 95;
         public const int WINDOW_HEIGHT = 50;
+        // TEXT
+        public const string STRING_WELCOME_PHRASE = "{0}님 환영합니다.";
 
         // SQL
         public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
@@ -19,6 +21,9 @@ namespace Library
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
         public const string QUERY_STRING_INSERT = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
+        // conditional string 
+        public const string CONDITIONAL_STRING_COMPAR_ID = "id = '{0}'";
+
 
         // Mysql Table 
         public const string TABLE_NAME_ADMINISTRATOR = "administrator";
@@ -108,6 +113,8 @@ namespace Library
         public const int MEMBER_MENU_CURSOR_MAX_POS_Y = 15;
 
         //message
+        public const int WELCOME_MESSAGE_CURSOR_POS_X = 2;
+        public const int WELCOME_MESSAGE_CURSOR_POS_Y = 10;
         public const int EXCEPTION_MESSAGE_CURSOR_POS_X = 37;
         public const int EXCEPTION_MESSAGE_CURSOR_POS_Y = 10;
         public const int YES_OR_NO_MESSAGE_CURSOR_POS_X = 33;

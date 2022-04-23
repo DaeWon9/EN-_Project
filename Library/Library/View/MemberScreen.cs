@@ -9,7 +9,7 @@ namespace Library.View
     class MemberScreen : BothScreen
     {
 
-        public void PrintMainScreen(bool isClear = false)
+        public void PrintMainScreen(bool isClear = true)
         {
             PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                                ");
@@ -19,7 +19,7 @@ namespace Library.View
             Console.WriteLine("                                      ▶  회원가입                                              ");
             Console.WriteLine("                                                                                                ");
         }
-        public void PrintLoginScreen(bool isClear = false)
+        public void PrintLoginScreen(bool isClear = true)
         {
             PrintExplainMemberLoginLabel(isClear);
             Console.WriteLine("                                                                                                ");
@@ -29,11 +29,11 @@ namespace Library.View
             Console.WriteLine("                                    PW :                                                        ");
             Console.WriteLine("                                                                                                ");
         }
-        public void PrintMenuScreen(bool isClear = false)
+        public void PrintMenuScreen(bool isClear = true)
         {
             PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                                ");
-            Console.WriteLine("                                                                              뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                              로그아웃 : ESC    ");
             Console.WriteLine("                                                                                                ");
             Console.WriteLine("                                      ▶  도서찾기                                              ");
             Console.WriteLine("                                      ▶  도서대여                                              ");
@@ -42,7 +42,7 @@ namespace Library.View
             Console.WriteLine("                                                                                                ");
         }
 
-        public void PrintSignUpScreen(bool isClear = false)
+        public void PrintSignUpScreen(bool isClear = true)
         {
             PrintExplainMemberSignUpLabel(isClear);
             Console.WriteLine("                                                                                                ");
@@ -58,19 +58,5 @@ namespace Library.View
             Console.WriteLine("                                                                                                ");
         }
 
-        public void PrintBookSearchScreen(bool isClear = false)
-        {
-            PrintExplainBookSearchLabel(isClear);
-            Console.WriteLine("                                                                                                ");
-            Console.WriteLine("                                                                              뒤로가기 : ESC    ");
-            Console.WriteLine("                                                                                                ");
-            Console.WriteLine("                               도서아이디    :                                                  ");
-            Console.WriteLine("                               도서명        :                                                  ");
-            Console.WriteLine("                               출판사        :                                                  ");
-            Console.WriteLine("                               저자          :                                                  ");
-            Console.WriteLine("                               도서가격      :                                                  ");
-            Console.WriteLine("                               도서수량      :                                                  ");
-            Console.WriteLine("                                                                                                ");
-        }
     }
 }
