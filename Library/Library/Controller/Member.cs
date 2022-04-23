@@ -142,12 +142,12 @@ namespace Library.Controller
             if (isSignUpCheck)
             {
                 DataBase.Instance.InsertMember(Constant.TABLE_NAME_MEMBER, name, id, password, int.Parse(age), address, phoneNumber); // member 테이블에 입력한 멤버정보 추가
-                DataBase.Instance.CreateTable(id); // 해당 멤버의 id로 테이블 생성
+                DataBase.Instance.CreateTable(id); // 해당 멤버의 id로 대여도서 확인 테이블 생성 2022.04.23
                 DataProcessing.Instance.ClearConsoleLine(Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y -1);
                 DataProcessing.Instance.ClearConsoleLine(Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y);
                 memberScreen.PrintMessage(Constant.TEXT_SUCCESS_SIGN_UP, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                 Console.CursorVisible = false;
-                if (DataProcessing.Instance.GetEnterOrEscape() == Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
+                if (DataProcessing.Instance.GetEnterOrEscape() != Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
                 {
                     Console.CursorVisible = true;
                     SelectLoginOrSignUp(memberScreen);
@@ -256,22 +256,39 @@ namespace Library.Controller
             return true;
         }
 
+        private void CheckBorrowedBook(MemberScreen memberScreen)
+        {
+            memberScreen.PrintBorrowedBookListScreen();
+            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, id.ToString()), id.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
+            if (DataProcessing.Instance.GetEnterOrEscape() == Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
+            {
+                Console.CursorVisible = true;
+                //뒤로갔을때 넘어가지는 부분 설정하기
+            }
+        }
+
         private void SelectMemberMainMenu(MemberScreen memberScreen)
         {
-            menuValue = GetMemberMenu(memberScreen, string.Format(Constant.TEXT_WELCOME, loginedMemberName));
-            switch (menuValue)
+            while (true) // 안에 변수로 바꾸기 멤버모드 기능 완성 후
             {
-                case (int)Constant.MemberMenu.BOOK_SEARCH:
-                    InputBookSearchOption(memberScreen);
-                    break;
-                case (int)Constant.MemberMenu.BOOK_RENTAL:
-                    break;
-                case (int)Constant.MemberMenu.BOOK_CHECK:
-                    break;
-                case (int)Constant.MemberMenu.MODIFICATION_MEMBER_INFORMATION:
-                    break;
-                default:
-                    break;
+                menuValue = GetMemberMenu(memberScreen, string.Format(Constant.TEXT_WELCOME, loginedMemberName));
+                switch (menuValue)
+                {
+                    case (int)Constant.MemberMenu.BOOK_SEARCH:
+                        InputBookSearchOption(memberScreen);
+                        break;
+                    case (int)Constant.MemberMenu.BOOK_RENTAL:
+                        break;
+                    case (int)Constant.MemberMenu.BOOK_CHECK:
+                        CheckBorrowedBook(memberScreen);
+                        break;
+                    case (int)Constant.MemberMenu.MODIFICATION_MEMBER_INFORMATION:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

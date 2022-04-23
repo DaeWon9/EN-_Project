@@ -85,12 +85,11 @@ namespace Library.View
             if (isClear)
                 Console.Clear();
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
-            Console.WriteLine("           *                       < 도 서 찾 기 결 과 >                         *            ");
+            Console.WriteLine("           *                        < 대 여 도 서 확 인 >                        *            ");
             Console.WriteLine("          *                                                                       *           ");
-            Console.WriteLine("         *                ● 입력하신 조건에 따른 검색 결과 입니다.                *          ");
-            Console.WriteLine("        *                 ● 다시검색 : ENTER                                       *         ");
-            Console.WriteLine("         *                ● 뒤로가기 : ESC                                        *          ");
-            Console.WriteLine("          *                                                                       *           ");
+            Console.WriteLine("         *                ● 대여중인 도서 목록입니다.                             *          ");
+            Console.WriteLine("        *                                                                           *         ");
+            Console.WriteLine("         *                                                                         *          ");
             Console.WriteLine("          *                                                                       *           ");
             Console.WriteLine("           *                                                                     *            ");
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");

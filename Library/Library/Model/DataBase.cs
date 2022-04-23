@@ -98,7 +98,7 @@ namespace Library.Model
         {
             if (!connection.Ping())
                 connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_CREATE_TABLE, tableName);
+            sqlString = string.Format(Constant.QUERY_STRING_CREATE_TABLE_BY_USER_ID, tableName);
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();

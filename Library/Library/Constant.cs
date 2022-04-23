@@ -11,6 +11,30 @@ namespace Library
         //window size
         public const int WINDOW_WIDTH = 95;
         public const int WINDOW_HEIGHT = 50;
+        //exception type
+        public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
+        public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
+        public const string EXCEPTION_TYPE_KOREA = @"^[가-힣]*$";
+        public const string EXCEPTION_TYPE_KOREAN_NUMBER = @"^[가-힣-0-9]*$";
+        public const string EXCEPTION_TYPE_KOREAN_NUMBER_SPACE = @"^[가-힣-0-9\s]*$";
+        public const string EXCEPTION_TYPE_ENGLISH = @"^[a-zA-Z]*$";
+        public const string EXCEPTION_TYPE_ENGLISH_NUMBER = @"^[0-9a-zA-Z]*$";
+        public const string EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA = @"^[a-zA-Z0-9가-힣\s!@#$%^&*()-=_+]*$";
+
+        public const string EXCEPTION_TYPE_ID = @"^[0-9a-zA-Z]{6,10}$";
+        public const string EXCEPTION_TYPE_PASSWORD = @"^[0-9a-zA-Z]{6,10}$";
+        public const string EXCEPTION_TYPE_NAME = @"^[가-힣]{2,5}$";
+        public const string EXCEPTION_TYPE_AGE = @"^[0-9]{1,3}$";
+        public const string EXCEPTION_TYPE_ADDRESS = @"^[가-힣]\w*(시|도)\s[가-힣]\w*(시|군|구)\s[가-힣]\w*(읍|면|동)[가-힣-0-9\s]*$";
+        public const string EXCEPTION_TYPE_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$";
+
+        public const string EXCEPTION_TYPE_BOOK_ID = @"^[0-9]{1,3}$";
+        public const string EXCEPTION_TYPE_BOOK_NAME = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]{2,100}$";
+        public const string EXCEPTION_TYPE_BOOK_PUBLISHER = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]{2,20}$";
+        public const string EXCEPTION_TYPE_BOOK_AUTHOR = @"^[a-zA-Z0-9가-힣\s!@#$%^&*()-=_+]{2,20}$";
+        public const string EXCEPTION_TYPE_BOOK_PRICE = @"^[0-9]{4,7}$";
+        public const string EXCEPTION_TYPE_BOOK_QUANTITY = @"^[0-9]{1,2}$";
+
         // TEXT
         public const string TEXT_NONE = "";
         public const string TEXT_WELCOME = "< {0}님 환영합니다. >";
@@ -37,7 +61,8 @@ namespace Library
         public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
 
         // QUERY String
-        public const string QUERY_STRING_CREATE_TABLE = "CREATE TABLE {0}";
+        public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(50), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, returnDate DATE, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";
+
         public const string QUERY_STRING_SELECT = "SELECT {0} FROM {1}";
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
         public const string QUERY_STRING_INSERT = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
@@ -60,6 +85,7 @@ namespace Library
         public const string ADMINISTRATOR_FILED_PASSWORD = "pw";
 
         // Member Filed
+        public const string FILED_ALL = "*";
         public const string MEMBER_FILED_NAME = "name";
         public const string MEMBER_FILED_ID = "id";
         public const string MEMBER_FILED_PASSWORD = "pw";
@@ -68,7 +94,6 @@ namespace Library
         public const string MEMBER_FILED_PHONE_NUMBER = "phonenumber";
 
         // Book Filed
-        public const string FILED_ALL = "*";
         public const string BOOK_FILED_ID = "id";
         public const string BOOK_FILED_NAME = "name";
         public const string BOOK_FILED_PUBLISHER = "publisher";
@@ -76,16 +101,26 @@ namespace Library
         public const string BOOK_FILED_PRICE = "price";
         public const string BOOK_FILED_QUANTITY = "quantity";
 
+        // BorrowedBook Filed
+        public const string BORROWED_BOOK_FILED_ID = "id";
+        public const string BORROWED_BOOK_FILED_NAME = "name";
+        public const string BORROWED_BOOK_FILED_PUBLISHER = "publisher";
+        public const string BORROWED_BOOK_FILED_AUTHOR = "author";
+        public const string BORROWED_BOOK_FILED_PRICE = "price";
+        public const string BORROWED_BOOK_FILED_QUANTITY = "quantity";
+        public const string BORROWED_BOOK_FILED_RETURN_DATE = "returnDate";
 
-
+        // is Console clear
         public const bool IS_NOT_CONSOLE_CLEAR = false;
         public const bool IS_CONSOLE_CLEAR = true;
-
+        
+        // is password
         public const bool IS_NOT_PASSWORD = false;
         public const bool IS_PASSWORD = true;
 
         // cursor pos
         public const int CURSOR_POS_LEFT = 0;
+        public const int CURSOR_POS_TOP = 0;
         public const int CURSOR_POS_RIGHT = 94;
         public const int CURSOR_POS_NONE = -1;
 
@@ -104,31 +139,7 @@ namespace Library
         public const int MAX_LENGTH_BOOK_PUBLISHER = 20;
         public const int MAX_LENGTH_BOOK_AUTHOR = 20;
         public const int MAX_LENGTH_BOOK_PRICE = 7;
-        public const int MAX_LENGTH_BOOK_QUANTITY = 2;
-
-        //exception type
-        public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
-        public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
-        public const string EXCEPTION_TYPE_KOREA = @"^[가-힣]*$";
-        public const string EXCEPTION_TYPE_KOREAN_NUMBER = @"^[가-힣-0-9]*$";
-        public const string EXCEPTION_TYPE_KOREAN_NUMBER_SPACE = @"^[가-힣-0-9\s]*$";
-        public const string EXCEPTION_TYPE_ENGLISH = @"^[a-zA-Z]*$";
-        public const string EXCEPTION_TYPE_ENGLISH_NUMBER = @"^[0-9a-zA-Z]*$";
-        public const string EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA = @"^[a-zA-Z0-9가-힣\s!@#$%^&*()-=_+]*$";
-
-        public const string EXCEPTION_TYPE_ID = @"^[0-9a-zA-Z]{6,10}$";
-        public const string EXCEPTION_TYPE_PASSWORD = @"^[0-9a-zA-Z]{6,10}$";
-        public const string EXCEPTION_TYPE_NAME = @"^[가-힣]{2,5}$";
-        public const string EXCEPTION_TYPE_AGE = @"^[0-9]{1,3}$";
-        public const string EXCEPTION_TYPE_ADDRESS = @"^[가-힣]\w*(시|도)\s[가-힣]\w*(시|군|구)\s[가-힣]\w*(읍|면|동)[가-힣-0-9\s]*$";
-        public const string EXCEPTION_TYPE_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$";
-
-        public const string EXCEPTION_TYPE_BOOK_ID = @"^[0-9]{1,3}$";
-        public const string EXCEPTION_TYPE_BOOK_NAME = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]{2,100}$";
-        public const string EXCEPTION_TYPE_BOOK_PUBLISHER = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]{2,20}$";
-        public const string EXCEPTION_TYPE_BOOK_AUTHOR = @"^[a-zA-Z0-9가-힣\s!@#$%^&*()-=_+]{2,20}$";
-        public const string EXCEPTION_TYPE_BOOK_PRICE = @"^[0-9]{4,7}$";
-        public const string EXCEPTION_TYPE_BOOK_QUANTITY = @"^[0-9]{1,2}$";
+        public const int MAX_LENGTH_BOOK_QUANTITY = 2; 
 
         // menu cursor pos
         public const int MENU_CURSOR_POS_X = 37;

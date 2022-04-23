@@ -20,37 +20,6 @@ namespace Library.View
             Console.WriteLine("                                                                                              ");
         }
 
-        public void PrintSelectedValues(MySqlDataReader reader, string tableName)
-        {
-            if (tableName == Constant.TABLE_NAME_BOOK)
-            {
-                while (reader.Read())
-                {
-                    Console.WriteLine("도서아이디 : " + reader[Constant.BOOK_FILED_ID]);
-                    Console.WriteLine("도서명     : " + reader[Constant.BOOK_FILED_NAME]);
-                    Console.WriteLine("출판사     : " + reader[Constant.BOOK_FILED_PUBLISHER]);
-                    Console.WriteLine("저자       : " + reader[Constant.BOOK_FILED_AUTHOR]);
-                    Console.WriteLine("도서가격   : " + reader[Constant.BOOK_FILED_PRICE]);
-                    Console.WriteLine("도서수량   : " + reader[Constant.BOOK_FILED_QUANTITY]);
-                    Console.WriteLine("----------------------------------------------------------------------------------------------");
-                }
-            }
-            if (tableName == Constant.TABLE_NAME_MEMBER)
-            {
-                while (reader.Read())
-                {
-                    Console.WriteLine("이름       : " + reader[Constant.MEMBER_FILED_NAME]);
-                    Console.WriteLine("아이디     : " + reader[Constant.MEMBER_FILED_ID]);
-                    Console.WriteLine("비밀번호   : " + reader[Constant.MEMBER_FILED_PASSWORD]);
-                    Console.WriteLine("나이       : " + reader[Constant.MEMBER_FILED_AGE]);
-                    Console.WriteLine("주소       : " + reader[Constant.MEMBER_FILED_ADDRESS]);
-                    Console.WriteLine("핸드폰번호 : " + reader[Constant.MEMBER_FILED_PHONE_NUMBER]);
-                    Console.WriteLine("----------------------------------------------------------------------------------------------");
-                }
-            }
-            reader.Close();
-        }
-
         public void PrintBookSearchScreen(bool isClear = true)
         {
             PrintExplainBookSearchLabel(isClear);
@@ -74,6 +43,59 @@ namespace Library.View
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                      다시검색 : ENTER      뒤로가기 : ESC    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintBorrowedBookListScreen(bool isClear = true)
+        {
+            PrintResultBookSearchLabel(isClear);
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                                                                            뒤로가기 : ESC    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintSelectedValues(MySqlDataReader reader, string tableName)
+        {
+            if (tableName == Constant.TABLE_NAME_BOOK)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("도서아이디 : " + reader[Constant.BOOK_FILED_ID]);
+                    Console.WriteLine("도서명     : " + reader[Constant.BOOK_FILED_NAME]);
+                    Console.WriteLine("출판사     : " + reader[Constant.BOOK_FILED_PUBLISHER]);
+                    Console.WriteLine("저자       : " + reader[Constant.BOOK_FILED_AUTHOR]);
+                    Console.WriteLine("도서가격   : " + reader[Constant.BOOK_FILED_PRICE]);
+                    Console.WriteLine("도서수량   : " + reader[Constant.BOOK_FILED_QUANTITY]);
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
+                }
+            }
+            else if (tableName == Constant.TABLE_NAME_MEMBER)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("이름       : " + reader[Constant.MEMBER_FILED_NAME]);
+                    Console.WriteLine("아이디     : " + reader[Constant.MEMBER_FILED_ID]);
+                    Console.WriteLine("비밀번호   : " + reader[Constant.MEMBER_FILED_PASSWORD]);
+                    Console.WriteLine("나이       : " + reader[Constant.MEMBER_FILED_AGE]);
+                    Console.WriteLine("주소       : " + reader[Constant.MEMBER_FILED_ADDRESS]);
+                    Console.WriteLine("핸드폰번호 : " + reader[Constant.MEMBER_FILED_PHONE_NUMBER]);
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
+                }
+            }
+            else
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("도서아이디 : " + reader[Constant.BORROWED_BOOK_FILED_ID]);
+                    Console.WriteLine("도서명     : " + reader[Constant.BORROWED_BOOK_FILED_NAME]);
+                    Console.WriteLine("출판사     : " + reader[Constant.BORROWED_BOOK_FILED_PUBLISHER]);
+                    Console.WriteLine("저자       : " + reader[Constant.BORROWED_BOOK_FILED_AUTHOR]);
+                    Console.WriteLine("도서가격   : " + reader[Constant.BORROWED_BOOK_FILED_PRICE]);
+                    Console.WriteLine("대여수량   : " + reader[Constant.BORROWED_BOOK_FILED_QUANTITY]);
+                    Console.WriteLine("반납일자   : " + reader[Constant.BORROWED_BOOK_FILED_RETURN_DATE]);
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
+                }
+            }
+            reader.Close();
         }
     }
 }
