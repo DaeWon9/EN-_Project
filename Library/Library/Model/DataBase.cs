@@ -13,7 +13,6 @@ namespace Library.Model
         private string sqlString;
         MySqlConnection connection = new MySqlConnection(Constant.DATABASE_CONNECTION_INFORMATION);
 
-        private DataBase() { }
         public static DataBase Instance
         {
             get
@@ -89,6 +88,17 @@ namespace Library.Model
             if (!connection.Ping())
                 connection.Open();
             sqlString = string.Format(Constant.QUERY_STRING_INSERT, tableName, name, id, password, age, address, phonenumber);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+
+        public void CreateTable(string tableName)
+        {
+            if (!connection.Ping())
+                connection.Open();
+            sqlString = string.Format(Constant.QUERY_STRING_CREATE_TABLE, tableName);
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();

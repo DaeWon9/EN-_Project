@@ -12,17 +12,42 @@ namespace Library
         public const int WINDOW_WIDTH = 95;
         public const int WINDOW_HEIGHT = 50;
         // TEXT
-        public const string STRING_WELCOME_PHRASE = "{0}님 환영합니다.";
+        public const string TEXT_NONE = "";
+        public const string TEXT_WELCOME = "< {0}님 환영합니다. >";
+        public const string TEXT_ADMINISTRATOR_MODE = "< 관리자모드 >";
+        public const string TEXT_YES_OR_NO = "< YES : ENTER | NO : ESC >";
+        public const string TEXT_IS_EXIST = "종료하시겠습니까??";
+        public const string TEXT_IS_SEARCH = "검색하시겠습니까??";
+        public const string TEXT_IS_SIGN_UP = "가입하시겠습니까??";
 
-        // SQL
+        public const string TEXT_PLEASE_INPUT_OPTION = "옵션을 입력해주세요";
+        public const string TEXT_PLEASE_INPUT_NUMBER = "숫자만 입력하세요";
+        public const string TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER = "한글 & 숫자만 입력하세요";
+        public const string TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER = "영어 & 숫자만 입력하세요";
+        public const string TEXT_PLEASE_INPUT_CORRECT_STRING = "올바른 글자만 입력하세요";
+
+        public const string TEXT_ALREADY_REGISTERED_ID = "이미 등록되어있는 ID입니다.";
+        public const string TEXT_IS_NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
+        public const string TEXT_IS_NOT_CORRECT_ID_PASSWORD = "ID & PASSWORD 가 틀립니다";
+
+        public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
+
+
+        // SQL connection
         public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
+
         // QUERY String
+        public const string QUERY_STRING_CREATE_TABLE = "CREATE TABLE {0}";
         public const string QUERY_STRING_SELECT = "SELECT {0} FROM {1}";
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
         public const string QUERY_STRING_INSERT = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
         // conditional string 
-        public const string CONDITIONAL_STRING_COMPAR_ID = "id = '{0}'";
+        public const string CONDITIONAL_STRING_AND = " AND ";
+        public const string CONDITIONAL_STRING_OR = " OR ";
+        public const string CONDITIONAL_STRING_COMPARE_BY_STRING = "{0} = '{1}'";
+        public const string CONDITIONAL_STRING_COMPARE_BY_INT = "{0} = {1}";
+        public const string CONDITIONAL_STRING_LIKE = "({0} LIKE '{1}%' OR {0} LIKE '%{1}' OR {0} LIKE '%{1}%')";
 
 
         // Mysql Table 
@@ -85,8 +110,8 @@ namespace Library
         public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
         public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
         public const string EXCEPTION_TYPE_KOREA = @"^[가-힣]*$";
-        public const string EXCEPTION_TYPE_KOREA_NUMBER = @"^[가-힣-0-9]*$";
-        public const string EXCEPTION_TYPE_KOREA_NUMBER_SPACE = @"^[가-힣-0-9\s]*$";
+        public const string EXCEPTION_TYPE_KOREAN_NUMBER = @"^[가-힣-0-9]*$";
+        public const string EXCEPTION_TYPE_KOREAN_NUMBER_SPACE = @"^[가-힣-0-9\s]*$";
         public const string EXCEPTION_TYPE_ENGLISH = @"^[a-zA-Z]*$";
         public const string EXCEPTION_TYPE_ENGLISH_NUMBER = @"^[0-9a-zA-Z]*$";
         public const string EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA = @"^[a-zA-Z0-9가-힣\s!@#$%^&*()-=_+]*$";

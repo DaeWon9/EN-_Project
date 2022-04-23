@@ -14,7 +14,7 @@ namespace Library.Controller
     {
         public void Start()
         {
-            Console.SetWindowSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT); // 기능 완성 후에 각 UI별로 크기조정하기
+            Console.SetWindowSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT); // 기능 완성 후에 각 UI별로 크기조정하기     
 
             BothScreen bothScreen = new BothScreen();
             MemberScreen memberScreen = new MemberScreen();
@@ -22,7 +22,7 @@ namespace Library.Controller
             MenuSelection menuSelection = new MenuSelection();
             Member memberFuntions = new Member();
             Administrator administratorFuntions = new Administrator();
-            
+     
             int menuValue;
             bool isExit = false;
             while (!isExit)
@@ -38,14 +38,12 @@ namespace Library.Controller
                         administratorFuntions.Login(administratorScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
-                        isExit = true;
+                        isExit = DataProcessing.Instance.IsExit(bothScreen);
                         break;
                     default:
                         break;
                 }
             }
-
-
         }
     }
 }

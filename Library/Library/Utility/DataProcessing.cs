@@ -82,7 +82,7 @@ namespace Library.Utility
                 Console.Write(input);
         }
 
-        public string GetInputValues(Message message, int posX, int posY, int maxInputLength, string messageString, string exceptionType, string finalExceptionType, bool isPassword = false) // 매개변수 줄이기.....
+        public string GetInputValues(Message message, int posX, int posY, int maxInputLength, string messageString, string exceptionType, string finalExceptionType, bool isPassword = false) // 매개변수가 너무많다.. 기능완성 후에 줄여보기.....
         {
             string input = "";
             isInputEnter = false;
@@ -214,6 +214,83 @@ namespace Library.Utility
         {
             if (stringValue == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString())
                 return true;
+            return false;
+        }
+
+        public string GetConditionalStringBySearchBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)// 아래쪽 부분 기능완성 후 Constant로 빼기
+        {
+            string conditionalString = "";
+
+            if (bookId != "" && bookId != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_ID, bookId);
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_ID, bookId);
+                }
+            if (bookName != "" && bookName != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                {
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_NAME, bookName);
+                }
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_NAME, bookName);
+                }
+            if (bookPublisher != "" && bookPublisher != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                {
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_PUBLISHER, bookPublisher);
+                }
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_PUBLISHER, bookPublisher);
+                }
+            if (bookAuthor != "" && bookAuthor != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                {
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_AUTHOR, bookAuthor);
+                }
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_AUTHOR, bookAuthor);
+                }
+            if (bookPrice != "" && bookPrice != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_PRICE, bookPrice);
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_PRICE, bookPrice);
+                }
+            if (bookQuantity != "" && bookQuantity != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
+                }
+
+            return conditionalString;
+        }
+
+        public bool IsExit(Message message)
+        {
+            Console.CursorVisible = false;
+            message.PrintMessage(Constant.TEXT_IS_EXIST, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            message.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+
+            if (GetEnterOrEscape() == Constant.INPUT_ENTER) // enter 눌리면 true 반환
+            {
+                Console.CursorVisible = true;
+                return true;
+            }
+            Console.CursorVisible = true;
             return false;
         }
     }

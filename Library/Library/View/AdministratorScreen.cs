@@ -23,7 +23,7 @@ namespace Library.View
         {
             PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                                            뒤로가기 : ESC    ");
+            Console.WriteLine("                                                            선택 : ENTER        종료 : ESC    ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                      ▶  도서찾기                                            ");
             Console.WriteLine("                                      ▶  도서추가                                            ");

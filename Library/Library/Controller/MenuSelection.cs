@@ -34,9 +34,10 @@ namespace Library.Controller
             return menuValue;
         }
 
-        public int GetAddministratorMenu(AdministratorScreen administratorScreen)
+        public int GetAddministratorMenu(AdministratorScreen administratorScreen, string administratorModeString)
         {
             administratorScreen.PrintMenuScreen();
+            administratorScreen.PrintMessage(administratorModeString, Constant.WELCOME_MESSAGE_CURSOR_POS_X, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
             menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }
