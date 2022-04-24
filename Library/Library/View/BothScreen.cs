@@ -85,14 +85,22 @@ namespace Library.View
             {
                 while (reader.Read())
                 {
+                    TimeSpan remainDate = Convert.ToDateTime(reader[Constant.BORROWED_BOOK_FILED_RETURN_DATE]) - DateTime.Now;
+
+                    if (remainDate.Days  < 1)
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    else if (remainDate.Days < 4)
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    else
+                        Console.ForegroundColor = ConsoleColor.White;
+
                     Console.WriteLine("도서아이디 : " + reader[Constant.BORROWED_BOOK_FILED_ID]);
                     Console.WriteLine("도서명     : " + reader[Constant.BORROWED_BOOK_FILED_NAME]);
                     Console.WriteLine("출판사     : " + reader[Constant.BORROWED_BOOK_FILED_PUBLISHER]);
                     Console.WriteLine("저자       : " + reader[Constant.BORROWED_BOOK_FILED_AUTHOR]);
-                    Console.WriteLine("도서가격   : " + reader[Constant.BORROWED_BOOK_FILED_PRICE]);
-                    Console.WriteLine("대여수량   : " + reader[Constant.BORROWED_BOOK_FILED_QUANTITY]);
-                    Console.WriteLine("대여일자   : " + reader[Constant.BORROWED_BOOK_FILED_BORROW_DATE]);
+                    Console.WriteLine("대여일자   : " + reader[Constant.BORROWED_BOOK_FILED_BORROW_DATE] + "\t\t\t남은기간 : " + remainDate.Days + "일 " + remainDate.Hours + "시간");
                     Console.WriteLine("반납일자   : " + reader[Constant.BORROWED_BOOK_FILED_RETURN_DATE]);
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("----------------------------------------------------------------------------------------------");
                 }
             }

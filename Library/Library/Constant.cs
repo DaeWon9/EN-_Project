@@ -150,6 +150,7 @@ namespace Library
         public const int MENU_CURSOR_POS_X = 37;
         public const int MENU_CURSOR_MIN_POS_Y = 12;
         public const int FIRST_MENU_CURSOR_MAX_POS_Y = 13;
+        public const int BORROW_MODE_CURSOR_MAX_POS_Y = 13;
         public const int ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y = 17;
         public const int MEMBER_MENU_CURSOR_MAX_POS_Y = 15;
 
@@ -210,5 +211,7 @@ namespace Library
         public enum AdministratorMenu : int { BOOK_SEARCH = 12, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, BORROW_STATUS} 
 
         public enum MemberMenu : int { BOOK_SEARCH = 12, BOOK_BORROW, BOOK_CHECK, MODIFICATION_MEMBER_INFORMATION }
+
+        public enum CheckInsertBorrowedBook : int { NOT_EXIST_BOOK = 1, DUPLICATE_BOOK_ID, SHORTAGE_BOOK_QUANTITY, SUCCESS }
     }
 }

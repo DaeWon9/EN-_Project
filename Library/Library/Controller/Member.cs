@@ -130,7 +130,7 @@ namespace Library.Controller
                 GetYesOrNoBySignUp = DataProcessing.Instance.GetEnterOrEscape();
                 if (GetYesOrNoBySignUp == Constant.INPUT_ENTER) // 가입확인문구에서 enter입력
                     isSignUpCheck = true;
-                if (GetYesOrNoBySignUp == Constant.INPUT_ESCAPE) // 가입확인문구에서 enter입력
+                if (GetYesOrNoBySignUp == Constant.INPUT_ESCAPE) // 가입확인문구에서 esc입력
                 {
                     isSignUpCheck = false;
                     SignUp(memberScreen);
@@ -271,7 +271,7 @@ namespace Library.Controller
 
         private bool IsBorrowBookCompleted(MemberScreen memberScreen, string bookId)
         {
-            int getYesOrNoByBorrowing, getYesOrNoByReborrowing;
+            int getYesOrNoByBorrowing, /*getYesOrNoByReborrowing*/ checkInsertBorrowedBook;
 
             if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()))// 입력값이 공백인지 체크
             {
@@ -286,11 +286,31 @@ namespace Library.Controller
 
             if (getYesOrNoByBorrowing == Constant.INPUT_ENTER)
             {
-                if (DataBase.Instance.IsInsertBorrowedBook(loginMemberId, int.Parse(bookId))) // member 테이블에 입력한 멤버정보 추가 InsertBorrowedBook(string tableName, int id)
-                    Console.WriteLine("대여성공!");
-                else
-                    Console.WriteLine("대여실패!");
-                // 대여하는 함수 -> 사용자의 개별 테이블에 INSERT!!!!!!!!!!!!!!!!!!!
+                checkInsertBorrowedBook = DataBase.Instance.IsInsertBorrowedBook(loginMemberId, int.Parse(bookId)); // 사용자의 개별 테이블에 대여도서 정보 등록하고 결과값 리턴
+                
+                switch (checkInsertBorrowedBook)
+                {
+                    case (int)Constant.CheckInsertBorrowedBook.NOT_EXIST_BOOK:
+                        DataProcessing.Instance.ClearConsoleLine(Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y -1);
+                        DataProcessing.Instance.ClearConsoleLine(Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y);
+                        memberScreen.PrintMessage("도서관에 보유중인 도서가 아닙니다.", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                        Console.ReadKey();
+                        break;
+                    case (int)Constant.CheckInsertBorrowedBook.DUPLICATE_BOOK_ID:
+                        Console.WriteLine("이미 대여중인                     도서입니다.");
+                        Console.ReadKey();
+                        break;
+                    case (int)Constant.CheckInsertBorrowedBook.SHORTAGE_BOOK_QUANTITY:
+                        Console.WriteLine("대여가능한 수량이 부족합니다.");
+                        Console.ReadKey();
+                        break;
+                    case (int)Constant.CheckInsertBorrowedBook.SUCCESS:
+                        Console.WriteLine("도서대여에 성공하였습니다.");
+                        Console.ReadKey();
+                        break;
+                    default:
+                        break;
+                }
             }
             if (getYesOrNoByBorrowing == Constant.INPUT_ESCAPE)
             {
@@ -319,7 +339,7 @@ namespace Library.Controller
 
             while (!isInputEscape && !isBorrowBookCompleted)
             {
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookBorrowPosY.ID, (int)Constant.BookBorrowPosY.BORROW);
                 isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {

@@ -105,6 +105,17 @@ namespace Library.Model
             return false;
         }
 
+        private bool IsExistBookInLibrary(int bookid)
+        {
+            List<string> memberIdList = GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK);
+            for (int repeat = 0; repeat < memberIdList.Count; repeat++)
+            {
+                if (memberIdList[repeat] == bookid.ToString())
+                    return true;
+            }
+            return false;
+        }
+
 
         public void MINUS_BOOK_QUANTITY(int id)
         {
@@ -130,13 +141,10 @@ namespace Library.Model
             reader.Close();
             connection.Close();
         }
-        public bool IsInsertBorrowedBook(string tableName, int id)
+        public int IsInsertBorrowedBook(string tableName, int id)
         {
             string bookName = "", bookPublisher = "", bookAuthor = "";
             int bookPrice = 0, bookQuantity = 0;
-
-            DateTime borrowDate = DateTime.Now;
-            DateTime returnDate = borrowDate.AddDays(7);
 
             if (!connection.Ping())
                 connection.Open();
@@ -157,15 +165,18 @@ namespace Library.Model
             reader.Close();
             connection.Close();
 
+            if (!IsExistBookInLibrary(id)) // 도서관에 없는책이면 대여 불가능
+                return (int)Constant.CheckInsertBorrowedBook.NOT_EXIST_BOOK;
+
             if (bookQuantity < 1) // 도서관에 책 보유수량이 없으면 대여 불가능
-                return false;
+                return (int)Constant.CheckInsertBorrowedBook.SHORTAGE_BOOK_QUANTITY;
 
             if (IsBorrowBookDuplicate(tableName, id)) // 이미 대여중인 도서면 대여 불가능
-                return false;
+                return (int)Constant.CheckInsertBorrowedBook.DUPLICATE_BOOK_ID;
 
             MINUS_BOOK_QUANTITY(id); // 도서관에서 보유중인 도서수량 1개 뺴주고
-            InsertBorrowedBook(tableName, id, bookName, bookPublisher, bookAuthor, bookPrice);
-            return true;
+            InsertBorrowedBook(tableName, id, bookName, bookPublisher, bookAuthor, bookPrice); // 사용자별 개별테이블에 대여도서 정보 넣기
+            return (int)Constant.CheckInsertBorrowedBook.SUCCESS;
         }
 
         public void CreateTable(string tableName)
