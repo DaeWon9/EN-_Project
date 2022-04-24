@@ -282,22 +282,22 @@ namespace Library.Controller
             ////대여하기
             memberScreen.PrintMessage(Constant.TEXT_IS_BORROW, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+
             getYesOrNoByBorrowing = DataProcessing.Instance.GetEnterOrEscape();
 
             if (getYesOrNoByBorrowing == Constant.INPUT_ENTER)
             {
                 checkInsertBorrowedBook = DataBase.Instance.IsInsertBorrowedBook(loginMemberId, int.Parse(bookId)); // 사용자의 개별 테이블에 대여도서 정보 등록하고 결과값 리턴
-                
                 switch (checkInsertBorrowedBook)
                 {
                     case (int)Constant.CheckInsertBorrowedBook.NOT_EXIST_BOOK:
                         DataProcessing.Instance.ClearConsoleLine(Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y -1);
                         DataProcessing.Instance.ClearConsoleLine(Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y);
-                        memberScreen.PrintMessage("도서관에 보유중인 도서가 아닙니다.", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                        //memberScreen.PrintMessage("도서관에 보유중인 도서가 아닙니다.", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                         Console.ReadKey();
                         break;
                     case (int)Constant.CheckInsertBorrowedBook.DUPLICATE_BOOK_ID:
-                        Console.WriteLine("이미 대여중인                     도서입니다.");
+                        Console.WriteLine("이미 대여중인 도서입니다.");
                         Console.ReadKey();
                         break;
                     case (int)Constant.CheckInsertBorrowedBook.SHORTAGE_BOOK_QUANTITY:

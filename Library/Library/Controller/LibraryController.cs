@@ -22,7 +22,7 @@ namespace Library.Controller
             MenuSelection menuSelection = new MenuSelection();
             Member memberFuntions = new Member();
             Administrator administratorFuntions = new Administrator();
-     
+
             int menuValue;
             bool isExit = false;
             while (!isExit)
