@@ -11,6 +11,14 @@ namespace Library.Controller
     {
         private int menuValue;
 
+        public int GetAddministratorMenu(AdministratorScreen administratorScreen, string administratorModeString)
+        {
+            administratorScreen.PrintMenuScreen();
+            administratorScreen.PrintMessage(administratorModeString, Constant.WELCOME_MESSAGE_CURSOR_POS_X, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y);
+            return menuValue;
+        }
+
         public int GetUserMode(BothScreen bothScreen)
         {
             bothScreen.PrintSelectUserModeScreen();
@@ -29,15 +37,7 @@ namespace Library.Controller
         {
             memberScreen.PrintMenuScreen();
             memberScreen.PrintMessage(welcomeString , Constant.WELCOME_MESSAGE_CURSOR_POS_X, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
-            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y,  Constant.MEMBER_MENU_CURSOR_MAX_POS_Y);
-            return menuValue;
-        }
-
-        public int GetAddministratorMenu(AdministratorScreen administratorScreen, string administratorModeString)
-        {
-            administratorScreen.PrintMenuScreen();
-            administratorScreen.PrintMessage(administratorModeString , Constant.WELCOME_MESSAGE_CURSOR_POS_X, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y);
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.MemberMenu.BOOK_SEARCH, (int)Constant.MemberMenu.BOOK_SEARCH, (int)Constant.MemberMenu.MODIFICATION_MEMBER_INFORMATION);
             return menuValue;
         }
 

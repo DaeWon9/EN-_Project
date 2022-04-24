@@ -117,7 +117,6 @@ namespace Library.Model
             return false;
         }
 
-
         public void MINUS_BOOK_QUANTITY(int id)
         {
             if (!connection.Ping())
@@ -142,7 +141,8 @@ namespace Library.Model
             reader.Close();
             connection.Close();
         }
-        public int IsInsertBorrowedBook(string tableName, int id, List<string> searchedBookIdList)
+        
+        public int GetBookBorrowResult(string tableName, int id, List<string> searchedBookIdList)
         {
             string bookName = "", bookPublisher = "", bookAuthor = "";
             int bookPrice = 0, bookQuantity = 0;

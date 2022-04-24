@@ -65,7 +65,6 @@ namespace Library.Controller
             return false;
         }
 
-   
         private bool IsPasswordCorrect(string password, string passwordCheck)
         {
             if (password == passwordCheck)
@@ -152,22 +151,6 @@ namespace Library.Controller
                     Console.CursorVisible = true;
                     SelectLoginOrSignUp(memberScreen);
                 }
-            }
-        }
-
-        public void SelectLoginOrSignUp(MemberScreen memberScreen)
-        {
-            menuValue = GetMemberLoginOrSignUp(memberScreen);
-            switch (menuValue)
-            {
-                case Constant.MODE_MEMBER_LOGIN:
-                    Login(memberScreen);
-                    break;
-                case Constant.MODE_MEMBER_SIGN_UP:
-                    SignUp(memberScreen);
-                    break;
-                default:
-                    break;
             }
         }
 
@@ -271,10 +254,7 @@ namespace Library.Controller
             Console.CursorVisible = false;
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
             if (DataProcessing.Instance.GetEnterOrEscape() == Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
-            {
                 Console.CursorVisible = true;
-                //뒤로갔을때 넘어가지는 부분 설정하기
-            }
         }
 
         private bool IsReBorrow(MemberScreen memberScreen)
@@ -325,7 +305,7 @@ namespace Library.Controller
 
             if (getYesOrNoByBorrowing == Constant.INPUT_ENTER) // 대여하기 확인 문구에서 엔터 눌림
             {
-                checkInsertBorrowedBook = DataBase.Instance.IsInsertBorrowedBook(loginMemberId, int.Parse(bookId), searchedBookIdList); // 사용자의 개별 테이블에 대여도서 정보 등록하고 결과값 리턴
+                checkInsertBorrowedBook = DataBase.Instance.GetBookBorrowResult(loginMemberId, int.Parse(bookId), searchedBookIdList); // 사용자의 개별 테이블에 대여도서 정보 등록하고 결과값 리턴
                 switch (checkInsertBorrowedBook)
                 {
                     case (int)Constant.CheckInsertBorrowedBook.NOT_EXIST_BOOK:
@@ -405,6 +385,65 @@ namespace Library.Controller
 
         }
 
+        private void ReturnBorrowedBook(MemberScreen memberScreen)
+        {
+            memberScreen.PrintReturnBookScreen();
+            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
+            if (DataProcessing.Instance.GetEnterOrEscape() == Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
+                Console.CursorVisible = true;
+        }
+
+
+        public void SelectLoginOrSignUp(MemberScreen memberScreen)
+        {
+            menuValue = GetMemberLoginOrSignUp(memberScreen);
+            switch (menuValue)
+            {
+                case Constant.MODE_MEMBER_LOGIN:
+                    Login(memberScreen);
+                    break;
+                case Constant.MODE_MEMBER_SIGN_UP:
+                    SignUp(memberScreen);
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        private void SelectMemberMainMenu(MemberScreen memberScreen)
+        {
+            bool isLogout = false;
+            while (!isLogout)
+            {
+                menuValue = GetMemberMenu(memberScreen, string.Format(Constant.TEXT_WELCOME, loginedMemberName));
+                switch (menuValue)
+                {
+                    case (int)Constant.MemberMenu.BOOK_SEARCH:
+                        isSearchAndBorrow = false;
+                        InputBookSearchOption(memberScreen);
+                        break;
+                    case (int)Constant.MemberMenu.BOOK_BORROW:
+                        SelectBorrowBookMode(memberScreen);
+                        break;
+                    case (int)Constant.MemberMenu.BOOK_RETURN:
+                        ReturnBorrowedBook(memberScreen);
+                        break;
+                    case (int)Constant.MemberMenu.BOOK_CHECK:
+                        CheckBorrowedBook(memberScreen);
+                        break;
+                    case (int)Constant.MemberMenu.MODIFICATION_MEMBER_INFORMATION:
+                        break;
+                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
+                        isLogout = DataProcessing.Instance.IsLogout(memberScreen);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         private void SelectBorrowBookMode(MemberScreen memberScreen)
         {
             isSearchAndBorrow = Constant.IS_ONLY_SEARCH;
@@ -421,35 +460,6 @@ namespace Library.Controller
                     break;
                 default:
                     break;
-            }
-        }
-
-        private void SelectMemberMainMenu(MemberScreen memberScreen)
-        {
-            bool isLogout = false;
-            while (!isLogout)
-            {
-                menuValue = GetMemberMenu(memberScreen, string.Format(Constant.TEXT_WELCOME, loginedMemberName));
-                switch (menuValue)
-                {
-                    case (int)Constant.MemberMenu.BOOK_SEARCH:
-                        isSearchAndBorrow = false;
-                        InputBookSearchOption(memberScreen);
-                        break;
-                    case (int)Constant.MemberMenu.BOOK_BORROW:
-                        SelectBorrowBookMode(memberScreen);
-                        break;
-                    case (int)Constant.MemberMenu.BOOK_CHECK:
-                        CheckBorrowedBook(memberScreen);
-                        break;
-                    case (int)Constant.MemberMenu.MODIFICATION_MEMBER_INFORMATION:
-                        break;
-                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
-                        isLogout = DataProcessing.Instance.IsLogout(memberScreen);
-                        break;
-                    default:
-                        break;
-                }
             }
         }
     }

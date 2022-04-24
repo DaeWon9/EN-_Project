@@ -10,7 +10,7 @@ namespace Library.View
     {
         public void PrintLoginScreen(bool isClear = true)
         {
-            PrintExplainAdimistratorLoginLabel(isClear);
+            PrintAdimistratorLoginLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                                             뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");

@@ -21,7 +21,7 @@ namespace Library.View
         }
         public void PrintLoginScreen(bool isClear = true)
         {
-            PrintExplainMemberLoginLabel(isClear);
+            PrintMemberLoginLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                                             뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");
@@ -37,6 +37,7 @@ namespace Library.View
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                      ▶  도서찾기                                            ");
             Console.WriteLine("                                      ▶  도서대여                                            ");
+            Console.WriteLine("                                      ▶  도서반납                                            ");
             Console.WriteLine("                                      ▶  대여도서확인                                        ");
             Console.WriteLine("                                      ▶  회원정보수정                                        ");
             Console.WriteLine("                                                                                              ");
@@ -44,7 +45,7 @@ namespace Library.View
 
         public void PrintSignUpScreen(bool isClear = true)
         {
-            PrintExplainMemberSignUpLabel(isClear);
+            PrintMemberSignUpLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                                             뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");
@@ -60,7 +61,7 @@ namespace Library.View
 
         public void PrintSelectBorrowBookModeScreen(bool isClear = true)
         {
-            PrintBorrowBookLabel(isClear);
+            PrintBorrowBookModeLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                             선택 : ENTER    뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");
@@ -77,6 +78,18 @@ namespace Library.View
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                               도서아이디    :                                                ");
             Console.WriteLine("                               <대여하기>                                                     ");
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintReturnBookScreen(bool isClear = true)
+        {
+            PrintReturnBookLabel(isClear);
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                                                                             뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                               도서아이디    :                                                ");
+            Console.WriteLine("                               <반납하기>                                                     ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
         }

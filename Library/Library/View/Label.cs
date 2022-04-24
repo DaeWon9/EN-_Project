@@ -19,7 +19,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintExplainMemberLoginLabel(bool isClear = true)
+        public void PrintMemberLoginLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -35,7 +35,7 @@ namespace Library.View
         }
 
 
-        public void PrintExplainAdimistratorLoginLabel(bool isClear = true)
+        public void PrintAdimistratorLoginLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -50,7 +50,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintExplainMemberSignUpLabel(bool isClear = true)
+        public void PrintMemberSignUpLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -65,7 +65,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintExplainBookSearchLabel(bool isClear = true)
+        public void PrintBookSearchLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -80,16 +80,16 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintCheckBorrowedBookLabel(bool isClear = true)
+        public void PrintBorrowBookModeLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
-            Console.WriteLine("           *                        < 대 여 도 서 확 인 >                        *            ");
+            Console.WriteLine("           *                           < 도 서 대 여 >                           *            ");
             Console.WriteLine("          *                                                                       *           ");
-            Console.WriteLine("         *                ● 대여중인 도서 목록입니다.                             *          ");
-            Console.WriteLine("        *                                                                           *         ");
-            Console.WriteLine("         *                                                                         *          ");
+            Console.WriteLine("         *      ● ↑↓ 방향키로 이동하며 대여방식을 선택해주세요                  *          ");
+            Console.WriteLine("        *       ● 바로 대여    : 도서관에 보유중인 책정보를 바탕으로 대여가능      *         ");
+            Console.WriteLine("         *      ● 검색 후 대여 : 사용자가 검색한 책정보를 바탕으로 대여가능       *          ");
             Console.WriteLine("          *                                                                       *           ");
             Console.WriteLine("           *                                                                     *            ");
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
@@ -110,5 +110,34 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
+        public void PrintReturnBookLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
+            Console.WriteLine("           *                           < 도 서 반 납 >                           *            ");
+            Console.WriteLine("          *                                                                       *           ");
+            Console.WriteLine("         *     ● 반납하고자하는 도서아이디를 적어주세요                           *          ");
+            Console.WriteLine("        *      ● ↑↓ 방향키로 옵션 이동 후 ENTER를 누르면 입력 가능합니다         *         ");
+            Console.WriteLine("         *     ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                 *          ");
+            Console.WriteLine("          *    ● 입력을 완료한 뒤에 <반납하기> 에서 ENTER 눌러주세요             *           ");
+            Console.WriteLine("           *                                                                     *            ");
+            Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
+        }
+
+        public void PrintCheckBorrowedBookLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
+            Console.WriteLine("           *                        < 대 여 도 서 확 인 >                        *            ");
+            Console.WriteLine("          *                                                                       *           ");
+            Console.WriteLine("         *           ● 대여중인 도서 목록입니다.                                  *          ");
+            Console.WriteLine("        *            ● 남은기간이 4일 미만일경우 노란색으로 표시됩니다.            *         ");
+            Console.WriteLine("         *           ● 남은기간이 1일 미만일경우 빨간색으로 표시됩니다.           *          ");
+            Console.WriteLine("          *                                                                       *           ");
+            Console.WriteLine("           *                                                                     *            ");
+            Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
+        }
     }
 }

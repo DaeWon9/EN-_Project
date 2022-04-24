@@ -22,7 +22,7 @@ namespace Library.View
 
         public void PrintBookSearchScreen(bool isClear = true)
         {
-            PrintExplainBookSearchLabel(isClear);
+            PrintBookSearchLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                                             뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");

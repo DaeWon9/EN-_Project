@@ -217,7 +217,7 @@ namespace Library
 
         public enum AdministratorMenu : int { BOOK_SEARCH = 12, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, BORROW_STATUS} 
 
-        public enum MemberMenu : int { BOOK_SEARCH = 12, BOOK_BORROW, BOOK_CHECK, MODIFICATION_MEMBER_INFORMATION }
+        public enum MemberMenu : int { BOOK_SEARCH = 12, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFICATION_MEMBER_INFORMATION }
 
         public enum CheckInsertBorrowedBook : int { NOT_EXIST_BOOK = 1, DUPLICATE_BOOK_ID, SHORTAGE_BOOK_QUANTITY, SUCCESS }
     }
