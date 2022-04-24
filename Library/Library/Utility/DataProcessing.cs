@@ -223,11 +223,11 @@ namespace Library.Utility
 
             if (bookId != "" && bookId != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_ID, bookId);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId);
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_ID, bookId);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId);
                 }
             if (bookName != "" && bookName != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
@@ -261,19 +261,19 @@ namespace Library.Utility
                 }
             if (bookPrice != "" && bookPrice != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_PRICE, bookPrice);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BELOW_BY_INT, Constant.BOOK_FILED_PRICE, bookPrice);
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_PRICE, bookPrice);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BELOW_BY_INT, Constant.BOOK_FILED_PRICE, bookPrice);
                 }
             if (bookQuantity != "" && bookQuantity != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                 }
 
             return conditionalString;

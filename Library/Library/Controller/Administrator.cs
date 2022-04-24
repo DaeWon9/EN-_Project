@@ -156,7 +156,7 @@ namespace Library.Controller
                 case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
                     SelectMenu(administratorScreen);
                     break;
-                case (int)Constant.AdministratorMenu.RENTAL_STATUS:
+                case (int)Constant.AdministratorMenu.BORROW_STATUS:
                     SelectMenu(administratorScreen);
                     break;
                 case Constant.INPUT_ESCAPE_IN_ARROW_KEY:

@@ -41,5 +41,12 @@ namespace Library.Controller
             menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y);
             return menuValue;
         }
+
+        public int GetBorrowBookMode(MemberScreen memberScreen)
+        {
+            memberScreen.PrintSelectBorrowBookModeScreen();
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.ADMINISTRATOR_MENU_CURSOR_MAX_POS_Y);
+            return menuValue;
+        }
     }
 }

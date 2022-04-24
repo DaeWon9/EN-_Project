@@ -80,7 +80,7 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
 
-        public void PrintResultBookSearchLabel(bool isClear = true)
+        public void PrintCheckBorrowedBookLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -94,5 +94,21 @@ namespace Library.View
             Console.WriteLine("           *                                                                     *            ");
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
         }
+
+        public void PrintBorrowBookLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
+            Console.WriteLine("           *                           < 도 서 대 여 >                           *            ");
+            Console.WriteLine("          *                                                                       *           ");
+            Console.WriteLine("         *     ● 대여하고자하는 정보를 입력해주세요 (원하는 옵션만 입력가능)      *          ");
+            Console.WriteLine("        *      ● ↑↓ 화살표로 옵션 이동 후 ENTER를 누르면 입력 가능합니다         *         ");
+            Console.WriteLine("         *     ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                 *          ");
+            Console.WriteLine("          *    ● 입력을 완료한 뒤에 <대여하기> 에서 ENTER 눌러주세요             *           ");
+            Console.WriteLine("           *                                                                     *            ");
+            Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
+        }
+
     }
 }

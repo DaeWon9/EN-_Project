@@ -43,6 +43,7 @@ namespace Library
         public const string TEXT_IS_EXIST = "종료하시겠습니까??";
         public const string TEXT_IS_SEARCH = "검색하시겠습니까??";
         public const string TEXT_IS_SIGN_UP = "가입하시겠습니까??";
+        public const string TEXT_IS_BORROW = "대여하시겠습니까??";
 
         public const string TEXT_PLEASE_INPUT_OPTION = "옵션을 입력해주세요";
         public const string TEXT_PLEASE_INPUT_NUMBER = "숫자만 입력하세요";
@@ -61,20 +62,23 @@ namespace Library
         public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
 
         // QUERY String
-        public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(50), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, returnDate DATE, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";
+        public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(50), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, borrowDate DATETIME, returnDate DATETIME, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";
 
         public const string QUERY_STRING_SELECT = "SELECT {0} FROM {1}";
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
-        public const string QUERY_STRING_INSERT = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
+        public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
+        public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
+        public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1} WHERE {2}"; // 도서대여시 도서관의 책개수는 줄어야함 . update {테이블명} set {Quantity = book.Quantity - 1} where {bookId = 1}";
+        public const string QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_BORROWED = "UPDATE book SET quantity = book.quantity - 1 where id = {0}";
         // conditional string 
         public const string CONDITIONAL_STRING_AND = " AND ";
         public const string CONDITIONAL_STRING_OR = " OR ";
-        public const string CONDITIONAL_STRING_COMPARE_BY_STRING = "{0} = '{1}'";
-        public const string CONDITIONAL_STRING_COMPARE_BY_INT = "{0} = {1}";
+        public const string CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING = "{0} = '{1}'";
+        public const string CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT = "{0} = {1}";
+        public const string CONDITIONAL_STRING_COMPARE_BELOW_BY_INT = "{0} < {1}";
         public const string CONDITIONAL_STRING_LIKE = "({0} LIKE '{1}%' OR {0} LIKE '%{1}' OR {0} LIKE '%{1}%')";
-
-
+        
         // Mysql Table 
         public const string TABLE_NAME_ADMINISTRATOR = "administrator";
         public const string TABLE_NAME_BOOK = "book";
@@ -108,6 +112,7 @@ namespace Library
         public const string BORROWED_BOOK_FILED_AUTHOR = "author";
         public const string BORROWED_BOOK_FILED_PRICE = "price";
         public const string BORROWED_BOOK_FILED_QUANTITY = "quantity";
+        public const string BORROWED_BOOK_FILED_BORROW_DATE = "borrowDate";
         public const string BORROWED_BOOK_FILED_RETURN_DATE = "returnDate";
 
         // is Console clear
@@ -186,15 +191,24 @@ namespace Library
         // search pos
         public const int SEARCH_POS_X = 47;
         public const int SEARCH_SELECT_OPTION_POS_X = 29;
-        public enum BookSearchPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, SEARCH}
+
+        // borrow pos
+        public const int BORROW_POS_X = 47;
+        public const int BORROW_SELECT_OPTION_POS_X = 29;
 
         // signup pos
         public const int SIGNUP_POS_X = 47;
 
-        public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, AGE, ADDRESS, PHONE_NUMBER}
+        public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, AGE, ADDRESS, PHONE_NUMBER }
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 12, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, RENTAL_STATUS} 
+        public enum BookSearchPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, SEARCH}
 
-        public enum MemberMenu : int { BOOK_SEARCH = 12, BOOK_RENTAL, BOOK_CHECK, MODIFICATION_MEMBER_INFORMATION }
+        public enum BookBorrowModePosY : int { IMMEDIATE = 12, SEARCH }
+
+        public enum BookBorrowPosY : int { ID = 12, BORROW }
+
+        public enum AdministratorMenu : int { BOOK_SEARCH = 12, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, BORROW_STATUS} 
+
+        public enum MemberMenu : int { BOOK_SEARCH = 12, BOOK_BORROW, BOOK_CHECK, MODIFICATION_MEMBER_INFORMATION }
     }
 }

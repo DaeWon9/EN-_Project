@@ -45,17 +45,40 @@ namespace Library.View
         public void PrintSignUpScreen(bool isClear = true)
         {
             PrintExplainMemberSignUpLabel(isClear);
-            Console.WriteLine("                                                                                                ");
-            Console.WriteLine("                                                                              뒤로가기 : ESC    ");
-            Console.WriteLine("                                                                                                ");
-            Console.WriteLine("                               이름          :                                                  ");
-            Console.WriteLine("                               아이디        :                                                  ");
-            Console.WriteLine("                               비밀번호      :                                                  ");
-            Console.WriteLine("                               비밀번호 확인 :                                                  ");
-            Console.WriteLine("                               나이          :                                                  ");
-            Console.WriteLine("                               주소          :                                                  ");
-            Console.WriteLine("                               핸드폰번호    :                                                  ");
-            Console.WriteLine("                                                                                                ");
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                                                                            뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                               이름          :                                                ");
+            Console.WriteLine("                               아이디        :                                                ");
+            Console.WriteLine("                               비밀번호      :                                                ");
+            Console.WriteLine("                               비밀번호 확인 :                                                ");
+            Console.WriteLine("                               나이          :                                                ");
+            Console.WriteLine("                               주소          :                                                ");
+            Console.WriteLine("                               핸드폰번호    :                                                ");
+            Console.WriteLine("                                                                                              ");
+        }
+
+        public void PrintSelectBorrowBookModeScreen(bool isClear = true)
+        {
+            PrintBorrowBookLabel(isClear);
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                                                            선택 : ENTER    뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                                      ▶  바로 대여                                           ");
+            Console.WriteLine("                                      ▶  검색 후 대여                                        ");
+            Console.WriteLine("                                                                                              ");
+        }
+
+        public void PrintBorrowBookScreen(bool isClear = true)
+        {
+            PrintBorrowBookLabel(isClear);
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                                                                            뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("                               도서아이디    :                                                ");
+            Console.WriteLine("                               <대여하기>                                                     ");
+            Console.WriteLine("                                                                                              ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
         }
 
     }

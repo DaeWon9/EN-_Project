@@ -47,7 +47,7 @@ namespace Library.View
 
         public void PrintBorrowedBookListScreen(bool isClear = true)
         {
-            PrintResultBookSearchLabel(isClear);
+            PrintCheckBorrowedBookLabel(isClear);
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                                                            뒤로가기 : ESC    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
@@ -91,6 +91,7 @@ namespace Library.View
                     Console.WriteLine("저자       : " + reader[Constant.BORROWED_BOOK_FILED_AUTHOR]);
                     Console.WriteLine("도서가격   : " + reader[Constant.BORROWED_BOOK_FILED_PRICE]);
                     Console.WriteLine("대여수량   : " + reader[Constant.BORROWED_BOOK_FILED_QUANTITY]);
+                    Console.WriteLine("대여일자   : " + reader[Constant.BORROWED_BOOK_FILED_BORROW_DATE]);
                     Console.WriteLine("반납일자   : " + reader[Constant.BORROWED_BOOK_FILED_RETURN_DATE]);
                     Console.WriteLine("----------------------------------------------------------------------------------------------");
                 }

@@ -13,27 +13,27 @@ namespace Library.Controller
     {
         private bool isInputEscape = false;
         private int menuValue;
-        private string id = "", password = "";
+        private string loginMemberId = "", loginMemberPassword = "";
         private string loginedMemberName = "";
         private void Login(MemberScreen memberScreen) // id : admin1    pw: admin1 
         {
             bool isLoginCheck = false;
-            id = "";
-            password = "";
+            loginMemberId = "";
+            loginMemberPassword = "";
             memberScreen.PrintLoginScreen();
             while (!isLoginCheck)
             {
-                id = DataProcessing.Instance.GetInputValues(memberScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ID);
-                if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
+                loginMemberId = DataProcessing.Instance.GetInputValues(memberScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ID);
+                if (loginMemberId == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                password = DataProcessing.Instance.GetInputValues(memberScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
-                if (password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
+                loginMemberPassword = DataProcessing.Instance.GetInputValues(memberScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
+                if (loginMemberPassword == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                isLoginCheck = IsLogin(memberScreen, id, password);
+                isLoginCheck = IsLogin(memberScreen, loginMemberId, loginMemberPassword);
             }
-            if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString() || password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 처음 회원 or 관리자모드 선택으로 돌아가야함
+            if (loginMemberId == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString() || loginMemberPassword == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 처음 회원 or 관리자모드 선택으로 돌아가야함
                 return;
-            loginedMemberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_BY_STRING, Constant.MEMBER_FILED_ID, id)); // 로그인한 유저의 이름 저장
+            loginedMemberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 이름 저장
             SelectMemberMainMenu(memberScreen); // 넘어가는부분
         }
 
@@ -221,8 +221,8 @@ namespace Library.Controller
         
         private bool IsSearchBookCompleted(MemberScreen memberScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
         {
-            int getYesOrNoBySearching, getYesOrNoByResearching; // 아래 문자열 기능완성 후 constant로 빼기
-
+            int getYesOrNoBySearching, getYesOrNoByResearching;
+            // 입력값이 모두 공백인지 체크
             if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()) && (bookName == "" || bookName == Constant.INPUT_ESCAPE.ToString()) && (bookPublisher == "" || bookPublisher == Constant.INPUT_ESCAPE.ToString()) && (bookAuthor == "" || bookAuthor == Constant.INPUT_ESCAPE.ToString()) && (bookPrice == "" || bookPrice == Constant.INPUT_ESCAPE.ToString()) && (bookQuantity == "" || bookQuantity == Constant.INPUT_ESCAPE.ToString()))
             {
                 memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
@@ -259,13 +259,97 @@ namespace Library.Controller
         private void CheckBorrowedBook(MemberScreen memberScreen)
         {
             memberScreen.PrintBorrowedBookListScreen();
-            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, id.ToString()), id.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
+            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
             Console.CursorVisible = false;
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
             if (DataProcessing.Instance.GetEnterOrEscape() == Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
             {
                 Console.CursorVisible = true;
                 //뒤로갔을때 넘어가지는 부분 설정하기
+            }
+        }
+
+        private bool IsBorrowBookCompleted(MemberScreen memberScreen, string bookId)
+        {
+            int getYesOrNoByBorrowing, getYesOrNoByReborrowing;
+
+            if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()))// 입력값이 공백인지 체크
+            {
+                memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                return false;
+            }
+            ////대여하기
+            memberScreen.PrintMessage(Constant.TEXT_IS_BORROW, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            getYesOrNoByBorrowing = DataProcessing.Instance.GetEnterOrEscape();
+
+            if (getYesOrNoByBorrowing == Constant.INPUT_ENTER)
+            {
+                if (DataBase.Instance.IsInsertBorrowedBook(loginMemberId, int.Parse(bookId))) // member 테이블에 입력한 멤버정보 추가 InsertBorrowedBook(string tableName, int id)
+                    Console.WriteLine("대여성공!");
+                else
+                    Console.WriteLine("대여실패!");
+                // 대여하는 함수 -> 사용자의 개별 테이블에 INSERT!!!!!!!!!!!!!!!!!!!
+            }
+            if (getYesOrNoByBorrowing == Constant.INPUT_ESCAPE)
+            {
+                memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK); // 도서관에 보유중인 책 정보 표시
+                Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
+                Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                return false;
+            }
+            return true;
+        }
+
+        private void BorrowBookImmediately(MemberScreen memberScreen)
+        {
+            string bookId = "";
+            int currentConsoleCursorPosY;
+            bool isBorrowBookCompleted = false;
+            isInputEscape = false;
+            Console.CursorVisible = true;
+
+            memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
+            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK); // 도서관에 보유중인 책 정보 표시
+
+            Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
+            Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+
+            while (!isInputEscape && !isBorrowBookCompleted)
+            {
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
+                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.BookBorrowPosY.ID:
+                        bookId = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        break;
+                    case (int)Constant.BookBorrowPosY.BORROW:
+                        isBorrowBookCompleted = IsBorrowBookCompleted(memberScreen, bookId);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (!isBorrowBookCompleted)
+                SelectMemberMainMenu(memberScreen);
+
+        }
+
+        private void SelectBorrowBookMode(MemberScreen memberScreen)
+        {
+            menuValue = GetBorrowBookMode(memberScreen);
+            switch (menuValue)
+            {
+                case (int)Constant.BookBorrowModePosY.IMMEDIATE:
+                    BorrowBookImmediately(memberScreen);
+                    break;
+                case (int)Constant.BookBorrowModePosY.SEARCH:
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -279,7 +363,8 @@ namespace Library.Controller
                     case (int)Constant.MemberMenu.BOOK_SEARCH:
                         InputBookSearchOption(memberScreen);
                         break;
-                    case (int)Constant.MemberMenu.BOOK_RENTAL:
+                    case (int)Constant.MemberMenu.BOOK_BORROW:
+                        SelectBorrowBookMode(memberScreen);
                         break;
                     case (int)Constant.MemberMenu.BOOK_CHECK:
                         CheckBorrowedBook(memberScreen);

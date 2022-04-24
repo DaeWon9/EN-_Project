@@ -87,11 +87,85 @@ namespace Library.Model
         {
             if (!connection.Ping())
                 connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_INSERT, tableName, name, id, password, age, address, phonenumber);
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_MEMBER, tableName, name, id, password, age, address, phonenumber);
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
             connection.Close();
+        }
+
+        private bool IsBorrowBookDuplicate(string tableName, int id)
+        {
+            List<string> borrowedBookList = GetSelectedElements(Constant.BOOK_FILED_ID, tableName);
+            for (int repeat = 0; repeat < borrowedBookList.Count; repeat++)
+            {
+                if (borrowedBookList[repeat] == id.ToString())
+                    return true;
+            }
+            return false;
+        }
+
+
+        public void MINUS_BOOK_QUANTITY(int id)
+        {
+            if (!connection.Ping())
+                connection.Open();
+            sqlString = string.Format(Constant.QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_BORROWED, id); // 도서관에 보관중인 책에서 개수 -1
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+
+        public void InsertBorrowedBook(string tableName, int id, string bookName, string bookPublisher, string bookAuthor, int bookPrice)
+        {
+            DateTime borrowDate = DateTime.Now;
+            DateTime returnDate = borrowDate.AddDays(7);
+
+            if (!connection.Ping())
+                connection.Open();
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_BORROW_BOOK, tableName, id, bookName, bookPublisher, bookAuthor, bookPrice, /*bookQuantity*/1, borrowDate.ToString("yyyy-MM-dd-HH-mm-ss"), returnDate.ToString("yyyy-MM-dd-HH-mm-ss"));
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+        public bool IsInsertBorrowedBook(string tableName, int id)
+        {
+            string bookName = "", bookPublisher = "", bookAuthor = "";
+            int bookPrice = 0, bookQuantity = 0;
+
+            DateTime borrowDate = DateTime.Now;
+            DateTime returnDate = borrowDate.AddDays(7);
+
+            if (!connection.Ping())
+                connection.Open();
+
+            // 사용자가 대여하고자하는 도서의 정보 불러오기 (도서관에 보유중인)
+            sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, id));
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                bookName = reader[Constant.BOOK_FILED_NAME].ToString();
+                bookPublisher = reader[Constant.BOOK_FILED_PUBLISHER].ToString();
+                bookAuthor = reader[Constant.BOOK_FILED_AUTHOR].ToString();
+                bookPrice = (int)reader[Constant.BOOK_FILED_PRICE];
+                bookQuantity = (int)reader[Constant.BOOK_FILED_QUANTITY];
+            }
+            reader.Close();
+            connection.Close();
+
+            if (bookQuantity < 1) // 도서관에 책 보유수량이 없으면 대여 불가능
+                return false;
+
+            if (IsBorrowBookDuplicate(tableName, id)) // 이미 대여중인 도서면 대여 불가능
+                return false;
+
+            MINUS_BOOK_QUANTITY(id); // 도서관에서 보유중인 도서수량 1개 뺴주고
+            InsertBorrowedBook(tableName, id, bookName, bookPublisher, bookAuthor, bookPrice);
+            return true;
         }
 
         public void CreateTable(string tableName)
