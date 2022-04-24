@@ -108,7 +108,7 @@ namespace Library.Controller
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
                 return false;
             }
-
+            
             administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();

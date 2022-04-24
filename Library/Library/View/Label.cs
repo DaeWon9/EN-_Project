@@ -72,8 +72,8 @@ namespace Library.View
             Console.WriteLine("            *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *             ");
             Console.WriteLine("           *                           < 도 서 찾 기 >                           *            ");
             Console.WriteLine("          *                                                                       *           ");
-            Console.WriteLine("         *     ● 검색하고자하는 정보를 입력해주세요 (원하는 옵션만 입력가능)      *          ");
-            Console.WriteLine("        *      ● ↑↓ 화살표로 옵션 이동 후 ENTER를 누르면 입력 가능합니다         *         ");
+            Console.WriteLine("         *     ● ↑↓ 방향키로 이동 후 ENTER를 누르고 입력해주세요 (원하는 옵션)  *          ");
+            Console.WriteLine("        *      ● 도서가격 및 도서수량은 입력한 수치보다 낮은 도서가 검색됩니다.    *         ");
             Console.WriteLine("         *     ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                 *          "); 
             Console.WriteLine("          *    ● 입력을 완료한 뒤에 <검색하기> 에서 ENTER 눌러주세요             *           ");
             Console.WriteLine("           *                                                                     *            ");
@@ -103,7 +103,7 @@ namespace Library.View
             Console.WriteLine("           *                           < 도 서 대 여 >                           *            ");
             Console.WriteLine("          *                                                                       *           ");
             Console.WriteLine("         *     ● 대여하고자하는 도서아이디를 적어주세요                           *          ");
-            Console.WriteLine("        *      ● ↑↓ 화살표로 옵션 이동 후 ENTER를 누르면 입력 가능합니다         *         ");
+            Console.WriteLine("        *      ● ↑↓ 방향키로 옵션 이동 후 ENTER를 누르면 입력 가능합니다         *         ");
             Console.WriteLine("         *     ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                 *          ");
             Console.WriteLine("          *    ● 입력을 완료한 뒤에 <대여하기> 에서 ENTER 눌러주세요             *           ");
             Console.WriteLine("           *                                                                     *            ");

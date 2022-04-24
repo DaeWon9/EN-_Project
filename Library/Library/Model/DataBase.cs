@@ -27,7 +27,7 @@ namespace Library.Model
 
         public MySqlDataReader Select(string filed, string tableName, string conditionalString = "")
         {
-            if(!connection.Ping())
+            if (!connection.Ping())
                 connection.Open();
 
             if (conditionalString == "") // 조건문이 없는경우
@@ -105,12 +105,13 @@ namespace Library.Model
             return false;
         }
 
-        private bool IsExistBookInLibrary(int bookid)
+        private bool IsExistBookInLibrary(int bookid, List<string> searchedBookIdList)
         {
-            List<string> memberIdList = GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK);
-            for (int repeat = 0; repeat < memberIdList.Count; repeat++)
+            if (searchedBookIdList.Count < 1)
+                searchedBookIdList = GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK);
+            for (int repeat = 0; repeat < searchedBookIdList.Count; repeat++)
             {
-                if (memberIdList[repeat] == bookid.ToString())
+                if (searchedBookIdList[repeat] == bookid.ToString())
                     return true;
             }
             return false;
@@ -141,7 +142,7 @@ namespace Library.Model
             reader.Close();
             connection.Close();
         }
-        public int IsInsertBorrowedBook(string tableName, int id)
+        public int IsInsertBorrowedBook(string tableName, int id, List<string> searchedBookIdList)
         {
             string bookName = "", bookPublisher = "", bookAuthor = "";
             int bookPrice = 0, bookQuantity = 0;
@@ -165,7 +166,7 @@ namespace Library.Model
             reader.Close();
             connection.Close();
 
-            if (!IsExistBookInLibrary(id)) // 도서관에 없는책이면 대여 불가능
+            if (!IsExistBookInLibrary(id, searchedBookIdList)) // 도서관에 없는책이면 대여 불가능
                 return (int)Constant.CheckInsertBorrowedBook.NOT_EXIST_BOOK;
 
             if (bookQuantity < 1) // 도서관에 책 보유수량이 없으면 대여 불가능
@@ -196,9 +197,6 @@ namespace Library.Model
                 connection.Open();
 
             sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_DELETE, tableName, conditionalString);
-
-
-            //sqlString = "DELETE FROM " + tableName + " WHERE id = " + id;
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();

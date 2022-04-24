@@ -57,7 +57,7 @@ namespace Library
         public const string TEXT_IS_NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
         public const string TEXT_IS_NOT_CORRECT_ID_PASSWORD = "ID & PASSWORD 가 틀립니다";
 
-        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY= "도서관에 보유중인 도서가 아닙니다.";
+        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY= "도서관에 보유중인 도서가 아니거나, 검색된 도서가 아닙니다.";
         public const string TEXT_IS_ALREADY_BORROWED = "이미 대여중인 도서입니다.";
         public const string TEXT_IS_NOT_ENOUGH_QUANTITY = "대여가능한 수량이 부족합니다.";
         
@@ -77,14 +77,14 @@ namespace Library
         public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
-        public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1} WHERE {2}"; // 도서대여시 도서관의 책개수는 줄어야함 . update {테이블명} set {Quantity = book.Quantity - 1} where {bookId = 1}";
+        public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1} WHERE {2}"; 
         public const string QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_BORROWED = "UPDATE book SET quantity = book.quantity - 1 where id = {0}";
         // conditional string 
         public const string CONDITIONAL_STRING_AND = " AND ";
         public const string CONDITIONAL_STRING_OR = " OR ";
         public const string CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING = "{0} = '{1}'";
         public const string CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT = "{0} = {1}";
-        public const string CONDITIONAL_STRING_COMPARE_BELOW_BY_INT = "{0} < {1}";
+        public const string CONDITIONAL_STRING_COMPARE_BELOW_BY_INT = "{0} <= {1}";
         public const string CONDITIONAL_STRING_LIKE = "({0} LIKE '{1}%' OR {0} LIKE '%{1}' OR {0} LIKE '%{1}%')";
         
         // Mysql Table 
@@ -130,6 +130,10 @@ namespace Library
         // is password
         public const bool IS_NOT_PASSWORD = false;
         public const bool IS_PASSWORD = true;
+
+        // isSearchAndBorrow
+        public const bool IS_SEARCH_AND_BORROW = true;
+        public const bool IS_ONLY_SEARCH = false;
 
         // cursor pos
         public const int CURSOR_POS_LEFT = 0;

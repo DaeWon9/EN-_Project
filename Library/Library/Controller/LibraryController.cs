@@ -15,7 +15,6 @@ namespace Library.Controller
         public void Start()
         {
             Console.SetWindowSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT); // 기능 완성 후에 각 UI별로 크기조정하기     
-
             BothScreen bothScreen = new BothScreen();
             MemberScreen memberScreen = new MemberScreen();
             AdministratorScreen administratorScreen = new AdministratorScreen();
