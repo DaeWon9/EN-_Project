@@ -42,6 +42,7 @@ namespace Library
         public const string TEXT_ADMINISTRATOR_MODE = "< 관리자모드 >";
         public const string TEXT_YES_OR_NO = "< YES : ENTER | NO : ESC >";
         public const string TEXT_IS_EXIST = "종료하시겠습니까??";
+        public const string TEXT_IS_LOGOUT = "로그아웃하시겠습니까??";
         public const string TEXT_IS_SEARCH = "검색하시겠습니까??";
         public const string TEXT_IS_SIGN_UP = "가입하시겠습니까??";
         public const string TEXT_IS_BORROW = "대여하시겠습니까??";
@@ -57,10 +58,9 @@ namespace Library
         public const string TEXT_IS_NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
         public const string TEXT_IS_NOT_CORRECT_ID_PASSWORD = "ID & PASSWORD 가 틀립니다";
 
-        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY= "도서관에 보유중인 도서가 아니거나, 검색된 도서가 아닙니다.";
+        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY= "도서관에 없는 도서이거나, 검색된 도서가 아닙니다.";
         public const string TEXT_IS_ALREADY_BORROWED = "이미 대여중인 도서입니다.";
         public const string TEXT_IS_NOT_ENOUGH_QUANTITY = "대여가능한 수량이 부족합니다.";
-        
         
         public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다. 계속해서 대여하시겠습니까??";
         public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
@@ -85,6 +85,7 @@ namespace Library
         public const string CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING = "{0} = '{1}'";
         public const string CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT = "{0} = {1}";
         public const string CONDITIONAL_STRING_COMPARE_BELOW_BY_INT = "{0} <= {1}";
+        public const string CONDITIONAL_STRING_COMPARE_OVER_BY_INT = "{0} >= {1}";
         public const string CONDITIONAL_STRING_LIKE = "({0} LIKE '{1}%' OR {0} LIKE '%{1}' OR {0} LIKE '%{1}%')";
         
         // Mysql Table 

@@ -94,8 +94,6 @@ namespace Library.Controller
                         break;
                 }
             }
-            if (!isSearchBookCompleted)
-                SelectMenu(administratorScreen);
         }
 
         private bool IsSearchBookCompleted(AdministratorScreen administratorScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
@@ -122,8 +120,8 @@ namespace Library.Controller
                 getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
                 if (getYesOrNoByResearching == Constant.INPUT_ENTER)
                     InputBookSearchOption(administratorScreen);
-                if (getYesOrNoByResearching == Constant.INPUT_ESCAPE)
-                    SelectMenu(administratorScreen);
+                //if (getYesOrNoByResearching == Constant.INPUT_ESCAPE)
+                    //SelectMenu(administratorScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
@@ -137,33 +135,32 @@ namespace Library.Controller
 
         private void SelectMenu(AdministratorScreen administratorScreen)
         {
+            bool isLogout = false;
             int menuValue;
-            menuValue = GetAddministratorMenu(administratorScreen, Constant.TEXT_ADMINISTRATOR_MODE);
-
-            switch (menuValue)
+            while (!isLogout)
             {
-                case (int)Constant.AdministratorMenu.BOOK_SEARCH:
-                    InputBookSearchOption(administratorScreen);
-                    break;
-                case (int)Constant.AdministratorMenu.BOOK_ADD:
-                    SelectMenu(administratorScreen);
-                    break;
-                case (int)Constant.AdministratorMenu.BOOK_REMOVE:
-                    SelectMenu(administratorScreen);
-                    break;
-                case (int)Constant.AdministratorMenu.BOOK_REVISE:
-                    break;
-                case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
-                    SelectMenu(administratorScreen);
-                    break;
-                case (int)Constant.AdministratorMenu.BORROW_STATUS:
-                    SelectMenu(administratorScreen);
-                    break;
-                case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
-                    Login(administratorScreen);
-                    break;
-                default:
-                    break;
+                menuValue = GetAddministratorMenu(administratorScreen, Constant.TEXT_ADMINISTRATOR_MODE);
+                switch (menuValue)
+                {
+                    case (int)Constant.AdministratorMenu.BOOK_SEARCH:
+                        InputBookSearchOption(administratorScreen);
+                        break;
+                    case (int)Constant.AdministratorMenu.BOOK_ADD:
+                        break;
+                    case (int)Constant.AdministratorMenu.BOOK_REMOVE:
+                        break;
+                    case (int)Constant.AdministratorMenu.BOOK_REVISE:
+                        break;
+                    case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
+                        break;
+                    case (int)Constant.AdministratorMenu.BORROW_STATUS:
+                        break;
+                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
+                        isLogout = DataProcessing.Instance.IsLogout(administratorScreen);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

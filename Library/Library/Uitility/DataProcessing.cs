@@ -269,11 +269,11 @@ namespace Library.Utility
                 }
             if (bookQuantity != "" && bookQuantity != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_OVER_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_OVER_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                 }
 
             return conditionalString;
@@ -282,8 +282,23 @@ namespace Library.Utility
         public bool IsExit(Message message)
         {
             Console.CursorVisible = false;
-            message.PrintMessage(Constant.TEXT_IS_EXIST , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
-            message.PrintMessage(Constant.TEXT_YES_OR_NO , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            message.PrintMessage(Constant.TEXT_IS_EXIST , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red);
+            message.PrintMessage(Constant.TEXT_YES_OR_NO , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+
+            if (GetEnterOrEscape() == Constant.INPUT_ENTER) // enter 눌리면 true 반환
+            {
+                Console.CursorVisible = true;
+                return true;
+            }
+            Console.CursorVisible = true;
+            return false;
+        }
+
+        public bool IsLogout(Message message)
+        {
+            Console.CursorVisible = false;
+            message.PrintMessage(Constant.TEXT_IS_LOGOUT, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red);
+            message.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
 
             if (GetEnterOrEscape() == Constant.INPUT_ENTER) // enter 눌리면 true 반환
             {

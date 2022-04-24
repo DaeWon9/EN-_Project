@@ -14,8 +14,7 @@ namespace Library.Controller
         private List<string> searchedBookIdList = new List<string>();
         private bool isInputEscape = false, isSearchAndBorrow = false;
         private int menuValue;
-        private string loginMemberId = "", loginMemberPassword = "";
-        private string loginedMemberName = "";
+        private string loginMemberId = "", loginMemberPassword = "", loginedMemberName = "", conditionalStringByUserInput = "";
         private void Login(MemberScreen memberScreen) // id : admin1    pw: admin1 
         {
             bool isLoginCheck = false;
@@ -216,8 +215,6 @@ namespace Library.Controller
                         break;
                 }
             }
-            if (!isSearchBookCompleted)
-                SelectMemberMainMenu(memberScreen);
         }
         
         private bool IsSearchBookCompleted(MemberScreen memberScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
@@ -231,6 +228,8 @@ namespace Library.Controller
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
                 return false;
             }
+            conditionalStringByUserInput = DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+
             memberScreen.PrintMessage(Constant.TEXT_IS_SEARCH , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
@@ -238,17 +237,15 @@ namespace Library.Controller
             if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndBorrow == Constant.IS_ONLY_SEARCH) // 검색만
             {
                 memberScreen.PrintSearchResultScreen();
-                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK);
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
                 getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
                 if (getYesOrNoByResearching == Constant.INPUT_ENTER)
                     InputBookSearchOption(memberScreen);
-                if (getYesOrNoByResearching == Constant.INPUT_ESCAPE)
-                    SelectMemberMainMenu(memberScreen);
             }
 
-            if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndBorrow == Constant.IS_SEARCH_AND_BORROW) // 검색 후 대여까지하는 함수 여기서 검색된 도서 id들 넘겨서 대여할때 중복체크하기
+            if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndBorrow == Constant.IS_SEARCH_AND_BORROW) // 검색 후 대여까지하는 함수 -> 여기서 검색된 도서 id 리스트 만들어서 대여할때 중복체크하기
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
                 memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK);
@@ -289,7 +286,17 @@ namespace Library.Controller
             getYesOrNoByReborrowing = DataProcessing.Instance.GetEnterOrEscape();
             if (getYesOrNoByReborrowing == Constant.INPUT_ENTER) // 계속해서 대여하시겠습니까? 에서 enter입력
             {
-                DataProcessing.Instance.ClearErrorMessage();
+                if (isSearchAndBorrow == Constant.IS_SEARCH_AND_BORROW)
+                {
+                    memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
+                    memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK);
+                }
+                else
+                {
+                    memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
+                    memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK); // 도서관에 보유중인 책 정보 표시
+                }
+                Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); // 좌표조정
                 return false;
             }
@@ -305,9 +312,9 @@ namespace Library.Controller
 
             if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()))// 입력값이 공백인지 체크
             {
-                memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red); 
                 Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
-                return false;
+                return false; // 다시입력받기
             }
             ////대여하기
             DataProcessing.Instance.ClearErrorMessage();
@@ -316,7 +323,7 @@ namespace Library.Controller
 
             getYesOrNoByBorrowing = DataProcessing.Instance.GetEnterOrEscape();
 
-            if (getYesOrNoByBorrowing == Constant.INPUT_ENTER)
+            if (getYesOrNoByBorrowing == Constant.INPUT_ENTER) // 대여하기 확인 문구에서 엔터 눌림
             {
                 checkInsertBorrowedBook = DataBase.Instance.IsInsertBorrowedBook(loginMemberId, int.Parse(bookId), searchedBookIdList); // 사용자의 개별 테이블에 대여도서 정보 등록하고 결과값 리턴
                 switch (checkInsertBorrowedBook)
@@ -335,7 +342,6 @@ namespace Library.Controller
                         break;
                     case (int)Constant.CheckInsertBorrowedBook.SUCCESS:
                         return IsReBorrow(memberScreen);
-                        break;
                     default:
                         break;
                 }
@@ -365,7 +371,12 @@ namespace Library.Controller
             isInputEscape = false;
             Console.CursorVisible = true;
 
-            if (isSearchAndBorrow != Constant.IS_SEARCH_AND_BORROW)
+            if (isSearchAndBorrow == Constant.IS_SEARCH_AND_BORROW)
+            {
+                memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK);
+            }
+            else
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
                 memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK); // 도서관에 보유중인 책 정보 표시
@@ -391,8 +402,6 @@ namespace Library.Controller
             }
             if (isSearchAndBorrow)
                 InputBookSearchOption(memberScreen);
-            if (!isBorrowBookCompleted)
-                SelectMemberMainMenu(memberScreen);
 
         }
 
@@ -417,7 +426,8 @@ namespace Library.Controller
 
         private void SelectMemberMainMenu(MemberScreen memberScreen)
         {
-            while (true) // 안에 변수로 바꾸기 멤버모드 기능 완성 후
+            bool isLogout = false;
+            while (!isLogout)
             {
                 menuValue = GetMemberMenu(memberScreen, string.Format(Constant.TEXT_WELCOME, loginedMemberName));
                 switch (menuValue)
@@ -433,6 +443,9 @@ namespace Library.Controller
                         CheckBorrowedBook(memberScreen);
                         break;
                     case (int)Constant.MemberMenu.MODIFICATION_MEMBER_INFORMATION:
+                        break;
+                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
+                        isLogout = DataProcessing.Instance.IsLogout(memberScreen);
                         break;
                     default:
                         break;

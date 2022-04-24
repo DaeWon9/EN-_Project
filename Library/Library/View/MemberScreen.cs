@@ -13,7 +13,7 @@ namespace Library.View
         {
             PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                            선택 : ENTER        종료 : ESC    ");
+            Console.WriteLine("                                                             선택 : ENTER        종료 : ESC   ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                      ▶  로그인                                              ");
             Console.WriteLine("                                      ▶  회원가입                                            ");
@@ -23,7 +23,7 @@ namespace Library.View
         {
             PrintExplainMemberLoginLabel(isClear);
             Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                                            뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                             뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                    ID :                                                      ");
             Console.WriteLine("                                    PW :                                                      ");
@@ -33,7 +33,7 @@ namespace Library.View
         {
             PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                            선택 : ENTER    로그아웃 : ESC    ");
+            Console.WriteLine("                                                             선택 : ENTER    로그아웃 : ESC   ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                      ▶  도서찾기                                            ");
             Console.WriteLine("                                      ▶  도서대여                                            ");
@@ -46,7 +46,7 @@ namespace Library.View
         {
             PrintExplainMemberSignUpLabel(isClear);
             Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                                            뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                             뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                               이름          :                                                ");
             Console.WriteLine("                               아이디        :                                                ");
@@ -62,7 +62,7 @@ namespace Library.View
         {
             PrintBorrowBookLabel(isClear);
             Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                            선택 : ENTER    뒤로가기 : ESC    ");
+            Console.WriteLine("                                                             선택 : ENTER    뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                                      ▶  바로 대여                                           ");
             Console.WriteLine("                                      ▶  검색 후 대여                                        ");
@@ -73,7 +73,7 @@ namespace Library.View
         {
             PrintBorrowBookLabel(isClear);
             Console.WriteLine("                                                                                              ");
-            Console.WriteLine("                                                                            뒤로가기 : ESC    ");
+            Console.WriteLine("                                                                             뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                              ");
             Console.WriteLine("                               도서아이디    :                                                ");
             Console.WriteLine("                               <대여하기>                                                     ");
