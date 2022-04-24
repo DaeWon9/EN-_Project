@@ -33,7 +33,7 @@ namespace Library.Model
             if (conditionalString == "") // 조건문이 없는경우
                 sqlString = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
             else
-                sqlString =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
+                sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
 
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();

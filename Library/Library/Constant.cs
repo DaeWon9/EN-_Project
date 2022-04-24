@@ -9,7 +9,8 @@ namespace Library
     class Constant
     {
         //window size
-        public const int WINDOW_WIDTH = 95;
+        public const int WINDOW_WIDTH = 94;
+        public const int WINDOW_WIDTH_CENTER = 47;
         public const int WINDOW_HEIGHT = 50;
         //exception type
         public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
@@ -50,11 +51,18 @@ namespace Library
         public const string TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER = "한글 & 숫자만 입력하세요";
         public const string TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER = "영어 & 숫자만 입력하세요";
         public const string TEXT_PLEASE_INPUT_CORRECT_STRING = "올바른 글자만 입력하세요";
+        public const string TEXT_PLEASE_INPUT_CORRECT_LENGTH = "지정된 범위로 입력하세요";
 
         public const string TEXT_ALREADY_REGISTERED_ID = "이미 등록되어있는 ID입니다.";
         public const string TEXT_IS_NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
         public const string TEXT_IS_NOT_CORRECT_ID_PASSWORD = "ID & PASSWORD 가 틀립니다";
 
+        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY= "도서관에 보유중인 도서가 아닙니다.";
+        public const string TEXT_IS_ALREADY_BORROWED = "이미 대여중인 도서입니다.";
+        public const string TEXT_IS_NOT_ENOUGH_QUANTITY = "대여가능한 수량이 부족합니다.";
+        
+        
+        public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다. 계속해서 대여하시겠습니까??";
         public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
 
 
@@ -129,9 +137,6 @@ namespace Library
         public const int CURSOR_POS_RIGHT = 94;
         public const int CURSOR_POS_NONE = -1;
 
-        // message
-        public const int EXCEPTION_MESSAGE_MAX_POS_X = 39;
-
         //Max length
         public const int MAX_LENGTH_ID = 10;
         public const int MAX_LENGTH_PASSWORD = 10;
@@ -157,12 +162,9 @@ namespace Library
         //message
         public const int WELCOME_MESSAGE_CURSOR_POS_X = 2;
         public const int WELCOME_MESSAGE_CURSOR_POS_Y = 10;
-        public const int EXCEPTION_MESSAGE_CURSOR_POS_X = 37;
+        public const int EXCEPTION_MESSAGE_CURSOR_MAX_POS_X = 76;
         public const int EXCEPTION_MESSAGE_CURSOR_POS_Y = 10;
-        public const int YES_OR_NO_MESSAGE_CURSOR_POS_X = 33;
 
-        //check message cursor pos
-        public const int CHECK_MESSAGE_CURSOR_POS_X = 80;
 
         // set constant keyValue 
         public const int INPUT_ESCAPE_IN_ARROW_KEY = -1;

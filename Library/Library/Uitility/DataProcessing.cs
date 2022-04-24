@@ -103,12 +103,12 @@ namespace Library.Utility
                 if (input.Length > maxInputLength) // 키입력받기전에 최대길이 넘어가는경우 체크
                 {
                     input = input.Substring(0, input.Length-1);
-                    message.PrintMessage("지정된 범위로 입력하세요", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    message.PrintMessage(Constant.TEXT_PLEASE_INPUT_CORRECT_LENGTH , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     continue;
                 }
 
                 ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
-                ClearConsoleLine(Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //에러 메세지 지우고
+                ClearErrorMessage(); //에러 메세지 지우고
                 Console.SetCursorPosition(posX, posY); // 입력받는 좌표로 이동
 
 
@@ -122,7 +122,7 @@ namespace Library.Utility
 
                 if ((key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace) && (!IsExceptionCheck(key.KeyChar.ToString(), exceptionType)))  //입력받은 키가 예외처리에 통과하는지
                 {
-                    message.PrintMessage(messageString, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    message.PrintMessage(messageString , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     continue;
                 }
 
@@ -141,12 +141,12 @@ namespace Library.Utility
                     if (IsExceptionCheck(input, finalExceptionType))
                     {
                         int ErrormessagePosX = posX + Encoding.Default.GetBytes(input).Length + 1;
-                        message.PrintMessage("[OK]", ErrormessagePosX, Console.CursorTop, ConsoleColor.Green);
+                        message.PrintMessage("[OK]" , ErrormessagePosX, Console.CursorTop, ConsoleColor.Green);
                         isInputEnter = true;
                     }
                     else
                     {
-                        message.PrintMessage("지정된 형식으로 입력하세요", Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                        message.PrintMessage(Constant.TEXT_PLEASE_INPUT_CORRECT_LENGTH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                         ClearConsoleLine(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
                         input = ""; // 입력받은값 초기화
                     }
@@ -282,8 +282,8 @@ namespace Library.Utility
         public bool IsExit(Message message)
         {
             Console.CursorVisible = false;
-            message.PrintMessage(Constant.TEXT_IS_EXIST, Constant.EXCEPTION_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
-            message.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.YES_OR_NO_MESSAGE_CURSOR_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            message.PrintMessage(Constant.TEXT_IS_EXIST , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            message.PrintMessage(Constant.TEXT_YES_OR_NO , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
 
             if (GetEnterOrEscape() == Constant.INPUT_ENTER) // enter 눌리면 true 반환
             {
@@ -292,6 +292,12 @@ namespace Library.Utility
             }
             Console.CursorVisible = true;
             return false;
+        }
+
+        public void ClearErrorMessage()
+        {
+            ClearConsoleLine(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y -1);
+            ClearConsoleLine(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y);
         }
     }
 }
