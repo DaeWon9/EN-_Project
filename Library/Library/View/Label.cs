@@ -140,7 +140,7 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
 
-        public void PrintModificationMemberInformationLabel(bool isClear = true)
+        public void PrintModificateMemberInformationLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -157,6 +157,26 @@ namespace Library.View
             Console.WriteLine("                                                                                뒤로가기 : ESC      ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
             Console.WriteLine("               < 회 원 정 보 >               |                  < 수 정 할 정 보 >                  ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintModificateBookInformationLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                        < 도 서 정 보 수 정 >                        *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *       ● 상단의 정보는 선택하신 도서의 정보입니다                       *             ");
+            Console.WriteLine("           *        ● ↑↓ 방향키로 옵션 이동 후 ENTER를 누르면 입력 가능합니다       *            ");
+            Console.WriteLine("            *       ● 입력 도중 ESC를 누르면 입력을 취소할 수 있습니다               *             ");
+            Console.WriteLine("             *      ● 수정을 원하는 내용 입력 후 ENTER를 눌러주세요                 *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                뒤로가기 : ESC      ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+            Console.WriteLine("                                          < 도 서 정 보 >                                           ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 

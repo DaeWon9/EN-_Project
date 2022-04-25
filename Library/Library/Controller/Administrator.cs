@@ -13,6 +13,7 @@ namespace Library.Controller
     class Administrator : MenuSelection
     {
         private bool isInputEscape = false;
+        private bool isBookDeleteCompleted = false;
         public void Login(AdministratorScreen administratorScreen) // id : admin1    pw: admin1
         {
             bool isLogin = false;
@@ -130,40 +131,7 @@ namespace Library.Controller
             }
             return true;
         }
-
-        private void SelectMenu(AdministratorScreen administratorScreen)
-        {
-            bool isLogout = false;
-            int menuValue;
-            while (!isLogout)
-            {
-                menuValue = GetAddministratorMenu(administratorScreen, Constant.TEXT_ADMINISTRATOR_MODE);
-                switch (menuValue)
-                {
-                    case (int)Constant.AdministratorMenu.BOOK_SEARCH:
-                        InputBookSearchOption(administratorScreen);
-                        break;
-                    case (int)Constant.AdministratorMenu.BOOK_ADD:
-                        AddBook(administratorScreen);
-                        break;
-                    case (int)Constant.AdministratorMenu.BOOK_REMOVE:
-                        break;
-                    case (int)Constant.AdministratorMenu.BOOK_REVISE:
-                        break;
-                    case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
-                        ManagementMember(administratorScreen);
-                        break;
-                    case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
-                        BorrowBookStatus(administratorScreen);
-                        break;
-                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
-                        isLogout = DataProcessing.Instance.IsLogout(administratorScreen);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+  
         private bool IsAlreadyRegisteredBookInLibrary(string bookId)
         {
             List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK);
@@ -263,7 +231,6 @@ namespace Library.Controller
             }
         }
 
-
         private void ManagementMember(AdministratorScreen administratorScreen)
         {
             isInputEscape = false;
@@ -302,6 +269,137 @@ namespace Library.Controller
                 isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
                 if (isInputEscape) //esc 눌렀을때 뒤로가기
                     Console.CursorVisible = true;
+            }
+        }
+
+        private string GetStringByUpdate(string setStringForm, string filed, string inputValue)
+        {
+            string resultString = "";
+            if (inputValue != "" && inputValue != Constant.INPUT_ESCAPE.ToString())
+                resultString = string.Format(setStringForm, filed, inputValue);
+            return resultString;
+        }
+
+        private bool IsModificateBookInformationCompleted(AdministratorScreen administratorScreen, string setString, int bookId)
+        {
+            int getYesOrNoByModificate;
+            administratorScreen.PrintMessage(Constant.TEXT_IS_Modificate, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            getYesOrNoByModificate = DataProcessing.Instance.GetEnterOrEscape();
+            if (getYesOrNoByModificate == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
+            {
+                DataBase.Instance.Update(Constant.TABLE_NAME_BOOK, setString, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId));
+                return true;
+            }
+            if (getYesOrNoByModificate == Constant.INPUT_ESCAPE) // 변경하시겠습니까? 에서 esc입력
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsReModificateByBook(AdministratorScreen administratorScreen)
+        {
+            int getYesOrNoByReModificate;
+            administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODFICATE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            getYesOrNoByReModificate = DataProcessing.Instance.GetEnterOrEscape();
+            if (getYesOrNoByReModificate == Constant.INPUT_ESCAPE) // 계속해서 변경 x
+                return false;
+            return true;
+        }
+
+        private void ModificateBook(AdministratorScreen administratorScreen)
+        {
+            string setStringByUpdate = "";
+            string bookId = "0", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "0", bookQuantity = "0";
+            int currentConsoleCursorPosY;
+            bool isModificateCompleted = false;
+            isBookDeleteCompleted = false;
+            isInputEscape = false;
+            
+            administratorScreen.PrintModificateBookInformationLabel();
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, /*bookid*/1)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+            administratorScreen.PrintModificateBookScreen();
+
+            Console.SetCursorPosition(Constant.MODIFICATE_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModificatePosY.ID); //좌표조정
+
+            while (!isInputEscape && !isModificateCompleted && !isBookDeleteCompleted)
+            {
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.MODIFICATE_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookModificatePosY.ID, (int)Constant.BookModificatePosY.DELETE);
+                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.BookModificatePosY.ID:
+                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFICATE_BOOK_INPUT_POS_X, (int)Constant.BookModificatePosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId);
+                        break;
+                    case (int)Constant.BookModificatePosY.NAME:
+                        bookName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFICATE_BOOK_INPUT_POS_X, (int)Constant.BookModificatePosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_NAME, bookName);
+                        break;
+                    case (int)Constant.BookModificatePosY.PUBLISHER:
+                        bookPublisher = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFICATE_BOOK_INPUT_POS_X, (int)Constant.BookModificatePosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_PUBLISHER, bookPublisher);
+                        break;
+                    case (int)Constant.BookModificatePosY.AUTHOR:
+                        bookAuthor = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFICATE_BOOK_INPUT_POS_X, (int)Constant.BookModificatePosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_AUTHOR, bookAuthor);
+                        break;
+                    case (int)Constant.BookModificatePosY.PRICE:
+                        bookPrice = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFICATE_BOOK_INPUT_POS_X, (int)Constant.BookModificatePosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_PRICE, bookPrice);
+                        break;
+                    case (int)Constant.BookModificatePosY.QUANTITY:
+                        bookQuantity = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFICATE_BOOK_INPUT_POS_X, (int)Constant.BookModificatePosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_QUANTITY, bookQuantity);
+                        break;
+                    case (int)Constant.BookModificatePosY.DELETE:
+                        //isBookDeleteCompleted = IsWithdrawlCompleted(memberScreen);
+                        break;
+                    default:
+                        break;
+                }
+
+                if (setStringByUpdate != "") // 수정사항이 있다면
+                {
+                    isModificateCompleted = IsModificateBookInformationCompleted(administratorScreen, setStringByUpdate, /*bookid*/1);
+                    if (IsReModificateByBook(administratorScreen)) // 계속해서 변경
+                        ModificateBook(administratorScreen);
+                }
+            }
+        }
+
+        private void SelectMenu(AdministratorScreen administratorScreen)
+        {
+            bool isLogout = false;
+            int menuValue;
+            while (!isLogout)
+            {
+                menuValue = GetAddministratorMenu(administratorScreen, Constant.TEXT_ADMINISTRATOR_MODE);
+                switch (menuValue)
+                {
+                    case (int)Constant.AdministratorMenu.BOOK_SEARCH:
+                        InputBookSearchOption(administratorScreen);
+                        break;
+                    case (int)Constant.AdministratorMenu.BOOK_ADD:
+                        AddBook(administratorScreen);
+                        break;
+                    case (int)Constant.AdministratorMenu.BOOK_MODIFICATE:
+                        ModificateBook(administratorScreen);
+                        break;
+                    case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
+                        ManagementMember(administratorScreen);
+                        break;
+                    case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
+                        BorrowBookStatus(administratorScreen);
+                        break;
+                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
+                        isLogout = DataProcessing.Instance.IsLogout(administratorScreen);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

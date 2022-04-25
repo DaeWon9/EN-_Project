@@ -28,7 +28,6 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                         ▶  도서찾기                                               ");
             Console.WriteLine("                                         ▶  도서추가                                               ");
-            Console.WriteLine("                                         ▶  도서삭제                                               ");
             Console.WriteLine("                                         ▶  도서수정                                               ");
             Console.WriteLine("                                         ▶  회원관리                                               ");
             Console.WriteLine("                                         ▶  대여상황                                               ");
@@ -61,6 +60,20 @@ namespace Library.View
             Console.WriteLine("                                  수량       :                                                      ");
             Console.WriteLine("                                  < 추가하기 >                                                      ");
             Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintModificateBookScreen(bool isClear = true)
+        {
+            Console.WriteLine("                                         < 수 정 할 정 보 >                                         ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+            Console.WriteLine("  도서아이디 변경 :                                                                                 ");
+            Console.WriteLine("  도서명 변경     :                                                                                 ");
+            Console.WriteLine("  출판사 변경     :                                                                                 ");
+            Console.WriteLine("  저자 변경       :                                                                                 ");
+            Console.WriteLine("  가격 변경       :                                                                                 ");
+            Console.WriteLine("  수량 변경       :                                                                                 ");
+            Console.WriteLine("  < 도서삭제 >                                                                                      ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
     }
