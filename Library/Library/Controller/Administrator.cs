@@ -120,8 +120,6 @@ namespace Library.Controller
                 getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
                 if (getYesOrNoByResearching == Constant.INPUT_ENTER)
                     InputBookSearchOption(administratorScreen);
-                //if (getYesOrNoByResearching == Constant.INPUT_ESCAPE)
-                    //SelectMenu(administratorScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
@@ -152,6 +150,7 @@ namespace Library.Controller
                     case (int)Constant.AdministratorMenu.BOOK_REVISE:
                         break;
                     case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
+                        ManagementMember(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
                         BorrowBookStatus(administratorScreen);
@@ -163,6 +162,22 @@ namespace Library.Controller
                         break;
                 }
             }
+        }
+
+        private void ManagementMember(AdministratorScreen administratorScreen)
+        {
+            isInputEscape = false;
+            administratorScreen.PrintManagementMemberScreen();
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE); 
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
+            while (!isInputEscape)
+            {
+                isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
+                if (isInputEscape) //esc 눌렀을때 뒤로가기
+                    Console.CursorVisible = true;
+            }
+            Console.ReadKey();
         }
 
         private void BorrowBookStatus(AdministratorScreen administratorScreen)
@@ -177,7 +192,7 @@ namespace Library.Controller
                 memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
                 if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
                 {
-                    administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName), tableName, memberName, true);
+                    administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName), tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
                 }
             }
             Console.CursorVisible = false;

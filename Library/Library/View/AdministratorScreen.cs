@@ -23,6 +23,7 @@ namespace Library.View
         {
             PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    로그아웃 : ESC   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                         ▶  도서찾기                                               ");
@@ -34,5 +35,16 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
         }
 
+        public void PrintManagementMemberScreen(bool isClear = true)
+        {
+            PrintMemberManagementLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                  회원아이디    :                                                   ");
+            Console.WriteLine("                                  < 관리하기 >                                                      ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
     }
 }

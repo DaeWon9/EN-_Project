@@ -146,6 +146,9 @@ namespace Library
         public const bool IS_SEARCH_AND_BORROW = true;
         public const bool IS_ONLY_SEARCH = false;
 
+        // administrator mode
+        public const bool IS_ADMINISTRATOR_MODE = true;
+
         // cursor pos
         public const int CURSOR_POS_LEFT = 0;
         public const int CURSOR_POS_TOP = 0;
@@ -222,7 +225,7 @@ namespace Library
         // signup pos
         public const int SIGNUP_POS_X = 50;
 
-        public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, AGE, ADDRESS, PHONE_NUMBER }
+        public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, AGE, ADDRESS, PHONE_NUMBER, SIGN_UP }
 
         public enum BookSearchPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, SEARCH}
 
@@ -232,12 +235,12 @@ namespace Library
 
         public enum BookReturnPosY : int { ID = 12, RETURN}
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 12, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS} 
+        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS} 
 
-        public enum MemberMenu : int { BOOK_SEARCH = 12, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFICATION_MEMBER_INFORMATION }
+        public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFICATION_MEMBER_INFORMATION }
 
         public enum CheckInsertBorrowedBook : int { NOT_EXIST_BOOK = 1, DUPLICATE_BOOK_ID, SHORTAGE_BOOK_QUANTITY, SUCCESS }
     
-        public enum ModeficationModePosY : int { NAME = 15, ID, PASSWORD, AGE, ADDRESS, PHONE_NUMBER}
+        public enum ModeficationModePosY : int { NAME = 14, PASSWORD, AGE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
     }
 }

@@ -73,14 +73,12 @@ namespace Library.View
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("                                                                                                    ");
                     Console.WriteLine("  이름       : " + reader[Constant.MEMBER_FILED_NAME]);
                     Console.WriteLine("  아이디     : " + reader[Constant.MEMBER_FILED_ID]);
                     Console.WriteLine("  비밀번호   : " + reader[Constant.MEMBER_FILED_PASSWORD]);
                     Console.WriteLine("  나이       : " + reader[Constant.MEMBER_FILED_AGE]);
                     Console.WriteLine("  주소       : " + reader[Constant.MEMBER_FILED_ADDRESS]);
                     Console.WriteLine("  핸드폰번호 : " + reader[Constant.MEMBER_FILED_PHONE_NUMBER]);
-                    Console.WriteLine("                                                                                                    ");
                     Console.WriteLine("----------------------------------------------------------------------------------------------------");
                 }
             }
@@ -89,10 +87,11 @@ namespace Library.View
                 if (isAdministator)
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(" < {0}({1}) > 님의 대여도서 목록", memeberName, tableName);
+                    Console.WriteLine(" < {0}({1}) 님의 대여도서 목록 >", memeberName, tableName);
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("----------------------------------------------------------------------------------------------------");
-                }  
+                }
+
                 while (reader.Read())
                 {
                     TimeSpan remainDate = Convert.ToDateTime(reader[Constant.BORROWED_BOOK_FILED_RETURN_DATE]) - DateTime.Now;

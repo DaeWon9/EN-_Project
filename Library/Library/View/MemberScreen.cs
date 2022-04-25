@@ -33,6 +33,7 @@ namespace Library.View
         {
             PrintLibraryLabel(isClear);
             Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    로그아웃 : ESC   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                         ▶  도서찾기                                               ");
@@ -56,6 +57,7 @@ namespace Library.View
             Console.WriteLine("                                  나이          :                                                   ");
             Console.WriteLine("                                  주소          :                                                   ");
             Console.WriteLine("                                  핸드폰번호    :                                                   ");
+            Console.WriteLine("                                  < 회원가입 >                                                      ");
             Console.WriteLine("                                                                                                    ");
         }
 
@@ -96,12 +98,8 @@ namespace Library.View
 
         public void PrintModificationMemberInformationScreen(bool isClear = true)
         {
-            Console.SetCursorPosition(Constant.MODIFICATION_MODE_POS_X, (int)Constant.ModeficationModePosY.NAME - 1);
-            Console.WriteLine("|");
             Console.SetCursorPosition(Constant.MODIFICATION_MODE_POS_X, (int)Constant.ModeficationModePosY.NAME);
             Console.WriteLine("|  이름 변경       :");
-            Console.SetCursorPosition(Constant.MODIFICATION_MODE_POS_X, (int)Constant.ModeficationModePosY.ID);
-            Console.WriteLine("|  아이디 변경     :");
             Console.SetCursorPosition(Constant.MODIFICATION_MODE_POS_X, (int)Constant.ModeficationModePosY.PASSWORD);
             Console.WriteLine("|  비밀번호 변경   :");
             Console.SetCursorPosition(Constant.MODIFICATION_MODE_POS_X, (int)Constant.ModeficationModePosY.AGE);
@@ -110,8 +108,8 @@ namespace Library.View
             Console.WriteLine("|  주소 변경       :");
             Console.SetCursorPosition(Constant.MODIFICATION_MODE_POS_X, (int)Constant.ModeficationModePosY.PHONE_NUMBER);
             Console.WriteLine("|  핸드폰번호 변경 :");
-            Console.SetCursorPosition(Constant.MODIFICATION_MODE_POS_X, (int)Constant.ModeficationModePosY.PHONE_NUMBER + 1);
-            Console.WriteLine("|");
+            Console.SetCursorPosition(Constant.MODIFICATION_MODE_POS_X, (int)Constant.ModeficationModePosY.WITHDRAWAL);
+            Console.WriteLine("|  < 회원탈퇴 >");
         }
 
     }
