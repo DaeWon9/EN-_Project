@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//reader["name"], reader["id"], reader["pw"], reader["age"], reader["address"], reader["PHONE_NUMBER"]);
 namespace Library
 {
     class Constant
     {
         //window size
-        public const int WINDOW_WIDTH = 94;
-        public const int WINDOW_WIDTH_CENTER = 47;
+        public const int WINDOW_WIDTH = 100;
+        public const int WINDOW_WIDTH_CENTER = 50;
         public const int WINDOW_HEIGHT = 50;
         //exception type
         public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
         public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
-        public const string EXCEPTION_TYPE_KOREA = @"^[가-힣]*$";
+        public const string EXCEPTION_TYPE_KOREAN = @"^[가-힣]*$";
         public const string EXCEPTION_TYPE_KOREAN_NUMBER = @"^[가-힣-0-9]*$";
         public const string EXCEPTION_TYPE_KOREAN_NUMBER_SPACE = @"^[가-힣-0-9\s]*$";
         public const string EXCEPTION_TYPE_ENGLISH = @"^[a-zA-Z]*$";
         public const string EXCEPTION_TYPE_ENGLISH_NUMBER = @"^[0-9a-zA-Z]*$";
         public const string EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA = @"^[a-zA-Z0-9가-힣\s!@#$%^&*()-=_+]*$";
 
-        public const string EXCEPTION_TYPE_ID = @"^[0-9a-zA-Z]{6,10}$";
-        public const string EXCEPTION_TYPE_PASSWORD = @"^[0-9a-zA-Z]{6,10}$";
-        public const string EXCEPTION_TYPE_NAME = @"^[가-힣]{2,5}$";
-        public const string EXCEPTION_TYPE_AGE = @"^[0-9]{1,3}$";
-        public const string EXCEPTION_TYPE_ADDRESS = @"^[가-힣]\w*(시|도)\s[가-힣]\w*(시|군|구)\s[가-힣]\w*(읍|면|동)[가-힣-0-9\s]*$";
-        public const string EXCEPTION_TYPE_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$";
+        public const string EXCEPTION_TYPE_MEMBER_ID = @"^[0-9a-zA-Z]{6,10}$";
+        public const string EXCEPTION_TYPE_MEMBER_PASSWORD = @"^[0-9a-zA-Z]{6,10}$";
+        public const string EXCEPTION_TYPE_MEMBER_NAME = @"^[가-힣]{2,5}$";
+        public const string EXCEPTION_TYPE_MEMBER_AGE = @"^[0-9]{1,3}$";
+        public const string EXCEPTION_TYPE_MEMBER_ADDRESS = @"^[가-힣]\w*(시|도)\s[가-힣]\w*(시|군|구)\s[가-힣]\w*(읍|면|동)[가-힣-0-9\s]*$";
+        public const string EXCEPTION_TYPE_MEMBER_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$";
 
         public const string EXCEPTION_TYPE_BOOK_ID = @"^[0-9]{1,3}$";
         public const string EXCEPTION_TYPE_BOOK_NAME = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]{2,100}$";
@@ -38,7 +37,7 @@ namespace Library
 
         // TEXT
         public const string TEXT_NONE = "";
-        public const string TEXT_WELCOME = "< {0}님 환영합니다. >";
+        public const string TEXT_WELCOME = "< {0}님 환영합니다 >";
         public const string TEXT_ADMINISTRATOR_MODE = "< 관리자모드 >";
         public const string TEXT_YES_OR_NO = "< YES : ENTER | NO : ESC >";
         public const string TEXT_IS_EXIST = "종료하시겠습니까??";
@@ -47,13 +46,14 @@ namespace Library
         public const string TEXT_IS_SIGN_UP = "가입하시겠습니까??";
         public const string TEXT_IS_BORROW = "대여하시겠습니까??";
         public const string TEXT_IS_RETURN = "반납하시겠습니까??";
+        public const string TEXT_IS_MODIFICATION = "변경하시겠습니까??";
 
         public const string TEXT_PLEASE_INPUT_OPTION = "옵션을 입력해주세요";
         public const string TEXT_PLEASE_INPUT_NUMBER = "숫자만 입력하세요";
         public const string TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER = "한글 & 숫자만 입력하세요";
         public const string TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER = "영어 & 숫자만 입력하세요";
         public const string TEXT_PLEASE_INPUT_CORRECT_STRING = "올바른 글자만 입력하세요";
-        public const string TEXT_PLEASE_INPUT_CORRECT_LENGTH = "지정된 범위로 입력하세요";
+        public const string TEXT_PLEASE_INPUT_CORRECT_LENGTH = "올바른 범위로 입력하세요";
 
         public const string TEXT_ALREADY_REGISTERED_ID = "이미 등록되어있는 ID입니다.";
         public const string TEXT_IS_NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
@@ -66,6 +66,7 @@ namespace Library
 
         public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다! 계속해서 대여하시겠습니까??";
         public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
+        public const string TEXT_SUCCESS_MODIFICATION = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
         public const string TEXT_SUCCESS_RETURN_BOOK = "도서반납에 성공하였습니다! 계속해서 반납하시겠습니까??";
 
         // SQL connection
@@ -73,15 +74,21 @@ namespace Library
 
         // QUERY String
         public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(50), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, borrowDate DATETIME, returnDate DATETIME, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";
+        public const string QUERY_STRING_GET_ALL_TABLES = "USE library; SHOW tables";
 
         public const string QUERY_STRING_SELECT = "SELECT {0} FROM {1}";
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
         public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
-        public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1} WHERE {2}"; 
+        public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1}";
+        public const string QUERY_STRING_CONDITIONAL_UPDATE = "UPDATE {0} SET {1} WHERE {2}"; 
         public const string QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_BORROWED = "UPDATE book SET quantity = book.quantity - 1 where id = {0}";
         public const string QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_RETURN = "UPDATE book SET quantity = book.quantity + 1 where id = {0}";
+        // set string by delete query
+        public const string SET_STRING_EQUAL_BY_STRING = "{0} = '{1}'";
+        public const string SET_STRING_EQUAL_BY_INT = "{0} = {1}";
+
         // conditional string 
         public const string CONDITIONAL_STRING_AND = " AND ";
         public const string CONDITIONAL_STRING_OR = " OR ";
@@ -142,16 +149,16 @@ namespace Library
         // cursor pos
         public const int CURSOR_POS_LEFT = 0;
         public const int CURSOR_POS_TOP = 0;
-        public const int CURSOR_POS_RIGHT = 94;
+        public const int CURSOR_POS_RIGHT = 98;
         public const int CURSOR_POS_NONE = -1;
 
         //Max length
-        public const int MAX_LENGTH_ID = 10;
-        public const int MAX_LENGTH_PASSWORD = 10;
-        public const int MAX_LENGTH_NAME = 5;
-        public const int MAX_LENGTH_PHONE_NUMBER = 11;
-        public const int MAX_LENGTH_AGE = 3;
-        public const int MAX_LENGTH_ADDRESS = 20;
+        public const int MAX_LENGTH_MEMBER_ID = 10;
+        public const int MAX_LENGTH_MEMBER_PASSWORD = 10;
+        public const int MAX_LENGTH_MEMBER_NAME = 5;
+        public const int MAX_LENGTH_MEMBER_PHONE_NUMBER = 11;
+        public const int MAX_LENGTH_MEMBER_AGE = 3;
+        public const int MAX_LENGTH_MEMBER_ADDRESS = 15;
         public const int MAX_LENGTH_BOOK_ID = 3;
         public const int MAX_LENGTH_BOOK_NAME = 100;
         public const int MAX_LENGTH_BOOK_PUBLISHER = 20;
@@ -160,7 +167,7 @@ namespace Library
         public const int MAX_LENGTH_BOOK_QUANTITY = 2; 
 
         // menu cursor pos
-        public const int MENU_CURSOR_POS_X = 37;
+        public const int MENU_CURSOR_POS_X = 40;
         public const int MENU_CURSOR_MIN_POS_Y = 12;
         public const int FIRST_MENU_CURSOR_MAX_POS_Y = 13;
         public const int BORROW_MODE_CURSOR_MAX_POS_Y = 13;
@@ -168,9 +175,9 @@ namespace Library
         public const int MEMBER_MENU_CURSOR_MAX_POS_Y = 15;
 
         //message
-        public const int WELCOME_MESSAGE_CURSOR_POS_X = 2;
+        public const int WELCOME_MESSAGE_CURSOR_POS_X = 3;
         public const int WELCOME_MESSAGE_CURSOR_POS_Y = 10;
-        public const int EXCEPTION_MESSAGE_CURSOR_MAX_POS_X = 76;
+        public const int EXCEPTION_MESSAGE_CURSOR_MAX_POS_X = 79;
         public const int EXCEPTION_MESSAGE_CURSOR_POS_Y = 10;
 
 
@@ -191,7 +198,7 @@ namespace Library
         public const int MODE_MEMBER_SIGN_UP = 13;
 
         // login pos
-        public const int LOGIN_POS_X = 41;
+        public const int LOGIN_POS_X = 44;
         public const int LOGIN_ID_POS_Y = 12;
         public const int LOGIN_PASSWORD_POS_Y = 13;
 
@@ -200,15 +207,20 @@ namespace Library
         public const int INPUT_ENTER = 1;
 
         // search pos
-        public const int SEARCH_POS_X = 47;
-        public const int SEARCH_SELECT_OPTION_POS_X = 29;
+        public const int SEARCH_POS_X = 50;
+        public const int SEARCH_SELECT_OPTION_POS_X = 32;
+
+        //modification pos
+        public const int MODIFICATION_MODE_POS_X = 45;
+        public const int MODIFICATION_SELECT_OPTION_POS_X = 46;
+        public const int MODIFICATION_INPUT_POS_X = 66;
 
         // borrow pos
-        public const int BORROW_POS_X = 47;
-        public const int BORROW_SELECT_OPTION_POS_X = 29;
+        public const int BORROW_POS_X = 50;
+        public const int BORROW_SELECT_OPTION_POS_X = 32;
 
         // signup pos
-        public const int SIGNUP_POS_X = 47;
+        public const int SIGNUP_POS_X = 50;
 
         public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, AGE, ADDRESS, PHONE_NUMBER }
 
@@ -220,10 +232,12 @@ namespace Library
 
         public enum BookReturnPosY : int { ID = 12, RETURN}
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 12, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, BORROW_STATUS} 
+        public enum AdministratorMenu : int { BOOK_SEARCH = 12, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS} 
 
         public enum MemberMenu : int { BOOK_SEARCH = 12, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFICATION_MEMBER_INFORMATION }
 
         public enum CheckInsertBorrowedBook : int { NOT_EXIST_BOOK = 1, DUPLICATE_BOOK_ID, SHORTAGE_BOOK_QUANTITY, SUCCESS }
+    
+        public enum ModeficationModePosY : int { NAME = 15, ID, PASSWORD, AGE, ADDRESS, PHONE_NUMBER}
     }
 }

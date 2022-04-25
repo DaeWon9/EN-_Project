@@ -20,10 +20,10 @@ namespace Library.Controller
             administratorScreen.PrintLoginScreen();
             while (!isLogin)
             {
-                id = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ID);
+                id = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
                 if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                password = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
+                password = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                 if (password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
                 isLogin = CheckLogin(administratorScreen, id, password);
@@ -59,7 +59,7 @@ namespace Library.Controller
             Console.CursorVisible = true;
 
             administratorScreen.PrintBookSearchScreen();
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
 
@@ -114,7 +114,7 @@ namespace Library.Controller
             if (getYesOrNoBySearching == Constant.INPUT_ENTER)
             {
                 administratorScreen.PrintSearchResultScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK);
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
                 getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
@@ -126,7 +126,7 @@ namespace Library.Controller
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
                 administratorScreen.PrintBookSearchScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
             }
@@ -153,7 +153,8 @@ namespace Library.Controller
                         break;
                     case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
                         break;
-                    case (int)Constant.AdministratorMenu.BORROW_STATUS:
+                    case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
+                        BorrowBookStatus(administratorScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isLogout = DataProcessing.Instance.IsLogout(administratorScreen);
@@ -161,6 +162,31 @@ namespace Library.Controller
                     default:
                         break;
                 }
+            }
+        }
+
+        private void BorrowBookStatus(AdministratorScreen administratorScreen)
+        {
+            isInputEscape = false;
+            string memberName = "";
+            List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
+
+            administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
+            foreach (string tableName in AllTablesName)
+            {
+                memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
+                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
+                {
+                    administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName), tableName, memberName, true);
+                }
+            }
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
+            while (!isInputEscape)
+            {
+                isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
+                if (isInputEscape) //esc 눌렀을때 뒤로가기
+                    Console.CursorVisible = true;
             }
         }
     }

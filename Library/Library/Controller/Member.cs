@@ -14,7 +14,7 @@ namespace Library.Controller
         private List<string> searchedBookIdList = new List<string>();
         private bool isInputEscape = false, isSearchAndBorrow = false;
         private int menuValue;
-        private string loginMemberId = "", loginMemberPassword = "", loginedMemberName = "", conditionalStringByUserInput = "";
+        private string loginMemberId = "", loginMemberPassword = "", loginMemberName = "", conditionalStringByUserInput = "";
         private void Login(MemberScreen memberScreen) // id : admin1    pw: admin1 
         {
             bool isLoginCheck = false;
@@ -23,17 +23,17 @@ namespace Library.Controller
             memberScreen.PrintLoginScreen();
             while (!isLoginCheck)
             {
-                loginMemberId = DataProcessing.Instance.GetInputValues(memberScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ID);
+                loginMemberId = DataProcessing.Instance.GetInputValues(memberScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
                 if (loginMemberId == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                loginMemberPassword = DataProcessing.Instance.GetInputValues(memberScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
+                loginMemberPassword = DataProcessing.Instance.GetInputValues(memberScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                 if (loginMemberPassword == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
                 isLoginCheck = IsLogin(memberScreen, loginMemberId, loginMemberPassword);
             }
             if (loginMemberId == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString() || loginMemberPassword == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 처음 회원 or 관리자모드 선택으로 돌아가야함
                 return;
-            loginedMemberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 이름 저장
+            loginMemberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 이름 저장
             SelectMemberMainMenu(memberScreen); // 넘어가는부분
         }
 
@@ -81,7 +81,7 @@ namespace Library.Controller
             while (!isSignUpCheck)
             {
                 // 이름 입력부
-                name = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.NAME, Constant.MAX_LENGTH_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREA, Constant.EXCEPTION_TYPE_NAME);
+                name = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN, Constant.EXCEPTION_TYPE_MEMBER_NAME);
                 if (isInputEscape = DataProcessing.Instance.IsInputEscape(name))
                     break;
 
@@ -89,7 +89,7 @@ namespace Library.Controller
                 isIdDuplicate = true;
                 while (isIdDuplicate && !isInputEscape)
                 {
-                    id = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ID, Constant.MAX_LENGTH_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ID);
+                    id = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
                     isInputEscape = DataProcessing.Instance.IsInputEscape(id);
                     if (isIdDuplicate = IsIdDuplicate(id))
                         memberScreen.PrintMessage(Constant.TEXT_ALREADY_REGISTERED_ID , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
@@ -97,14 +97,14 @@ namespace Library.Controller
                 if (isInputEscape)
                     break;
 
-                password = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD, Constant.MAX_LENGTH_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
+                password = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                 if (isInputEscape = DataProcessing.Instance.IsInputEscape(password))
                     break;
 
                 isPasswordCorrect = false;
                 while (!isPasswordCorrect && !isInputEscape)
                 {
-                    passwordCheck = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD_CHECK, Constant.MAX_LENGTH_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_PASSWORD, Constant.IS_PASSWORD);
+                    passwordCheck = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD_CHECK, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                     isInputEscape = DataProcessing.Instance.IsInputEscape(passwordCheck);
                     isPasswordCorrect = IsPasswordCorrect(password, passwordCheck);
                     if (!isPasswordCorrect)
@@ -113,15 +113,15 @@ namespace Library.Controller
                 if (isInputEscape)
                     break;
 
-                age = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.AGE, Constant.MAX_LENGTH_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_AGE);
+                age = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
                 if (isInputEscape = DataProcessing.Instance.IsInputEscape(age))
                     break;
 
-                address = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ADDRESS, Constant.MAX_LENGTH_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_ADDRESS);
+                address = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
                 if (isInputEscape = DataProcessing.Instance.IsInputEscape(address))
                     break;
 
-                phoneNumber = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PHONE_NUMBER, Constant.MAX_LENGTH_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_PHONE_NUMBER);
+                phoneNumber = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
                 if (isInputEscape = DataProcessing.Instance.IsInputEscape(phoneNumber))
                     break;
 
@@ -163,7 +163,7 @@ namespace Library.Controller
             Console.CursorVisible = true;
 
             memberScreen.PrintBookSearchScreen();
-            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
+            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
 
@@ -220,7 +220,7 @@ namespace Library.Controller
             if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndBorrow == Constant.IS_ONLY_SEARCH) // 검색만
             {
                 memberScreen.PrintSearchResultScreen();
-                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK);
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
                 getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
@@ -231,7 +231,7 @@ namespace Library.Controller
             if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndBorrow == Constant.IS_SEARCH_AND_BORROW) // 검색 후 대여까지하는 함수 -> 여기서 검색된 도서 id 리스트 만들어서 대여할때 중복체크하기
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
-                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK);
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 searchedBookIdList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity));
                 BorrowBookImmediately(memberScreen);
             }
@@ -239,7 +239,7 @@ namespace Library.Controller
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
                 memberScreen.PrintBookSearchScreen();
-                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK);
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
                 return false;
@@ -249,12 +249,17 @@ namespace Library.Controller
 
         private void CheckBorrowedBook(MemberScreen memberScreen)
         {
+            isInputEscape = false;
             memberScreen.PrintBorrowedBookListScreen();
-            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
+            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString(), Constant.TEXT_NONE); // 대여도서확인시 테이블명은 각 유저의 id임
             Console.CursorVisible = false;
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
-            if (DataProcessing.Instance.GetEnterOrEscape() == Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
-                Console.CursorVisible = true;
+            while (!isInputEscape)
+            {
+                isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
+                if (isInputEscape) //esc 눌렀을때 뒤로가기
+                    Console.CursorVisible = true;
+            }
         }
 
         private bool IsReBorrow(MemberScreen memberScreen)
@@ -269,12 +274,12 @@ namespace Library.Controller
                 if (isSearchAndBorrow == Constant.IS_SEARCH_AND_BORROW)
                 {
                     memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
-                    memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK);
+                    memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 }
                 else
                 {
                     memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
-                    memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK); // 도서관에 보유중인 책 정보 표시
+                    memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE); // 도서관에 보유중인 책 정보 표시
                 }
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); // 좌표조정
@@ -329,7 +334,7 @@ namespace Library.Controller
             if (getYesOrNoByBorrowing == Constant.INPUT_ESCAPE)
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
-                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK); // 도서관에 보유중인 책 정보 표시
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE); // 도서관에 보유중인 책 정보 표시
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                 return false;
@@ -354,12 +359,12 @@ namespace Library.Controller
             if (isSearchAndBorrow == Constant.IS_SEARCH_AND_BORROW)
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
-                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK);
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             }
             else
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
-                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK); // 도서관에 보유중인 책 정보 표시
+                memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE); // 도서관에 보유중인 책 정보 표시
             }
             Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
@@ -392,7 +397,7 @@ namespace Library.Controller
             string bookId = "";
 
             memberScreen.PrintReturnBookScreen();
-            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
+            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString(), Constant.TEXT_NONE); // 대여도서확인시 테이블명은 각 유저의 id임
             Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
 
@@ -457,7 +462,7 @@ namespace Library.Controller
                     if (getYesOrNoByReturnAgain == Constant.INPUT_ENTER) // 계속해서 반납하기 -> 즉 반납이 끝나지 않음
                     {
                         memberScreen.PrintReturnBookScreen();
-                        memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
+                        memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString(), Constant.TEXT_NONE); // 대여도서확인시 테이블명은 각 유저의 id임
                         Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
                         Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                         return false;
@@ -491,13 +496,119 @@ namespace Library.Controller
                     break;
             }
         }
+
+        private bool IsModificationMemberInformationCompleted(MemberScreen memberScreen, string setString)
+        {
+            int getYesOrNoByModification;
+            memberScreen.PrintMessage(Constant.TEXT_IS_MODIFICATION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            getYesOrNoByModification = DataProcessing.Instance.GetEnterOrEscape();
+            if (getYesOrNoByModification == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
+            {
+                DataBase.Instance.Update(Constant.TABLE_NAME_MEMBER, setString, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_NAME, loginMemberName));
+                return true;
+            }
+            if (getYesOrNoByModification == Constant.INPUT_ESCAPE) // 변경하시겠습니까? 에서 esc입력
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private string GetStringByUpdate(string setStringForm, string filed, string inputValue)
+        {
+            string resultString = "";
+            if (inputValue != "" && inputValue != Constant.INPUT_ESCAPE.ToString())
+                resultString = string.Format(setStringForm, filed, inputValue);
+            return resultString;
+        }
+
+        private bool IsReModification(MemberScreen memberScreen)
+        {
+            int getYesOrNoByRemodification;
+            memberScreen.PrintMessage(Constant.TEXT_SUCCESS_MODIFICATION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            getYesOrNoByRemodification = DataProcessing.Instance.GetEnterOrEscape();
+            if (getYesOrNoByRemodification == Constant.INPUT_ESCAPE) // 계속해서 변경 x
+                return false;
+            return true;
+        }
+
+        private void ModificationMemberInformation(MemberScreen memberScreen)
+        {
+            string setStringByUpdate = "";
+            string memberName = "", memberId = "", memberPassword = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
+            bool isModificationCompleted = false;
+            isInputEscape = false;
+            int currentConsoleCursorPosY;
+            memberScreen.PrintModificationMemberInformationLabel();
+            memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+            memberScreen.PrintModificationMemberInformationScreen();
+            Console.SetCursorPosition(Constant.MODIFICATION_SELECT_OPTION_POS_X, (int)Constant.ModeficationModePosY.NAME); //좌표조정
+            
+            while (!isInputEscape && !isModificationCompleted)
+            {
+                if (IsIdDuplicate(memberId))
+                {
+                    memberScreen.PrintMessage(Constant.TEXT_ALREADY_REGISTERED_ID, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    Console.SetCursorPosition(Constant.MODIFICATION_SELECT_OPTION_POS_X, (int)Constant.ModeficationModePosY.ID); //좌표조정
+                    DataProcessing.Instance.ClearConsoleLine(Constant.MODIFICATION_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.ModeficationModePosY.ID);
+                    memberId = "";
+                }
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.MODIFICATION_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.ModeficationModePosY.NAME, (int)Constant.ModeficationModePosY.PHONE_NUMBER);
+                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.ModeficationModePosY.NAME:
+                        memberName = DataProcessing.Instance.GetInputValues(memberScreen, Constant.MODIFICATION_INPUT_POS_X, (int)Constant.ModeficationModePosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN, Constant.EXCEPTION_TYPE_MEMBER_NAME);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_NAME, memberName);
+                        break;
+                    case (int)Constant.ModeficationModePosY.ID:
+                        memberId = DataProcessing.Instance.GetInputValues(memberScreen, Constant.MODIFICATION_INPUT_POS_X, (int)Constant.ModeficationModePosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, memberId);
+                        break;
+                    case (int)Constant.ModeficationModePosY.PASSWORD:
+                        memberPassword = DataProcessing.Instance.GetInputValues(memberScreen, Constant.MODIFICATION_INPUT_POS_X, (int)Constant.ModeficationModePosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PASSWORD, memberPassword);
+                        break;
+                    case (int)Constant.ModeficationModePosY.AGE:
+                        memberAge = DataProcessing.Instance.GetInputValues(memberScreen, Constant.MODIFICATION_INPUT_POS_X, (int)Constant.ModeficationModePosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_AGE, memberAge);
+                        break;
+                    case (int)Constant.ModeficationModePosY.ADDRESS:
+                        memberAddress = DataProcessing.Instance.GetInputValues(memberScreen, Constant.MODIFICATION_INPUT_POS_X, (int)Constant.ModeficationModePosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_ADDRESS, memberAddress);
+                        break;
+                    case (int)Constant.ModeficationModePosY.PHONE_NUMBER:
+                        memberPhoneNumber = DataProcessing.Instance.GetInputValues(memberScreen, Constant.MODIFICATION_INPUT_POS_X, (int)Constant.ModeficationModePosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PHONE_NUMBER, memberPhoneNumber);
+                        break;
+                    default:
+                        break;
+                }
+
+                if (setStringByUpdate != "" && !IsIdDuplicate(memberId)) // 다른회원의 아이디와 중복되면 변경 불가!
+                {
+                    isModificationCompleted = IsModificationMemberInformationCompleted(memberScreen, setStringByUpdate);
+                    if (memberName != "" && memberName != Constant.INPUT_ESCAPE.ToString()) // 이름 변경이 입력되었을때 로그인되어있는 유저의 이름 변수 수정
+                        loginMemberName = memberName;
+                    if (memberId != "" && memberId != Constant.INPUT_ESCAPE.ToString()) // 비밀번호 변경이 입력되었을때 로그인되어있는 유저의 아이디 변수 수정
+                        loginMemberId = memberId;
+                    if (memberPassword != "" && memberPassword != Constant.INPUT_ESCAPE.ToString()) // 비밀번호 변경이 입력되었을때 로그인되어있는 유저의 비밀번호 변수 수정
+                        loginMemberPassword = memberPassword;
+
+                    if(IsReModification(memberScreen)) // 계속해서 변경
+                        ModificationMemberInformation(memberScreen);
+                }
+            }
+        }
         
         private void SelectMemberMainMenu(MemberScreen memberScreen)
         {
             bool isLogout = false;
             while (!isLogout)
             {
-                menuValue = GetMemberMenu(memberScreen, string.Format(Constant.TEXT_WELCOME, loginedMemberName));
+                menuValue = GetMemberMenu(memberScreen, string.Format(Constant.TEXT_WELCOME, loginMemberName));
                 switch (menuValue)
                 {
                     case (int)Constant.MemberMenu.BOOK_SEARCH:
@@ -514,6 +625,7 @@ namespace Library.Controller
                         CheckBorrowedBook(memberScreen);
                         break;
                     case (int)Constant.MemberMenu.MODIFICATION_MEMBER_INFORMATION:
+                        ModificationMemberInformation(memberScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isLogout = DataProcessing.Instance.IsLogout(memberScreen);

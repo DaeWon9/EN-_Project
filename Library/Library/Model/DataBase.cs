@@ -64,6 +64,21 @@ namespace Library.Model
             connection.Close();
         }
 
+        public void Update(string tableName, string setString, string conditionalString = "")//UPDATE 테이블이름 SET 필드이름1 = 데이터값1, 필드이름2 = 데이터값2, ... WHERE 필드이름 = 데이터값
+        {
+            if (!connection.Ping())
+                connection.Open();
+
+            if (conditionalString == "") // 조건문이 없는경우
+                sqlString = string.Format(Constant.QUERY_STRING_UPDATE, tableName, setString);
+            else
+                sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_UPDATE, tableName, setString, conditionalString);
+
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
 
         public string GetSelectedElement(string filed, string tableName, string conditionalString)
         {
@@ -105,6 +120,27 @@ namespace Library.Model
             reader.Close();
             connection.Close();
             return selectedElements;
+        }
+
+        public List<string> GetAllTablesName()
+        {
+            List<string> selectedElements = new List<string>();
+
+            if (!connection.Ping())
+                connection.Open();
+
+            sqlString = Constant.QUERY_STRING_GET_ALL_TABLES;
+
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                selectedElements.Add(reader[string.Format("Tables_in_library")].ToString());
+            }
+            reader.Close();
+            connection.Close();
+            return selectedElements;
+    
         }
 
         public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber) //오버라이드로 or 그냥 다른이름

@@ -147,7 +147,7 @@ namespace Library.Utility
                     else
                     {
                         message.PrintMessage(Constant.TEXT_PLEASE_INPUT_CORRECT_LENGTH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                        ClearConsoleLine(posX, Encoding.Default.GetBytes(input).Length * 2, posY); // 받았던 값 지우고
+                        ClearConsoleLine(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
                         input = ""; // 입력받은값 초기화
                     }
                 }
@@ -157,16 +157,18 @@ namespace Library.Utility
 
         public void ClearConsoleLine(int startPosX, int lastPosX, int posY)
         {
-            string str = "";
+            string escapeString = "";
             int setPosY;
             if (startPosX == Constant.CURSOR_POS_LEFT)
-                str = "\r";
+                escapeString = "\r";
+
             if (lastPosX == Constant.CURSOR_POS_NONE)
-                str += new string(' ', Console.CursorLeft);
+                escapeString += new string(' ', Console.CursorLeft);
             else
-                str += new string(' ', lastPosX);
+                escapeString += new string(' ', lastPosX - startPosX);
+
             if (startPosX == Constant.CURSOR_POS_LEFT)
-                str += "\r";
+                escapeString += "\r";
 
             if (posY == Constant.CURSOR_POS_NONE)
                 setPosY = Console.CursorTop;
@@ -174,7 +176,7 @@ namespace Library.Utility
                 setPosY = posY;
 
             Console.SetCursorPosition(startPosX, setPosY);
-            Console.Write(str);
+            Console.Write(escapeString);
 
             if (startPosX != Constant.CURSOR_POS_LEFT)
                 Console.SetCursorPosition(startPosX, setPosY);
@@ -208,6 +210,26 @@ namespace Library.Utility
             }
             Console.CursorVisible = true;
             return enterOrEscape;
+        }
+
+        public bool IsOnlyInputEscape()
+        {
+            isInputEscape = false;
+            Console.CursorVisible = false;
+            while (!isInputEscape) // esc가 눌릴때까지
+            {
+                ConsoleKeyInfo key = Console.ReadKey(); //키입력 받고
+                if (key.Key == ConsoleKey.Escape) // Esc
+                    isInputEscape = true;
+                else  // 그 외의 키
+                {
+                    int keyLength = Encoding.Default.GetBytes(key.KeyChar.ToString()).Length;
+                    for (int removeCnt = 0; removeCnt < keyLength; removeCnt++)
+                        Console.Write("\b \b");
+                }
+            }
+            Console.CursorVisible = true;
+            return true;
         }
 
         public bool IsInputEscape(string stringValue)
