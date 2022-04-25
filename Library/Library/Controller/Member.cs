@@ -12,7 +12,7 @@ namespace Library.Controller
     class Member : MenuSelection
     {
         private List<string> searchedBookIdList = new List<string>();
-        private bool isInputEscape = false, isSearchAndBorrow = false;
+        private bool isInputEscape = false, isSearchAndBorrow = false, isWithdrawlCompleted = false;
         private int menuValue;
         private string loginMemberId = "", loginMemberPassword = "", loginMemberName = "", conditionalStringByUserInput = "";
         private void Login(MemberScreen memberScreen) // id : admin1    pw: admin1 
@@ -62,13 +62,6 @@ namespace Library.Controller
                 if (memberIdList[repeat] == id)
                     return true;
             }
-            return false;
-        }
-
-        private bool IsPasswordCorrect(string password, string passwordCheck)
-        {
-            if (password == passwordCheck)
-                return true;
             return false;
         }
 
@@ -501,22 +494,6 @@ namespace Library.Controller
             return true;
         }
 
-        public void SelectLoginOrSignUp(MemberScreen memberScreen)
-        {
-            menuValue = GetMemberLoginOrSignUp(memberScreen);
-            switch (menuValue)
-            {
-                case Constant.MODE_MEMBER_LOGIN:
-                    Login(memberScreen);
-                    break;
-                case Constant.MODE_MEMBER_SIGN_UP:
-                    SignUp(memberScreen);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         private bool IsModificationMemberInformationCompleted(MemberScreen memberScreen, string setString)
         {
             int getYesOrNoByModification;
@@ -557,8 +534,9 @@ namespace Library.Controller
         private void ModificationMemberInformation(MemberScreen memberScreen)
         {
             string setStringByUpdate = "";
-            string memberName = "", memberId = "", memberPassword = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
+            string memberName = "", memberPassword = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
             bool isModificationCompleted = false;
+            isWithdrawlCompleted = false;
             isInputEscape = false;
             int currentConsoleCursorPosY;
             memberScreen.PrintModificationMemberInformationLabel();
@@ -566,7 +544,7 @@ namespace Library.Controller
             memberScreen.PrintModificationMemberInformationScreen();
             Console.SetCursorPosition(Constant.MODIFICATION_SELECT_OPTION_POS_X, (int)Constant.ModeficationModePosY.NAME); //좌표조정
             
-            while (!isInputEscape && !isModificationCompleted)
+            while (!isInputEscape && !isModificationCompleted && !isWithdrawlCompleted)
             {
                 currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.MODIFICATION_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.ModeficationModePosY.NAME, (int)Constant.ModeficationModePosY.WITHDRAWAL);
                 isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
@@ -593,22 +571,17 @@ namespace Library.Controller
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PHONE_NUMBER, memberPhoneNumber);
                         break;
                     case (int)Constant.ModeficationModePosY.WITHDRAWAL:
-                        memberScreen.PrintMessage("회원탈퇴기능 넣기 ^&^", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                        Console.SetCursorPosition(Constant.MODIFICATION_SELECT_OPTION_POS_X, (int)Constant.ModeficationModePosY.NAME); //좌표조정
-                        Console.ReadKey();
-                        // 회원탈퇴기능 넣기
+                        isWithdrawlCompleted = IsWithdrawlCompleted(memberScreen);
                         break;
                     default:
                         break;
                 }
 
-                if (setStringByUpdate != "" && !IsIdDuplicate(memberId)) // 다른회원의 아이디와 중복되면 변경 불가!
+                if (setStringByUpdate != "") 
                 {
                     isModificationCompleted = IsModificationMemberInformationCompleted(memberScreen, setStringByUpdate);
                     if (memberName != "" && memberName != Constant.INPUT_ESCAPE.ToString()) // 이름 변경이 입력되었을때 로그인되어있는 유저의 이름 변수 수정
                         loginMemberName = memberName;
-                    if (memberId != "" && memberId != Constant.INPUT_ESCAPE.ToString()) // 비밀번호 변경이 입력되었을때 로그인되어있는 유저의 아이디 변수 수정
-                        loginMemberId = memberId;
                     if (memberPassword != "" && memberPassword != Constant.INPUT_ESCAPE.ToString()) // 비밀번호 변경이 입력되었을때 로그인되어있는 유저의 비밀번호 변수 수정
                         loginMemberPassword = memberPassword;
 
@@ -616,12 +589,70 @@ namespace Library.Controller
                         ModificationMemberInformation(memberScreen);
                 }
             }
+
         }
-        
+
+        private bool IsWithdrawlCompleted(MemberScreen memberScreen)
+        {
+            int getYesOrNoByWithdrawl;
+            if (IsMemberNotReturnBorrowedBook()) // 반납안한 책이 있음
+            {
+                memberScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.MODIFICATION_SELECT_OPTION_POS_X, (int)Constant.ModeficationModePosY.NAME); //좌표조정
+                return false;
+            }
+            else // 클린한 상태임 -> 회원탈퇴 가능
+            {
+                memberScreen.PrintMessage(Constant.TEXT_IS_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red); // 정말로 탈퇴할건지 물어보기
+                memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+
+                getYesOrNoByWithdrawl = DataProcessing.Instance.GetEnterOrEscape(); 
+                if (getYesOrNoByWithdrawl == Constant.INPUT_ENTER) // 탈퇴진행
+                {
+                    DataBase.Instance.Drop(loginMemberId); // 회원아이디로 된 테이블 drop
+                    DataBase.Instance.Delete(Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId));
+                }
+                if (getYesOrNoByWithdrawl == Constant.INPUT_ESCAPE) // 탈퇴취소
+                {
+                    DataProcessing.Instance.ClearErrorMessage();
+                    Console.SetCursorPosition(Constant.MODIFICATION_SELECT_OPTION_POS_X, (int)Constant.ModeficationModePosY.NAME); //좌표조정
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
+        private bool IsMemberNotReturnBorrowedBook()
+        {
+
+            List<string> BorrowedBookList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, loginMemberId);
+            if (BorrowedBookList.Count > 0) // 반납안한 책이 있음 
+                return true;
+            return false;
+        }
+
+
+        public void SelectLoginOrSignUp(MemberScreen memberScreen)
+        {
+            menuValue = GetMemberLoginOrSignUp(memberScreen);
+            switch (menuValue)
+            {
+                case Constant.MODE_MEMBER_LOGIN:
+                    Login(memberScreen);
+                    break;
+                case Constant.MODE_MEMBER_SIGN_UP:
+                    SignUp(memberScreen);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void SelectMemberMainMenu(MemberScreen memberScreen)
         {
             bool isLogout = false;
-            while (!isLogout)
+            while (!isLogout && !isWithdrawlCompleted)
             {
                 menuValue = GetMemberMenu(memberScreen, string.Format(Constant.TEXT_WELCOME, loginMemberName));
                 switch (menuValue)

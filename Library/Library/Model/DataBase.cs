@@ -52,6 +52,18 @@ namespace Library.Model
             connection.Close();
         }
 
+        public void Drop(string tableName)
+        {
+            if (!connection.Ping())
+                connection.Open();
+
+            sqlString = string.Format(Constant.QUERY_STRING_DROP, tableName);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+
         public void Delete(string tableName, string conditionalString)
         {
             if (!connection.Ping())

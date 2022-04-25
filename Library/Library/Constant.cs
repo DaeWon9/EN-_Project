@@ -47,6 +47,9 @@ namespace Library
         public const string TEXT_IS_BORROW = "대여하시겠습니까??";
         public const string TEXT_IS_RETURN = "반납하시겠습니까??";
         public const string TEXT_IS_MODIFICATION = "변경하시겠습니까??";
+        public const string TEXT_IS_WITHDRAWAL = "< 주의 > 모든정보가 삭제됩니다. 정말로 탈퇴하시겠습니까??";
+
+        public const string TEXT_UNABLE_WITHDRAWAL = "대여중인 도서가 존재하여 탈퇴가 불가능합니다";
 
         public const string TEXT_PLEASE_INPUT_OPTION = "옵션을 입력해주세요";
         public const string TEXT_PLEASE_INPUT_NUMBER = "숫자만 입력하세요";
@@ -85,6 +88,7 @@ namespace Library
         public const string QUERY_STRING_CONDITIONAL_UPDATE = "UPDATE {0} SET {1} WHERE {2}"; 
         public const string QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_BORROWED = "UPDATE book SET quantity = book.quantity - 1 where id = {0}";
         public const string QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_RETURN = "UPDATE book SET quantity = book.quantity + 1 where id = {0}";
+        public const string QUERY_STRING_DROP = "DROP TABLE {0}";
         // set string by delete query
         public const string SET_STRING_EQUAL_BY_STRING = "{0} = '{1}'";
         public const string SET_STRING_EQUAL_BY_INT = "{0} = {1}";
