@@ -328,7 +328,7 @@ namespace Library.Controller
                 {
                     case (int)Constant.CheckInsertBorrowedBook.NOT_EXIST_BOOK:
                         DataProcessing.Instance.ClearErrorMessage();
-                        memberScreen.PrintMessage(Constant.TEXT_IS_NOT_EXIST_IN_LIBRARY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                        memberScreen.PrintMessage(Constant.TEXT_IS_NOT_EXIST_IN_LIBRARY_OR_NOT_SEARCHED, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                         break;
                     case (int)Constant.CheckInsertBorrowedBook.DUPLICATE_BOOK_ID:
                         DataProcessing.Instance.ClearErrorMessage();
@@ -497,7 +497,7 @@ namespace Library.Controller
         private bool IsModificateMemberInformationCompleted(MemberScreen memberScreen, string setString)
         {
             int getYesOrNoByModificate;
-            memberScreen.PrintMessage(Constant.TEXT_IS_Modificate, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            memberScreen.PrintMessage(Constant.TEXT_IS_MODIFICATE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoByModificate = DataProcessing.Instance.GetEnterOrEscape();
             if (getYesOrNoByModificate == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
@@ -531,7 +531,7 @@ namespace Library.Controller
             return true;
         }
 
-        private void ModificateMemberInformation(MemberScreen memberScreen)
+        private void ModificateMemberInformation(MemberScreen memberScreen) // memberId 는 primaryKey 이므로 수정불가능하게 설정
         {
             string setStringByUpdate = "";
             string memberName = "", memberPassword = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
@@ -669,7 +669,7 @@ namespace Library.Controller
                     case (int)Constant.MemberMenu.BOOK_CHECK:
                         CheckBorrowedBook(memberScreen);
                         break;
-                    case (int)Constant.MemberMenu.Modificate_MEMBER_INFORMATION:
+                    case (int)Constant.MemberMenu.MODIFICATE_MEMBER_INFORMATION:
                         ModificateMemberInformation(memberScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:

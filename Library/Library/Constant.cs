@@ -47,7 +47,7 @@ namespace Library
         public const string TEXT_IS_SIGN_UP = "가입하시겠습니까??";
         public const string TEXT_IS_BORROW = "대여하시겠습니까??";
         public const string TEXT_IS_RETURN = "반납하시겠습니까??";
-        public const string TEXT_IS_Modificate = "변경하시겠습니까??";
+        public const string TEXT_IS_MODIFICATE = "수정하시겠습니까??";
         public const string TEXT_IS_ADD = "추가하시겠습니까??";
         public const string TEXT_IS_WITHDRAWAL = "< 주의 > 모든정보가 삭제됩니다. 정말로 탈퇴하시겠습니까??";
 
@@ -65,7 +65,8 @@ namespace Library
         public const string TEXT_IS_NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
         public const string TEXT_IS_NOT_CORRECT_ID_PASSWORD = "ID & PASSWORD 가 틀립니다";
 
-        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY= "도서관에 없는 도서이거나, 검색된 도서가 아닙니다.";
+        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY_OR_NOT_SEARCHED = "도서관에 없는 도서이거나, 검색된 도서가 아닙니다.";
+        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY = "도서관에 없는 도서입니다.";
         public const string TEXT_IS_ALREADY_BORROWED = "이미 대여중인 도서입니다.";
         public const string TEXT_IS_NOT_ENOUGH_QUANTITY = "대여가능한 수량이 부족합니다.";
         public const string TEXT_IS_NOT_BORROWED_BOOK = "대여중인 도서가 아닙니다.";
@@ -226,8 +227,11 @@ namespace Library
         public const int MODIFICATE_MEMBER_SELECT_OPTION_POS_X = 46;
         public const int MODIFICATE_MEMBER_INPUT_POS_X = 66;
 
-        public const int MODIFICATE_BOOK_SELECT_OPTION_POS_X = 1;
-        public const int MODIFICATE_BOOK_INPUT_POS_X = 20;
+        public const int SELECT_MODIFICATE_BOOK_ID_POS_X = 50;
+        public const int SELECT_MODIFICATE_BOOK_ID_OPTION_POS_X = 35;
+
+        public const int MODIFICATE_BOOK_SELECT_OPTION_POS_X = 0;
+        public const int MODIFICATE_BOOK_INPUT_POS_X = 16;
 
         // borrow pos
         public const int BORROW_BOOK_POS_X = 50;
@@ -252,14 +256,17 @@ namespace Library
 
         public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFICATE, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS} 
 
-        public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, Modificate_MEMBER_INFORMATION }
+        public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFICATE_MEMBER_INFORMATION }
 
         public enum CheckInsertBorrowedBook : int { NOT_EXIST_BOOK = 1, DUPLICATE_BOOK_ID, SHORTAGE_BOOK_QUANTITY, SUCCESS }
     
         public enum MemberModificateModePosY : int { NAME = 14, PASSWORD, AGE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
     
         public enum BookAddPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, ADD }
-    
-        public enum BookModificatePosY : int { ID = 23, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE}
+
+        public enum SelectBookIdPosY : int { ID = 12, MODIFICATE_BOOK }
+
+        public enum BookModificatePosY : int { NAME = 24, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE}
+
     }
 }

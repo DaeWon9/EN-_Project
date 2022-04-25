@@ -67,13 +67,27 @@ namespace Library.View
         {
             Console.WriteLine("                                         < 수 정 할 정 보 >                                         ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
-            Console.WriteLine("  도서아이디 변경 :                                                                                 ");
-            Console.WriteLine("  도서명 변경     :                                                                                 ");
-            Console.WriteLine("  출판사 변경     :                                                                                 ");
-            Console.WriteLine("  저자 변경       :                                                                                 ");
-            Console.WriteLine("  가격 변경       :                                                                                 ");
-            Console.WriteLine("  수량 변경       :                                                                                 ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("  도서아이디  : 변경불가                                                                            ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("  도서명 변경 :                                                                                     ");
+            Console.WriteLine("  출판사 변경 :                                                                                     ");
+            Console.WriteLine("  저자 변경   :                                                                                     ");
+            Console.WriteLine("  가격 변경   :                                                                                     ");
+            Console.WriteLine("  수량 변경   :                                                                                     ");
             Console.WriteLine("  < 도서삭제 >                                                                                      ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintSelectModificateBookScreen(bool isClear = true)
+        {
+            PrintSelectModificateBookILabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                     도서아이디 :                                                   ");
+            Console.WriteLine("                                     < 수정하기 >                                                   ");
+            Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
     }

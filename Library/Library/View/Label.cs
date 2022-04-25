@@ -159,8 +159,22 @@ namespace Library.View
             Console.WriteLine("               < 회 원 정 보 >               |                  < 수 정 할 정 보 >                  ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
+        public void PrintSelectModificateBookILabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                        < 도 서 정 보 수 정 >                        *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *       ● 수정을 원하는 도서의 아이디를 적어주세요                       *             ");
+            Console.WriteLine("           *        ● ↑↓ 방향키로 옵션 이동 후 ENTER를 누르면 입력 가능합니다       *            ");
+            Console.WriteLine("            *       ● 입력 도중 ESC를 누르면 입력을 취소할 수 있습니다               *             ");
+            Console.WriteLine("             *      ● 입력을 완료한 뒤에 <수정하기> 에서 ENTER를 눌러주세요         *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+        }
 
-        public void PrintModificateBookInformationLabel(bool isClear = true)
+        public void PrintModificateBookLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
