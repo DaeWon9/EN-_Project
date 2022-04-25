@@ -140,8 +140,8 @@ namespace Library.Utility
                 {
                     if (IsExceptionCheck(input, finalExceptionType))
                     {
-                        int ErrormessagePosX = posX + Encoding.Default.GetBytes(input).Length + 1;
-                        message.PrintMessage("[OK]" , ErrormessagePosX, Console.CursorTop, ConsoleColor.Green);
+                        int ErrormessagePosX = posX + Encoding.Default.GetBytes(input).Length + 2;
+                        message.PrintMessage(Constant.TEXT_OK, ErrormessagePosX, Console.CursorTop, ConsoleColor.Green);
                         isInputEnter = true;
                     }
                     else

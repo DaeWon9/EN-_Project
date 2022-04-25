@@ -44,7 +44,7 @@ namespace Library.Controller
                     return true;
             }
 
-            administratorScreen.PrintMessage("ID & PASSWORD 가 틀립니다" , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+            administratorScreen.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
             DataProcessing.Instance.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
             DataProcessing.Instance.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
@@ -102,13 +102,13 @@ namespace Library.Controller
             // ↓ 옵션입력시 모두 공백일경우 체크하는 조건문
             if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()) && (bookName == "" || bookName == Constant.INPUT_ESCAPE.ToString()) && (bookPublisher == "" || bookPublisher == Constant.INPUT_ESCAPE.ToString()) && (bookAuthor == "" || bookAuthor == Constant.INPUT_ESCAPE.ToString()) && (bookPrice == "" || bookPrice == Constant.INPUT_ESCAPE.ToString()) && (bookQuantity == "" || bookQuantity == Constant.INPUT_ESCAPE.ToString()))
             {
-                administratorScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                administratorScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
                 return false;
             }
-            
-            administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
-            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+
+            administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
 
             if (getYesOrNoBySearching == Constant.INPUT_ENTER)
@@ -144,6 +144,7 @@ namespace Library.Controller
                         InputBookSearchOption(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BOOK_ADD:
+                        AddBook(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BOOK_REMOVE:
                         break;
@@ -163,6 +164,105 @@ namespace Library.Controller
                 }
             }
         }
+        private bool IsAlreadyRegisteredBookInLibrary(string bookId)
+        {
+            List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK);
+            for (int repeat = 0; repeat < memberIdList.Count; repeat++)
+            {
+                if (memberIdList[repeat] == bookId)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool IsAddBookCompleted(AdministratorScreen administratorScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
+        {
+            int GetYesOrNoByAdd, GetYesOrNoByReAdd;
+            // 모든 값이 입력됐는지 체크
+            if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()) || (bookName == "" || bookName == Constant.INPUT_ESCAPE.ToString()) || (bookPublisher == "" || bookPublisher == Constant.INPUT_ESCAPE.ToString()) || (bookAuthor == "" || bookAuthor == Constant.INPUT_ESCAPE.ToString()) || (bookPrice == "" || bookPrice == Constant.INPUT_ESCAPE.ToString()) || (bookQuantity == "" || bookQuantity == Constant.INPUT_ESCAPE.ToString()))
+            {
+                administratorScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.ID); //좌표조정
+                return false;
+            }
+            administratorScreen.PrintMessage(Constant.TEXT_IS_ADD, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            GetYesOrNoByAdd = DataProcessing.Instance.GetEnterOrEscape();
+
+            if (GetYesOrNoByAdd == Constant.INPUT_ESCAPE) // 추가하시겠습니까?? -> ESC
+            {
+                DataProcessing.Instance.ClearErrorMessage();
+                Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.ID); //좌표조정
+                return false;
+            }
+            if (GetYesOrNoByAdd == Constant.INPUT_ENTER) // 추가하시겠습니까?? -> ENTER
+            {
+                DataBase.Instance.InsertAddBook(Constant.TABLE_NAME_BOOK, int.Parse(bookId), bookName, bookPublisher, bookAuthor, int.Parse(bookPrice), int.Parse(bookQuantity));
+                Console.CursorVisible = false;
+                administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_ADD_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+                administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+
+                GetYesOrNoByReAdd = DataProcessing.Instance.GetEnterOrEscape();
+                if (GetYesOrNoByReAdd == Constant.INPUT_ENTER) // 계속해서 추가할것임.
+                    AddBook(administratorScreen);
+            }
+            return true;
+        }
+
+        private void AddBook(AdministratorScreen administratorScreen)
+        {
+            string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
+            int currentConsoleCursorPosY;
+            bool isAddBookCompleted = false;
+            isInputEscape = false;
+            Console.CursorVisible = true;
+
+            administratorScreen.PrintAddBookScreen();
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+            Console.SetCursorPosition(0, 0);      //입력창 보이게 맨위로 올리고 
+            Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.ID); //좌표조정
+
+            while (!isInputEscape && !isAddBookCompleted)
+            {
+                if (IsAlreadyRegisteredBookInLibrary(bookId)) // 이미 등록되어있는 책
+                {
+                    administratorScreen.PrintMessage(Constant.TEXT_ALREADY_REGISTERED_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.ID); //좌표조정
+                    DataProcessing.Instance.ClearConsoleLine(Constant.ADD_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookAddPosY.ID);
+                    bookId = "";
+                }
+
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.ADD_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookAddPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
+                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.BookAddPosY.ID:
+                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        break;
+                    case (int)Constant.BookAddPosY.NAME:
+                        bookName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
+                        break;
+                    case (int)Constant.BookAddPosY.PUBLISHER:
+                        bookPublisher = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
+                        break;
+                    case (int)Constant.BookAddPosY.AUTHOR:
+                        bookAuthor = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
+                        break;
+                    case (int)Constant.BookAddPosY.PRICE:
+                        bookPrice = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        break;
+                    case (int)Constant.BookAddPosY.QUANTITY:
+                        bookQuantity = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        break;
+                    case (int)Constant.BookAddPosY.ADD:
+                        isAddBookCompleted = IsAddBookCompleted(administratorScreen, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
 
         private void ManagementMember(AdministratorScreen administratorScreen)
         {

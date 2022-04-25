@@ -155,7 +155,7 @@ namespace Library.Model
     
         }
 
-        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber) //오버라이드로 or 그냥 다른이름
+        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber) 
         {
             if (!connection.Ping())
                 connection.Open();
@@ -211,20 +211,31 @@ namespace Library.Model
             connection.Close();
         }
 
-        public void InsertBorrowedBook(string tableName, int id, string bookName, string bookPublisher, string bookAuthor, int bookPrice)
+        public void InsertBorrowedBook(string tableName, int bookId, string bookName, string bookPublisher, string bookAuthor, int bookPrice)
         {
             DateTime borrowDate = DateTime.Now;
             DateTime returnDate = borrowDate.AddDays(7);
 
             if (!connection.Ping())
                 connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_INSERT_BORROW_BOOK, tableName, id, bookName, bookPublisher, bookAuthor, bookPrice, /*bookQuantity*/1, borrowDate.ToString("yyyy-MM-dd-HH-mm-ss"), returnDate.ToString("yyyy-MM-dd-HH-mm-ss"));
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_BORROW_BOOK, tableName, bookId, bookName, bookPublisher, bookAuthor, bookPrice, /*bookQuantity*/1, borrowDate.ToString("yyyy-MM-dd-HH-mm-ss"), returnDate.ToString("yyyy-MM-dd-HH-mm-ss"));
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
             connection.Close();
         }
-        
+
+        public void InsertAddBook(string tableName, int bookid, string bookName, string bookPublisher, string bookAuthor, int bookPrice, int bookQuantity)
+        {
+            if (!connection.Ping())
+                connection.Open();
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_ADD_BOOK, tableName, bookid, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+
         public int GetBookBorrowResult(string tableName, int id, List<string> searchedBookIdList)
         {
             string bookName = "", bookPublisher = "", bookAuthor = "";

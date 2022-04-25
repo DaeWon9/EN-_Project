@@ -37,6 +37,7 @@ namespace Library
 
         // TEXT
         public const string TEXT_NONE = "";
+        public const string TEXT_OK = "[OK]";
         public const string TEXT_WELCOME = "< {0}님 환영합니다 >";
         public const string TEXT_ADMINISTRATOR_MODE = "< 관리자모드 >";
         public const string TEXT_YES_OR_NO = "< YES : ENTER | NO : ESC >";
@@ -47,6 +48,7 @@ namespace Library
         public const string TEXT_IS_BORROW = "대여하시겠습니까??";
         public const string TEXT_IS_RETURN = "반납하시겠습니까??";
         public const string TEXT_IS_MODIFICATION = "변경하시겠습니까??";
+        public const string TEXT_IS_ADD = "추가하시겠습니까??";
         public const string TEXT_IS_WITHDRAWAL = "< 주의 > 모든정보가 삭제됩니다. 정말로 탈퇴하시겠습니까??";
 
         public const string TEXT_UNABLE_WITHDRAWAL = "대여중인 도서가 존재하여 탈퇴가 불가능합니다";
@@ -59,6 +61,7 @@ namespace Library
         public const string TEXT_PLEASE_INPUT_CORRECT_LENGTH = "올바른 범위로 입력하세요";
 
         public const string TEXT_ALREADY_REGISTERED_ID = "이미 등록되어있는 ID입니다.";
+        public const string TEXT_ALREADY_REGISTERED_BOOK = "이미 등록되어있는 도서입니다.";
         public const string TEXT_IS_NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
         public const string TEXT_IS_NOT_CORRECT_ID_PASSWORD = "ID & PASSWORD 가 틀립니다";
 
@@ -71,7 +74,7 @@ namespace Library
         public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
         public const string TEXT_SUCCESS_MODIFICATION = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
         public const string TEXT_SUCCESS_RETURN_BOOK = "도서반납에 성공하였습니다! 계속해서 반납하시겠습니까??";
-
+        public const string TEXT_SUCCESS_ADD_BOOK = "도서추가에 성공하였습니다! 계속해서 추가하시겠습니까??";
         // SQL connection
         public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
 
@@ -83,6 +86,7 @@ namespace Library
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
         public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
+        public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6})";
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
         public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1}";
         public const string QUERY_STRING_CONDITIONAL_UPDATE = "UPDATE {0} SET {1} WHERE {2}"; 
@@ -223,8 +227,12 @@ namespace Library
         public const int MODIFICATION_INPUT_POS_X = 66;
 
         // borrow pos
-        public const int BORROW_POS_X = 50;
-        public const int BORROW_SELECT_OPTION_POS_X = 32;
+        public const int BORROW_BOOK_POS_X = 50;
+        public const int BORROW_BOOK_SELECT_OPTION_POS_X = 32;
+
+        // add pos
+        public const int ADD_BOOK_SELECT_OPTION_POS_X = 32;
+        public const int ADD_BOOK_INPUT_POS_X = 47;
 
         // signup pos
         public const int SIGNUP_POS_X = 50;
@@ -246,5 +254,7 @@ namespace Library
         public enum CheckInsertBorrowedBook : int { NOT_EXIST_BOOK = 1, DUPLICATE_BOOK_ID, SHORTAGE_BOOK_QUANTITY, SUCCESS }
     
         public enum ModeficationModePosY : int { NAME = 14, PASSWORD, AGE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
+    
+        public enum BookAddPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, ADD }
     }
 }

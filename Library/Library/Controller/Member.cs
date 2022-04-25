@@ -295,7 +295,7 @@ namespace Library.Controller
                     memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE); // 도서관에 보유중인 책 정보 표시
                 }
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
-                Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); // 좌표조정
+                Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); // 좌표조정
                 return false;
             }
             if (getYesOrNoByReborrowing == Constant.INPUT_ESCAPE) // 계속해서 대여하시겠습니까? 에서 esc입력
@@ -311,7 +311,7 @@ namespace Library.Controller
             if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()))// 입력값이 공백인지 체크
             {
                 memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION , Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red); 
-                Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                 return false; // 다시입력받기
             }
             ////대여하기
@@ -349,13 +349,13 @@ namespace Library.Controller
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
                 memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE); // 도서관에 보유중인 책 정보 표시
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
-                Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                 return false;
             }
 
             if (checkInsertBorrowedBook == (int)Constant.CheckInsertBorrowedBook.NOT_EXIST_BOOK || checkInsertBorrowedBook == (int)Constant.CheckInsertBorrowedBook.DUPLICATE_BOOK_ID || checkInsertBorrowedBook == (int)Constant.CheckInsertBorrowedBook.SHORTAGE_BOOK_QUANTITY)
             {
-                Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); // 좌표조정
+                Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); // 좌표조정
                 return false;
             }
             return true;
@@ -380,7 +380,7 @@ namespace Library.Controller
                 memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE); // 도서관에 보유중인 책 정보 표시
             }
             Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
-            Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+            Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
 
             while (!isInputEscape && !isBorrowBookCompleted)
             {
@@ -412,7 +412,7 @@ namespace Library.Controller
             memberScreen.PrintReturnBookScreen();
             memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString(), Constant.TEXT_NONE); // 대여도서확인시 테이블명은 각 유저의 id임
             Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
-            Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+            Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
 
             while (!isInputEscape && !isRetunrBookCompleted)
             {
@@ -452,7 +452,7 @@ namespace Library.Controller
             if ((returnBookId == "" || returnBookId == Constant.INPUT_ESCAPE.ToString()))// 입력값이 공백인지 체크
             {
                 memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                 return false; // 다시입력받기
             }
 
@@ -477,7 +477,7 @@ namespace Library.Controller
                         memberScreen.PrintReturnBookScreen();
                         memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString(), Constant.TEXT_NONE); // 대여도서확인시 테이블명은 각 유저의 id임
                         Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
-                        Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                        Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                         return false;
                     }
                     if (getYesOrNoByReturnAgain == Constant.INPUT_ESCAPE) // 그만 반납하기 -> 즉 반납이 끝남
@@ -487,7 +487,7 @@ namespace Library.Controller
                 {
                     DataProcessing.Instance.ClearErrorMessage();
                     memberScreen.PrintMessage(Constant.TEXT_IS_NOT_BORROWED_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                    Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                    Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                     return false;
                 }
             }
@@ -631,7 +631,6 @@ namespace Library.Controller
                 return true;
             return false;
         }
-
 
         public void SelectLoginOrSignUp(MemberScreen memberScreen)
         {
