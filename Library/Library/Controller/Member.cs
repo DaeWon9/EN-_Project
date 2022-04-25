@@ -361,7 +361,7 @@ namespace Library.Controller
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
                 memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK); // 도서관에 보유중인 책 정보 표시
             }
-            Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
+            Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
 
             while (!isInputEscape && !isBorrowBookCompleted)
@@ -382,19 +382,99 @@ namespace Library.Controller
             }
             if (isSearchAndBorrow)
                 InputBookSearchOption(memberScreen);
-
         }
 
-        private void ReturnBorrowedBook(MemberScreen memberScreen)
+        private void ReturnBook(MemberScreen memberScreen)
         {
+            isInputEscape = false;
+            bool isRetunrBookCompleted = false;
+            int currentConsoleCursorPosY;
+            string bookId = "";
+
             memberScreen.PrintReturnBookScreen();
             memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
-            if (DataProcessing.Instance.GetEnterOrEscape() == Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
-                Console.CursorVisible = true;
+            Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
+            Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+
+            while (!isInputEscape && !isRetunrBookCompleted)
+            {
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookBorrowPosY.ID, (int)Constant.BookBorrowPosY.BORROW);
+                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.BookReturnPosY.ID:
+                        bookId = DataProcessing.Instance.GetInputValues(memberScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        break;
+                    case (int)Constant.BookReturnPosY.RETURN:
+                        isRetunrBookCompleted = IsReturnBookCompleted(memberScreen, bookId);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
+        private bool IsBorrowedBookIdListContainReturnBookId(string returnBookId)
+        {
+            List<string> memberBorrowedBookIdList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, loginMemberId);
+            for (int repeat = 0; repeat < memberBorrowedBookIdList.Count; repeat++)
+            {
+                if (memberBorrowedBookIdList[repeat] == returnBookId) 
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsReturnBookCompleted(MemberScreen memberScreen, string returnBookId) // 반납시 해당유저의 대여도서 목록에서는 제거 & 도서관 책정보에서는 수량 + 1
+        {
+            int getYesOrNoByReturn, getYesOrNoByReturnAgain;
+
+            if ((returnBookId == "" || returnBookId == Constant.INPUT_ESCAPE.ToString()))// 입력값이 공백인지 체크
+            {
+                memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                return false; // 다시입력받기
+            }
+
+            DataProcessing.Instance.ClearErrorMessage();
+            memberScreen.PrintMessage(Constant.TEXT_IS_RETURN, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+
+            getYesOrNoByReturn = DataProcessing.Instance.GetEnterOrEscape();
+
+            if (getYesOrNoByReturn == Constant.INPUT_ENTER) // 반납하기 확인 문구에서 엔터 눌림
+            {
+                if(IsBorrowedBookIdListContainReturnBookId(returnBookId)) // 반납하고자하는 도서아이디가 대여중인 도서목록에 있다면
+                { //반납하는 쿼리문실행 -> 유저의 대여도서목록에서는  delete, 도서관 보유 책수량은 1플러스
+                    DataBase.Instance.Delete(loginMemberId, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, returnBookId));
+                    DataBase.Instance.PlusBookQuantity(int.Parse(returnBookId));
+                    DataProcessing.Instance.ClearErrorMessage();
+                    memberScreen.PrintMessage(Constant.TEXT_SUCCESS_RETURN_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+                    memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow); // 계속해서 반납의사 물어보는 문구
+                    getYesOrNoByReturnAgain = DataProcessing.Instance.GetEnterOrEscape(); // enter or esc받을때까지 입력받음
+                    if (getYesOrNoByReturnAgain == Constant.INPUT_ENTER) // 계속해서 반납하기 -> 즉 반납이 끝나지 않음
+                    {
+                        memberScreen.PrintReturnBookScreen();
+                        memberScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, loginMemberId.ToString()), loginMemberId.ToString()); // 대여도서확인시 테이블명은 각 유저의 id임
+                        Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
+                        Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                        return false;
+                    }
+                    if (getYesOrNoByReturnAgain == Constant.INPUT_ESCAPE) // 그만 반납하기 -> 즉 반납이 끝남
+                        return true;
+                }
+                else // 대여중인 도서목록에 반납할도서가 없다면. 반납 실패.
+                {
+                    DataProcessing.Instance.ClearErrorMessage();
+                    memberScreen.PrintMessage(Constant.TEXT_IS_NOT_BORROWED_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    Console.SetCursorPosition(Constant.BORROW_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
+                    return false;
+                }
+            }
+            return true;
+        }
 
         public void SelectLoginOrSignUp(MemberScreen memberScreen)
         {
@@ -428,7 +508,7 @@ namespace Library.Controller
                         SelectBorrowBookMode(memberScreen);
                         break;
                     case (int)Constant.MemberMenu.BOOK_RETURN:
-                        ReturnBorrowedBook(memberScreen);
+                        ReturnBook(memberScreen);
                         break;
                     case (int)Constant.MemberMenu.BOOK_CHECK:
                         CheckBorrowedBook(memberScreen);

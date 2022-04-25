@@ -46,6 +46,7 @@ namespace Library
         public const string TEXT_IS_SEARCH = "검색하시겠습니까??";
         public const string TEXT_IS_SIGN_UP = "가입하시겠습니까??";
         public const string TEXT_IS_BORROW = "대여하시겠습니까??";
+        public const string TEXT_IS_RETURN = "반납하시겠습니까??";
 
         public const string TEXT_PLEASE_INPUT_OPTION = "옵션을 입력해주세요";
         public const string TEXT_PLEASE_INPUT_NUMBER = "숫자만 입력하세요";
@@ -61,10 +62,11 @@ namespace Library
         public const string TEXT_IS_NOT_EXIST_IN_LIBRARY= "도서관에 없는 도서이거나, 검색된 도서가 아닙니다.";
         public const string TEXT_IS_ALREADY_BORROWED = "이미 대여중인 도서입니다.";
         public const string TEXT_IS_NOT_ENOUGH_QUANTITY = "대여가능한 수량이 부족합니다.";
-        
-        public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다. 계속해서 대여하시겠습니까??";
-        public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
+        public const string TEXT_IS_NOT_BORROWED_BOOK = "대여중인 도서가 아닙니다.";
 
+        public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다! 계속해서 대여하시겠습니까??";
+        public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
+        public const string TEXT_SUCCESS_RETURN_BOOK = "도서반납에 성공하였습니다! 계속해서 반납하시겠습니까??";
 
         // SQL connection
         public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
@@ -79,6 +81,7 @@ namespace Library
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
         public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1} WHERE {2}"; 
         public const string QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_BORROWED = "UPDATE book SET quantity = book.quantity - 1 where id = {0}";
+        public const string QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_RETURN = "UPDATE book SET quantity = book.quantity + 1 where id = {0}";
         // conditional string 
         public const string CONDITIONAL_STRING_AND = " AND ";
         public const string CONDITIONAL_STRING_OR = " OR ";
@@ -214,6 +217,8 @@ namespace Library
         public enum BookBorrowModePosY : int { IMMEDIATE = 12, SEARCH }
 
         public enum BookBorrowPosY : int { ID = 12, BORROW }
+
+        public enum BookReturnPosY : int { ID = 12, RETURN}
 
         public enum AdministratorMenu : int { BOOK_SEARCH = 12, BOOK_ADD, BOOK_REMOVE, BOOK_REVISE, MEMBER_MANAGEMENT, BORROW_STATUS} 
 

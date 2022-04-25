@@ -41,6 +41,30 @@ namespace Library.Model
             return reader; // 다른곳에서 reader 닫아주는중
         }
 
+        public void CreateTable(string tableName)
+        {
+            if (!connection.Ping())
+                connection.Open();
+            sqlString = string.Format(Constant.QUERY_STRING_CREATE_TABLE_BY_USER_ID, tableName);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+
+        public void Delete(string tableName, string conditionalString)
+        {
+            if (!connection.Ping())
+                connection.Open();
+
+            sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_DELETE, tableName, conditionalString);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+
+
         public string GetSelectedElement(string filed, string tableName, string conditionalString)
         {
             string selectedElement = "";
@@ -117,11 +141,22 @@ namespace Library.Model
             return false;
         }
 
-        public void MINUS_BOOK_QUANTITY(int id)
+        public void MinusBookQuantity(int id)
         {
             if (!connection.Ping())
                 connection.Open();
             sqlString = string.Format(Constant.QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_BORROWED, id); // 도서관에 보관중인 책에서 개수 -1
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+            connection.Close();
+        }
+
+        public void PlusBookQuantity(int id)
+        {
+            if (!connection.Ping())
+                connection.Open();
+            sqlString = string.Format(Constant.QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_RETURN, id); // 도서관에 보관중인 책에서 개수 -1
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
@@ -175,32 +210,9 @@ namespace Library.Model
             if (IsBorrowBookDuplicate(tableName, id)) // 이미 대여중인 도서면 대여 불가능
                 return (int)Constant.CheckInsertBorrowedBook.DUPLICATE_BOOK_ID;
 
-            MINUS_BOOK_QUANTITY(id); // 도서관에서 보유중인 도서수량 1개 뺴주고
+            MinusBookQuantity(id); // 도서관에서 보유중인 도서수량 1개 뺴주고
             InsertBorrowedBook(tableName, id, bookName, bookPublisher, bookAuthor, bookPrice); // 사용자별 개별테이블에 대여도서 정보 넣기
             return (int)Constant.CheckInsertBorrowedBook.SUCCESS;
-        }
-
-        public void CreateTable(string tableName)
-        {
-            if (!connection.Ping())
-                connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_CREATE_TABLE_BY_USER_ID, tableName);
-            MySqlCommand command = new MySqlCommand(sqlString, connection);
-            MySqlDataReader reader = command.ExecuteReader();
-            reader.Close();
-            connection.Close();
-        }
-
-        public void Delete(string tableName, string conditionalString)
-        {
-            if (!connection.Ping())
-                connection.Open();
-
-            sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_DELETE, tableName, conditionalString);
-            MySqlCommand command = new MySqlCommand(sqlString, connection);
-            MySqlDataReader reader = command.ExecuteReader();
-            reader.Close();
-            connection.Close();
         }
     }
 }
