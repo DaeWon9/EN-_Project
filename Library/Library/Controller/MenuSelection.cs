@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.View;
 using Library.Utility;
+using Library.Model;
+
 namespace Library.Controller
 {
     class MenuSelection 
@@ -44,14 +46,22 @@ namespace Library.Controller
         public int GetBorrowBookMode(MemberScreen memberScreen)
         {
             memberScreen.PrintSelectBorrowBookModeScreen();
-            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.BORROW_MODE_CURSOR_MAX_POS_Y);
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.BookBorrowModePosY.IMMEDIATE, (int)Constant.BookBorrowModePosY.IMMEDIATE, (int)Constant.BookBorrowModePosY.SEARCH);
             return menuValue;
         }
 
         public int GetModifyBookMode(AdministratorScreen administratorScreen)
         {
             administratorScreen.PrintSelectModifyBookModeScreen();
-            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.BORROW_MODE_CURSOR_MAX_POS_Y);
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.BookModifyModePosY.IMMEDIATE, (int)Constant.BookModifyModePosY.IMMEDIATE, (int)Constant.BookModifyModePosY.SEARCH);
+            return menuValue;
+        }
+
+        public int GetManagementMemberMode(AdministratorScreen administratorScreen)
+        {
+            administratorScreen.PrintSelectManagementMemberModeScreen();
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.MemberManagementModePosY.SEARCH, (int)Constant.MemberManagementModePosY.SEARCH, (int)Constant.MemberManagementModePosY.MODIFY);
             return menuValue;
         }
     }

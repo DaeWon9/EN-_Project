@@ -9,7 +9,7 @@ using Library.Model;
 
 namespace Library.Controller
 {
-    class Member : MenuSelection
+    class Member : MenuSelection // 기능별로 쪼개기... 모듈화...
     {
         private List<string> searchedBookIdList = new List<string>();
         private bool isInputEscape = false, isSearchAndBorrow = false, isWithdrawlCompleted = false;

@@ -49,6 +49,7 @@ namespace Library
         public const string TEXT_IS_RETURN = "반납하시겠습니까??";
         public const string TEXT_IS_MODIFY = "수정하시겠습니까??";
         public const string TEXT_IS_ADD = "추가하시겠습니까??";
+        public const string TEXT_IS_MANAGEMENT = "선택한 회원의 정보를 수정하시겠습니까??";
         public const string TEXT_IS_WITHDRAWAL = "< 주의 > 모든정보가 삭제됩니다. 정말로 탈퇴하시겠습니까??";
 
         public const string TEXT_UNABLE_WITHDRAWAL = "대여중인 도서가 존재하여 탈퇴가 불가능합니다";
@@ -259,6 +260,8 @@ namespace Library
 
         public enum BookSearchPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, SEARCH }
 
+        public enum MemberSearchPosY : int { NAME = 12, ID, AGE, ADDRESS, PHONE_NUMBER, SEARCH }
+
         public enum BookBorrowModePosY : int { IMMEDIATE = 12, SEARCH }
 
         public enum BookBorrowPosY : int { ID = 12, BORROW }
@@ -282,5 +285,7 @@ namespace Library
         public enum BookModifyPosY : int { NAME = 24, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE }
 
         public enum SelectMemberIdPosY : int { ID = 12, MANAGEMEMT_MEMBER }
+
+        public enum MemberManagementModePosY : int { SEARCH = 12, MODIFY}
     }
 }

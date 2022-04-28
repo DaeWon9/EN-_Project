@@ -41,7 +41,7 @@ namespace Library.View
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                     회원아이디 :                                                   ");
-            Console.WriteLine("                                     < 관리하기 >                                                   ");
+            Console.WriteLine("                                     < 수정하기 >                                                   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
@@ -100,6 +100,34 @@ namespace Library.View
             Console.WriteLine("                                         ▶  바로 수정                                              ");
             Console.WriteLine("                                         ▶  검색 후 수정                                           ");
             Console.WriteLine("                                                                                                    ");
+        }
+
+        public void PrintSelectManagementMemberModeScreen(bool isClear = true)
+        {
+            PrintSelectManagementMemberModeLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                   선택 : ENTER    뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                         ▶  회원정보 검색                                          ");
+            Console.WriteLine("                                         ▶  회원정보 수정                                          ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintMemberSearchScreen(bool isClear = true)
+        {
+            PrintMemberSearchLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                  이름          :                                                   ");
+            Console.WriteLine("                                  아이디        :                                                   ");
+            Console.WriteLine("                                  나이          :                                                   ");
+            Console.WriteLine("                                  주소          :                                                   ");
+            Console.WriteLine("                                  핸드폰번호    :                                                   ");
+            Console.WriteLine("                                  < 검색하기 >                                                      ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
     }
 }

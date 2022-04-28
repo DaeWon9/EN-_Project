@@ -70,7 +70,7 @@ namespace Library.View
             if (isClear)
                 Console.Clear();
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
-            Console.WriteLine("              *                           < 도 서 찾 기 >                           *               ");
+            Console.WriteLine("              *                           < 도 서 검 색 >                           *               ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("            *  ● ↑↓ 방향키로 이동 후 ENTER를 누르고 입력해주세요 (원하는 옵션입력) *             ");
             Console.WriteLine("           *   ● 도서가격은 수치보다 낮은, 도서수량은 수치보다 높은 도서를 검색합니다 *            ");
@@ -79,6 +79,22 @@ namespace Library.View
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
+
+        public void PrintMemberSearchLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                           < 회 원 검 색 >                           *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *  ● ↑↓ 방향키로 이동 후 ENTER를 누르고 입력해주세요 (원하는 옵션입력) *             ");
+            Console.WriteLine("           *   ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                     *            ");
+            Console.WriteLine("            *  ● 입력을 완료한 뒤에 <검색하기> 에서 ENTER를 눌러주세요               *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+        }
+
 
         public void PrintBorrowBookModeLabel(bool isClear = true)
         {
@@ -232,10 +248,25 @@ namespace Library.View
             if (isClear)
                 Console.Clear();
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                        < 회 원 정 보 수 정 >                        *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *       ● 등록되어있는 회원님들의 정보입니다                             *             ");
+            Console.WriteLine("           *        ● 특정 회원의 ID를 입력하시면 회원정보를 수정할 수 있습니다       *            ");
+            Console.WriteLine("            *                                                                         *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+        }
+
+        public void PrintSelectManagementMemberModeLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                        < 회 원 정 보 관 리 >                        *               ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("            *       ● 등록되어있는 회원님들의 정보입니다                             *             ");
-            Console.WriteLine("           *        ● 특정 회원의 ID를 검색하시면 회원정보를 수정할 수 있습니다       *            ");
+            Console.WriteLine("           *        ● 특정 회원의 ID를 입력하시면 회원정보를 수정할 수 있습니다       *            ");
             Console.WriteLine("            *                                                                         *             ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("              *                                                                     *               ");

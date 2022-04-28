@@ -239,7 +239,7 @@ namespace Library.Utility
             return false;
         }
 
-        public string GetConditionalStringBySearchBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)// 아래쪽 부분 기능완성 후 Constant로 빼기
+        public string GetConditionalStringBySearchBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
         {
             string conditionalString = "";
 
@@ -298,6 +298,59 @@ namespace Library.Utility
                     conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_OVER_BY_INT, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                 }
 
+            return conditionalString;
+        }
+
+        public string GetConditionalStringBySearchMember(string memberName, string memberId, string memberAge, string memberAddress, string memberPhoneNumber)
+        {
+            string conditionalString = "";
+
+            if (memberName != "" && memberName != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_NAME, memberName);
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_NAME, memberName);
+                }
+            if (memberId != "" && memberId != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                {
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, memberId);
+                }
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, memberId);
+                }
+            if (memberAge != "" && memberAge != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                {
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.MEMBER_FILED_AGE, memberAge);
+                }
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.MEMBER_FILED_AGE, memberAge);
+                }
+            if (memberAddress != "" && memberAddress != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                {
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_ADDRESS, memberAddress);
+                }
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_ADDRESS, memberAddress);
+                }
+            if (memberPhoneNumber != "" && memberPhoneNumber != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_PHONE_NUMBER, memberPhoneNumber);
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_PHONE_NUMBER, memberPhoneNumber);
+                }
             return conditionalString;
         }
 

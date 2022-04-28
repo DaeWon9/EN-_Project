@@ -10,7 +10,7 @@ using Library.View;
 
 namespace Library.Controller
 {
-    class Administrator : MenuSelection
+    class Administrator : MenuSelection // 기능별로 쪼개기.. 모듈화...
     {
         private List<string> searchedBookIdList = new List<string>();
         private bool isInputEscape = false, isBookDeleteCompleted = false, isSearchAndModify = false;
@@ -288,7 +288,7 @@ namespace Library.Controller
                     case (int)Constant.SelectMemberIdPosY.MANAGEMEMT_MEMBER:
                         if (memberId != "" && memberId != Constant.INPUT_ESCAPE.ToString())
                         {
-                            administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+                            administratorScreen.PrintMessage(Constant.TEXT_IS_MANAGEMENT, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
                             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
                             getYesOrNoByModify = DataProcessing.Instance.GetEnterOrEscape();
@@ -322,7 +322,7 @@ namespace Library.Controller
             return false;
         }
 
-        private bool IsReModify(AdministratorScreen administratorScreen)
+        private bool IsReModifyByMember(AdministratorScreen administratorScreen)
         {
             int getYesOrNoByReModify;
             administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODFICATE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
@@ -430,7 +430,7 @@ namespace Library.Controller
                 if (setStringByUpdate != "")
                 {
                     isModifyCompleted = IsModifyMemberInformationCompleted(administratorScreen, setStringByUpdate);
-                    if (IsReModify(administratorScreen)) // 계속해서 변경
+                    if (IsReModifyByMember(administratorScreen)) // 계속해서 변경
                         ModifyMemberInformation(administratorScreen);
                 }
             }
@@ -438,6 +438,7 @@ namespace Library.Controller
         }
 
 
+        // ModifyBook
         private string GetStringByUpdate(string setStringForm, string filed, string inputValue)
         {
             string resultString = "";
@@ -445,8 +446,7 @@ namespace Library.Controller
                 resultString = string.Format(setStringForm, filed, inputValue);
             return resultString;
         }
-
-        // ModifyBook
+        
         private bool IsExistBookIdInSearchedBookList(string bookId)
         {
             List<string> searchedBookList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput);
@@ -621,6 +621,88 @@ namespace Library.Controller
 
         }
 
+
+        // SearchMember
+        private void InputMemberSearchOption(AdministratorScreen administratorScreen)
+        {
+            string memberName = "", memberId = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
+            int currentConsoleCursorPosY;
+            bool isSearchMemberCompleted = false;
+            isInputEscape = false;
+            Console.CursorVisible = true;
+
+            administratorScreen.PrintMemberSearchScreen();
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+            Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
+            Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.MemberSearchPosY.NAME); //좌표조정
+
+            while (!isInputEscape && !isSearchMemberCompleted)
+            {
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberSearchPosY.NAME, (int)Constant.MemberSearchPosY.SEARCH);
+                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.MemberSearchPosY.NAME:
+                        memberName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN, Constant.EXCEPTION_TYPE_MEMBER_NAME);
+                        break;
+                    case (int)Constant.MemberSearchPosY.ID:
+                        memberId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                        break;
+                    case (int)Constant.MemberSearchPosY.AGE:
+                        memberAge = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
+                        break;
+                    case (int)Constant.MemberSearchPosY.ADDRESS:
+                        memberAddress = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
+                        break;
+                    case (int)Constant.MemberSearchPosY.PHONE_NUMBER:
+                        memberPhoneNumber = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
+                        break;
+                    case (int)Constant.MemberSearchPosY.SEARCH:
+                        isSearchMemberCompleted = IsSearchMemberCompleted(administratorScreen, memberName, memberId, memberAge, memberAddress, memberPhoneNumber);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private bool IsSearchMemberCompleted(AdministratorScreen administratorScreen, string memberName, string memberId, string memberAge, string memberAddress, string memberPhoneNumber)
+        {
+            int getYesOrNoBySearching, getYesOrNoByResearching;
+            // ↓ 옵션입력시 모두 공백일경우 체크하는 조건문
+            if ((memberName == "" || memberName == Constant.INPUT_ESCAPE.ToString()) && (memberId == "" || memberId == Constant.INPUT_ESCAPE.ToString()) && (memberAge == "" || memberAge == Constant.INPUT_ESCAPE.ToString()) && (memberAddress == "" || memberAddress == Constant.INPUT_ESCAPE.ToString()) && (memberPhoneNumber == "" || memberPhoneNumber == Constant.INPUT_ESCAPE.ToString()))
+            {
+                administratorScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.MemberSearchPosY.NAME); //좌표조정
+                return false;
+            }
+            conditionalStringByUserInput = DataProcessing.Instance.GetConditionalStringBySearchMember(memberName, memberId, memberAge, memberAddress, memberPhoneNumber);
+
+            administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
+
+            if (getYesOrNoBySearching == Constant.INPUT_ENTER) // 검색만
+            {
+                administratorScreen.PrintSearchResultScreen();
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, conditionalStringByUserInput), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+                Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
+                Console.CursorVisible = false;
+                getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
+                if (getYesOrNoByResearching == Constant.INPUT_ENTER)
+                    InputBookSearchOption(administratorScreen);
+            }
+            if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
+            {
+                administratorScreen.PrintBookSearchScreen();
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+                Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
+                Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.MemberSearchPosY.NAME); //좌표조정
+            }
+            return true;
+        }
+
+
         // BorrowBookStatus
         private void BorrowBookStatus(AdministratorScreen administratorScreen)
         {
@@ -667,7 +749,7 @@ namespace Library.Controller
                         SelectModifyBookMode(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
-                        ManagementMember(administratorScreen);
+                        SelectManagementMemberMode(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
                         BorrowBookStatus(administratorScreen);
@@ -698,6 +780,31 @@ namespace Library.Controller
                     break;
                 default:
                     break;
+            }
+        }
+    
+        private void SelectManagementMemberMode(AdministratorScreen administratorScreen)
+        {
+            bool isBack = false;
+            int menuValue;
+
+            while (!isBack)
+            {
+                menuValue = GetManagementMemberMode(administratorScreen);
+                switch (menuValue)
+                {
+                    case (int)Constant.MemberManagementModePosY.SEARCH:
+                        InputMemberSearchOption(administratorScreen);
+                        break;
+                    case (int)Constant.MemberManagementModePosY.MODIFY:
+                        ManagementMember(administratorScreen);
+                        break;
+                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
+                        isBack = true;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
