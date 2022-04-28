@@ -263,10 +263,10 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                        < 회 원 정 보 관 리 >                        *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *       ● 등록되어있는 회원님들의 정보입니다                             *             ");
-            Console.WriteLine("           *        ● 특정 회원의 ID를 입력하시면 회원정보를 수정할 수 있습니다       *            ");
-            Console.WriteLine("            *                                                                         *             ");
-            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *     ● 아래는 등록되어있는 모든 회원님들의 정보입니다                   *             ");
+            Console.WriteLine("           *      ● ↑↓ 방향키로 이동하며 ENTER키를 눌러 옵션을 선택해주세요         *             ");
+            Console.WriteLine("            *     ● 회원정보 검색 : 원하는 옵션으로 회원정보 검색 가능               *            ");
+            Console.WriteLine("             *    ● 회원정보 수정 : 회원아이디 입력시 해당 회원의 정보 수정가능     *             ");
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
@@ -278,7 +278,7 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                        < 대 여 도 서 상 황 >                        *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *           ● 회원별 대여중인 도서 목록입니다.                           *             ");
+            Console.WriteLine("            *           ● 검색된 대여중인 도서 목록입니다.                           *             ");
             Console.WriteLine("           *            ● 남은기간이 4일 미만일경우 노란색으로 표시됩니다.            *            ");
             Console.WriteLine("            *           ● 남은기간이 1일 미만일경우 빨간색으로 표시됩니다.           *             ");
             Console.WriteLine("             *                                                                       *              ");
@@ -296,10 +296,10 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                        < 대 여 도 서 상 황 >                        *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *           ● 회원별 대여중인 도서 목록입니다.                           *             ");
-            Console.WriteLine("           *            ● 남은기간이 4일 미만일경우 노란색으로 표시됩니다.            *            ");
-            Console.WriteLine("            *           ● 남은기간이 1일 미만일경우 빨간색으로 표시됩니다.           *             ");
-            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *        ● 회원별 대여중인 도서 목록입니다.                              *             ");
+            Console.WriteLine("           *         ● 조회를 원하는 회원아이디 OR 도서아이디를 입력해주세요          *            ");
+            Console.WriteLine("            *        ● 남은기간이 4일 미만일경우 노란색으로 표시됩니다.              *             ");
+            Console.WriteLine("             *       ● 남은기간이 1일 미만일경우 빨간색으로 표시됩니다.             *              ");
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }

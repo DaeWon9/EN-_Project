@@ -641,6 +641,39 @@ namespace Library.Controller
 
         }
 
+        private bool IsDeleteBookCompleted(AdministratorScreen administratorScreen)
+        {
+            /*
+            int getYesOrNoByDeleteBook;
+            if (IsMemberNotReturnBorrowedBook()) // 해당책을 대여한 회원이 있음
+            {
+                administratorScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                return false;
+            }
+            else // 클린한 상태임 -> 회원탈퇴 가능
+            {
+                administratorScreen.PrintMessage(Constant.TEXT_IS_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red); // 정말로 탈퇴할건지 물어보기
+                administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
+
+                getYesOrNoByWithdrawl = DataProcessing.Instance.GetEnterOrEscape();
+                if (getYesOrNoByWithdrawl == Constant.INPUT_ENTER) // 탈퇴진행
+                {
+                    DataBase.Instance.Drop(managementMemberId); // 회원아이디로 된 테이블 drop
+                    DataBase.Instance.Delete(Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
+                }
+                if (getYesOrNoByWithdrawl == Constant.INPUT_ESCAPE) // 탈퇴취소
+                {
+                    DataProcessing.Instance.ClearErrorMessage();
+                    Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                    return false;
+                }
+
+            }
+            */
+            return true;
+        }
 
         // SearchMember
         private void InputMemberSearchOption(AdministratorScreen administratorScreen)
