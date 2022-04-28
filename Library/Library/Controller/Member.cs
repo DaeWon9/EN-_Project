@@ -521,6 +521,13 @@ namespace Library.Controller
             }
             if (getYesOrNoByModify == Constant.INPUT_ESCAPE) // 변경하시겠습니까? 에서 esc입력
             {
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.NAME);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PASSWORD);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.AGE);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.ADDRESS);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
+                DataProcessing.Instance.ClearErrorMessage();
+                Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                 return false;
             }
             return true;
@@ -529,7 +536,7 @@ namespace Library.Controller
         private bool IsReModify(MemberScreen memberScreen)
         {
             int getYesOrNoByReModify;
-            memberScreen.PrintMessage(Constant.TEXT_SUCCESS_MODFICATE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            memberScreen.PrintMessage(Constant.TEXT_SUCCESS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoByReModify = DataProcessing.Instance.GetEnterOrEscape();
             if (getYesOrNoByReModify == Constant.INPUT_ESCAPE) // 계속해서 변경 x
@@ -591,7 +598,7 @@ namespace Library.Controller
                     if (memberPassword != "" && memberPassword != Constant.INPUT_ESCAPE.ToString()) // 비밀번호 변경이 입력되었을때 로그인되어있는 유저의 비밀번호 변수 수정
                         loginMemberPassword = memberPassword;
 
-                    if (IsReModify(memberScreen)) // 계속해서 변경
+                    if (isModifyCompleted && IsReModify(memberScreen)) // 계속해서 변경
                         ModifyMemberInformation(memberScreen);
                 }
             }

@@ -76,7 +76,7 @@ namespace Library
 
         public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다! 계속해서 대여하시겠습니까??";
         public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
-        public const string TEXT_SUCCESS_MODFICATE = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
+        public const string TEXT_SUCCESS_MODIFY = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
         public const string TEXT_SUCCESS_RETURN_BOOK = "도서반납에 성공하였습니다! 계속해서 반납하시겠습니까??";
         public const string TEXT_SUCCESS_ADD_BOOK = "도서추가에 성공하였습니다! 계속해서 추가하시겠습니까??";
         // SQL connection
@@ -284,7 +284,7 @@ namespace Library
 
         public enum BookModifyModePosY : int { IMMEDIATE = 12, SEARCH }
         
-        public enum BookModifyPosY : int { NAME = 24, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE }
+        public enum BookModifyPosY : int { NAME = 25, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE }
 
         public enum SelectMemberIdPosY : int { ID = 12, MANAGEMEMT_MEMBER }
 

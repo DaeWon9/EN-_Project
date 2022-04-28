@@ -116,6 +116,7 @@ namespace Library.Controller
 
             administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
             getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
 
             if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndModify == Constant.IS_ONLY_SEARCH) // 검색만
@@ -169,6 +170,7 @@ namespace Library.Controller
             }
             administratorScreen.PrintMessage(Constant.TEXT_IS_ADD, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
             GetYesOrNoByAdd = DataProcessing.Instance.GetEnterOrEscape();
 
             if (GetYesOrNoByAdd == Constant.INPUT_ESCAPE) // 추가하시겠습니까?? -> ESC
@@ -325,7 +327,7 @@ namespace Library.Controller
         private bool IsReModifyByMember(AdministratorScreen administratorScreen)
         {
             int getYesOrNoByReModify;
-            administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODFICATE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoByReModify = DataProcessing.Instance.GetEnterOrEscape();
             if (getYesOrNoByReModify == Constant.INPUT_ESCAPE) // 계속해서 변경 x
@@ -346,6 +348,7 @@ namespace Library.Controller
             {
                 administratorScreen.PrintMessage(Constant.TEXT_IS_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red); // 정말로 탈퇴할건지 물어보기
                 administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
 
                 getYesOrNoByWithdrawl = DataProcessing.Instance.GetEnterOrEscape();
                 if (getYesOrNoByWithdrawl == Constant.INPUT_ENTER) // 탈퇴진행
@@ -369,6 +372,7 @@ namespace Library.Controller
             int getYesOrNoByModify;
             administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
             getYesOrNoByModify = DataProcessing.Instance.GetEnterOrEscape();
             if (getYesOrNoByModify == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
             {
@@ -377,6 +381,14 @@ namespace Library.Controller
             }
             if (getYesOrNoByModify == Constant.INPUT_ESCAPE) // 변경하시겠습니까? 에서 esc입력
             {
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.NAME);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PASSWORD);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.AGE);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.ADDRESS);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
+                DataProcessing.Instance.ClearErrorMessage();
+                Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+
                 return false;
             }
             return true;
@@ -430,7 +442,7 @@ namespace Library.Controller
                 if (setStringByUpdate != "")
                 {
                     isModifyCompleted = IsModifyMemberInformationCompleted(administratorScreen, setStringByUpdate);
-                    if (IsReModifyByMember(administratorScreen)) // 계속해서 변경
+                    if (isModifyCompleted && IsReModifyByMember(administratorScreen)) // 계속해서 변경
                         ModifyMemberInformation(administratorScreen);
                 }
             }
@@ -463,6 +475,7 @@ namespace Library.Controller
             int getYesOrNoByModify;
             administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
             getYesOrNoByModify = DataProcessing.Instance.GetEnterOrEscape();
             if (getYesOrNoByModify == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
             {
@@ -471,6 +484,13 @@ namespace Library.Controller
             }
             if (getYesOrNoByModify == Constant.INPUT_ESCAPE) // 변경하시겠습니까? 에서 esc입력
             {
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.NAME);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.PUBLISHER);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.AUTHOR);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.PRICE);
+                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.QUANTITY);
+                DataProcessing.Instance.ClearErrorMessage();
+                Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                 return false;
             }
             return true;
@@ -479,7 +499,7 @@ namespace Library.Controller
         private bool IsReModifyByBook(AdministratorScreen administratorScreen)
         {
             int getYesOrNoByReModify;
-            administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODFICATE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoByReModify = DataProcessing.Instance.GetEnterOrEscape();
             if (getYesOrNoByReModify == Constant.INPUT_ESCAPE) // 계속해서 변경 x
@@ -492,7 +512,7 @@ namespace Library.Controller
             string setStringByUpdate = "";
             string bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
             int currentConsoleCursorPosY;
-            bool isModifyCompleted = false, isReModifyByBook = false;
+            bool isModifyCompleted = false;
             isBookDeleteCompleted = false;
             isInputEscape = false;
 
@@ -538,8 +558,7 @@ namespace Library.Controller
                 if (setStringByUpdate != "") // 수정사항이 있다면
                 {
                     isModifyCompleted = IsModifyBookInformationCompleted(administratorScreen, setStringByUpdate, modifyBookId);
-                    isReModifyByBook = IsReModifyByBook(administratorScreen);
-                    if (isReModifyByBook) // 계속해서 변경
+                    if (isModifyCompleted && IsReModifyByBook(administratorScreen))
                         ModifyBook(administratorScreen);
                 }
             }
@@ -598,6 +617,7 @@ namespace Library.Controller
                         {
                             administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
                             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+                            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
                             getYesOrNoByModify = DataProcessing.Instance.GetEnterOrEscape();
                             if (getYesOrNoByModify == Constant.INPUT_ENTER)
@@ -680,6 +700,7 @@ namespace Library.Controller
 
             administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
             getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
 
             if (getYesOrNoBySearching == Constant.INPUT_ENTER) // 검색만
@@ -703,8 +724,8 @@ namespace Library.Controller
         }
 
 
-        // BorrowBookStatus
-        private void BorrowBookStatus(AdministratorScreen administratorScreen)
+        // ShowBorrowBookStatus
+        private void ShowBorrowBookStatus(AdministratorScreen administratorScreen)
         {
             isInputEscape = false;
             string memberName = "", memberId = "", bookId = "";
@@ -731,11 +752,11 @@ namespace Library.Controller
                 {
                     case (int)Constant.CheckBorrowedBookModePosY.BOOK_ID:
                         bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.BOOK_ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
-                        BorrowBookStatusByBookId(administratorScreen, bookId);
+                        ShowBorrowBookStatusByBookId(administratorScreen, bookId);
                         break;
                     case (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID:
                         memberId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
-                        BorrowBookStatusByMemberId(administratorScreen, memberId);
+                        ShowBorrowBookStatusByMemberId(administratorScreen, memberId);
                         break;
                     default:
                         break;
@@ -743,7 +764,7 @@ namespace Library.Controller
             }
         }
 
-        private void BorrowBookStatusByBookId(AdministratorScreen administratorScreen, string bookId)
+        private void ShowBorrowBookStatusByBookId(AdministratorScreen administratorScreen, string bookId)
         {
             if (!IsAlreadyRegisteredBookInLibrary(bookId))// 도서관에 없는책임
             {
@@ -776,13 +797,12 @@ namespace Library.Controller
                 if (isInputEscape) //esc 눌렀을때 뒤로가기
                 {
                     Console.CursorVisible = true;
-                    BorrowBookStatus(administratorScreen);
+                    ShowBorrowBookStatus(administratorScreen);
                 }
             }
         }
 
-
-        private void BorrowBookStatusByMemberId(AdministratorScreen administratorScreen, string memberId)
+        private void ShowBorrowBookStatusByMemberId(AdministratorScreen administratorScreen, string memberId)
         {
 
             if (!IsRegisteredMemberId(memberId))// 회원아이디가 입력됐는데, 등록되지 않은 아이디임
@@ -805,12 +825,12 @@ namespace Library.Controller
                 if (isInputEscape) //esc 눌렀을때 뒤로가기
                 {
                     Console.CursorVisible = true;
-                    BorrowBookStatus(administratorScreen);
+                    ShowBorrowBookStatus(administratorScreen);
                 }
             }
         }
 
-        //Menu
+        //Menu && Mode
         private void SelectMenu(AdministratorScreen administratorScreen)
         {
             bool isLogout = false;
@@ -833,7 +853,7 @@ namespace Library.Controller
                         SelectManagementMemberMode(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
-                        BorrowBookStatus(administratorScreen);
+                        ShowBorrowBookStatus(administratorScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isLogout = DataProcessing.Instance.IsLogout(administratorScreen);

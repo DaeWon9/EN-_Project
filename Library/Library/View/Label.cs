@@ -72,7 +72,7 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                           < 도 서 검 색 >                           *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *  ● ↑↓ 방향키로 이동 후 ENTER를 누르고 입력해주세요 (원하는 옵션입력) *             ");
+            Console.WriteLine("            *  ● ↑↓ 방향키로 이동 후 ENTER를 누르고 입력하세요 (원하는 옵션입력)   *             ");
             Console.WriteLine("           *   ● 도서가격은 수치보다 낮은, 도서수량은 수치보다 높은 도서를 검색합니다 *            ");
             Console.WriteLine("            *  ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                    *             ");
             Console.WriteLine("             * ● 입력을 완료한 뒤에 <검색하기> 에서 ENTER를 눌러주세요              *              ");
@@ -87,9 +87,9 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                           < 회 원 검 색 >                           *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *  ● ↑↓ 방향키로 이동 후 ENTER를 누르고 입력해주세요 (원하는 옵션입력) *             ");
-            Console.WriteLine("           *   ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                     *            ");
-            Console.WriteLine("            *  ● 입력을 완료한 뒤에 <검색하기> 에서 ENTER를 눌러주세요               *             ");
+            Console.WriteLine("            *   ● ↑↓ 방향키로 이동 후 ENTER를 누르고 입력하세요 (원하는 옵션입력)  *             ");
+            Console.WriteLine("           *    ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                    *            ");
+            Console.WriteLine("            *   ● 입력을 완료한 뒤에 <검색하기> 에서 ENTER를 눌러주세요              *             ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
@@ -103,9 +103,9 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                           < 도 서 대 여 >                           *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *      ● ↑↓ 방향키로 이동하며 대여방식을 선택해주세요                  *             ");
-            Console.WriteLine("           *       ● 바로 대여    : 도서관에 보유중인 책정보를 바탕으로 대여가능      *            ");
-            Console.WriteLine("            *      ● 검색 후 대여 : 사용자가 검색한 책정보를 바탕으로 대여가능       *             ");
+            Console.WriteLine("            *    ● ↑↓ 방향키로 이동하며 ENTER키를 눌러 대여방식을 선택해주세요     *             ");
+            Console.WriteLine("           *     ● 바로 대여    : 도서관에 보유중인 책정보를 바탕으로 대여가능        *            ");
+            Console.WriteLine("            *    ● 검색 후 대여 : 사용자가 검색한 책정보를 바탕으로 대여가능         *             ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
@@ -175,17 +175,32 @@ namespace Library.View
             Console.WriteLine("               < 회 원 정 보 >               |                  < 수 정 할 정 보 >                  ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
-        public void PrintSelectModifyBookILabel(bool isClear = true)
+        public void PrintSelectModifyBookModeLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                        < 도 서 정 보 수 정 >                        *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *       ● 수정을 원하는 도서의 아이디를 적어주세요                       *             ");
-            Console.WriteLine("           *        ● ↑↓ 방향키로 옵션 이동 후 ENTER를 누르면 입력 가능합니다       *            ");
-            Console.WriteLine("            *       ● 입력 도중 ESC를 누르면 입력을 취소할 수 있습니다               *             ");
-            Console.WriteLine("             *      ● 입력을 완료한 뒤에 <수정하기> 에서 ENTER를 눌러주세요         *              ");
+            Console.WriteLine("            *    ● ↑↓ 방향키로 이동하며 ENTER키를 눌러 수정방식을 선택해주세요     *             ");
+            Console.WriteLine("           *     ● 바로 수정    : 도서 아이디를 알고있을경우 바로 수정가능            *            ");
+            Console.WriteLine("            *    ● 검색 후 수정 : 검색한 도서정보를 바탕으로 수정가능                *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+        }
+
+        public void PrintSelectModifyBookIDLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                        < 도 서 정 보 수 정 >                        *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *     ● 수정하고자하는 도서아이디를 적어주세요                           *             ");
+            Console.WriteLine("           *      ● ↑↓ 방향키로 옵션 이동 후 ENTER를 누르면 입력 가능합니다         *            ");
+            Console.WriteLine("            *     ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                 *             ");
+            Console.WriteLine("             *    ● 입력을 완료한 뒤에 <수정하기> 에서 ENTER를 눌러주세요           *              ");
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
@@ -205,6 +220,7 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                뒤로가기 : ESC      ");
+            Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
             Console.WriteLine("                                          < 도 서 정 보 >                                           ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
@@ -217,7 +233,7 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                           < 도 서 추 가 >                           *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *     ● 추가하고자하는 도서정보를 적어주세요                             *             ");
+            Console.WriteLine("            *     ● 추가하고자하는 도서정보를 적어주세요 (모두입력)                  *             ");
             Console.WriteLine("           *      ● ↑↓ 방향키로 옵션 이동 후 ENTER를 누르면 입력 가능합니다         *            ");
             Console.WriteLine("            *     ● 검색 도중 ESC를 누르면 입력을 취소할 수 있습니다                 *             ");
             Console.WriteLine("             *    ● 입력을 완료한 뒤에 <추가하기> 에서 ENTER를 눌러주세요           *              ");

@@ -81,7 +81,7 @@ namespace Library.View
 
         public void PrintSelectModifyBookScreen(bool isClear = true)
         {
-            PrintSelectModifyBookILabel(isClear);
+            PrintSelectModifyBookIDLabel(isClear);
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
@@ -93,7 +93,7 @@ namespace Library.View
 
         public void PrintSelectModifyBookModeScreen(bool isClear = true)
         {
-            PrintSelectModifyBookILabel(isClear);
+            PrintSelectModifyBookModeLabel(isClear);
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
