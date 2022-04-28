@@ -129,5 +129,17 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
+
+        public void PrintSelectCheckBorrowedBookModeScreen(bool isClear = true)
+        {
+            PrintAdministratorCheckBorrowedBookModeLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                     도서아이디 :                                                   ");
+            Console.WriteLine("                                     회원아이디 :                                                   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
     }
 }

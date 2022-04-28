@@ -70,7 +70,7 @@ namespace Library.View
             Console.WriteLine("|  < 회원탈퇴 >");
         }
 
-        public void PrintSelectedValues(MySqlDataReader reader, string tableName, string memeberName, bool isAdministator = false)
+        public void PrintSelectedValues(MySqlDataReader reader, string tableName, string memeberName, bool isAdministator = false, bool titleOption = false)
         {
             if (tableName == Constant.TABLE_NAME_BOOK)
             {
@@ -100,7 +100,7 @@ namespace Library.View
             }
             else
             {
-                if (isAdministator)
+                if (isAdministator && reader.HasRows || titleOption)
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine(" < {0}({1}) 님의 대여도서 목록 >", memeberName, tableName);

@@ -165,6 +165,8 @@ namespace Library
 
         // administrator mode
         public const bool IS_ADMINISTRATOR_MODE = true;
+        public const bool IS_TITLE_OPTION = true;
+
 
         // cursor pos
         public const int CURSOR_POS_LEFT = 0;
@@ -286,6 +288,8 @@ namespace Library
 
         public enum SelectMemberIdPosY : int { ID = 12, MANAGEMEMT_MEMBER }
 
-        public enum MemberManagementModePosY : int { SEARCH = 12, MODIFY}
+        public enum MemberManagementModePosY : int { SEARCH = 12, MODIFY }
+    
+        public enum CheckBorrowedBookModePosY : int { BOOK_ID = 12, MEMBER_ID }
     }
 }

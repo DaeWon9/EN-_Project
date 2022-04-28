@@ -646,16 +646,16 @@ namespace Library.Controller
                         memberName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN, Constant.EXCEPTION_TYPE_MEMBER_NAME);
                         break;
                     case (int)Constant.MemberSearchPosY.ID:
-                        memberId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                        memberId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER);
                         break;
                     case (int)Constant.MemberSearchPosY.AGE:
                         memberAge = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
                         break;
                     case (int)Constant.MemberSearchPosY.ADDRESS:
-                        memberAddress = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
+                        memberAddress = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE);
                         break;
                     case (int)Constant.MemberSearchPosY.PHONE_NUMBER:
-                        memberPhoneNumber = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
+                        memberPhoneNumber = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_NUMBER);
                         break;
                     case (int)Constant.MemberSearchPosY.SEARCH:
                         isSearchMemberCompleted = IsSearchMemberCompleted(administratorScreen, memberName, memberId, memberAge, memberAddress, memberPhoneNumber);
@@ -707,10 +707,11 @@ namespace Library.Controller
         private void BorrowBookStatus(AdministratorScreen administratorScreen)
         {
             isInputEscape = false;
-            string memberName = "";
+            string memberName = "", memberId = "", bookId = "";
+            int currentConsoleCursorPosY;
             List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
 
-            administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
+            administratorScreen.PrintSelectCheckBorrowedBookModeScreen();
             foreach (string tableName in AllTablesName)
             {
                 memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
@@ -719,16 +720,96 @@ namespace Library.Controller
                     administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName), tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
                 }
             }
+            Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
+            Console.SetCursorPosition(Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.BOOK_ID); //좌표조정
+
+            while (!isInputEscape)
+            {
+                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, Console.CursorTop, (int)Constant.SelectMemberIdPosY.ID, (int)Constant.SelectMemberIdPosY.MANAGEMEMT_MEMBER);
+                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.CheckBorrowedBookModePosY.BOOK_ID:
+                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.BOOK_ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        BorrowBookStatusByBookId(administratorScreen, bookId);
+                        break;
+                    case (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID:
+                        memberId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                        BorrowBookStatusByMemberId(administratorScreen, memberId);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void BorrowBookStatusByBookId(AdministratorScreen administratorScreen, string bookId)
+        {
+            if (!IsAlreadyRegisteredBookInLibrary(bookId))// 도서관에 없는책임
+            {
+                administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_EXIST_IN_LIBRARY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                DataProcessing.Instance.ClearConsoleLine(Constant.SEARCH_POS_X, Constant.WINDOW_WIDTH, (int)Constant.CheckBorrowedBookModePosY.BOOK_ID);
+                return;
+            }
+
+            isInputEscape = false;
+            string memberName = "", conditionalString = "";
+            List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
+
+            conditionalString = string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId);
+
+            administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
+            foreach (string tableName in AllTablesName)
+            {
+                memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
+                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
+                {
+                    MySqlDataReader reader = DataBase.Instance.Select(Constant.FILED_ALL, tableName, conditionalString);
+                    administratorScreen.PrintSelectedValues(reader, tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
+                }
+            }
             Console.CursorVisible = false;
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
             while (!isInputEscape)
             {
                 isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
                 if (isInputEscape) //esc 눌렀을때 뒤로가기
+                {
                     Console.CursorVisible = true;
+                    BorrowBookStatus(administratorScreen);
+                }
             }
         }
-        
+
+
+        private void BorrowBookStatusByMemberId(AdministratorScreen administratorScreen, string memberId)
+        {
+
+            if (!IsRegisteredMemberId(memberId))// 회원아이디가 입력됐는데, 등록되지 않은 아이디임
+            {
+                administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_REGISTERED_MEMBER_ID, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                DataProcessing.Instance.ClearConsoleLine(Constant.SEARCH_POS_X, Constant.WINDOW_WIDTH, (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID);
+                return;
+            }
+
+            isInputEscape = false;
+            string memberName = "";
+            administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
+            memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, memberId));
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, memberId), memberId, memberName, Constant.IS_ADMINISTRATOR_MODE, Constant.IS_TITLE_OPTION);
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
+            while (!isInputEscape)
+            {
+                isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
+                if (isInputEscape) //esc 눌렀을때 뒤로가기
+                {
+                    Console.CursorVisible = true;
+                    BorrowBookStatus(administratorScreen);
+                }
+            }
+        }
+
         //Menu
         private void SelectMenu(AdministratorScreen administratorScreen)
         {

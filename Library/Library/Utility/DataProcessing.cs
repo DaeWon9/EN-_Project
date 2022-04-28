@@ -316,12 +316,12 @@ namespace Library.Utility
             if (memberId != "" && memberId != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
                 {
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, memberId);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_ID, memberId);
                 }
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, memberId);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_ID, memberId);
                 }
             if (memberAge != "" && memberAge != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")

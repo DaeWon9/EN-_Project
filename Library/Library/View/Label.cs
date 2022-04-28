@@ -210,24 +210,6 @@ namespace Library.View
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
-        public void PrintAdministratorCheckBorrowedBookLabel(bool isClear = true)
-        {
-            if (isClear)
-                Console.Clear();
-            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
-            Console.WriteLine("              *                        < 대 여 도 서 상 황 >                        *               ");
-            Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *           ● 회원별 대여중인 도서 목록입니다.                           *             ");
-            Console.WriteLine("           *            ● 남은기간이 4일 미만일경우 노란색으로 표시됩니다.            *            ");
-            Console.WriteLine("            *           ● 남은기간이 1일 미만일경우 빨간색으로 표시됩니다.           *             ");
-            Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("              *                                                                     *               ");
-            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
-            Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                                                                뒤로가기 : ESC      ");
-            Console.WriteLine("----------------------------------------------------------------------------------------------------");
-        }
-
         public void PrintAddBookLabel(bool isClear = true)
         {
             if (isClear)
@@ -268,6 +250,39 @@ namespace Library.View
             Console.WriteLine("            *       ● 등록되어있는 회원님들의 정보입니다                             *             ");
             Console.WriteLine("           *        ● 특정 회원의 ID를 입력하시면 회원정보를 수정할 수 있습니다       *            ");
             Console.WriteLine("            *                                                                         *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+        }
+
+        public void PrintAdministratorCheckBorrowedBookLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                        < 대 여 도 서 상 황 >                        *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *           ● 회원별 대여중인 도서 목록입니다.                           *             ");
+            Console.WriteLine("           *            ● 남은기간이 4일 미만일경우 노란색으로 표시됩니다.            *            ");
+            Console.WriteLine("            *           ● 남은기간이 1일 미만일경우 빨간색으로 표시됩니다.           *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                뒤로가기 : ESC      ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintAdministratorCheckBorrowedBookModeLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                        < 대 여 도 서 상 황 >                        *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *           ● 회원별 대여중인 도서 목록입니다.                           *             ");
+            Console.WriteLine("           *            ● 남은기간이 4일 미만일경우 노란색으로 표시됩니다.            *            ");
+            Console.WriteLine("            *           ● 남은기간이 1일 미만일경우 빨간색으로 표시됩니다.           *             ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
