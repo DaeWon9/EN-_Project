@@ -51,8 +51,10 @@ namespace Library
         public const string TEXT_IS_ADD = "추가하시겠습니까??";
         public const string TEXT_IS_MANAGEMENT = "선택한 회원의 정보를 수정하시겠습니까??";
         public const string TEXT_IS_WITHDRAWAL = "< 주의 > 모든정보가 삭제됩니다. 정말로 탈퇴하시겠습니까??";
+        public const string TEXT_IS_DELETE = "< 주의 > 모든정보가 삭제됩니다. 정말로 삭제하시겠습니까??";
 
         public const string TEXT_UNABLE_WITHDRAWAL = "대여중인 도서가 존재하여 탈퇴가 불가능합니다";
+        public const string TEXT_UNABLE_DELETE = "해당도서를 대여중인 회원이 존재하여 삭제가 불가능합니다";
 
         public const string TEXT_PLEASE_INPUT_OPTION = "옵션을 입력해주세요";
         public const string TEXT_PLEASE_INPUT_NUMBER = "숫자만 입력하세요";

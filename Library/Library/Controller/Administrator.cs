@@ -549,7 +549,7 @@ namespace Library.Controller
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                         break;
                     case (int)Constant.BookModifyPosY.DELETE:
-                        //isBookDeleteCompleted = IsWithdrawlCompleted(memberScreen);
+                        isBookDeleteCompleted = IsDeleteBookCompleted(administratorScreen, modifyBookId);
                         break;
                     default:
                         break;
@@ -641,37 +641,31 @@ namespace Library.Controller
 
         }
 
-        private bool IsDeleteBookCompleted(AdministratorScreen administratorScreen)
+        private bool IsDeleteBookCompleted(AdministratorScreen administratorScreen, int bookId)
         {
-            /*
             int getYesOrNoByDeleteBook;
-            if (IsMemberNotReturnBorrowedBook()) // 해당책을 대여한 회원이 있음
+            if (IsBookBorrwed(bookId)) // 해당책을 대여한 회원이 있음
             {
-                administratorScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                administratorScreen.PrintMessage(Constant.TEXT_UNABLE_DELETE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                 return false;
             }
-            else // 클린한 상태임 -> 회원탈퇴 가능
+            else // 클린한 상태임 -> 도서삭제 가능
             {
-                administratorScreen.PrintMessage(Constant.TEXT_IS_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red); // 정말로 탈퇴할건지 물어보기
+                administratorScreen.PrintMessage(Constant.TEXT_IS_DELETE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red); // 정말로 탈퇴할건지 물어보기
                 administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
 
-                getYesOrNoByWithdrawl = DataProcessing.Instance.GetEnterOrEscape();
-                if (getYesOrNoByWithdrawl == Constant.INPUT_ENTER) // 탈퇴진행
-                {
-                    DataBase.Instance.Drop(managementMemberId); // 회원아이디로 된 테이블 drop
-                    DataBase.Instance.Delete(Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
-                }
-                if (getYesOrNoByWithdrawl == Constant.INPUT_ESCAPE) // 탈퇴취소
+                getYesOrNoByDeleteBook = DataProcessing.Instance.GetEnterOrEscape();
+                if (getYesOrNoByDeleteBook == Constant.INPUT_ENTER) // 삭제진행
+                    DataBase.Instance.Delete(Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId));// 해당도서 delete
+                if (getYesOrNoByDeleteBook == Constant.INPUT_ESCAPE) // 삭제취소
                 {
                     DataProcessing.Instance.ClearErrorMessage();
-                    Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                    Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                     return false;
                 }
-
             }
-            */
             return true;
         }
 
@@ -795,6 +789,28 @@ namespace Library.Controller
                         break;
                 }
             }
+        }
+
+        private bool IsBookBorrwed(int bookId)
+        {
+            string conditionalString;
+            List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
+            conditionalString = string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId);
+            foreach (string tableName in AllTablesName)
+            {
+                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
+                {
+                    MySqlDataReader reader = DataBase.Instance.Select(Constant.FILED_ALL, tableName, conditionalString);
+                    if (reader.HasRows)
+                    {
+                        reader.Close();
+                        return true;
+                    }
+                    else
+                        reader.Close();
+                }
+            }
+            return false;
         }
 
         private void ShowBorrowBookStatusByBookId(AdministratorScreen administratorScreen, string bookId)
