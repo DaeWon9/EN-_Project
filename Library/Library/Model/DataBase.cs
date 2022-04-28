@@ -152,10 +152,10 @@ namespace Library.Model
             reader.Close();
             connection.Close();
             return selectedElements;
-    
+
         }
 
-        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber) 
+        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber)
         {
             if (!connection.Ping())
                 connection.Open();

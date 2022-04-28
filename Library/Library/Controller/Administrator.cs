@@ -12,10 +12,12 @@ namespace Library.Controller
 {
     class Administrator : MenuSelection
     {
-        private bool isInputEscape = false;
-        private bool isBookDeleteCompleted = false;
+        private List<string> searchedBookIdList = new List<string>();
+        private bool isInputEscape = false, isBookDeleteCompleted = false, isSearchAndModify = false;
         private int modifyBookId = 0;
-        private string managementMemberId = "", managementMemeberName = "";
+        private string conditionalStringByUserInput = "", managementMemberId = "", managementMemeberName = "";
+
+        // Login
         public void Login(AdministratorScreen administratorScreen) // id : admin1    pw: admin1
         {
             bool isLogin = false;
@@ -29,14 +31,14 @@ namespace Library.Controller
                 password = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                 if (password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                isLogin = CheckLogin(administratorScreen, id, password);
+                isLogin = IsLogin(administratorScreen, id, password);
             }
             if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString() || password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 처음 회원 or 관리자모드 선택으로 돌아가야함
                 return;
             SelectMenu(administratorScreen);
         }
 
-        private bool CheckLogin(AdministratorScreen administratorScreen, string id, string password)
+        private bool IsLogin(AdministratorScreen administratorScreen, string id, string password)
         {
             List<string> administratorId = DataBase.Instance.GetSelectedElements(Constant.ADMINISTRATOR_FILED_ID, Constant.TABLE_NAME_ADMINISTRATOR);
             List<string> administratorPassword = DataBase.Instance.GetSelectedElements(Constant.ADMINISTRATOR_FILED_PASSWORD, Constant.TABLE_NAME_ADMINISTRATOR);
@@ -53,6 +55,7 @@ namespace Library.Controller
             return false;
         }
 
+        // SearchBook
         private void InputBookSearchOption(AdministratorScreen administratorScreen)
         {
             string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
@@ -109,20 +112,28 @@ namespace Library.Controller
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
                 return false;
             }
+            conditionalStringByUserInput = DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
 
             administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
 
-            if (getYesOrNoBySearching == Constant.INPUT_ENTER)
+            if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndModify == Constant.IS_ONLY_SEARCH) // 검색만
             {
                 administratorScreen.PrintSearchResultScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
                 getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
                 if (getYesOrNoByResearching == Constant.INPUT_ENTER)
                     InputBookSearchOption(administratorScreen);
+            }
+            if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndModify == Constant.IS_SEARCH_AND_BORROW) // 검색 후 수정까지하는 함수 -> 여기서 검색된 도서 id 리스트 만들어서 대여할때 중복체크하기
+            {
+                administratorScreen.PrintSelectModifyBookScreen(); // 도서 수정 UI 출력
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                searchedBookIdList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity));
+                SelectModifyBookId(administratorScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
@@ -133,24 +144,14 @@ namespace Library.Controller
             }
             return true;
         }
-  
+
+        // AddBook
         private bool IsAlreadyRegisteredBookInLibrary(string bookId)
         {
             List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK);
             for (int repeat = 0; repeat < memberIdList.Count; repeat++)
             {
                 if (memberIdList[repeat] == bookId)
-                    return true;
-            }
-            return false;
-        }
-
-        private bool IsRegisteredMemberId(string memberId)
-        {
-            List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
-            for (int repeat = 0; repeat < memberIdList.Count; repeat++)
-            {
-                if (memberIdList[repeat] == memberId)
                     return true;
             }
             return false;
@@ -242,6 +243,18 @@ namespace Library.Controller
                         break;
                 }
             }
+        }
+
+        // ManagementMember
+        private bool IsRegisteredMemberId(string memberId)
+        {
+            List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
+            for (int repeat = 0; repeat < memberIdList.Count; repeat++)
+            {
+                if (memberIdList[repeat] == memberId)
+                    return true;
+            }
+            return false;
         }
 
         private void ManagementMember(AdministratorScreen administratorScreen)
@@ -424,30 +437,6 @@ namespace Library.Controller
 
         }
 
-        private void BorrowBookStatus(AdministratorScreen administratorScreen)
-        {
-            isInputEscape = false;
-            string memberName = "";
-            List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
-
-            administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
-            foreach (string tableName in AllTablesName)
-            {
-                memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
-                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
-                {
-                    administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName), tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
-                }
-            }
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
-            while (!isInputEscape)
-            {
-                isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
-                if (isInputEscape) //esc 눌렀을때 뒤로가기
-                    Console.CursorVisible = true;
-            }
-        }
 
         private string GetStringByUpdate(string setStringForm, string filed, string inputValue)
         {
@@ -457,6 +446,18 @@ namespace Library.Controller
             return resultString;
         }
 
+        // ModifyBook
+        private bool IsExistBookIdInSearchedBookList(string bookId)
+        {
+            List<string> searchedBookList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput);
+            for (int repeat = 0; repeat < searchedBookList.Count; repeat++)
+            {
+                if (searchedBookList[repeat] == bookId)
+                    return true;
+            }
+            return false;
+        }
+        
         private bool IsModifyBookInformationCompleted(AdministratorScreen administratorScreen, string setString, int bookId)
         {
             int getYesOrNoByModify;
@@ -551,8 +552,20 @@ namespace Library.Controller
             bool isSelectBookIdCompleted = false;
             isInputEscape = false;
 
-            administratorScreen.PrintSelectModifyBookScreen();
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+            if (isSearchAndModify == Constant.IS_SEARCH_AND_MODIFY)
+            {
+                administratorScreen.PrintSelectModifyBookScreen();
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+            }
+            else
+            {
+                administratorScreen.PrintSelectModifyBookScreen();
+                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+
+            }
+
+
+
             Console.SetCursorPosition(0, 0);      //입력창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
 
@@ -561,6 +574,14 @@ namespace Library.Controller
                 if (bookId != "" && !IsAlreadyRegisteredBookInLibrary(bookId))// 책이름이 입력됐는데, 도서관에 없는책임
                 {
                     administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_EXIST_IN_LIBRARY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
+                    DataProcessing.Instance.ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
+                    bookId = "";
+                }
+
+                if (isSearchAndModify && bookId != "" && !IsExistBookIdInSearchedBookList(bookId)) // 검색 후 책이름 입력됐는데, 검색된 책이 아님
+                {
+                    administratorScreen.PrintMessage(Constant.TEXT_THIS_BOOK_IS_NOT_SEARCHED, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
                     DataProcessing.Instance.ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
                     bookId = "";
@@ -600,6 +621,33 @@ namespace Library.Controller
 
         }
 
+        // BorrowBookStatus
+        private void BorrowBookStatus(AdministratorScreen administratorScreen)
+        {
+            isInputEscape = false;
+            string memberName = "";
+            List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
+
+            administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
+            foreach (string tableName in AllTablesName)
+            {
+                memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
+                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
+                {
+                    administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName), tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
+                }
+            }
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
+            while (!isInputEscape)
+            {
+                isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
+                if (isInputEscape) //esc 눌렀을때 뒤로가기
+                    Console.CursorVisible = true;
+            }
+        }
+        
+        //Menu
         private void SelectMenu(AdministratorScreen administratorScreen)
         {
             bool isLogout = false;
@@ -616,7 +664,7 @@ namespace Library.Controller
                         AddBook(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BOOK_MODIFY:
-                        SelectModifyBookId(administratorScreen);
+                        SelectModifyBookMode(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.MEMBER_MANAGEMENT:
                         ManagementMember(administratorScreen);
@@ -630,6 +678,26 @@ namespace Library.Controller
                     default:
                         break;
                 }
+            }
+        }
+    
+        private void SelectModifyBookMode(AdministratorScreen administratorScreen)
+        {
+            int menuValue;
+            isSearchAndModify = Constant.IS_ONLY_SEARCH;
+            searchedBookIdList.Clear();
+            menuValue = GetModifyBookMode(administratorScreen);
+            switch (menuValue)
+            {
+                case (int)Constant.BookModifyModePosY.IMMEDIATE:
+                    SelectModifyBookId(administratorScreen);
+                    break;
+                case (int)Constant.BookModifyModePosY.SEARCH:
+                    isSearchAndModify = Constant.IS_SEARCH_AND_MODIFY;
+                    InputBookSearchOption(administratorScreen);
+                    break;
+                default:
+                    break;
             }
         }
     }

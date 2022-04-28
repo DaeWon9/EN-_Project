@@ -12,7 +12,7 @@ namespace Library
         static void Main(string[] args)
         {
             LibraryController libraryController = new LibraryController();
-            libraryController.Start(); 
+            libraryController.Start();
         }
     }
 }

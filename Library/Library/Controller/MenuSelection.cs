@@ -7,7 +7,7 @@ using Library.View;
 using Library.Utility;
 namespace Library.Controller
 {
-    class MenuSelection
+    class MenuSelection 
     {
         private int menuValue;
 
@@ -36,7 +36,7 @@ namespace Library.Controller
         public int GetMemberMenu(MemberScreen memberScreen, string welcomeString)
         {
             memberScreen.PrintMenuScreen();
-            memberScreen.PrintMessage(welcomeString , Constant.WINDOW_WIDTH_CENTER, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            memberScreen.PrintMessage(welcomeString, Constant.WINDOW_WIDTH_CENTER, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.MemberMenu.BOOK_SEARCH, (int)Constant.MemberMenu.BOOK_SEARCH, (int)Constant.MemberMenu.MODIFY_MEMBER_INFORMATION);
             return menuValue;
         }
@@ -44,6 +44,13 @@ namespace Library.Controller
         public int GetBorrowBookMode(MemberScreen memberScreen)
         {
             memberScreen.PrintSelectBorrowBookModeScreen();
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.BORROW_MODE_CURSOR_MAX_POS_Y);
+            return menuValue;
+        }
+
+        public int GetModifyBookMode(AdministratorScreen administratorScreen)
+        {
+            administratorScreen.PrintSelectModifyBookModeScreen();
             menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, Constant.MENU_CURSOR_MIN_POS_Y, Constant.MENU_CURSOR_MIN_POS_Y, Constant.BORROW_MODE_CURSOR_MAX_POS_Y);
             return menuValue;
         }

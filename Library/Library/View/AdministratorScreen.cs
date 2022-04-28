@@ -90,5 +90,16 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
+
+        public void PrintSelectModifyBookModeScreen(bool isClear = true)
+        {
+            PrintSelectModifyBookILabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                   선택 : ENTER    뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                         ▶  바로 수정                                              ");
+            Console.WriteLine("                                         ▶  검색 후 수정                                           ");
+            Console.WriteLine("                                                                                                    ");
+        }
     }
 }

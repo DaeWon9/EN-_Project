@@ -15,6 +15,7 @@ namespace Library.Controller
         private bool isInputEscape = false, isSearchAndBorrow = false, isWithdrawlCompleted = false;
         private int menuValue;
         private string loginMemberId = "", loginMemberPassword = "", loginMemberName = "", conditionalStringByUserInput = "";
+        //Login
         private void Login(MemberScreen memberScreen) // id : admin1    pw: admin1 
         {
             bool isLoginCheck = false;
@@ -54,6 +55,7 @@ namespace Library.Controller
             return false;
         }
 
+        //SignUp
         private bool IsIdDuplicate(string id)
         {
             List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
@@ -167,6 +169,7 @@ namespace Library.Controller
             return true;
         }
 
+        //SearchBook
         private void InputBookSearchOption(MemberScreen memberScreen)
         {
             string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
@@ -260,6 +263,7 @@ namespace Library.Controller
             return true;
         }
 
+        // BorrowBook
         private void CheckBorrowedBook(MemberScreen memberScreen)
         {
             isInputEscape = false;
@@ -402,6 +406,7 @@ namespace Library.Controller
                 InputBookSearchOption(memberScreen);
         }
 
+        //ReturnBook
         private void ReturnBook(MemberScreen memberScreen)
         {
             isInputEscape = false;
@@ -494,6 +499,15 @@ namespace Library.Controller
             return true;
         }
 
+        // ModifyInformation
+        private string GetStringByUpdate(string setStringForm, string filed, string inputValue)
+        {
+            string resultString = "";
+            if (inputValue != "" && inputValue != Constant.INPUT_ESCAPE.ToString())
+                resultString = string.Format(setStringForm, filed, inputValue);
+            return resultString;
+        }
+        
         private bool IsModifyMemberInformationCompleted(MemberScreen memberScreen, string setString)
         {
             int getYesOrNoByModify;
@@ -510,14 +524,6 @@ namespace Library.Controller
                 return false;
             }
             return true;
-        }
-
-        private string GetStringByUpdate(string setStringForm, string filed, string inputValue)
-        {
-            string resultString = "";
-            if (inputValue != "" && inputValue != Constant.INPUT_ESCAPE.ToString())
-                resultString = string.Format(setStringForm, filed, inputValue);
-            return resultString;
         }
 
         private bool IsReModify(MemberScreen memberScreen)
@@ -591,7 +597,8 @@ namespace Library.Controller
             }
 
         }
-
+        
+        // Withdrawl
         private bool IsWithdrawlCompleted(MemberScreen memberScreen)
         {
             int getYesOrNoByWithdrawl;
@@ -632,6 +639,7 @@ namespace Library.Controller
             return false;
         }
 
+        // menu && mode
         public void SelectLoginOrSignUp(MemberScreen memberScreen)
         {
             menuValue = GetMemberLoginOrSignUp(memberScreen);
@@ -692,7 +700,7 @@ namespace Library.Controller
                     BorrowBookImmediately(memberScreen);
                     break;
                 case (int)Constant.BookBorrowModePosY.SEARCH:
-                    isSearchAndBorrow = true;
+                    isSearchAndBorrow = Constant.IS_SEARCH_AND_BORROW;
                     InputBookSearchOption(memberScreen);
                     break;
                 default:
