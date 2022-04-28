@@ -54,6 +54,22 @@ namespace Library.View
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
+        public void PrintModifyMemberInformationScreen(bool isClear = true)
+        {
+            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.NAME);
+            Console.WriteLine("|  이름 변경       :");
+            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD);
+            Console.WriteLine("|  비밀번호 변경   :");
+            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.AGE);
+            Console.WriteLine("|  나이 변경       :");
+            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS);
+            Console.WriteLine("|  주소 변경       :");
+            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
+            Console.WriteLine("|  핸드폰번호 변경 :");
+            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
+            Console.WriteLine("|  < 회원탈퇴 >");
+        }
+
         public void PrintSelectedValues(MySqlDataReader reader, string tableName, string memeberName, bool isAdministator = false)
         {
             if (tableName == Constant.TABLE_NAME_BOOK)

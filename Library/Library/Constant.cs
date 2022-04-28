@@ -7,6 +7,8 @@ namespace Library
 {
     class Constant
     {
+        // SQL connection
+        public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
         //window size
         public const int WINDOW_WIDTH = 100;
         public const int WINDOW_WIDTH_CENTER = 50;
@@ -47,7 +49,7 @@ namespace Library
         public const string TEXT_IS_SIGN_UP = "가입하시겠습니까??";
         public const string TEXT_IS_BORROW = "대여하시겠습니까??";
         public const string TEXT_IS_RETURN = "반납하시겠습니까??";
-        public const string TEXT_IS_MODIFICATE = "수정하시겠습니까??";
+        public const string TEXT_IS_MODIFY = "수정하시겠습니까??";
         public const string TEXT_IS_ADD = "추가하시겠습니까??";
         public const string TEXT_IS_WITHDRAWAL = "< 주의 > 모든정보가 삭제됩니다. 정말로 탈퇴하시겠습니까??";
 
@@ -70,14 +72,14 @@ namespace Library
         public const string TEXT_IS_ALREADY_BORROWED = "이미 대여중인 도서입니다.";
         public const string TEXT_IS_NOT_ENOUGH_QUANTITY = "대여가능한 수량이 부족합니다.";
         public const string TEXT_IS_NOT_BORROWED_BOOK = "대여중인 도서가 아닙니다.";
+        public const string TEXT_IS_NOT_REGISTERED_MEMBER_ID= "등록되지않은 회원ID입니다.";
 
         public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다! 계속해서 대여하시겠습니까??";
         public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
         public const string TEXT_SUCCESS_MODFICATE = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
         public const string TEXT_SUCCESS_RETURN_BOOK = "도서반납에 성공하였습니다! 계속해서 반납하시겠습니까??";
         public const string TEXT_SUCCESS_ADD_BOOK = "도서추가에 성공하였습니다! 계속해서 추가하시겠습니까??";
-        // SQL connection
-        public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
+
 
         // QUERY String
         public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(50), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, borrowDate DATETIME, returnDate DATETIME, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";
@@ -222,16 +224,19 @@ namespace Library
         public const int SEARCH_POS_X = 50;
         public const int SEARCH_SELECT_OPTION_POS_X = 32;
 
-        //Modificate pos
-        public const int MODIFICATE_MEMBER_MODE_POS_X = 45;
-        public const int MODIFICATE_MEMBER_SELECT_OPTION_POS_X = 46;
-        public const int MODIFICATE_MEMBER_INPUT_POS_X = 66;
+        //Modify pos
+        public const int MODIFY_MEMBER_MODE_POS_X = 45;
+        public const int MODIFY_MEMBER_SELECT_OPTION_POS_X = 46;
+        public const int MODIFY_MEMBER_INPUT_POS_X = 66;
 
-        public const int SELECT_MODIFICATE_BOOK_ID_POS_X = 50;
-        public const int SELECT_MODIFICATE_BOOK_ID_OPTION_POS_X = 35;
+        public const int SELECT_MANAGEMENT_MEMBER_ID_POS_X = 50;
+        public const int SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X = 35;
 
-        public const int MODIFICATE_BOOK_SELECT_OPTION_POS_X = 0;
-        public const int MODIFICATE_BOOK_INPUT_POS_X = 16;
+        public const int SELECT_MODIFY_BOOK_ID_POS_X = 50;
+        public const int SELECT_MODIFY_BOOK_ID_OPTION_POS_X = 35;
+
+        public const int MODIFY_BOOK_SELECT_OPTION_POS_X = 0;
+        public const int MODIFY_BOOK_INPUT_POS_X = 16;
 
         // borrow pos
         public const int BORROW_BOOK_POS_X = 50;
@@ -254,19 +259,20 @@ namespace Library
 
         public enum BookReturnPosY : int { ID = 12, RETURN}
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFICATE, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS} 
+        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS} 
 
-        public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFICATE_MEMBER_INFORMATION }
+        public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFY_MEMBER_INFORMATION }
 
         public enum CheckInsertBorrowedBook : int { NOT_EXIST_BOOK = 1, DUPLICATE_BOOK_ID, SHORTAGE_BOOK_QUANTITY, SUCCESS }
     
-        public enum MemberModificateModePosY : int { NAME = 14, PASSWORD, AGE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
+        public enum MemberModifyModePosY : int { NAME = 14, PASSWORD, AGE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
     
         public enum BookAddPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, ADD }
 
-        public enum SelectBookIdPosY : int { ID = 12, MODIFICATE_BOOK }
+        public enum SelectBookIdPosY : int { ID = 12, MODIFY_BOOK }
 
-        public enum BookModificatePosY : int { NAME = 24, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE}
+        public enum BookModifyPosY : int { NAME = 24, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE}
 
+        public enum SelectMemberIdPosY : int { ID = 12, MANAGEMEMT_MEMBER}
     }
 }

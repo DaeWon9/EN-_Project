@@ -140,7 +140,7 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
 
-        public void PrintModificateMemberInformationLabel(bool isClear = true)
+        public void PrintModifyMemberInformationLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -159,7 +159,7 @@ namespace Library.View
             Console.WriteLine("               < 회 원 정 보 >               |                  < 수 정 할 정 보 >                  ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
-        public void PrintSelectModificateBookILabel(bool isClear = true)
+        public void PrintSelectModifyBookILabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();
@@ -174,7 +174,7 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
 
-        public void PrintModificateBookLabel(bool isClear = true)
+        public void PrintModifyBookLabel(bool isClear = true)
         {
             if (isClear)
                 Console.Clear();

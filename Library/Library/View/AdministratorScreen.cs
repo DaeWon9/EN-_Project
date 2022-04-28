@@ -40,8 +40,8 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                  회원아이디    :                                                   ");
-            Console.WriteLine("                                  < 관리하기 >                                                      ");
+            Console.WriteLine("                                     회원아이디 :                                                   ");
+            Console.WriteLine("                                     < 관리하기 >                                                   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
@@ -63,7 +63,7 @@ namespace Library.View
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
-        public void PrintModificateBookScreen(bool isClear = true)
+        public void PrintModifyBookScreen(bool isClear = true)
         {
             Console.WriteLine("                                         < 수 정 할 정 보 >                                         ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
@@ -79,9 +79,9 @@ namespace Library.View
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
-        public void PrintSelectModificateBookScreen(bool isClear = true)
+        public void PrintSelectModifyBookScreen(bool isClear = true)
         {
-            PrintSelectModificateBookILabel(isClear);
+            PrintSelectModifyBookILabel(isClear);
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");

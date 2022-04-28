@@ -37,7 +37,7 @@ namespace Library.Controller
         {
             memberScreen.PrintMenuScreen();
             memberScreen.PrintMessage(welcomeString , Constant.WINDOW_WIDTH_CENTER, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
-            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.MemberMenu.BOOK_SEARCH, (int)Constant.MemberMenu.BOOK_SEARCH, (int)Constant.MemberMenu.MODIFICATE_MEMBER_INFORMATION);
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.MemberMenu.BOOK_SEARCH, (int)Constant.MemberMenu.BOOK_SEARCH, (int)Constant.MemberMenu.MODIFY_MEMBER_INFORMATION);
             return menuValue;
         }
 

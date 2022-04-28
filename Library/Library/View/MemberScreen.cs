@@ -95,22 +95,5 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
-
-        public void PrintModificateMemberInformationScreen(bool isClear = true)
-        {
-            Console.SetCursorPosition(Constant.MODIFICATE_MEMBER_MODE_POS_X, (int)Constant.MemberModificateModePosY.NAME);
-            Console.WriteLine("|  이름 변경       :");
-            Console.SetCursorPosition(Constant.MODIFICATE_MEMBER_MODE_POS_X, (int)Constant.MemberModificateModePosY.PASSWORD);
-            Console.WriteLine("|  비밀번호 변경   :");
-            Console.SetCursorPosition(Constant.MODIFICATE_MEMBER_MODE_POS_X, (int)Constant.MemberModificateModePosY.AGE);
-            Console.WriteLine("|  나이 변경       :");
-            Console.SetCursorPosition(Constant.MODIFICATE_MEMBER_MODE_POS_X, (int)Constant.MemberModificateModePosY.ADDRESS);
-            Console.WriteLine("|  주소 변경       :");
-            Console.SetCursorPosition(Constant.MODIFICATE_MEMBER_MODE_POS_X, (int)Constant.MemberModificateModePosY.PHONE_NUMBER);
-            Console.WriteLine("|  핸드폰번호 변경 :");
-            Console.SetCursorPosition(Constant.MODIFICATE_MEMBER_MODE_POS_X, (int)Constant.MemberModificateModePosY.WITHDRAWAL);
-            Console.WriteLine("|  < 회원탈퇴 >");
-        }
-
     }
 }
