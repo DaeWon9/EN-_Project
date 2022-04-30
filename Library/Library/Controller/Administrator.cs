@@ -765,7 +765,7 @@ namespace Library.Controller
                 memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
                 if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
                 {
-                    administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName), tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
+                    administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName, Constant.TEXT_NONE, Constant.FILED_BORROW_DATE), tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
                 }
             }
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
@@ -865,7 +865,7 @@ namespace Library.Controller
             string memberName = "";
             administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
             memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, memberId));
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, memberId), memberId, memberName, Constant.IS_ADMINISTRATOR_MODE, Constant.IS_TITLE_OPTION);
+            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, memberId, Constant.TEXT_NONE, Constant.FILED_BORROW_DATE), memberId, memberName, Constant.IS_ADMINISTRATOR_MODE, Constant.IS_TITLE_OPTION);
             Console.CursorVisible = false;
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
             while (!isInputEscape)

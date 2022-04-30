@@ -297,7 +297,7 @@ namespace Library.View
             Console.WriteLine("              *                        < 대 여 도 서 상 황 >                        *               ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("            *        ● 회원별 대여중인 도서 목록입니다.                              *             ");
-            Console.WriteLine("           *         ● 조회를 원하는 회원아이디 OR 도서아이디를 입력해주세요          *            ");
+            Console.WriteLine("           *         ● 조회를 원하는 도서아이디 OR 회원아이디를 입력해주세요          *            ");
             Console.WriteLine("            *        ● 남은기간이 4일 미만일경우 노란색으로 표시됩니다.              *             ");
             Console.WriteLine("             *       ● 남은기간이 1일 미만일경우 빨간색으로 표시됩니다.             *              ");
             Console.WriteLine("              *                                                                     *               ");

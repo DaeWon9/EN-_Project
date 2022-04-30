@@ -7,6 +7,9 @@ namespace Library
 {
     class Constant
     {
+        // SQL connection
+        public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=daewonLibrary;Uid=root;Pwd=0000;";
+
         //window size
         public const int WINDOW_WIDTH = 100;
         public const int WINDOW_WIDTH_CENTER = 50;
@@ -81,15 +84,15 @@ namespace Library
         public const string TEXT_SUCCESS_MODIFY = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
         public const string TEXT_SUCCESS_RETURN_BOOK = "도서반납에 성공하였습니다! 계속해서 반납하시겠습니까??";
         public const string TEXT_SUCCESS_ADD_BOOK = "도서추가에 성공하였습니다! 계속해서 추가하시겠습니까??";
-        // SQL connection
-        public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=library;Uid=root;Pwd=0000;";
+
 
         // QUERY String
         public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(50), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, borrowDate DATETIME, returnDate DATETIME, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";
-        public const string QUERY_STRING_GET_ALL_TABLES = "USE library; SHOW tables";
+        public const string QUERY_STRING_GET_ALL_TABLES = "SHOW tables";
 
         public const string QUERY_STRING_SELECT = "SELECT {0} FROM {1}";
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
+        public const string QUERY_STRING_ORDER_BY_SELECT = "SELECT {0} FROM {1} ORDER BY {2}";
         public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
         public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6})";
@@ -111,7 +114,6 @@ namespace Library
         public const string CONDITIONAL_STRING_COMPARE_BELOW_BY_INT = "{0} <= {1}";
         public const string CONDITIONAL_STRING_COMPARE_OVER_BY_INT = "{0} >= {1}";
         public const string CONDITIONAL_STRING_LIKE = "({0} LIKE '{1}%' OR {0} LIKE '%{1}' OR {0} LIKE '%{1}%')";
-
         // Mysql Table 
         public const string TABLE_NAME_ADMINISTRATOR = "administrator";
         public const string TABLE_NAME_BOOK = "book";
@@ -121,6 +123,8 @@ namespace Library
         public const string ADMINISTRATOR_FILED_ID = "id";
         public const string ADMINISTRATOR_FILED_PASSWORD = "pw";
 
+        //대여일자 filed
+        public const string FILED_BORROW_DATE = "borrowdate";
         // Member Filed
         public const string FILED_ALL = "*";
         public const string MEMBER_FILED_NAME = "name";

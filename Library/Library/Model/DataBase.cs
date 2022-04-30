@@ -25,15 +25,17 @@ namespace Library.Model
             }
         }
 
-        public MySqlDataReader Select(string filed, string tableName, string conditionalString = "")
+        public MySqlDataReader Select(string filed, string tableName, string conditionalString = "", string orderByString = "")
         {
             if (!connection.Ping())
                 connection.Open();
 
-            if (conditionalString == "") // 조건문이 없는경우
+            if (conditionalString == "" && orderByString == "") // 조건문이 없는경우
                 sqlString = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
-            else
+            if (conditionalString != "" && orderByString == "")
                 sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
+            if (conditionalString == "" && orderByString != "")
+                sqlString = string.Format(Constant.QUERY_STRING_ORDER_BY_SELECT, filed, tableName, orderByString);
 
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
@@ -147,7 +149,7 @@ namespace Library.Model
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                selectedElements.Add(reader[string.Format("Tables_in_library")].ToString());
+                selectedElements.Add(reader[string.Format("Tables_in_daewonLibrary")].ToString());
             }
             reader.Close();
             connection.Close();
