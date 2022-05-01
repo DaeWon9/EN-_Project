@@ -13,7 +13,8 @@ namespace Library.Controller
 {
     class Log : Message
     {
-        LogScreen logScreen = new LogScreen(); 
+        LogScreen logScreen = new LogScreen();
+        private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Log.txt"); // 로그 파일 저장 경로 
         public void ShowLogScreen()
         {
             logScreen.PrintLog(DataBase.GetDataBase().GetLog(Constant.TEXT_NONE));
@@ -34,6 +35,8 @@ namespace Library.Controller
             {
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
                 DataBase.GetDataBase().ResetLog();
+                if (File.Exists(path)) // Log파일이 존재한다면
+                    File.Delete(path); // 파일삭제
                 PrintMessage(Constant.TEXT_SUCCESS_RESET_LOG, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                 Console.ReadKey();
             }
@@ -41,8 +44,6 @@ namespace Library.Controller
 
         public void SaveLogToTxt() // Log.txt 파일 저장하기
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // 바탕화면 경로 
-            string path = Path.Combine(desktopPath, "Log.txt"); // 로그 파일 저장 경로 
             MySqlDataReader reader = DataBase.GetDataBase().GetLog(Constant.TEXT_NONE);
             StreamWriter writer;
             writer = File.CreateText(path);
