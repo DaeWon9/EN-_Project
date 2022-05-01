@@ -182,6 +182,7 @@ namespace Library.Controller
             }
             if (GetYesOrNoByAdd == Constant.INPUT_ENTER) // 추가하시겠습니까?? -> ENTER
             {
+                DataBase.GetDataBase().AddLog("< 관리자 >", bookName + "(id:" + bookId + ") 도서추가");
                 DataBase.GetDataBase().InsertAddBook(Constant.TABLE_NAME_BOOK, int.Parse(bookId), bookName, bookPublisher, bookAuthor, int.Parse(bookPrice), int.Parse(bookQuantity));
                 Console.CursorVisible = false;
                 administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_ADD_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
@@ -339,6 +340,7 @@ namespace Library.Controller
         private bool IsWithdrawlCompleted(AdministratorScreen administratorScreen)
         {
             int getYesOrNoByWithdrawl;
+            string memberName;
             if (IsMemberNotReturnBorrowedBook()) // 반납안한 책이 있음
             {
                 administratorScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
@@ -354,6 +356,8 @@ namespace Library.Controller
                 getYesOrNoByWithdrawl = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByWithdrawl == Constant.INPUT_ENTER) // 탈퇴진행
                 {
+                    memberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
+                    DataBase.GetDataBase().AddLog("< 관리자 >", memberName + "(id:" + managementMemberId + ") 회원삭제");
                     DataBase.GetDataBase().Drop(managementMemberId); // 회원아이디로 된 테이블 drop
                     DataBase.GetDataBase().Delete(Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
                 }
@@ -645,6 +649,7 @@ namespace Library.Controller
         private bool IsDeleteBookCompleted(AdministratorScreen administratorScreen, int bookId)
         {
             int getYesOrNoByDeleteBook;
+            string bookName;
             if (IsBookBorrwed(bookId)) // 해당책을 대여한 회원이 있음
             {
                 administratorScreen.PrintMessage(Constant.TEXT_UNABLE_DELETE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
@@ -659,7 +664,11 @@ namespace Library.Controller
 
                 getYesOrNoByDeleteBook = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByDeleteBook == Constant.INPUT_ENTER) // 삭제진행
+                {
+                    bookName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId));
+                    DataBase.GetDataBase().AddLog("< 관리자 >", bookName + "(id:" + bookId + ") 도서삭제");
                     DataBase.GetDataBase().Delete(Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId));// 해당도서 delete
+                }
                 if (getYesOrNoByDeleteBook == Constant.INPUT_ESCAPE) // 삭제취소
                 {
                     DataProcessing.GetDataProcessing().ClearErrorMessage();
@@ -799,7 +808,7 @@ namespace Library.Controller
             conditionalString = string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId);
             foreach (string tableName in AllTablesName)
             {
-                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
+                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK && tableName != Constant.TABLE_NAME_LOG)
                 {
                     MySqlDataReader reader = DataBase.GetDataBase().Select(Constant.FILED_ALL, tableName, conditionalString);
                     if (reader.HasRows)

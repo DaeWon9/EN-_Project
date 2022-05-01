@@ -11,7 +11,7 @@ namespace Library.View
     {
         public void PrintLog(MySqlDataReader reader)
         {
-            Console.WriteLine("              시간              |        회원정보        |                    활동                    ");
+            Console.WriteLine("           시간           |        회원정보        |                    활동                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
             //Console.Write("{0}", lectureList[row][column] + "".PadRight(GetPadLength(GetSortLength(column), lectureList[row][column])));
             while (reader.Read())

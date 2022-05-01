@@ -193,7 +193,7 @@ namespace Library
         public const int CURSOR_POS_NONE = -1;
 
         // log length
-        public const int LOG_LENGTH_DATE = 31;
+        public const int LOG_LENGTH_DATE = 25;
         public const int LOG_LENGTH_MEMBER = 23;
         public const int LOG_LENGTH_ACTIVITY = 31;
 
