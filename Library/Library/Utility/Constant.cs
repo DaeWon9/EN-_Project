@@ -10,6 +10,10 @@ namespace Library
         // SQL connection
         public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=daewonLibrary;Uid=root;Pwd=0000;";
 
+        // naver api
+        public const string CLIENT_ID = "RS8gQbYXLAarLLZv26GN";
+        public const string CLIENT_SECRET = "_QKwOfvRUZ";
+
         //window size
         public const int WINDOW_WIDTH = 100;
         public const int WINDOW_WIDTH_CENTER = 50;

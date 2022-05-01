@@ -29,3 +29,5 @@ C:\Users\82109\Desktop\DaeWon\C#\Library\Library\bin\Debug\System.Memory.xml
 C:\Users\82109\Desktop\DaeWon\C#\Library\Library\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\82109\Desktop\DaeWon\C#\Library\Library\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\82109\Desktop\DaeWon\C#\Library\Library\obj\Debug\Library.csproj.CopyComplete
+C:\Users\82109\Desktop\DaeWon\C#\Library\Library\bin\Debug\Newtonsoft.Json.dll
+C:\Users\82109\Desktop\DaeWon\C#\Library\Library\bin\Debug\Newtonsoft.Json.xml

@@ -13,6 +13,7 @@ namespace Library.Controller
     class Administrator : MenuSelection // 기능별로 쪼개기.. 모듈화...
     {
         Log log = new Log();
+        NaverBook naverBook = new NaverBook();
         private List<string> searchedBookIdList = new List<string>();
         private bool isInputEscape = false, isBookDeleteCompleted = false, isSearchAndModify = false;
         private int modifyBookId = 0;
@@ -978,6 +979,7 @@ namespace Library.Controller
                         ShowBorrowBookStatus(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.SEARCH_BY_NAVER:
+                        naverBook.SearchBookByNaver();
                         break;
                     case (int)Constant.AdministratorMenu.SHOW_LOG:
                         log.SaveLogToTxt();
