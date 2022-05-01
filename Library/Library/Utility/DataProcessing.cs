@@ -14,7 +14,7 @@ namespace Library.Utility
         private bool isInputEnter = false;
         private bool isInputEscape = false;
 
-        public static DataProcessing Instance
+        public static DataProcessing Instance // 이름바꾸기
         {
             get
             {

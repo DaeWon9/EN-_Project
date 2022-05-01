@@ -91,7 +91,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
-            connection.Close();
+            connection.Close(); //소멸자로 객체 삭제해주기
         }
 
         public string GetSelectedElement(string filed, string tableName, string conditionalString)
@@ -206,7 +206,7 @@ namespace Library.Model
         {
             if (!connection.Ping())
                 connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_RETURN, id); // 도서관에 보관중인 책에서 개수 -1
+            sqlString = string.Format(Constant.QUERY_STRING_UPDATE_BOOK_QUANTITY_BY_RETURN, id); // 도서관에 보관중인 책에서 개수 +1
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();

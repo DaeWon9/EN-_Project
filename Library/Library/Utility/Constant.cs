@@ -28,8 +28,8 @@ namespace Library
         public const string EXCEPTION_TYPE_MEMBER_PASSWORD = @"^[0-9a-zA-Z]{6,10}$";
         public const string EXCEPTION_TYPE_MEMBER_NAME = @"^[가-힣]{2,5}$";
         public const string EXCEPTION_TYPE_MEMBER_AGE = @"^[0-9]{1,3}$";
-        public const string EXCEPTION_TYPE_MEMBER_ADDRESS = @"^[가-힣]\w*(시|도)\s[가-힣]\w*(시|군|구)\s[가-힣]\w*(읍|면|동)[가-힣-0-9\s]*$";
-        public const string EXCEPTION_TYPE_MEMBER_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$";
+        public const string EXCEPTION_TYPE_MEMBER_ADDRESS = @"^[가-힣]\w*(시|도)\s[가-힣]\w*(시|군|구)\s[가-힣]\w*(읍|면|동)[가-힣-0-9\s]*$"; // 도로명주소 추가하기
+        public const string EXCEPTION_TYPE_MEMBER_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$"; //01 말고도 다른시작부 설정하기
 
         public const string EXCEPTION_TYPE_BOOK_ID = @"^[0-9]{1,3}$";
         public const string EXCEPTION_TYPE_BOOK_NAME = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]{2,100}$";

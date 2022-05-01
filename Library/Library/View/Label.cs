@@ -4,7 +4,7 @@ namespace Library.View
 {
     class Label : Message
     {
-        public void PrintLibraryLabel(bool isClear = true)
+        public void PrintLibraryLabel(bool isClear = true) // 중복되는거 빼기, 제한조건 안내
         {
             if (isClear)
                 Console.Clear();

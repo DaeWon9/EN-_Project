@@ -86,7 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constant.cs" />
+    <Compile Include="Utility\Constant.cs" />
     <Compile Include="Controller\Administrator.cs" />
     <Compile Include="Controller\LibraryController.cs" />
     <Compile Include="Controller\Member.cs" />

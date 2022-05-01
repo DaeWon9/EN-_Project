@@ -571,7 +571,7 @@ namespace Library.Controller
             bool isSelectBookIdCompleted = false;
             isInputEscape = false;
 
-            if (isSearchAndModify == Constant.IS_SEARCH_AND_MODIFY)
+            if (isSearchAndModify == Constant.IS_SEARCH_AND_MODIFY) //겹치는부분 빼기
             {
                 administratorScreen.PrintSelectModifyBookScreen();
                 administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
