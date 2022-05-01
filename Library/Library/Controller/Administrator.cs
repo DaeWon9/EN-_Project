@@ -16,7 +16,8 @@ namespace Library.Controller
         private List<string> searchedBookIdList = new List<string>();
         private bool isInputEscape = false, isBookDeleteCompleted = false, isSearchAndModify = false;
         private int modifyBookId = 0;
-        private string conditionalStringByUserInput = "", managementMemberId = "", managementMemeberName = "";
+        private string modifyBookName = "", modifyBookPublisher = "", modifyBookAuthor = "", modifyBookPrice = "", modifyBookQuantity = "";
+        private string conditionalStringByUserInput = "", managementMemberId = "", managementMemberName = "", managementMemberAge = "", managementMemberAddress = "", managementMemberPhoneNumber = "";
 
         // Login
         public void Login(AdministratorScreen administratorScreen) // id : admin1    pw: admin1
@@ -297,11 +298,7 @@ namespace Library.Controller
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
                             getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                             if (getYesOrNoByModify == Constant.INPUT_ENTER)
-                            {
-                                managementMemberId = memberId;
-                                managementMemeberName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, memberId));
                                 isSelectMemberIdCompleted = true;
-                            }
                             if (getYesOrNoByModify == Constant.INPUT_ESCAPE)
                             {
                                 DataProcessing.GetDataProcessing().ClearErrorMessage();
@@ -313,6 +310,16 @@ namespace Library.Controller
                         break;
                 }
             }
+            if (isSelectMemberIdCompleted)
+            {
+                managementMemberId = memberId;
+                managementMemberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
+                managementMemberAge = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_AGE, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
+                managementMemberAddress = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_ADDRESS, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
+                managementMemberPhoneNumber = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_PHONE_NUMBER, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
+            }
+
+
             if (!isInputEscape)
                 ModifyMemberInformation(administratorScreen);
         }
@@ -381,7 +388,7 @@ namespace Library.Controller
             getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
             if (getYesOrNoByModify == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
             {
-                DataBase.GetDataBase().Update(Constant.TABLE_NAME_MEMBER, setString, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_NAME, managementMemeberName));
+                DataBase.GetDataBase().Update(Constant.TABLE_NAME_MEMBER, setString, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_NAME, managementMemberName));
                 return true;
             }
             if (getYesOrNoByModify == Constant.INPUT_ESCAPE) // 변경하시겠습니까? 에서 esc입력
@@ -447,6 +454,29 @@ namespace Library.Controller
                 if (setStringByUpdate != "")
                 {
                     isModifyCompleted = IsModifyMemberInformationCompleted(administratorScreen, setStringByUpdate);
+
+                    switch (currentConsoleCursorPosY)
+                    {
+                        case (int)Constant.MemberModifyModePosY.NAME:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 이름 수정> " + managementMemberName + " -> "  + memberName);
+                            break;
+                        case (int)Constant.MemberModifyModePosY.PASSWORD:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 비밀번호 수정>");
+                            break;
+                        case (int)Constant.MemberModifyModePosY.AGE:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 나이 수정> " + managementMemberAge + " -> "  + memberAge);
+                            break;
+                        case (int)Constant.MemberModifyModePosY.ADDRESS:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 주소 수정> " + managementMemberAddress);
+                            DataBase.GetDataBase().AddLog("< 관리자 >", " \t\t\t  -> "  + memberAddress);
+                            break;
+                        case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 핸드폰번호 수정> " + managementMemberPhoneNumber + " -> "  + memberPhoneNumber);
+                            break;
+                        default:
+                            break;
+                    }
+
                     if (isModifyCompleted && IsReModifyByMember(administratorScreen)) // 계속해서 변경
                         ModifyMemberInformation(administratorScreen);
                 }
@@ -563,6 +593,31 @@ namespace Library.Controller
                 if (setStringByUpdate != "") // 수정사항이 있다면
                 {
                     isModifyCompleted = IsModifyBookInformationCompleted(administratorScreen, setStringByUpdate, modifyBookId);
+
+                    
+                    switch (currentConsoleCursorPosY)
+                    {
+                        case (int)Constant.BookModifyPosY.NAME:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 도서명 수정> " + modifyBookName);
+                            DataBase.GetDataBase().AddLog("< 관리자 >", " \t\t\t-> "  + bookName);
+                            break;
+                        case (int)Constant.BookModifyPosY.PUBLISHER:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 출판사 수정> " + modifyBookPublisher + " -> "  + bookPublisher);
+                            break;
+                        case (int)Constant.BookModifyPosY.AUTHOR:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 저자 수정> " + modifyBookAuthor + " -> "  + bookAuthor);
+                            break;
+                        case (int)Constant.BookModifyPosY.PRICE:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 가격 수정> " + modifyBookPrice + " -> "  + bookPrice);
+                            break;
+                        case (int)Constant.BookModifyPosY.QUANTITY:
+                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 수량 수정> " + modifyBookQuantity + " -> "  + bookQuantity);
+                            break;
+                        default:
+                            break;
+                    }
+                    
+
                     if (isModifyCompleted && IsReModifyByBook(administratorScreen))
                         ModifyBook(administratorScreen);
                 }
@@ -623,7 +678,6 @@ namespace Library.Controller
                             administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
                             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
-                            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
                             getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                             if (getYesOrNoByModify == Constant.INPUT_ENTER)
                             {
@@ -641,6 +695,15 @@ namespace Library.Controller
                         break;
                 }
             }
+            if (isSelectBookIdCompleted)
+            {
+                modifyBookName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId)); // 수정할 도서의 이름 저장
+                modifyBookPublisher = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_PUBLISHER, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId)); // 수정할 도서의 출판사 저장
+                modifyBookAuthor = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_AUTHOR, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId)); // 수정할 도서의 저자 저장
+                modifyBookPrice = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_PRICE, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId)); // 수정할 도서의 가격 저장
+                modifyBookQuantity = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_QUANTITY, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId)); // 수정할 도서의 수량 저장
+            }
+
             if (!isInputEscape)
                 ModifyBook(administratorScreen);
 

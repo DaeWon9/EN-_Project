@@ -311,8 +311,8 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                           < 로 그 현 황 >                           *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *        ● 회원들의 로그 현황입니다.                                     *             ");
-            Console.WriteLine("           *                                                                           *            ");
+            Console.WriteLine("            *        ● 그동안 기록된 로그 현황입니다.                                *             ");
+            Console.WriteLine("           *         ● 바탕화면에 자동으로 Log.txt 파일이 저장됩니다.                 *            ");
             Console.WriteLine("            *                                                                         *             ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("              *                                                                     *               ");
