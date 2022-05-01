@@ -51,7 +51,7 @@ namespace Library.Controller
                     return true;
             }
 
-            administratorScreen.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+            administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_CORRECT_ID_PASSWORD, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
             DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
             DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
@@ -183,7 +183,7 @@ namespace Library.Controller
             }
             if (GetYesOrNoByAdd == Constant.INPUT_ENTER) // 추가하시겠습니까?? -> ENTER
             {
-                DataBase.GetDataBase().AddLog("< 관리자 >", bookName + "(id:" + bookId + ") 도서추가");
+                DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_FORM_CONTAIN_ID,bookName, bookId, Constant.LOG_TEXT_ADD_BOOK));
                 DataBase.GetDataBase().InsertAddBook(Constant.TABLE_NAME_BOOK, int.Parse(bookId), bookName, bookPublisher, bookAuthor, int.Parse(bookPrice), int.Parse(bookQuantity));
                 Console.CursorVisible = false;
                 administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_ADD_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
@@ -364,7 +364,7 @@ namespace Library.Controller
                 if (getYesOrNoByWithdrawl == Constant.INPUT_ENTER) // 탈퇴진행
                 {
                     memberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
-                    DataBase.GetDataBase().AddLog("< 관리자 >", memberName + "(id:" + managementMemberId + ") 회원삭제");
+                    DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_FORM_CONTAIN_ID, memberName, managementMemberId, Constant.LOG_TEXT_DELETE_MEMBER));
                     DataBase.GetDataBase().Drop(managementMemberId); // 회원아이디로 된 테이블 drop
                     DataBase.GetDataBase().Delete(Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
                 }
@@ -458,20 +458,20 @@ namespace Library.Controller
                     switch (currentConsoleCursorPosY)
                     {
                         case (int)Constant.MemberModifyModePosY.NAME:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 이름 수정> " + managementMemberName + " -> "  + memberName);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_NAME, managementMemberName, memberName));
                             break;
                         case (int)Constant.MemberModifyModePosY.PASSWORD:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 비밀번호 수정>");
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_PASSWORD_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_PASSWORD));
                             break;
                         case (int)Constant.MemberModifyModePosY.AGE:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 나이 수정> " + managementMemberAge + " -> "  + memberAge);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_AGE, managementMemberAge, memberAge));
                             break;
                         case (int)Constant.MemberModifyModePosY.ADDRESS:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 주소 수정> " + managementMemberAddress);
-                            DataBase.GetDataBase().AddLog("< 관리자 >", " \t\t\t  -> "  + memberAddress);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_ADDRESS_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_ADDRESS, managementMemberAddress));
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFIED_MEMBER_ADDRESS_BY_ADINISTRATOR, memberAddress));
                             break;
                         case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + managementMemberId + " 핸드폰번호 수정> " + managementMemberPhoneNumber + " -> "  + memberPhoneNumber);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_PHONE_NUMBER, managementMemberPhoneNumber, memberPhoneNumber));
                             break;
                         default:
                             break;
@@ -598,20 +598,20 @@ namespace Library.Controller
                     switch (currentConsoleCursorPosY)
                     {
                         case (int)Constant.BookModifyPosY.NAME:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 도서명 수정> " + modifyBookName);
-                            DataBase.GetDataBase().AddLog("< 관리자 >", " \t\t\t-> "  + bookName);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK_NAME_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_NAME, modifyBookName));
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFIED_BOOK_NAME, bookName));
                             break;
                         case (int)Constant.BookModifyPosY.PUBLISHER:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 출판사 수정> " + modifyBookPublisher + " -> "  + bookPublisher);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PUBLISHER, modifyBookPublisher, bookPublisher));
                             break;
                         case (int)Constant.BookModifyPosY.AUTHOR:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 저자 수정> " + modifyBookAuthor + " -> "  + bookAuthor);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_AUTHOR, modifyBookAuthor, bookAuthor));
                             break;
                         case (int)Constant.BookModifyPosY.PRICE:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 가격 수정> " + modifyBookPrice + " -> "  + bookPrice);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PRICE, modifyBookPrice, bookPrice));
                             break;
                         case (int)Constant.BookModifyPosY.QUANTITY:
-                            DataBase.GetDataBase().AddLog("< 관리자 >", "<id:" + modifyBookId + " 수량 수정> " + modifyBookQuantity + " -> "  + bookQuantity);
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_QUANTITY, modifyBookQuantity, bookQuantity));
                             break;
                         default:
                             break;
@@ -729,7 +729,7 @@ namespace Library.Controller
                 if (getYesOrNoByDeleteBook == Constant.INPUT_ENTER) // 삭제진행
                 {
                     bookName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId));
-                    DataBase.GetDataBase().AddLog("< 관리자 >", bookName + "(id:" + bookId + ") 도서삭제");
+                    DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_FORM_CONTAIN_ID, bookName, bookId, Constant.LOG_TEXT_DELETE_BOOK));
                     DataBase.GetDataBase().Delete(Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId));// 해당도서 delete
                 }
                 if (getYesOrNoByDeleteBook == Constant.INPUT_ESCAPE) // 삭제취소

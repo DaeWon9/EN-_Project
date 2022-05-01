@@ -38,7 +38,7 @@ namespace Library.Controller
             loginMemberAge = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_AGE, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 나이 저장
             loginMemberAddress = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_ADDRESS, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 주소 저장
             loginMemberPhoneNumber = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_PHONE_NUMBER, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 핸드폰번호 저장
-            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "로그인");
+            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), Constant.LOG_TEXT_LOGIN);
             SelectMemberMainMenu(memberScreen); // 넘어가는부분
         }
 
@@ -156,7 +156,7 @@ namespace Library.Controller
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
                 DataBase.GetDataBase().InsertMember(Constant.TABLE_NAME_MEMBER, name, id, password, int.Parse(age), address, phoneNumber); // member 테이블에 입력한 멤버정보 추가
                 DataBase.GetDataBase().CreateTable(id); // 해당 멤버의 id로 대여도서 테이블 생성 
-                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, name, id), "회원가입");
+                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, name, id), Constant.LOG_TEXT_SIGN_UP);
                 memberScreen.PrintMessage(Constant.TEXT_SUCCESS_SIGN_UP, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                 if (DataProcessing.GetDataProcessing().GetEnterOrEscape() != Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
                 {
@@ -220,7 +220,7 @@ namespace Library.Controller
                 }
             }
             if (isSearchBookCompleted)
-                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "도서검색");
+                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), Constant.LOG_TEXT_SEARCH_BOOK);
         }
 
         private bool IsSearchBookCompleted(MemberScreen memberScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
@@ -278,7 +278,7 @@ namespace Library.Controller
             memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, loginMemberId.ToString(), Constant.TEXT_NONE, Constant.FILED_BORROW_DATE), loginMemberId.ToString(), Constant.TEXT_NONE); // 대여도서확인시 테이블명은 각 유저의 id임
             Console.CursorVisible = false;
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
-            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "대여현황확인");
+            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), Constant.LOG_TEXT_CHECK_BORROWED_BOOK_STATUS);
             while (!isInputEscape)
             {
                 isInputEscape = DataProcessing.GetDataProcessing().IsOnlyInputEscape();
@@ -353,7 +353,7 @@ namespace Library.Controller
                         break;
                     case (int)Constant.CheckInsertBorrowedBook.SUCCESS:
                         bookName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, bookId));
-                        DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), bookName + "(id:" + bookId + ") 도서대여");
+                        DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_FORM_CONTAIN_ID, bookName, bookId, Constant.LOG_TEXT_BORROW_BOOK));
                         return IsReBorrow(memberScreen);
                     default:
                         break;
@@ -485,7 +485,8 @@ namespace Library.Controller
                 { //반납하는 쿼리문실행 -> 유저의 대여도서목록에서는  delete, 도서관 보유 책수량은 1플러스
 
                     returnBookName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, returnBookId));
-                    DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), returnBookName + "(id:" + returnBookId + ") 도서반납");
+                    DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_FORM_CONTAIN_ID, returnBookName, returnBookId, Constant.LOG_TEXT_RETURN_BOOK));
+
                     DataBase.GetDataBase().Delete(loginMemberId, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, returnBookId));
                     DataBase.GetDataBase().PlusBookQuantity(int.Parse(returnBookId));
                     DataProcessing.GetDataProcessing().ClearErrorMessage();
@@ -613,20 +614,20 @@ namespace Library.Controller
                     switch (currentConsoleCursorPosY)
                     {
                         case (int)Constant.MemberModifyModePosY.NAME:
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "<이름 수정> " + loginMemberName + " -> "  + memberName);
+                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_NAME, loginMemberName, memberName));
                             break;
                         case (int)Constant.MemberModifyModePosY.PASSWORD:
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "<비밀번호 수정>");
+                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER_PASSWORD, Constant.LOG_TEXT_MODIFY_MEMBER_PASSWORD));
                             break;
                         case (int)Constant.MemberModifyModePosY.AGE:
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "<나이 수정> " + loginMemberAge + " -> "  + memberAge);
+                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_AGE, loginMemberAge, memberAge));
                             break;
                         case (int)Constant.MemberModifyModePosY.ADDRESS:
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "<주소 수정> " + loginMemberAddress);
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), " \t\t-> "  + memberAddress);
+                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER_ADDRESS, Constant.LOG_TEXT_MODIFY_MEMBER_ADDRESS, loginMemberAddress));
+                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFIED_MEMBER_ADDRESS, memberAddress));
                             break;
                         case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "<핸드폰번호 수정> " + loginMemberPhoneNumber + " -> "  + memberPhoneNumber);
+                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_PHONE_NUMBER, loginMemberPhoneNumber, memberPhoneNumber));
                             break;
                         default:
                             break;
@@ -642,7 +643,7 @@ namespace Library.Controller
                 }
 
                 if (isWithdrawlCompleted) // 회원탈퇴 성공시
-                    DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "회원탈퇴");
+                    DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), Constant.LOG_TEXT_WITHDRAWL);
 
             }
 

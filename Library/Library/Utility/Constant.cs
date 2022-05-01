@@ -138,6 +138,41 @@ namespace Library
         public const string LOG_FILED_ACTIVITY = "activity";
         public const string LOG_MEMBER_TEXT_FORM = "{0}({1})";
 
+        public const string LOG_ADMINISTRATOR_TEXT_FROM = "< 관리자 >";
+        public const string LOG_TEXT_LOGIN = "로그인";
+        public const string LOG_TEXT_SIGN_UP = "회원가입";
+        public const string LOG_TEXT_WITHDRAWL = "회원탈퇴";
+        public const string LOG_TEXT_CHECK_BORROWED_BOOK_STATUS = "대여현황확인";
+        public const string LOG_TEXT_SEARCH_BOOK = "도서검색";
+        public const string LOG_TEXT_BORROW_BOOK = "도서대여";
+        public const string LOG_TEXT_RETURN_BOOK = "도서반납";
+        public const string LOG_TEXT_ADD_BOOK = "도서추가";
+        public const string LOG_TEXT_DELETE_BOOK = "도서삭제";
+        public const string LOG_TEXT_DELETE_MEMBER = "회원삭제";
+        public const string LOG_TEXT_MODIFY_MEMBER_NAME = "이름수정";
+        public const string LOG_TEXT_MODIFY_MEMBER_PASSWORD = "비밀번호수정";
+        public const string LOG_TEXT_MODIFY_MEMBER_AGE = "나이수정";
+        public const string LOG_TEXT_MODIFY_MEMBER_ADDRESS = "주소수정";
+        public const string LOG_TEXT_MODIFY_MEMBER_PHONE_NUMBER = "번호수정";
+        public const string LOG_TEXT_MODIFY_BOOK_NAME = "도서명수정";
+        public const string LOG_TEXT_MODIFY_BOOK_PUBLISHER = "출판사수정";
+        public const string LOG_TEXT_MODIFY_BOOK_AUTHOR = "저자수정";
+        public const string LOG_TEXT_MODIFY_BOOK_PRICE = "가격수정";
+        public const string LOG_TEXT_MODIFY_BOOK_QUANTITY = "수량수정";
+
+        public const string LOG_STRING_FORM_CONTAIN_ID = "{0}(id:{1}) {2}";
+        public const string LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR = "<id:{0} {1}> {2} -> {3}";
+        public const string LOG_STRING_MODIFY_MEMBER_PASSWORD_BY_ADMINISTRATOR = "<id:{0} {1}>";
+        public const string LOG_STRING_MODIFY_MEMBER_ADDRESS_BY_ADMINISTRATOR = "<id:{0} {1}> {2}";
+        public const string LOG_STRING_MODIFIED_MEMBER_ADDRESS_BY_ADINISTRATOR = " \t\t\t  -> {0}";
+        public const string LOG_STRING_MODIFY_BOOK_NAME_BY_ADMINISTRATOR = "<id:{0} {1}> {2}";
+        public const string LOG_STRING_MODIFIED_BOOK_NAME = " \t\t\t  -> {0}";
+
+        public const string LOG_STRING_MODIFY_MEMBER = "<{0}> {1} -> {2}";
+        public const string LOG_STRING_MODIFY_MEMBER_PASSWORD = "<{0}>";
+        public const string LOG_STRING_MODIFY_MEMBER_ADDRESS = "<{0}> {1}";
+        public const string LOG_STRING_MODIFIED_MEMBER_ADDRESS = " \t\t-> {0}";
+
         // Member Filed
         public const string FILED_ALL = "*";
         public const string MEMBER_FILED_NAME = "name";
