@@ -9,20 +9,17 @@ namespace Library.Model
 {
     internal class DataBase
     {
-        private static DataBase instance;
+        private static DataBase database;
         private string sqlString;
         MySqlConnection connection = new MySqlConnection(Constant.DATABASE_CONNECTION_INFORMATION);
 
-        public static DataBase Instance
+        public static DataBase GetDataBase()
         {
-            get
+            if (database == null)
             {
-                if (instance == null)
-                {
-                    instance = new DataBase();
-                }
-                return instance;
+                database = new DataBase();
             }
+            return database;
         }
 
         public MySqlDataReader Select(string filed, string tableName, string conditionalString = "", string orderByString = "")

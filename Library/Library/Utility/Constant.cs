@@ -96,7 +96,8 @@ namespace Library
         public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
         public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6})";
-        public const string QUERY_STRING_INSERT_LOG = "INSERT INTO log VALUES (curdate(), '{0}', '{1}')";
+        public const string QUERY_STRING_INSERT_LOG = "INSERT INTO log VALUES (now(), '{0}', '{1}')";
+        public const string QUERY_STRING_LOG_RESET = "delete from log";
 
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
         public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1}";
@@ -127,12 +128,13 @@ namespace Library
         public const string ADMINISTRATOR_FILED_PASSWORD = "pw";
 
         //대여일자 filed
-        public const string FILED_BORROW_DATE = "borrowdate";
+        public const string FILED_BORROW_DATE = "borrowDate";
 
-        // Log Filed
+        // Log
         public const string LOG_FILED_DATE = "date";
         public const string LOG_FILED_MEMBER = "member";
         public const string LOG_FILED_ACTIVITY = "activity";
+        public const string LOG_MEMBER_TEXT_FORM = "{0}({1})";
 
         // Member Filed
         public const string FILED_ALL = "*";
@@ -182,12 +184,17 @@ namespace Library
         public const bool IS_ADMINISTRATOR_MODE = true;
         public const bool IS_TITLE_OPTION = true;
 
-
         // cursor pos
         public const int CURSOR_POS_LEFT = 0;
         public const int CURSOR_POS_TOP = 0;
         public const int CURSOR_POS_RIGHT = 98;
         public const int CURSOR_POS_NONE = -1;
+
+        // log length
+        public const int LOG_LENGTH_DATE = 31;
+        public const int LOG_LENGTH_MEMBER = 23;
+        public const int LOG_LENGTH_ACTIVITY = 31;
+
 
         //Max length
         public const int MAX_LENGTH_MEMBER_ID = 10;

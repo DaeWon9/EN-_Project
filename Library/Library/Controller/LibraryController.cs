@@ -63,7 +63,7 @@ namespace Library.Controller
                         administratorFuntions.Login(administratorScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
-                        isExit = DataProcessing.Instance.IsExit(bothScreen);
+                        isExit = DataProcessing.GetDataProcessing().IsExit(bothScreen);
                         break;
                     default:
                         break;

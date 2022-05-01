@@ -15,7 +15,7 @@ namespace Library.Controller
         LogScreen logScreen = new LogScreen(); 
         public void ShowLogScreen()
         {
-            logScreen.PrintLog(DataBase.Instance.GetLog(Constant.TEXT_NONE));
+            logScreen.PrintLog(DataBase.GetDataBase().GetLog(Constant.TEXT_NONE));
         }
     }
 }

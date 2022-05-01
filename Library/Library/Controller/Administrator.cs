@@ -26,10 +26,10 @@ namespace Library.Controller
             administratorScreen.PrintLoginScreen();
             while (!isLogin)
             {
-                id = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                id = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_ID_POS_Y, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
                 if (id == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
-                password = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
+                password = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.LOGIN_POS_X, Constant.LOGIN_PASSWORD_POS_Y, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                 if (password == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 뒤로가기
                     break;
                 isLogin = IsLogin(administratorScreen, id, password);
@@ -41,8 +41,8 @@ namespace Library.Controller
 
         private bool IsLogin(AdministratorScreen administratorScreen, string id, string password)
         {
-            List<string> administratorId = DataBase.Instance.GetSelectedElements(Constant.ADMINISTRATOR_FILED_ID, Constant.TABLE_NAME_ADMINISTRATOR);
-            List<string> administratorPassword = DataBase.Instance.GetSelectedElements(Constant.ADMINISTRATOR_FILED_PASSWORD, Constant.TABLE_NAME_ADMINISTRATOR);
+            List<string> administratorId = DataBase.GetDataBase().GetSelectedElements(Constant.ADMINISTRATOR_FILED_ID, Constant.TABLE_NAME_ADMINISTRATOR);
+            List<string> administratorPassword = DataBase.GetDataBase().GetSelectedElements(Constant.ADMINISTRATOR_FILED_PASSWORD, Constant.TABLE_NAME_ADMINISTRATOR);
 
             for (int repeat = 0; repeat < administratorId.Count; repeat++)
             {
@@ -51,8 +51,8 @@ namespace Library.Controller
             }
 
             administratorScreen.PrintMessage("ID & PASSWORD 가 틀립니다", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-            DataProcessing.Instance.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
-            DataProcessing.Instance.ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
+            DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.LOGIN_ID_POS_Y);
+            DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.LOGIN_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.LOGIN_PASSWORD_POS_Y);
             return false;
         }
 
@@ -66,33 +66,33 @@ namespace Library.Controller
             Console.CursorVisible = true;
 
             administratorScreen.PrintBookSearchScreen();
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+            administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
 
             while (!isInputEscape && !isSearchBookCompleted)
             {
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
-                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookSearchPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.BookSearchPosY.ID:
-                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        bookId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
                         break;
                     case (int)Constant.BookSearchPosY.NAME:
-                        bookName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
+                        bookName = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
                         break;
                     case (int)Constant.BookSearchPosY.PUBLISHER:
-                        bookPublisher = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
+                        bookPublisher = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
                         break;
                     case (int)Constant.BookSearchPosY.AUTHOR:
-                        bookAuthor = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
+                        bookAuthor = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
                         break;
                     case (int)Constant.BookSearchPosY.PRICE:
-                        bookPrice = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        bookPrice = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
                         break;
                     case (int)Constant.BookSearchPosY.QUANTITY:
-                        bookQuantity = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        bookQuantity = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
                         break;
                     case (int)Constant.BookSearchPosY.SEARCH:
                         isSearchBookCompleted = IsSearchBookCompleted(administratorScreen, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
@@ -113,34 +113,34 @@ namespace Library.Controller
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
                 return false;
             }
-            conditionalStringByUserInput = DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+            conditionalStringByUserInput = DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
 
             administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
-            getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
+            getYesOrNoBySearching = DataProcessing.GetDataProcessing().GetEnterOrEscape();
 
             if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndModify == Constant.IS_ONLY_SEARCH) // 검색만
             {
                 administratorScreen.PrintSearchResultScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
-                getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
+                getYesOrNoByResearching = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByResearching == Constant.INPUT_ENTER)
                     InputBookSearchOption(administratorScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndModify == Constant.IS_SEARCH_AND_BORROW) // 검색 후 수정까지하는 함수 -> 여기서 검색된 도서 id 리스트 만들어서 대여할때 중복체크하기
             {
                 administratorScreen.PrintSelectModifyBookScreen(); // 도서 수정 UI 출력
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
-                searchedBookIdList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, DataProcessing.Instance.GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity));
+                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                searchedBookIdList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity));
                 SelectModifyBookId(administratorScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
                 administratorScreen.PrintBookSearchScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
             }
@@ -150,7 +150,7 @@ namespace Library.Controller
         // AddBook
         private bool IsAlreadyRegisteredBookInLibrary(string bookId)
         {
-            List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK);
+            List<string> memberIdList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK);
             for (int repeat = 0; repeat < memberIdList.Count; repeat++)
             {
                 if (memberIdList[repeat] == bookId)
@@ -172,22 +172,22 @@ namespace Library.Controller
             administratorScreen.PrintMessage(Constant.TEXT_IS_ADD, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
-            GetYesOrNoByAdd = DataProcessing.Instance.GetEnterOrEscape();
+            GetYesOrNoByAdd = DataProcessing.GetDataProcessing().GetEnterOrEscape();
 
             if (GetYesOrNoByAdd == Constant.INPUT_ESCAPE) // 추가하시겠습니까?? -> ESC
             {
-                DataProcessing.Instance.ClearErrorMessage();
+                DataProcessing.GetDataProcessing().ClearErrorMessage();
                 Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.ID); //좌표조정
                 return false;
             }
             if (GetYesOrNoByAdd == Constant.INPUT_ENTER) // 추가하시겠습니까?? -> ENTER
             {
-                DataBase.Instance.InsertAddBook(Constant.TABLE_NAME_BOOK, int.Parse(bookId), bookName, bookPublisher, bookAuthor, int.Parse(bookPrice), int.Parse(bookQuantity));
+                DataBase.GetDataBase().InsertAddBook(Constant.TABLE_NAME_BOOK, int.Parse(bookId), bookName, bookPublisher, bookAuthor, int.Parse(bookPrice), int.Parse(bookQuantity));
                 Console.CursorVisible = false;
                 administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_ADD_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
                 administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
 
-                GetYesOrNoByReAdd = DataProcessing.Instance.GetEnterOrEscape();
+                GetYesOrNoByReAdd = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (GetYesOrNoByReAdd == Constant.INPUT_ENTER) // 계속해서 추가할것임.
                     AddBook(administratorScreen);
             }
@@ -203,7 +203,7 @@ namespace Library.Controller
             Console.CursorVisible = true;
 
             administratorScreen.PrintAddBookScreen();
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+            administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             Console.SetCursorPosition(0, 0);      //입력창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.ID); //좌표조정
 
@@ -213,31 +213,31 @@ namespace Library.Controller
                 {
                     administratorScreen.PrintMessage(Constant.TEXT_ALREADY_REGISTERED_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.ID); //좌표조정
-                    DataProcessing.Instance.ClearConsoleLine(Constant.ADD_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookAddPosY.ID);
+                    DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.ADD_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookAddPosY.ID);
                     bookId = "";
                 }
 
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.ADD_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookAddPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
-                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.ADD_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookAddPosY.ID, (int)Constant.BookSearchPosY.SEARCH);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.BookAddPosY.ID:
-                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        bookId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
                         break;
                     case (int)Constant.BookAddPosY.NAME:
-                        bookName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
+                        bookName = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
                         break;
                     case (int)Constant.BookAddPosY.PUBLISHER:
-                        bookPublisher = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
+                        bookPublisher = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
                         break;
                     case (int)Constant.BookAddPosY.AUTHOR:
-                        bookAuthor = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
+                        bookAuthor = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
                         break;
                     case (int)Constant.BookAddPosY.PRICE:
-                        bookPrice = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        bookPrice = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
                         break;
                     case (int)Constant.BookAddPosY.QUANTITY:
-                        bookQuantity = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        bookQuantity = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
                         break;
                     case (int)Constant.BookAddPosY.ADD:
                         isAddBookCompleted = IsAddBookCompleted(administratorScreen, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
@@ -251,7 +251,7 @@ namespace Library.Controller
         // ManagementMember
         private bool IsRegisteredMemberId(string memberId)
         {
-            List<string> memberIdList = DataBase.Instance.GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
+            List<string> memberIdList = DataBase.GetDataBase().GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
             for (int repeat = 0; repeat < memberIdList.Count; repeat++)
             {
                 if (memberIdList[repeat] == memberId)
@@ -267,7 +267,7 @@ namespace Library.Controller
             bool isSelectMemberIdCompleted = false;
             isInputEscape = false;
             administratorScreen.PrintManagementMemberScreen();
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+            administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             Console.SetCursorPosition(0, 0);      //입력창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, (int)Constant.SelectMemberIdPosY.ID); //좌표조정
 
@@ -277,16 +277,16 @@ namespace Library.Controller
                 {
                     administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_REGISTERED_MEMBER_ID, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, (int)Constant.SelectMemberIdPosY.ID); //좌표조정
-                    DataProcessing.Instance.ClearConsoleLine(Constant.SELECT_MANAGEMENT_MEMBER_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectMemberIdPosY.ID);
+                    DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MANAGEMENT_MEMBER_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectMemberIdPosY.ID);
                     memberId = "";
                 }
 
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, Console.CursorTop, (int)Constant.SelectMemberIdPosY.ID, (int)Constant.SelectMemberIdPosY.MANAGEMEMT_MEMBER);
-                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, Console.CursorTop, (int)Constant.SelectMemberIdPosY.ID, (int)Constant.SelectMemberIdPosY.MANAGEMEMT_MEMBER);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.SelectMemberIdPosY.ID:
-                        memberId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SELECT_MANAGEMENT_MEMBER_ID_POS_X, (int)Constant.SelectMemberIdPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                        memberId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SELECT_MANAGEMENT_MEMBER_ID_POS_X, (int)Constant.SelectMemberIdPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
                         break;
                     case (int)Constant.SelectMemberIdPosY.MANAGEMEMT_MEMBER:
                         if (memberId != "" && memberId != Constant.INPUT_ESCAPE.ToString())
@@ -294,16 +294,16 @@ namespace Library.Controller
                             administratorScreen.PrintMessage(Constant.TEXT_IS_MANAGEMENT, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
                             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
-                            getYesOrNoByModify = DataProcessing.Instance.GetEnterOrEscape();
+                            getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                             if (getYesOrNoByModify == Constant.INPUT_ENTER)
                             {
                                 managementMemberId = memberId;
-                                managementMemeberName = DataBase.Instance.GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, memberId));
+                                managementMemeberName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, memberId));
                                 isSelectMemberIdCompleted = true;
                             }
                             if (getYesOrNoByModify == Constant.INPUT_ESCAPE)
                             {
-                                DataProcessing.Instance.ClearErrorMessage();
+                                DataProcessing.GetDataProcessing().ClearErrorMessage();
                                 Console.SetCursorPosition(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, (int)Constant.SelectMemberIdPosY.ID); //좌표조정
                             }
                         }
@@ -319,7 +319,7 @@ namespace Library.Controller
         private bool IsMemberNotReturnBorrowedBook()
         {
 
-            List<string> BorrowedBookList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, managementMemberId);
+            List<string> BorrowedBookList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ID, managementMemberId);
             if (BorrowedBookList.Count > 0) // 반납안한 책이 있음 
                 return true;
             return false;
@@ -330,7 +330,7 @@ namespace Library.Controller
             int getYesOrNoByReModify;
             administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
-            getYesOrNoByReModify = DataProcessing.Instance.GetEnterOrEscape();
+            getYesOrNoByReModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
             if (getYesOrNoByReModify == Constant.INPUT_ESCAPE) // 계속해서 변경 x
                 return false;
             return true;
@@ -351,15 +351,15 @@ namespace Library.Controller
                 administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
 
-                getYesOrNoByWithdrawl = DataProcessing.Instance.GetEnterOrEscape();
+                getYesOrNoByWithdrawl = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByWithdrawl == Constant.INPUT_ENTER) // 탈퇴진행
                 {
-                    DataBase.Instance.Drop(managementMemberId); // 회원아이디로 된 테이블 drop
-                    DataBase.Instance.Delete(Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
+                    DataBase.GetDataBase().Drop(managementMemberId); // 회원아이디로 된 테이블 drop
+                    DataBase.GetDataBase().Delete(Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
                 }
                 if (getYesOrNoByWithdrawl == Constant.INPUT_ESCAPE) // 탈퇴취소
                 {
-                    DataProcessing.Instance.ClearErrorMessage();
+                    DataProcessing.GetDataProcessing().ClearErrorMessage();
                     Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                     return false;
                 }
@@ -374,20 +374,20 @@ namespace Library.Controller
             administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
-            getYesOrNoByModify = DataProcessing.Instance.GetEnterOrEscape();
+            getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
             if (getYesOrNoByModify == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
             {
-                DataBase.Instance.Update(Constant.TABLE_NAME_MEMBER, setString, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_NAME, managementMemeberName));
+                DataBase.GetDataBase().Update(Constant.TABLE_NAME_MEMBER, setString, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_NAME, managementMemeberName));
                 return true;
             }
             if (getYesOrNoByModify == Constant.INPUT_ESCAPE) // 변경하시겠습니까? 에서 esc입력
             {
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.NAME);
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PASSWORD);
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.AGE);
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.ADDRESS);
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
-                DataProcessing.Instance.ClearErrorMessage();
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.NAME);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PASSWORD);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.AGE);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.ADDRESS);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
+                DataProcessing.GetDataProcessing().ClearErrorMessage();
                 Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
 
                 return false;
@@ -403,34 +403,34 @@ namespace Library.Controller
             isInputEscape = false;
             int currentConsoleCursorPosY;
             administratorScreen.PrintModifyMemberInformationLabel();
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+            administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             administratorScreen.PrintModifyMemberInformationScreen();
             Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
 
             while (!isInputEscape && !isModifyCompleted && !isWithdrawlCompleted)
             {
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberModifyModePosY.NAME, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
-                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberModifyModePosY.NAME, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.MemberModifyModePosY.NAME:
-                        memberName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN, Constant.EXCEPTION_TYPE_MEMBER_NAME);
+                        memberName = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN, Constant.EXCEPTION_TYPE_MEMBER_NAME);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_NAME, memberName);
                         break;
                     case (int)Constant.MemberModifyModePosY.PASSWORD:
-                        memberPassword = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD);
+                        memberPassword = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PASSWORD, memberPassword);
                         break;
                     case (int)Constant.MemberModifyModePosY.AGE:
-                        memberAge = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
+                        memberAge = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_AGE, memberAge);
                         break;
                     case (int)Constant.MemberModifyModePosY.ADDRESS:
-                        memberAddress = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
+                        memberAddress = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_ADDRESS, memberAddress);
                         break;
                     case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
-                        memberPhoneNumber = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
+                        memberPhoneNumber = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PHONE_NUMBER, memberPhoneNumber);
                         break;
                     case (int)Constant.MemberModifyModePosY.WITHDRAWAL:
@@ -462,7 +462,7 @@ namespace Library.Controller
         
         private bool IsExistBookIdInSearchedBookList(string bookId)
         {
-            List<string> searchedBookList = DataBase.Instance.GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput);
+            List<string> searchedBookList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput);
             for (int repeat = 0; repeat < searchedBookList.Count; repeat++)
             {
                 if (searchedBookList[repeat] == bookId)
@@ -477,20 +477,20 @@ namespace Library.Controller
             administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
-            getYesOrNoByModify = DataProcessing.Instance.GetEnterOrEscape();
+            getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
             if (getYesOrNoByModify == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
             {
-                DataBase.Instance.Update(Constant.TABLE_NAME_BOOK, setString, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId));
+                DataBase.GetDataBase().Update(Constant.TABLE_NAME_BOOK, setString, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId));
                 return true;
             }
             if (getYesOrNoByModify == Constant.INPUT_ESCAPE) // 변경하시겠습니까? 에서 esc입력
             {
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.NAME);
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.PUBLISHER);
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.AUTHOR);
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.PRICE);
-                DataProcessing.Instance.ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.QUANTITY);
-                DataProcessing.Instance.ClearErrorMessage();
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.NAME);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.PUBLISHER);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.AUTHOR);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.PRICE);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.QUANTITY);
+                DataProcessing.GetDataProcessing().ClearErrorMessage();
                 Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                 return false;
             }
@@ -502,7 +502,7 @@ namespace Library.Controller
             int getYesOrNoByReModify;
             administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
-            getYesOrNoByReModify = DataProcessing.Instance.GetEnterOrEscape();
+            getYesOrNoByReModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
             if (getYesOrNoByReModify == Constant.INPUT_ESCAPE) // 계속해서 변경 x
                 return false;
             return true;
@@ -518,35 +518,35 @@ namespace Library.Controller
             isInputEscape = false;
 
             administratorScreen.PrintModifyBookLabel();
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, modifyBookId)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+            administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, modifyBookId)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             administratorScreen.PrintModifyBookScreen();
 
             Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
 
             while (!isInputEscape && !isModifyCompleted && !isBookDeleteCompleted)
             {
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookModifyPosY.NAME, (int)Constant.BookModifyPosY.DELETE);
-                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookModifyPosY.NAME, (int)Constant.BookModifyPosY.DELETE);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.BookModifyPosY.NAME:
-                        bookName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
+                        bookName = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.NAME, Constant.MAX_LENGTH_BOOK_NAME, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_NAME);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_NAME, bookName);
                         break;
                     case (int)Constant.BookModifyPosY.PUBLISHER:
-                        bookPublisher = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
+                        bookPublisher = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.PUBLISHER, Constant.MAX_LENGTH_BOOK_PUBLISHER, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_BOOK_PUBLISHER);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_PUBLISHER, bookPublisher);
                         break;
                     case (int)Constant.BookModifyPosY.AUTHOR:
-                        bookAuthor = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
+                        bookAuthor = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_AUTHOR, bookAuthor);
                         break;
                     case (int)Constant.BookModifyPosY.PRICE:
-                        bookPrice = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        bookPrice = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_PRICE, bookPrice);
                         break;
                     case (int)Constant.BookModifyPosY.QUANTITY:
-                        bookQuantity = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        bookQuantity = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                         break;
                     case (int)Constant.BookModifyPosY.DELETE:
@@ -575,12 +575,12 @@ namespace Library.Controller
             if (isSearchAndModify == Constant.IS_SEARCH_AND_MODIFY) //겹치는부분 빼기
             {
                 administratorScreen.PrintSelectModifyBookScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, conditionalStringByUserInput), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             }
             else
             {
                 administratorScreen.PrintSelectModifyBookScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
 
             }
 
@@ -595,7 +595,7 @@ namespace Library.Controller
                 {
                     administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_EXIST_IN_LIBRARY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
-                    DataProcessing.Instance.ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
+                    DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
                     bookId = "";
                 }
 
@@ -603,15 +603,15 @@ namespace Library.Controller
                 {
                     administratorScreen.PrintMessage(Constant.TEXT_THIS_BOOK_IS_NOT_SEARCHED, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
-                    DataProcessing.Instance.ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
+                    DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
                     bookId = "";
                 }
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, Console.CursorTop, (int)Constant.SelectBookIdPosY.ID, (int)Constant.SelectBookIdPosY.MODIFY_BOOK);
-                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, Console.CursorTop, (int)Constant.SelectBookIdPosY.ID, (int)Constant.SelectBookIdPosY.MODIFY_BOOK);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.SelectBookIdPosY.ID:
-                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SELECT_MODIFY_BOOK_ID_POS_X, (int)Constant.SelectBookIdPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        bookId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SELECT_MODIFY_BOOK_ID_POS_X, (int)Constant.SelectBookIdPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
                         break;
                     case (int)Constant.SelectBookIdPosY.MODIFY_BOOK:
                         if (bookId != "" && bookId != Constant.INPUT_ESCAPE.ToString())
@@ -620,7 +620,7 @@ namespace Library.Controller
                             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
-                            getYesOrNoByModify = DataProcessing.Instance.GetEnterOrEscape();
+                            getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                             if (getYesOrNoByModify == Constant.INPUT_ENTER)
                             {
                                 modifyBookId = int.Parse(bookId);
@@ -628,7 +628,7 @@ namespace Library.Controller
                             }
                             if (getYesOrNoByModify == Constant.INPUT_ESCAPE)
                             {
-                                DataProcessing.Instance.ClearErrorMessage();
+                                DataProcessing.GetDataProcessing().ClearErrorMessage();
                                 Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
                             }
                         }
@@ -657,12 +657,12 @@ namespace Library.Controller
                 administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
 
-                getYesOrNoByDeleteBook = DataProcessing.Instance.GetEnterOrEscape();
+                getYesOrNoByDeleteBook = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByDeleteBook == Constant.INPUT_ENTER) // 삭제진행
-                    DataBase.Instance.Delete(Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId));// 해당도서 delete
+                    DataBase.GetDataBase().Delete(Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId));// 해당도서 delete
                 if (getYesOrNoByDeleteBook == Constant.INPUT_ESCAPE) // 삭제취소
                 {
-                    DataProcessing.Instance.ClearErrorMessage();
+                    DataProcessing.GetDataProcessing().ClearErrorMessage();
                     Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                     return false;
                 }
@@ -680,30 +680,30 @@ namespace Library.Controller
             Console.CursorVisible = true;
 
             administratorScreen.PrintMemberSearchScreen();
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+            administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.MemberSearchPosY.NAME); //좌표조정
 
             while (!isInputEscape && !isSearchMemberCompleted)
             {
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberSearchPosY.NAME, (int)Constant.MemberSearchPosY.SEARCH);
-                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.SEARCH_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberSearchPosY.NAME, (int)Constant.MemberSearchPosY.SEARCH);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.MemberSearchPosY.NAME:
-                        memberName = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN, Constant.EXCEPTION_TYPE_MEMBER_NAME);
+                        memberName = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN, Constant.EXCEPTION_TYPE_MEMBER_NAME);
                         break;
                     case (int)Constant.MemberSearchPosY.ID:
-                        memberId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER);
+                        memberId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER);
                         break;
                     case (int)Constant.MemberSearchPosY.AGE:
-                        memberAge = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
+                        memberAge = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
                         break;
                     case (int)Constant.MemberSearchPosY.ADDRESS:
-                        memberAddress = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE);
+                        memberAddress = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE);
                         break;
                     case (int)Constant.MemberSearchPosY.PHONE_NUMBER:
-                        memberPhoneNumber = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_NUMBER);
+                        memberPhoneNumber = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_NUMBER);
                         break;
                     case (int)Constant.MemberSearchPosY.SEARCH:
                         isSearchMemberCompleted = IsSearchMemberCompleted(administratorScreen, memberName, memberId, memberAge, memberAddress, memberPhoneNumber);
@@ -724,27 +724,27 @@ namespace Library.Controller
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.MemberSearchPosY.NAME); //좌표조정
                 return false;
             }
-            conditionalStringByUserInput = DataProcessing.Instance.GetConditionalStringBySearchMember(memberName, memberId, memberAge, memberAddress, memberPhoneNumber);
+            conditionalStringByUserInput = DataProcessing.GetDataProcessing().GetConditionalStringBySearchMember(memberName, memberId, memberAge, memberAddress, memberPhoneNumber);
 
             administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
-            getYesOrNoBySearching = DataProcessing.Instance.GetEnterOrEscape();
+            getYesOrNoBySearching = DataProcessing.GetDataProcessing().GetEnterOrEscape();
 
             if (getYesOrNoBySearching == Constant.INPUT_ENTER) // 검색만
             {
                 administratorScreen.PrintSearchResultScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, conditionalStringByUserInput), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, conditionalStringByUserInput), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0); // 출력되는 자료가 많아서 화면이 내려갈 수 있어 최상단으로 커서 옮기기
                 Console.CursorVisible = false;
-                getYesOrNoByResearching = DataProcessing.Instance.GetEnterOrEscape();
+                getYesOrNoByResearching = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByResearching == Constant.INPUT_ENTER)
                     InputBookSearchOption(administratorScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {
                 administratorScreen.PrintBookSearchScreen();
-                administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
                 Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.MemberSearchPosY.NAME); //좌표조정
             }
@@ -758,15 +758,15 @@ namespace Library.Controller
             isInputEscape = false;
             string memberName = "", memberId = "", bookId = "";
             int currentConsoleCursorPosY;
-            List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
+            List<string> AllTablesName = DataBase.GetDataBase().GetAllTablesName();
 
             administratorScreen.PrintSelectCheckBorrowedBookModeScreen();
             foreach (string tableName in AllTablesName)
             {
-                memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
-                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
+                memberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
+                if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK && tableName != Constant.TABLE_NAME_LOG)
                 {
-                    administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, tableName, Constant.TEXT_NONE, Constant.FILED_BORROW_DATE), tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
+                    administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, tableName, Constant.TEXT_NONE, Constant.FILED_BORROW_DATE), tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
                 }
             }
             Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
@@ -774,16 +774,16 @@ namespace Library.Controller
 
             while (!isInputEscape)
             {
-                currentConsoleCursorPosY = DataProcessing.Instance.CursorMove(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, Console.CursorTop, (int)Constant.SelectMemberIdPosY.ID, (int)Constant.SelectMemberIdPosY.MANAGEMEMT_MEMBER);
-                isInputEscape = DataProcessing.Instance.IsInputEscape(currentConsoleCursorPosY.ToString());
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, Console.CursorTop, (int)Constant.SelectMemberIdPosY.ID, (int)Constant.SelectMemberIdPosY.MANAGEMEMT_MEMBER);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.CheckBorrowedBookModePosY.BOOK_ID:
-                        bookId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.BOOK_ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        bookId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.BOOK_ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
                         ShowBorrowBookStatusByBookId(administratorScreen, bookId);
                         break;
                     case (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID:
-                        memberId = DataProcessing.Instance.GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                        memberId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
                         ShowBorrowBookStatusByMemberId(administratorScreen, memberId);
                         break;
                     default:
@@ -795,13 +795,13 @@ namespace Library.Controller
         private bool IsBookBorrwed(int bookId)
         {
             string conditionalString;
-            List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
+            List<string> AllTablesName = DataBase.GetDataBase().GetAllTablesName();
             conditionalString = string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId);
             foreach (string tableName in AllTablesName)
             {
                 if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
                 {
-                    MySqlDataReader reader = DataBase.Instance.Select(Constant.FILED_ALL, tableName, conditionalString);
+                    MySqlDataReader reader = DataBase.GetDataBase().Select(Constant.FILED_ALL, tableName, conditionalString);
                     if (reader.HasRows)
                     {
                         reader.Close();
@@ -819,23 +819,23 @@ namespace Library.Controller
             if (!IsAlreadyRegisteredBookInLibrary(bookId))// 도서관에 없는책임
             {
                 administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_EXIST_IN_LIBRARY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                DataProcessing.Instance.ClearConsoleLine(Constant.SEARCH_POS_X, Constant.WINDOW_WIDTH, (int)Constant.CheckBorrowedBookModePosY.BOOK_ID);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SEARCH_POS_X, Constant.WINDOW_WIDTH, (int)Constant.CheckBorrowedBookModePosY.BOOK_ID);
                 return;
             }
 
             isInputEscape = false;
             string memberName = "", conditionalString = "";
-            List<string> AllTablesName = DataBase.Instance.GetAllTablesName();
+            List<string> AllTablesName = DataBase.GetDataBase().GetAllTablesName();
 
             conditionalString = string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, bookId);
 
             administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
             foreach (string tableName in AllTablesName)
             {
-                memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
+                memberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, tableName));
                 if (tableName != Constant.TABLE_NAME_ADMINISTRATOR && tableName != Constant.TABLE_NAME_MEMBER && tableName != Constant.TABLE_NAME_BOOK)
                 {
-                    MySqlDataReader reader = DataBase.Instance.Select(Constant.FILED_ALL, tableName, conditionalString);
+                    MySqlDataReader reader = DataBase.GetDataBase().Select(Constant.FILED_ALL, tableName, conditionalString);
                     administratorScreen.PrintSelectedValues(reader, tableName, memberName, Constant.IS_ADMINISTRATOR_MODE);
                 }
             }
@@ -843,7 +843,7 @@ namespace Library.Controller
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
             while (!isInputEscape)
             {
-                isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
+                isInputEscape = DataProcessing.GetDataProcessing().IsOnlyInputEscape();
                 if (isInputEscape) //esc 눌렀을때 뒤로가기
                 {
                     Console.CursorVisible = true;
@@ -858,20 +858,20 @@ namespace Library.Controller
             if (!IsRegisteredMemberId(memberId))// 회원아이디가 입력됐는데, 등록되지 않은 아이디임
             {
                 administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_REGISTERED_MEMBER_ID, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                DataProcessing.Instance.ClearConsoleLine(Constant.SEARCH_POS_X, Constant.WINDOW_WIDTH, (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SEARCH_POS_X, Constant.WINDOW_WIDTH, (int)Constant.CheckBorrowedBookModePosY.MEMBER_ID);
                 return;
             }
 
             isInputEscape = false;
             string memberName = "";
             administratorScreen.PrintAdministratorCheckBorrowedBookLabel();
-            memberName = DataBase.Instance.GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, memberId));
-            administratorScreen.PrintSelectedValues(DataBase.Instance.Select(Constant.FILED_ALL, memberId, Constant.TEXT_NONE, Constant.FILED_BORROW_DATE), memberId, memberName, Constant.IS_ADMINISTRATOR_MODE, Constant.IS_TITLE_OPTION);
+            memberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, memberId));
+            administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, memberId, Constant.TEXT_NONE, Constant.FILED_BORROW_DATE), memberId, memberName, Constant.IS_ADMINISTRATOR_MODE, Constant.IS_TITLE_OPTION);
             Console.CursorVisible = false;
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
             while (!isInputEscape)
             {
-                isInputEscape = DataProcessing.Instance.IsOnlyInputEscape();
+                isInputEscape = DataProcessing.GetDataProcessing().IsOnlyInputEscape();
                 if (isInputEscape) //esc 눌렀을때 뒤로가기
                 {
                     Console.CursorVisible = true;
@@ -911,7 +911,7 @@ namespace Library.Controller
                         Console.ReadKey();
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
-                        isLogout = DataProcessing.Instance.IsLogout(administratorScreen);
+                        isLogout = DataProcessing.GetDataProcessing().IsLogout(administratorScreen);
                         break;
                     default:
                         break;

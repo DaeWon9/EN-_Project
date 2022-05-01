@@ -10,20 +10,17 @@ namespace Library.Utility
 {
     class DataProcessing
     {
-        private static DataProcessing instance;
+        private static DataProcessing dataProcessing;
         private bool isInputEnter = false;
         private bool isInputEscape = false;
 
-        public static DataProcessing Instance // 이름바꾸기
+        public static DataProcessing GetDataProcessing() 
         {
-            get
+            if (dataProcessing == null)
             {
-                if (instance == null)
-                {
-                    instance = new DataProcessing();
-                }
-                return instance;
+                dataProcessing = new DataProcessing();
             }
+            return dataProcessing;
         }
 
         public int CursorMove(int posX, int posY, int minPosY, int maxPosY)
