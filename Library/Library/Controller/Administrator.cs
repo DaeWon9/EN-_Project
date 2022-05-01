@@ -12,6 +12,7 @@ namespace Library.Controller
 {
     class Administrator : MenuSelection // 기능별로 쪼개기.. 모듈화...
     {
+        Log log = new Log();
         private List<string> searchedBookIdList = new List<string>();
         private bool isInputEscape = false, isBookDeleteCompleted = false, isSearchAndModify = false;
         private int modifyBookId = 0;
@@ -903,6 +904,11 @@ namespace Library.Controller
                         break;
                     case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
                         ShowBorrowBookStatus(administratorScreen);
+                        break;
+                    case (int)Constant.AdministratorMenu.SHOW_LOG:
+                        administratorScreen.PrintLogLabel();
+                        log.ShowLogScreen();
+                        Console.ReadKey();
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isLogout = DataProcessing.Instance.IsLogout(administratorScreen);

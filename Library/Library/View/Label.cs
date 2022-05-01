@@ -303,5 +303,23 @@ namespace Library.View
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
+
+        public void PrintLogLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                           < 로 그 현 황 >                           *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *        ● 회원들의 로그 현황입니다.                                     *             ");
+            Console.WriteLine("           *                                                                           *            ");
+            Console.WriteLine("            *                                                                         *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                뒤로가기 : ESC      ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Library.Controller
         {
             administratorScreen.PrintMenuScreen();
             administratorScreen.PrintMessage(administratorModeString, Constant.WINDOW_WIDTH_CENTER, Constant.WELCOME_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.AdministratorMenu.BOOK_SEARCH, (int)Constant.AdministratorMenu.BOOK_SEARCH, (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS);
+            menuValue = DataProcessing.Instance.CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.AdministratorMenu.BOOK_SEARCH, (int)Constant.AdministratorMenu.BOOK_SEARCH, (int)Constant.AdministratorMenu.SHOW_LOG);
             return menuValue;
         }
 

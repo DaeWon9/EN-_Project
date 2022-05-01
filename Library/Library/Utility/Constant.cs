@@ -96,6 +96,8 @@ namespace Library
         public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
         public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6})";
+        public const string QUERY_STRING_INSERT_LOG = "INSERT INTO log VALUES (curdate(), '{0}', '{1}')";
+
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
         public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1}";
         public const string QUERY_STRING_CONDITIONAL_UPDATE = "UPDATE {0} SET {1} WHERE {2}";
@@ -118,6 +120,7 @@ namespace Library
         public const string TABLE_NAME_ADMINISTRATOR = "administrator";
         public const string TABLE_NAME_BOOK = "book";
         public const string TABLE_NAME_MEMBER = "member";
+        public const string TABLE_NAME_LOG = "log";
 
         // Administrator Filed
         public const string ADMINISTRATOR_FILED_ID = "id";
@@ -125,6 +128,12 @@ namespace Library
 
         //대여일자 filed
         public const string FILED_BORROW_DATE = "borrowdate";
+
+        // Log Filed
+        public const string LOG_FILED_DATE = "date";
+        public const string LOG_FILED_MEMBER = "member";
+        public const string LOG_FILED_ACTIVITY = "activity";
+
         // Member Filed
         public const string FILED_ALL = "*";
         public const string MEMBER_FILED_NAME = "name";
@@ -276,7 +285,7 @@ namespace Library
 
         public enum BookReturnPosY : int { ID = 12, RETURN }
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS }
+        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SHOW_LOG }
 
         public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFY_MEMBER_INFORMATION }
 

@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Log.cs" />
     <Compile Include="Utility\Constant.cs" />
     <Compile Include="Controller\Administrator.cs" />
     <Compile Include="Controller\LibraryController.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="View\BothScreen.cs" />
     <Compile Include="View\AdministratorScreen.cs" />
     <Compile Include="View\Label.cs" />
+    <Compile Include="View\LogScreen.cs" />
     <Compile Include="View\MemberScreen.cs" />
     <Compile Include="View\Message.cs" />
   </ItemGroup>

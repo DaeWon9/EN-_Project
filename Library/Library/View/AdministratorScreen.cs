@@ -31,6 +31,7 @@ namespace Library.View
             Console.WriteLine("                                         ▶  도서수정                                               ");
             Console.WriteLine("                                         ▶  회원관리                                               ");
             Console.WriteLine("                                         ▶  대여상황                                               ");
+            Console.WriteLine("                                         ▶  로그보기                                               ");
             Console.WriteLine("                                                                                                    ");
         }
 

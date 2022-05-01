@@ -276,9 +276,34 @@ namespace Library.Model
             return (int)Constant.CheckInsertBorrowedBook.SUCCESS;
         }
     
-        public void AddLog()
+        public void AddLog(string member, string activity) // 로그를 db에 추가
         {
-
+            if (!connection.Ping())
+                connection.Open();
+            
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_LOG, member, activity);
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            
+            reader.Close();
+            connection.Close();
         }
+
+        public MySqlDataReader GetLog(string conditionalString)
+        {
+            if (!connection.Ping())
+                connection.Open();
+
+            if (conditionalString == "") // 조건문이 없는경우
+                sqlString = string.Format(Constant.QUERY_STRING_SELECT, Constant.FILED_ALL, Constant.TABLE_NAME_LOG);
+            else
+                sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, Constant.FILED_ALL, Constant.TABLE_NAME_LOG, conditionalString);
+
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            return reader; // 다른곳에서 reader 닫아주는중
+        }
+
     }
 }
