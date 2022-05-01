@@ -977,11 +977,12 @@ namespace Library.Controller
                     case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
                         ShowBorrowBookStatus(administratorScreen);
                         break;
+                    case (int)Constant.AdministratorMenu.SEARCH_BY_NAVER:
+                        break;
                     case (int)Constant.AdministratorMenu.SHOW_LOG:
                         log.SaveLogToTxt();
                         administratorScreen.PrintLogLabel();
                         log.ShowLogScreen();
-                        Console.ReadKey();
                         break;
                     case (int)Constant.AdministratorMenu.RESET_LOG:
                         log.ResetLog();

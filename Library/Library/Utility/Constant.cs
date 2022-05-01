@@ -14,6 +14,12 @@ namespace Library
         public const int WINDOW_WIDTH = 100;
         public const int WINDOW_WIDTH_CENTER = 50;
         public const int WINDOW_HEIGHT = 50;
+
+        public const int MF_BYCOMMAND = 0x00000000; 
+        public const int SC_MINIMIZE = 0xF020;
+        public const int SC_MAXIMIZE = 0xF030;
+        public const int SC_SIZE = 0xF000;
+
         //exception type
         public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
         public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
@@ -133,6 +139,7 @@ namespace Library
         public const string FILED_BORROW_DATE = "borrowDate";
 
         // Log
+        public const string LOG_FILE_NAME = "Log.txt";
         public const string LOG_FILED_DATE = "date";
         public const string LOG_FILED_MEMBER = "member";
         public const string LOG_FILED_ACTIVITY = "activity";
@@ -329,7 +336,7 @@ namespace Library
 
         public enum BookReturnPosY : int { ID = 12, RETURN }
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SHOW_LOG, RESET_LOG}
+        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SEARCH_BY_NAVER, SHOW_LOG, RESET_LOG}
 
         public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFY_MEMBER_INFORMATION }
 

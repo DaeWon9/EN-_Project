@@ -14,10 +14,11 @@ namespace Library.Controller
     class Log : Message
     {
         LogScreen logScreen = new LogScreen();
-        private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Log.txt"); // 로그 파일 저장 경로 
+        private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), Constant.LOG_FILE_NAME); // 로그 파일 저장 경로 
         public void ShowLogScreen()
         {
             logScreen.PrintLog(DataBase.GetDataBase().GetLog(Constant.TEXT_NONE));
+            Console.ReadKey();
         }
 
         public void ResetLog()
