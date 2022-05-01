@@ -55,6 +55,7 @@ namespace Library
         public const string TEXT_IS_MANAGEMENT = "선택한 회원의 정보를 수정하시겠습니까??";
         public const string TEXT_IS_WITHDRAWAL = "< 주의 > 모든정보가 삭제됩니다. 정말로 탈퇴하시겠습니까??";
         public const string TEXT_IS_DELETE = "< 주의 > 모든정보가 삭제됩니다. 정말로 삭제하시겠습니까??";
+        public const string TEXT_IS_RESET_LOG = "< 주의 > 모든로그가 삭제됩니다. 정말로 삭제하시겠습니까??";
 
         public const string TEXT_UNABLE_WITHDRAWAL = "대여중인 도서가 존재하여 탈퇴가 불가능합니다";
         public const string TEXT_UNABLE_DELETE = "해당도서를 대여중인 회원이 존재하여 삭제가 불가능합니다";
@@ -79,6 +80,7 @@ namespace Library
         public const string TEXT_IS_NOT_BORROWED_BOOK = "대여중인 도서가 아닙니다.";
         public const string TEXT_IS_NOT_REGISTERED_MEMBER_ID = "등록되지않은 회원ID입니다.";
 
+        public const string TEXT_SUCCESS_RESET_LOG = "로그초기화에 성공하였습니다!";
         public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다! 계속해서 대여하시겠습니까??";
         public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
         public const string TEXT_SUCCESS_MODIFY = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
@@ -97,7 +99,7 @@ namespace Library
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
         public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6})";
         public const string QUERY_STRING_INSERT_LOG = "INSERT INTO log VALUES (now(), '{0}', '{1}')";
-        public const string QUERY_STRING_LOG_RESET = "delete from log";
+        public const string QUERY_STRING_LOG_RESET = "DELETE FROM log";
 
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
         public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1}";
@@ -292,7 +294,7 @@ namespace Library
 
         public enum BookReturnPosY : int { ID = 12, RETURN }
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SHOW_LOG }
+        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SHOW_LOG, RESET_LOG}
 
         public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFY_MEMBER_INFORMATION }
 

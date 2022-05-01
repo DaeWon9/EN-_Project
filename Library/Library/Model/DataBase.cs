@@ -286,6 +286,20 @@ namespace Library.Model
             connection.Close();
         }
 
+        public void ResetLog()
+        {
+            if (!connection.Ping())
+                connection.Open();
+
+            sqlString = Constant.QUERY_STRING_LOG_RESET;
+
+            MySqlCommand command = new MySqlCommand(sqlString, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            reader.Close();
+            connection.Close();
+        }
+
         public MySqlDataReader GetLog(string conditionalString)
         {
             if (!connection.Ping())

@@ -910,6 +910,9 @@ namespace Library.Controller
                         log.ShowLogScreen();
                         Console.ReadKey();
                         break;
+                    case (int)Constant.AdministratorMenu.RESET_LOG:
+                        log.ResetLog();
+                        break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isLogout = DataProcessing.GetDataProcessing().IsLogout(administratorScreen);
                         break;

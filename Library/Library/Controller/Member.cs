@@ -274,6 +274,7 @@ namespace Library.Controller
             memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, loginMemberId.ToString(), Constant.TEXT_NONE, Constant.FILED_BORROW_DATE), loginMemberId.ToString(), Constant.TEXT_NONE); // 대여도서확인시 테이블명은 각 유저의 id임
             Console.CursorVisible = false;
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP);
+            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "대여현황확인");
             while (!isInputEscape)
             {
                 isInputEscape = DataProcessing.GetDataProcessing().IsOnlyInputEscape();
@@ -346,6 +347,7 @@ namespace Library.Controller
                         memberScreen.PrintMessage(Constant.TEXT_IS_NOT_ENOUGH_QUANTITY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                         break;
                     case (int)Constant.CheckInsertBorrowedBook.SUCCESS:
+                        DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "해당 도서대여완료");
                         return IsReBorrow(memberScreen);
                     default:
                         break;
@@ -474,6 +476,7 @@ namespace Library.Controller
             {
                 if (IsBorrowedBookIdListContainReturnBookId(returnBookId)) // 반납하고자하는 도서아이디가 대여중인 도서목록에 있다면
                 { //반납하는 쿼리문실행 -> 유저의 대여도서목록에서는  delete, 도서관 보유 책수량은 1플러스
+                    DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "해당 도서반납완료");
                     DataBase.GetDataBase().Delete(loginMemberId, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, returnBookId));
                     DataBase.GetDataBase().PlusBookQuantity(int.Parse(returnBookId));
                     DataProcessing.GetDataProcessing().ClearErrorMessage();
@@ -552,9 +555,9 @@ namespace Library.Controller
             string setStringByUpdate = "";
             string memberName = "", memberPassword = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
             bool isModifyCompleted = false;
+            int currentConsoleCursorPosY = 0; // 초기화
             isWithdrawlCompleted = false;
             isInputEscape = false;
-            int currentConsoleCursorPosY;
             memberScreen.PrintModifyMemberInformationLabel();
             memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             memberScreen.PrintModifyMemberInformationScreen();
@@ -605,6 +608,31 @@ namespace Library.Controller
                         ModifyMemberInformation(memberScreen);
                 }
             }
+            if (isModifyCompleted) // 정보수정 성공시
+            {
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.MemberModifyModePosY.NAME:
+                        DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "이름 수정");
+                        break;
+                    case (int)Constant.MemberModifyModePosY.PASSWORD:
+                        DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "비밀번호 수정");
+                        break;
+                    case (int)Constant.MemberModifyModePosY.AGE:
+                        DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "나이 수정");
+                        break;
+                    case (int)Constant.MemberModifyModePosY.ADDRESS:
+                        DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "주소 수정");
+                        break;
+                    case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
+                        DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "핸드폰번호 수정");
+                        break;
+                    default:
+                        break;
+                }    
+            }
+            if (isWithdrawlCompleted) // 회원탈퇴 성공시
+                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), "회원탈퇴");
 
         }
         
