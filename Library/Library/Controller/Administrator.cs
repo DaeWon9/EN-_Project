@@ -915,6 +915,7 @@ namespace Library.Controller
                         ShowBorrowBookStatus(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.SHOW_LOG:
+                        log.SaveLogToTxt();
                         administratorScreen.PrintLogLabel();
                         log.ShowLogScreen();
                         Console.ReadKey();

@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using Library.Utility;
 using Library.Model;
 using Library.View;
+using System.IO;
 
 namespace Library.Controller
 {
@@ -36,6 +37,27 @@ namespace Library.Controller
                 PrintMessage(Constant.TEXT_SUCCESS_RESET_LOG, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                 Console.ReadKey();
             }
+        }
+
+        public void SaveLogToTxt() // Log.txt 파일 저장하기
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // 바탕화면 경로 
+            string path = Path.Combine(desktopPath, "Log.txt"); // 로그 파일 저장 경로 
+            MySqlDataReader reader = DataBase.GetDataBase().GetLog(Constant.TEXT_NONE);
+            StreamWriter writer;
+            writer = File.CreateText(path);
+            writer.WriteLine("----------------------------------------------------------------------------------------------------");
+            writer.WriteLine("              시간              |          회원정보          |                      활동            ");
+            writer.WriteLine("----------------------------------------------------------------------------------------------------");
+            while (reader.Read())
+            {
+                writer.Write(" {0}", reader[Constant.LOG_FILED_DATE] + "".PadRight(Constant.LOG_LENGTH_DATE - Encoding.Default.GetBytes(reader[Constant.LOG_FILED_DATE].ToString()).Length) + "|");
+                writer.Write(" {0}", reader[Constant.LOG_FILED_MEMBER] + "".PadRight(Constant.LOG_LENGTH_MEMBER - Encoding.Default.GetBytes(reader[Constant.LOG_FILED_MEMBER].ToString()).Length) + "|");
+                writer.WriteLine(" {0}", reader[Constant.LOG_FILED_ACTIVITY]);
+                writer.WriteLine("----------------------------------------------------------------------------------------------------");
+            }
+            reader.Close();
+            writer.Close();
         }
     }
 }
