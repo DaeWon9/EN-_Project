@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Library.View
 {
@@ -143,6 +144,27 @@ namespace Library.View
             Console.WriteLine("                                     회원아이디 :                                                   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintResultSerchedBookByNaver(JObject jObject, string query, int display)
+        {
+            PrintSearchBookByNaverLabel();
+            Console.WriteLine(string.Format("< 검색어 : {0}, 개수 : {1} 개 > 검색된 책 정보", query, display));
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+            for (int repeat = 0; repeat < display; repeat++)
+            {
+                Console.WriteLine(string.Format("{0}번", repeat + 1));
+                Console.WriteLine("----------------------------------------------------------------------------------------------------");
+                Console.WriteLine("제목   : " + jObject["items"][repeat]["title"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("저자   : " + jObject["items"][repeat]["author"]);
+                Console.WriteLine("가격   : " + jObject["items"][repeat]["price"]);
+                Console.WriteLine("출판사 : " + jObject["items"][repeat]["publisher"]);
+                Console.WriteLine("출판일 : " + jObject["items"][repeat]["pubdate"]);
+                Console.WriteLine("ISBN   : " + jObject["items"][repeat]["isbn"]);
+                Console.WriteLine("설명   : " + jObject["items"][repeat]["description"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("----------------------------------------------------------------------------------------------------");
+
+            }
         }
     }
 }

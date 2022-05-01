@@ -14,12 +14,15 @@ namespace Library.Controller
     {
         private string clientId = Constant.CLIENT_ID;
         private string clientSecert = Constant.CLIENT_SECRET;
-        public void SearchBookByNaver()
+        public JObject GetSearchBookInformationByNaver(string query, int display)
         {
             // title -> d_titl
+            //jsonStr = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
 
-            string query = "";
-            string url = "https://openapi.naver.com/v1/search/book.json?query=이것이&display=5";
+            string queryString = "query=" + query;
+            string displayString = "&display=" + display;
+            string url = "https://openapi.naver.com/v1/search/book.json?" + queryString + displayString;
+            //string url = "https://openapi.naver.com/v1/search/book_adv.xml?d_isbn = 8954763006 9788954763004";
 
             //request 
             WebRequest request = WebRequest.Create(url);
@@ -30,15 +33,12 @@ namespace Library.Controller
             WebResponse response = request.GetResponse();
             Stream responseStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(responseStream);
-            JObject jsonresult = JObject.Parse(reader.ReadToEnd());
+            JObject jsonResult = JObject.Parse(reader.ReadToEnd());
 
-
-            for (int repeat = 0; repeat < 5; repeat++)
-            {
-                Console.WriteLine(jsonresult["items"][repeat]["title"]);
-            }
-            Console.ReadKey();
-
+            reader.Close();
+            response.Close();
+            responseStream.Close();
+            return jsonResult;
         }
     }
 }

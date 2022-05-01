@@ -979,7 +979,8 @@ namespace Library.Controller
                         ShowBorrowBookStatus(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.SEARCH_BY_NAVER:
-                        naverBook.SearchBookByNaver();
+                        administratorScreen.PrintResultSerchedBookByNaver(naverBook.GetSearchBookInformationByNaver("코딩", 7), "코딩", 7);
+                        Console.ReadKey();
                         break;
                     case (int)Constant.AdministratorMenu.SHOW_LOG:
                         log.SaveLogToTxt();

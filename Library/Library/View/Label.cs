@@ -264,9 +264,9 @@ namespace Library.View
             Console.WriteLine("              *                        < 회 원 정 보 관 리 >                        *               ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("            *     ● 아래는 등록되어있는 모든 회원님들의 정보입니다                   *             ");
-            Console.WriteLine("           *      ● ↑↓ 방향키로 이동하며 ENTER키를 눌러 옵션을 선택해주세요         *             ");
-            Console.WriteLine("            *     ● 회원정보 검색 : 원하는 옵션으로 회원정보 검색 가능               *            ");
-            Console.WriteLine("             *    ● 회원정보 수정 : 회원아이디 입력시 해당 회원의 정보 수정가능     *             ");
+            Console.WriteLine("           *      ● ↑↓ 방향키로 이동하며 ENTER키를 눌러 옵션을 선택해주세요         *            ");
+            Console.WriteLine("            *     ● 회원정보 검색 : 원하는 옵션으로 회원정보 검색 가능               *             ");
+            Console.WriteLine("             *    ● 회원정보 수정 : 회원아이디 입력시 해당 회원의 정보 수정가능     *              ");
             Console.WriteLine("              *                                                                     *               ");
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
@@ -313,6 +313,24 @@ namespace Library.View
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("            *        ● 그동안 기록된 로그 현황입니다.                                *             ");
             Console.WriteLine("           *         ● 바탕화면에 자동으로 Log.txt 파일이 저장됩니다.                 *            ");
+            Console.WriteLine("            *                                                                         *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                뒤로가기 : ESC      ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintSearchBookByNaverLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                       < 네 이 버 도 서 검 색 >                      *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *        ● 네이버로 검색한 결과입니다.                                   *             ");
+            Console.WriteLine("           *                                                                           *            ");
             Console.WriteLine("            *                                                                         *             ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("              *                                                                     *               ");
