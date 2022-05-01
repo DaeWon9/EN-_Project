@@ -275,5 +275,10 @@ namespace Library.Model
             InsertBorrowedBook(tableName, id, bookName, bookPublisher, bookAuthor, bookPrice); // 사용자별 개별테이블에 대여도서 정보 넣기
             return (int)Constant.CheckInsertBorrowedBook.SUCCESS;
         }
+    
+        public void AddLog()
+        {
+
+        }
     }
 }
