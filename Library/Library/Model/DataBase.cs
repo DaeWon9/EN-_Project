@@ -36,7 +36,7 @@ namespace Library.Model
 
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
-
+            command.Dispose();
             return reader; // 다른곳에서 reader 닫아주는중
         }
 
@@ -48,6 +48,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -60,6 +61,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -72,6 +74,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -88,6 +91,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close(); //소멸자로 객체 삭제해주기
         }
 
@@ -107,6 +111,7 @@ namespace Library.Model
                 selectedElement = reader[string.Format("{0}", filed)].ToString();
 
             reader.Close();
+            command.Dispose();
             connection.Close();
             return selectedElement;
         }
@@ -129,6 +134,7 @@ namespace Library.Model
                 selectedElements.Add(reader[string.Format("{0}", filed)].ToString());
             }
             reader.Close();
+            command.Dispose();
             connection.Close();
             return selectedElements;
         }
@@ -149,6 +155,7 @@ namespace Library.Model
                 selectedElements.Add(reader[string.Format("Tables_in_daewonLibrary")].ToString());
             }
             reader.Close();
+            command.Dispose();
             connection.Close();
             return selectedElements;
 
@@ -162,6 +169,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -196,6 +204,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -207,6 +216,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -221,6 +231,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -232,6 +243,7 @@ namespace Library.Model
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -259,6 +271,7 @@ namespace Library.Model
                 bookISBN = reader[Constant.BOOK_FILED_ISBN].ToString();
             }
             reader.Close();
+            command.Dispose();
             connection.Close();
 
             if (!IsExistBookInLibrary(id, searchedBookIdList)) // 도서관에 없는책이면 대여 불가능
@@ -285,6 +298,7 @@ namespace Library.Model
             MySqlDataReader reader = command.ExecuteReader();
             
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -299,6 +313,7 @@ namespace Library.Model
             MySqlDataReader reader = command.ExecuteReader();
 
             reader.Close();
+            command.Dispose();
             connection.Close();
         }
 
@@ -314,7 +329,7 @@ namespace Library.Model
 
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
-
+            command.Dispose();
             return reader; // 다른곳에서 reader 닫아주는중
         }
 
