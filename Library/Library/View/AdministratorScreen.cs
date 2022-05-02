@@ -162,10 +162,22 @@ namespace Library.View
 
         public void PrintResultSerchedBookByNaver(JObject jObject, string query, int display)
         {
+            int repeatTime = display;
+
+            if (jObject["display"].ToString() != display.ToString())
+                repeatTime = int.Parse(jObject["display"].ToString());
+
             PrintSearchBookByNaverLabel();
             Console.WriteLine(string.Format("< 검색어 : {0}, 권수 : {1} 개 > 검색된 책 정보", query, display));
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
-            for (int repeat = 0; repeat < display; repeat++)
+
+            if (jObject["items"].ToString() == "[]")
+            {
+                Console.WriteLine("검색된 도서가 없습니다.");
+                Console.WriteLine("----------------------------------------------------------------------------------------------------");
+                return;
+            }
+            for (int repeat = 0; repeat < repeatTime; repeat++)
             {
                 Console.WriteLine(string.Format("{0}번", repeat + 1));
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");

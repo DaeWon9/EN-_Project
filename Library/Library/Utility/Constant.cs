@@ -262,7 +262,7 @@ namespace Library
         public const int MAX_LENGTH_BOOK_PRICE = 7;
         public const int MAX_LENGTH_BOOK_QUANTITY = 2;
         public const int MAX_LENGTH_DATE = 8;
-        public const int MAX_LENGTH_BOOK_ISBN = 20;
+        public const int MAX_LENGTH_BOOK_ISBN = 30;
 
         // menu cursor pos
         public const int MENU_CURSOR_POS_X = 40;

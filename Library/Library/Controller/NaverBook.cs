@@ -76,6 +76,7 @@ namespace Library.Controller
                 {
                     Console.CursorVisible = true;
                     SearchBookByNaver(administratorScreen);
+                    Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP); // 좌표조정
                 }
             }
             if (GetYesOrNoByNaverSearch == Constant.INPUT_ESCAPE) // 검색확인문구에서 esc입력
