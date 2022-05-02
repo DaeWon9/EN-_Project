@@ -162,7 +162,7 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                     도서명     :                                                   ");
+            Console.WriteLine("                                     검색어     :                                                   ");
             Console.WriteLine("                                     도서권수   :                                                   ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                     < 검색하기 >                                                   ");

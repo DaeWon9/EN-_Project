@@ -330,7 +330,7 @@ namespace Library.View
             Console.WriteLine("              *                       < 네 이 버 도 서 검 색 >                      *               ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("            *        ● 네이버로 검색을 하는 기능입니다.                              *             ");
-            Console.WriteLine("           *         ● 검색할 도서명과, 도서권수(1~99)를 적어주세요                   *            ");
+            Console.WriteLine("           *         ● 검색어와, 도서권수(1~99)를 적어주세요                          *            ");
             Console.WriteLine("            *        ● 모두 입력하신 후 < 검색하기 > 에서 ENTER 눌러주세요           *             ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("              *                                                                     *               ");
