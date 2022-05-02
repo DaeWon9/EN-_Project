@@ -59,22 +59,18 @@ namespace Library.View
 
         public void PrintModifyMemberInformationScreen(bool isClear = true)
         {
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.NAME);
-            Console.WriteLine("|  이름 변경       :");
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD);
-            Console.WriteLine("|  비밀번호 변경   :");
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.BIRTH_DATE);
-            Console.WriteLine("|  생년월일 변경   :");
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS);
-            Console.WriteLine("|  주소 변경       :");
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
-            Console.WriteLine("|  핸드폰번호 변경 :");
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
+            Console.WriteLine("                                         < 수 정 할 정 보 >                                         ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+            Console.WriteLine("  이름 변경       :                                                                                 ");
+            Console.WriteLine("  비밀번호 변경   :                                                                                 ");
+            Console.WriteLine("  생년월일 변경   :                                                                                 ");
+            Console.WriteLine("  주소 변경       :                                                                                 ");
+            Console.WriteLine("  핸드폰번호 변경 :                                                                                 ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("|  < 회원탈퇴 >");
+            Console.WriteLine("  < 회원탈퇴 >                                                                                      ");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.WITHDRAWAL + 1);
-            Console.WriteLine("|");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+
         }
 
         public void PrintSelectedValues(MySqlDataReader reader, string tableName, string memeberName, bool isAdministator = false, bool titleOption = false)

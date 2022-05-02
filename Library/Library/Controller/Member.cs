@@ -546,7 +546,7 @@ namespace Library.Controller
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.ADDRESS);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
-                Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                 return false;
             }
             return true;
@@ -574,11 +574,11 @@ namespace Library.Controller
             memberScreen.PrintModifyMemberInformationLabel();
             memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             memberScreen.PrintModifyMemberInformationScreen();
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+            Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
 
             while (!isInputEscape && !isModifyCompleted && !isWithdrawlCompleted)
             {
-                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberModifyModePosY.NAME, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberModifyModePosY.NAME, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
                 isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
@@ -658,7 +658,7 @@ namespace Library.Controller
             if (IsMemberNotReturnBorrowedBook()) // 반납안한 책이 있음
             {
                 memberScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                 return false;
             }
             else // 클린한 상태임 -> 회원탈퇴 가능
@@ -675,7 +675,7 @@ namespace Library.Controller
                 if (getYesOrNoByWithdrawl == Constant.INPUT_ESCAPE) // 탈퇴취소
                 {
                     DataProcessing.GetDataProcessing().ClearErrorMessage();
-                    Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                    Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                     return false;
                 }
 

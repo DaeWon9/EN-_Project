@@ -134,7 +134,7 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                  이름          :                                                   ");
             Console.WriteLine("                                  아이디        :                                                   ");
-            Console.WriteLine("                                  나이          :                                                   ");
+            Console.WriteLine("                                  생년월일      :                                                   ");
             Console.WriteLine("                                  주소          :                                                   ");
             Console.WriteLine("                                  핸드폰번호    :                                                   ");
             Console.ForegroundColor = ConsoleColor.Yellow;

@@ -172,7 +172,7 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                뒤로가기 : ESC      ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
-            Console.WriteLine("               < 회 원 정 보 >               |                  < 수 정 할 정 보 >                  ");
+            Console.WriteLine("                                          < 회 원 정 보 >                                           ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
         public void PrintSelectModifyBookModeLabel(bool isClear = true)

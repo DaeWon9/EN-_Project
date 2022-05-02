@@ -352,7 +352,7 @@ namespace Library.Controller
             if (IsMemberNotReturnBorrowedBook()) // 반납안한 책이 있음
             {
                 administratorScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                 return false;
             }
             else // 클린한 상태임 -> 회원탈퇴 가능
@@ -372,7 +372,7 @@ namespace Library.Controller
                 if (getYesOrNoByWithdrawl == Constant.INPUT_ESCAPE) // 탈퇴취소
                 {
                     DataProcessing.GetDataProcessing().ClearErrorMessage();
-                    Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                    Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                     return false;
                 }
 
@@ -400,7 +400,7 @@ namespace Library.Controller
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.ADDRESS);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
-                Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+                Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
 
                 return false;
             }
@@ -417,11 +417,11 @@ namespace Library.Controller
             administratorScreen.PrintModifyMemberInformationLabel();
             administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             administratorScreen.PrintModifyMemberInformationScreen();
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
+            Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
 
             while (!isInputEscape && !isModifyCompleted && !isWithdrawlCompleted)
             {
-                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_MEMBER_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberModifyModePosY.NAME, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberModifyModePosY.NAME, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
                 isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
@@ -525,7 +525,7 @@ namespace Library.Controller
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.PRICE);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_BOOK_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.BookModifyPosY.QUANTITY);
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
-                Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
+                Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                 return false;
             }
             return true;
@@ -555,11 +555,11 @@ namespace Library.Controller
             administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, modifyBookId)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             administratorScreen.PrintModifyBookScreen();
 
-            Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
+            Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
 
             while (!isInputEscape && !isModifyCompleted && !isBookDeleteCompleted)
             {
-                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookModifyPosY.NAME, (int)Constant.BookModifyPosY.DELETE);
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookModifyPosY.NAME, (int)Constant.BookModifyPosY.DELETE);
                 isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
@@ -715,7 +715,7 @@ namespace Library.Controller
             if (IsBookBorrwed(bookId)) // 해당책을 대여한 회원이 있음
             {
                 administratorScreen.PrintMessage(Constant.TEXT_UNABLE_DELETE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
-                Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
+                Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                 return false;
             }
             else // 클린한 상태임 -> 도서삭제 가능
@@ -734,7 +734,7 @@ namespace Library.Controller
                 if (getYesOrNoByDeleteBook == Constant.INPUT_ESCAPE) // 삭제취소
                 {
                     DataProcessing.GetDataProcessing().ClearErrorMessage();
-                    Console.SetCursorPosition(Constant.MODIFY_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
+                    Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                     return false;
                 }
             }
