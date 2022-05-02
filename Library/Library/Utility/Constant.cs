@@ -19,11 +19,6 @@ namespace Library
         public const int WINDOW_WIDTH_CENTER = 50;
         public const int WINDOW_HEIGHT = 50;
 
-        public const int MF_BYCOMMAND = 0x00000000; 
-        public const int SC_MINIMIZE = 0xF020;
-        public const int SC_MAXIMIZE = 0xF030;
-        public const int SC_SIZE = 0xF000;
-
         //exception type
         public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
         public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
@@ -40,7 +35,7 @@ namespace Library
         public const string EXCEPTION_TYPE_MEMBER_PASSWORD = @"^[0-9a-zA-Z]{6,10}$";
         public const string EXCEPTION_TYPE_MEMBER_NAME = @"^([가-힣]{2,5}|[a-zA-Z]{3,20})$";
         public const string EXCEPTION_TYPE_MEMBER_ADDRESS = @"^([가-힣]\w*(시)\s[가-힣]\w*(군|구)\s|[가-힣]\w*(도)\s[가-힣]\w*(시)\s[가-힣]\w*(구)\s)([가-힣]\w*(읍|면|동)|[가-힣0-9]\w*(로|길))[가-힣-0-9\s]*$";
-        public const string EXCEPTION_TYPE_MEMBER_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$"; 
+        public const string EXCEPTION_TYPE_MEMBER_PHONE_NUMBER = @"^(01[0|1|6|7|8|9]|02|03[1-3]|04[1-4]|05[1-5]|06[1-4])([0-9]{3,4})([0-9]{4})$"; 
 
         public const string EXCEPTION_TYPE_BOOK_ID = @"^[0-9]{1,3}$";
         public const string EXCEPTION_TYPE_BOOK_NAME = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]{2,100}$";

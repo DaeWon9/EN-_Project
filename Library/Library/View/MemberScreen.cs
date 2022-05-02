@@ -69,7 +69,7 @@ namespace Library.View
             Console.WriteLine("        |            생년월일 : (yyyymmdd)  <ex : 20001230>                                |        ");
             Console.WriteLine("        |            주소 : 도로명주소 OR 지번주소                                         |        ");
             Console.WriteLine("        |             <ex : 서울특별시 광진구 아차산로31길 OR 서울특별시 광진구 자양1동>   |        ");
-            Console.WriteLine("        |            핸드폰번호 : 01XXXXXXXXX <ex : 01012345678>                           |        ");
+            Console.WriteLine("        |            핸드폰번호 : 0xxxxxxxxxx <ex : 01012345678, 0413334444>                           |        ");
             Console.WriteLine("         ----------------------------------------------------------------------------------         ");
         }
 
