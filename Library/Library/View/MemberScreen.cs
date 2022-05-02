@@ -61,6 +61,16 @@ namespace Library.View
             Console.WriteLine("                                  < 회원가입 >                                                      ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("         ----------------------------------------------------------------------------------         ");
+            Console.WriteLine("        |            이름 : (한글 : 2~5 글자 | 영어 : 3~20 글자)                           |        ");
+            Console.WriteLine("        |            아이디, 비밀번호 : (영어 & 숫자 6~10 글자)                            |        ");
+            Console.WriteLine("        |            생년월일 : (yyyymmdd)  <ex : 20001230>                                |        ");
+            Console.WriteLine("        |            주소 : 도로명주소 OR 지번주소                                         |        ");
+            Console.WriteLine("        |             <ex : 서울특별시 광진구 아차산로31길 OR 서울특별시 광진구 자양1동>   |        ");
+            Console.WriteLine("        |            핸드폰번호 : 01XXXXXXXXX <ex : 01012345678>                           |        ");
+            Console.WriteLine("         ----------------------------------------------------------------------------------         ");
         }
 
         public void PrintSelectBorrowBookModeScreen(bool isClear = true)

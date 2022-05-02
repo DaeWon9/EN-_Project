@@ -29,6 +29,7 @@ namespace Library
         public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
         public const string EXCEPTION_TYPE_NUMBER_SPACE_PYPHEN = @"^[0-9\s-]*$";
         public const string EXCEPTION_TYPE_KOREAN = @"^[가-힣]*$";
+        public const string EXCEPTION_TYPE_KOREAN_ENGLISH = @"^[가-힣a-zA-Z]*$";
         public const string EXCEPTION_TYPE_KOREAN_NUMBER = @"^[가-힣-0-9]*$";
         public const string EXCEPTION_TYPE_KOREAN_NUMBER_SPACE = @"^[가-힣-0-9\s]*$";
         public const string EXCEPTION_TYPE_ENGLISH = @"^[a-zA-Z]*$";
@@ -37,8 +38,7 @@ namespace Library
 
         public const string EXCEPTION_TYPE_MEMBER_ID = @"^[0-9a-zA-Z]{6,10}$";
         public const string EXCEPTION_TYPE_MEMBER_PASSWORD = @"^[0-9a-zA-Z]{6,10}$";
-        public const string EXCEPTION_TYPE_MEMBER_NAME = @"^[가-힣]{2,5}$";
-        public const string EXCEPTION_TYPE_MEMBER_AGE = @"^[0-9]{1,3}$";
+        public const string EXCEPTION_TYPE_MEMBER_NAME = @"^([가-힣]{2,5}|[a-zA-Z]{3,20})$";
         public const string EXCEPTION_TYPE_MEMBER_ADDRESS = @"^([가-힣]\w*(시)\s[가-힣]\w*(군|구)\s|[가-힣]\w*(도)\s[가-힣]\w*(시)\s[가-힣]\w*(구)\s)([가-힣]\w*(읍|면|동)|[가-힣0-9]\w*(로|길))[가-힣-0-9\s]*$";
         public const string EXCEPTION_TYPE_MEMBER_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$"; 
 
@@ -255,7 +255,7 @@ namespace Library
         //Max length
         public const int MAX_LENGTH_MEMBER_ID = 10;
         public const int MAX_LENGTH_MEMBER_PASSWORD = 10;
-        public const int MAX_LENGTH_MEMBER_NAME = 5;
+        public const int MAX_LENGTH_MEMBER_NAME = 20;
         public const int MAX_LENGTH_MEMBER_PHONE_NUMBER = 11;
         public const int MAX_LENGTH_MEMBER_AGE = 3;
         public const int MAX_LENGTH_MEMBER_ADDRESS = 35;
