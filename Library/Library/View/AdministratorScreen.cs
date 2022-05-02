@@ -146,10 +146,23 @@ namespace Library.View
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
+        public void PrintGetSearchNaverBookOptionScreen(bool isClear = true)
+        {
+            PrintExplainSearchBookByNaverLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                     도서명     :                                                   ");
+            Console.WriteLine("                                     도서권수   :                                                   ");
+            Console.WriteLine("                                     < 검색하기 >                                                   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
         public void PrintResultSerchedBookByNaver(JObject jObject, string query, int display)
         {
             PrintSearchBookByNaverLabel();
-            Console.WriteLine(string.Format("< 검색어 : {0}, 개수 : {1} 개 > 검색된 책 정보", query, display));
+            Console.WriteLine(string.Format("< 검색어 : {0}, 권수 : {1} 개 > 검색된 책 정보", query, display));
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
             for (int repeat = 0; repeat < display; repeat++)
             {

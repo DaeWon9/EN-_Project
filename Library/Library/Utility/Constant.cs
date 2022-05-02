@@ -108,7 +108,7 @@ namespace Library
         public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
         public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6})";
-        public const string QUERY_STRING_INSERT_LOG = "INSERT INTO log VALUES (now(), '{0}', '{1}')";
+        public const string QUERY_STRING_INSERT_LOG = "INSERT INTO log(date, member, activity) VALUES (now(), '{0}', '{1}')";
         public const string QUERY_STRING_LOG_RESET = "DELETE FROM log";
 
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
@@ -144,6 +144,7 @@ namespace Library
 
         // Log
         public const string LOG_FILE_NAME = "Log.txt";
+        public const string LOG_FILED_NUMBER = "number";
         public const string LOG_FILED_DATE = "date";
         public const string LOG_FILED_MEMBER = "member";
         public const string LOG_FILED_ACTIVITY = "activity";
@@ -155,6 +156,7 @@ namespace Library
         public const string LOG_TEXT_WITHDRAWL = "회원탈퇴";
         public const string LOG_TEXT_CHECK_BORROWED_BOOK_STATUS = "대여현황확인";
         public const string LOG_TEXT_SEARCH_BOOK = "도서검색";
+        public const string LOG_TEXT_SEARCH_BOOK_BY_NABER = "네이버 도서검색";
         public const string LOG_TEXT_BORROW_BOOK = "도서대여";
         public const string LOG_TEXT_RETURN_BOOK = "도서반납";
         public const string LOG_TEXT_ADD_BOOK = "도서추가";
@@ -172,6 +174,7 @@ namespace Library
         public const string LOG_TEXT_MODIFY_BOOK_QUANTITY = "수량수정";
 
         public const string LOG_STRING_FORM_CONTAIN_ID = "{0}(id:{1}) {2}";
+        public const string LOG_STRING_SEARCH_BOOK_BY_NAVER = "< 검색어: {0}, 권수: {1} > {2}";
         public const string LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR = "<id:{0} {1}> {2} -> {3}";
         public const string LOG_STRING_MODIFY_MEMBER_PASSWORD_BY_ADMINISTRATOR = "<id:{0} {1}>";
         public const string LOG_STRING_MODIFY_MEMBER_ADDRESS_BY_ADMINISTRATOR = "<id:{0} {1}> {2}";
@@ -301,6 +304,7 @@ namespace Library
         // search pos
         public const int SEARCH_POS_X = 50;
         public const int SEARCH_SELECT_OPTION_POS_X = 32;
+        public const int SEARCH_BY_NAVER_SELECT_OPTION_POS_X = 35;
 
         //Modify pos
         public const int MODIFY_MEMBER_MODE_POS_X = 45;
@@ -361,5 +365,7 @@ namespace Library
         public enum MemberManagementModePosY : int { SEARCH = 12, MODIFY }
     
         public enum CheckBorrowedBookModePosY : int { BOOK_ID = 12, MEMBER_ID }
+
+        public enum NaverBookPosY : int { NAME = 12, DISPLAY, SEARCH  }
     }
 }
