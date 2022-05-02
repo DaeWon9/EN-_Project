@@ -39,8 +39,7 @@ namespace Library
         public const string EXCEPTION_TYPE_MEMBER_PASSWORD = @"^[0-9a-zA-Z]{6,10}$";
         public const string EXCEPTION_TYPE_MEMBER_NAME = @"^[가-힣]{2,5}$";
         public const string EXCEPTION_TYPE_MEMBER_AGE = @"^[0-9]{1,3}$";
-        public const string EXCEPTION_TYPE_MEMBER_ADDRESS = @"^[가-힣]\w*(시|도)\s[가-힣]\w*(시|군|구)\s([가-힣]\w*(읍|면|동)|[가-힣0-9]\w*(로|길))[가-힣-0-9\s]*$";
-        //public const string EXCEPTION_TYPE_MEMBER_ADDRESS = @"^(([가-힣A-Za-z·\d~\-\.]{2,}(로|길).[\d]+)|([가-힣A-Za-z·\d~\-\.]+(읍|동)\s)[\d]+)*$";
+        public const string EXCEPTION_TYPE_MEMBER_ADDRESS = @"^([가-힣]\w*(시)\s[가-힣]\w*(군|구)\s|[가-힣]\w*(도)\s[가-힣]\w*(시)\s[가-힣]\w*(구)\s)([가-힣]\w*(읍|면|동)|[가-힣0-9]\w*(로|길))[가-힣-0-9\s]*$";
         public const string EXCEPTION_TYPE_MEMBER_PHONE_NUMBER = @"^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$"; 
 
         public const string EXCEPTION_TYPE_BOOK_ID = @"^[0-9]{1,3}$";
@@ -259,7 +258,7 @@ namespace Library
         public const int MAX_LENGTH_MEMBER_NAME = 5;
         public const int MAX_LENGTH_MEMBER_PHONE_NUMBER = 11;
         public const int MAX_LENGTH_MEMBER_AGE = 3;
-        public const int MAX_LENGTH_MEMBER_ADDRESS = 25;
+        public const int MAX_LENGTH_MEMBER_ADDRESS = 35;
         public const int MAX_LENGTH_BOOK_ID = 3;
         public const int MAX_LENGTH_BOOK_NAME = 100;
         public const int MAX_LENGTH_BOOK_PUBLISHER = 20;
