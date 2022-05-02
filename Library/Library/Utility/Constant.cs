@@ -19,6 +19,11 @@ namespace Library
         public const int WINDOW_WIDTH_CENTER = 50;
         public const int WINDOW_HEIGHT = 50;
 
+        public const int MF_BYCOMMAND = 0x00000000;
+        public const int SC_MINIMIZE = 0xF020;
+        public const int SC_MAXIMIZE = 0xF030;
+        public const int SC_SIZE = 0xF000;
+
         //exception type
         public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
         public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
@@ -163,7 +168,6 @@ namespace Library
         public const string LOG_TEXT_DELETE_MEMBER = "회원삭제";
         public const string LOG_TEXT_MODIFY_MEMBER_NAME = "이름수정";
         public const string LOG_TEXT_MODIFY_MEMBER_PASSWORD = "비밀번호수정";
-        public const string LOG_TEXT_MODIFY_MEMBER_AGE = "나이수정";
         public const string LOG_TEXT_MODIFY_MEMBER_BIRTH_DATE = "생년월일수정";
         public const string LOG_TEXT_MODIFY_MEMBER_ADDRESS = "주소수정";
         public const string LOG_TEXT_MODIFY_MEMBER_PHONE_NUMBER = "번호수정";
@@ -189,7 +193,6 @@ namespace Library
         public const string MEMBER_FILED_NAME = "name";
         public const string MEMBER_FILED_ID = "id";
         public const string MEMBER_FILED_PASSWORD = "pw";
-        public const string MEMBER_FILED_AGE = "age";
         public const string MEMBER_FILED_BIRTH_DATE = "birthdate";
         public const string MEMBER_FILED_ADDRESS = "address";
         public const string MEMBER_FILED_PHONE_NUMBER = "phonenumber";
@@ -252,7 +255,6 @@ namespace Library
         public const int MAX_LENGTH_MEMBER_PASSWORD = 10;
         public const int MAX_LENGTH_MEMBER_NAME = 20;
         public const int MAX_LENGTH_MEMBER_PHONE_NUMBER = 11;
-        public const int MAX_LENGTH_MEMBER_AGE = 3;
         public const int MAX_LENGTH_MEMBER_ADDRESS = 35;
         public const int MAX_LENGTH_BOOK_ID = 3;
         public const int MAX_LENGTH_BOOK_NAME = 100;

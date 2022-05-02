@@ -13,9 +13,28 @@ namespace Library.Controller
     class LibraryController
     {
 
+        [DllImport("user32.dll")]
+        public static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        [DllImport("kernel32.dll", ExactSpelling = true)]
+        private static extern IntPtr GetConsoleWindow();
+
         public void Start()
         {
             Console.SetWindowSize(Constant.WINDOW_WIDTH, Constant.WINDOW_HEIGHT);
+            IntPtr handle = GetConsoleWindow();
+            IntPtr sysMenu = GetSystemMenu(handle, false);
+            
+            if (handle != IntPtr.Zero)
+            {
+                DeleteMenu(sysMenu, Constant.SC_MINIMIZE, Constant.MF_BYCOMMAND);
+                DeleteMenu(sysMenu, Constant.SC_MAXIMIZE, Constant.MF_BYCOMMAND);
+                DeleteMenu(sysMenu, Constant.SC_SIZE, Constant.MF_BYCOMMAND);
+            }
+
          
             BothScreen bothScreen = new BothScreen();
             MemberScreen memberScreen = new MemberScreen();
