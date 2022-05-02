@@ -90,7 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Log.cs" />
-    <Compile Include="Controller\NaverBook.cs" />
+    <Compile Include="Controller\NaverBookSearcher.cs" />
+    <Compile Include="Model\NaverBook.cs" />
     <Compile Include="Utility\Constant.cs" />
     <Compile Include="Controller\Administrator.cs" />
     <Compile Include="Controller\LibraryController.cs" />

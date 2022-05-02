@@ -70,7 +70,9 @@ namespace Library.View
             Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
             Console.WriteLine("|  핸드폰번호 변경 :");
             Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("|  < 회원탈퇴 >");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void PrintSelectedValues(MySqlDataReader reader, string tableName, string memeberName, bool isAdministator = false, bool titleOption = false)

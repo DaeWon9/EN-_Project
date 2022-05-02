@@ -18,7 +18,7 @@ namespace Library.Controller
         public void ShowLogScreen()
         {
             logScreen.PrintLog(DataBase.GetDataBase().GetLog(Constant.TEXT_NONE));
-            Console.ReadKey();
+            ReadyAnyKey();
         }
 
         public void ResetLog()
@@ -39,7 +39,7 @@ namespace Library.Controller
                 if (File.Exists(path)) // Log파일이 존재한다면
                     File.Delete(path); // 파일삭제
                 PrintMessage(Constant.TEXT_SUCCESS_RESET_LOG, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
-                Console.ReadKey();
+                ReadyAnyKey();
             }
         }
 
@@ -62,6 +62,15 @@ namespace Library.Controller
             }
             reader.Close();
             writer.Close();
+            PrintMessage(Constant.TEXT_SUCCESS_SAVE_LOG, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+            ReadyAnyKey();
+        }
+
+        private void ReadyAnyKey()
+        {
+            Console.CursorVisible = false;
+            Console.ReadKey();
+            Console.CursorVisible = true;
         }
     }
 }

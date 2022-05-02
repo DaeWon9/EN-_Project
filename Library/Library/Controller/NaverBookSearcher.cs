@@ -12,10 +12,9 @@ using Library.Model;
 
 namespace Library.Controller
 {
-    class NaverBook
+    class NaverBookSearcher
     {
-        private string clientId = Constant.CLIENT_ID;
-        private string clientSecert = Constant.CLIENT_SECRET;
+        NaverBook naverbook = new NaverBook();
 
         public void SearchBookByNaver(AdministratorScreen administratorScreen) // 네이버로 도서검색 하기 여기서 도서명 및 권수를 입력받음
         {
@@ -67,7 +66,7 @@ namespace Library.Controller
 
             if (GetYesOrNoByNaverSearch == Constant.INPUT_ENTER) // 검색확인문구에서 enter입력
             {
-                naverSearchResult = GetSearchBookInformationByNaver(bookName, int.Parse(bookDisplay));
+                naverSearchResult = naverbook.GetSearchBookInformationByNaver(bookName, int.Parse(bookDisplay));
                 DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_SEARCH_BOOK_BY_NAVER, bookName, bookDisplay, Constant.LOG_TEXT_SEARCH_BOOK_BY_NABER));
                 SelectMenuBasedOnSearchResult(administratorScreen, naverSearchResult);
             }
@@ -110,11 +109,19 @@ namespace Library.Controller
                         break;
                     case (int)Constant.AddBookByNaverPosY.ADD:
                         isAddBookByNaverCompleted = IsAddBookByNaverCompleted(administratorScreen, naverSearchResult, searhResultBookNumber);
+                        if (!isAddBookByNaverCompleted)
+                        {
+                            administratorScreen.PrintResultSerchedBookByNaver(naverSearchResult);
+                            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.CURSOR_POS_TOP); // 좌표조정
+                            Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.AddBookByNaverPosY.NUMBER); // 좌표조정
+                        }
                         break;
                     default:
                         break;
                 }
             }
+            if (isInputEscape)
+                SearchBookByNaver(administratorScreen);
         }
         
         private bool IsAddBookByNaverCompleted(AdministratorScreen administratorScreen, JObject naverSearchResult, string searhResultBookNumber)
@@ -208,33 +215,6 @@ namespace Library.Controller
                     SelectMenuBasedOnSearchResult(administratorScreen, naverSearchResult);
             }
             return true;
-        }
-
-        public JObject GetSearchBookInformationByNaver(string query, int display)
-        {
-            // title -> d_titl
-            //jsonStr = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
-
-            string queryString = "query=" + query;
-            string displayString = "&display=" + display;
-            string url = "https://openapi.naver.com/v1/search/book.json?" + queryString + displayString;
-            //string url = "	https://openapi.naver.com/v1/search/book_adv.xml?d_isbn = 8954763006 9788954763004";
-
-            //request 
-            WebRequest request = WebRequest.Create(url);
-            request.Method = "GET";
-            request.Headers.Add("X-Naver-Client-Id", clientId);
-            request.Headers.Add("X-Naver-Client-Secret", clientSecert);
-
-            WebResponse response = request.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(responseStream);
-            JObject jsonResult = JObject.Parse(reader.ReadToEnd());
-
-            reader.Close();
-            response.Close();
-            responseStream.Close();
-            return jsonResult;
         }
     }
 }

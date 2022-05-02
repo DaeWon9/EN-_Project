@@ -94,6 +94,7 @@ namespace Library
         public const string TEXT_IS_NOT_REGISTERED_MEMBER_ID = "등록되지않은 회원ID입니다.";
 
         public const string TEXT_SUCCESS_RESET_LOG = "로그초기화에 성공하였습니다!";
+        public const string TEXT_SUCCESS_SAVE_LOG = "로그저장에 성공하였습니다!";
         public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다! 계속해서 대여하시겠습니까??";
         public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
         public const string TEXT_SUCCESS_MODIFY = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
@@ -348,7 +349,7 @@ namespace Library
 
         public enum BookReturnPosY : int { ID = 12, RETURN }
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SEARCH_BY_NAVER, SHOW_LOG, RESET_LOG}
+        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SEARCH_BY_NAVER, SHOW_LOG, SAVE_LOG, RESET_LOG}
 
         public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFY_MEMBER_INFORMATION }
 

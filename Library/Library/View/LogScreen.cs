@@ -22,7 +22,7 @@ namespace Library.View
                 Console.WriteLine(" 활동내역 : {0}", reader[Constant.LOG_FILED_ACTIVITY]);
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
             }
-            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                뒤로가기 : ESC      ");
             reader.Close();
         }
 
