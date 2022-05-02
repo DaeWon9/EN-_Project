@@ -34,7 +34,9 @@ namespace Library.View
             Console.WriteLine("                                  ISBN          :                                                   ");
             Console.WriteLine("                                  도서가격(MAX) :                                                   ");
             Console.WriteLine("                                  도서수량(MIN) :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                  < 검색하기 >                                                      ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
@@ -82,9 +84,9 @@ namespace Library.View
                     Console.WriteLine("  출판사     : " + reader[Constant.BOOK_FILED_PUBLISHER]);
                     Console.WriteLine("  저자       : " + reader[Constant.BOOK_FILED_AUTHOR]);
                     Console.WriteLine("  도서가격   : " + reader[Constant.BOOK_FILED_PRICE]);
-                    Console.WriteLine("  도서수량   : " + reader[Constant.BOOK_FILED_QUANTITY]);
                     Console.WriteLine("  출판일     : " + string.Format("{0:yyyy-MM-dd}", reader[Constant.BOOK_FILED_PUBLICATION_DATE]));
                     Console.WriteLine("  ISBN       : " + reader[Constant.BOOK_FILED_ISBN]);
+                    Console.WriteLine("  도서수량   : " + reader[Constant.BOOK_FILED_QUANTITY]);
                     Console.WriteLine("----------------------------------------------------------------------------------------------------");
                 }
             }

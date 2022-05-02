@@ -45,7 +45,9 @@ namespace Library.View
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                     회원아이디 :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                     < 수정하기 >                                                   ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
@@ -60,10 +62,12 @@ namespace Library.View
             Console.WriteLine("                                  출판사     :                                                      ");
             Console.WriteLine("                                  저자       :                                                      ");
             Console.WriteLine("                                  가격       :                                                      ");
-            Console.WriteLine("                                  수량       :                                                      ");
             Console.WriteLine("                                  출판일     :                                                      ");
             Console.WriteLine("                                  ISBN       :                                                      ");
+            Console.WriteLine("                                  수량       :                                                      ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                  < 추가하기 >                                                      ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
@@ -91,7 +95,9 @@ namespace Library.View
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                     도서아이디 :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                     < 수정하기 >                                                   ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
@@ -130,7 +136,9 @@ namespace Library.View
             Console.WriteLine("                                  나이          :                                                   ");
             Console.WriteLine("                                  주소          :                                                   ");
             Console.WriteLine("                                  핸드폰번호    :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                  < 검색하기 >                                                      ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
@@ -155,20 +163,23 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                     도서명     :                                                   ");
             Console.WriteLine("                                     도서권수   :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                     < 검색하기 >                                                   ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
-        public void PrintResultSerchedBookByNaver(JObject jObject, string query, int display)
+        public void PrintResultSerchedBookByNaver(JObject jObject)
         {
-            int repeatTime = display;
-
-            if (jObject["display"].ToString() != display.ToString())
-                repeatTime = int.Parse(jObject["display"].ToString());
-
+            int repeatTime;
             PrintSearchBookByNaverLabel();
-            Console.WriteLine(string.Format("< 검색어 : {0}, 권수 : {1} 개 > 검색된 책 정보", query, display));
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                     검색된 번호 :                                                  ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("                                     < 추가하기 >                                                   ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
 
             if (jObject["items"].ToString() == "[]")
@@ -177,20 +188,39 @@ namespace Library.View
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
                 return;
             }
+
+            repeatTime = int.Parse(jObject["display"].ToString());
+
             for (int repeat = 0; repeat < repeatTime; repeat++)
             {
                 Console.WriteLine(string.Format("{0}번", repeat + 1));
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
                 Console.WriteLine("제목   : " + jObject["items"][repeat]["title"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("저자   : " + jObject["items"][repeat]["author"]);
-                Console.WriteLine("가격   : " + jObject["items"][repeat]["price"]);
-                Console.WriteLine("출판사 : " + jObject["items"][repeat]["publisher"]);
-                Console.WriteLine("출판일 : " + jObject["items"][repeat]["pubdate"]);
-                Console.WriteLine("ISBN   : " + jObject["items"][repeat]["isbn"]);
+                Console.WriteLine("저자   : " + jObject["items"][repeat]["author"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("가격   : " + jObject["items"][repeat]["price"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("출판사 : " + jObject["items"][repeat]["publisher"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("출판일 : " + jObject["items"][repeat]["pubdate"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("ISBN   : " + jObject["items"][repeat]["isbn"].ToString().Replace("<b>", "").Replace("</b>", ""));
                 Console.WriteLine("설명   : " + jObject["items"][repeat]["description"].ToString().Replace("<b>", "").Replace("</b>", ""));
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
 
             }
+        }
+
+        public void PrintBookOptionByNaver(string bookName , string bookPublisher, string  bookAuthor, string bookPrice, string bookPublicationDate, string bookISBN)
+        {
+            Console.SetCursorPosition(Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.NAME);
+            Console.Write(bookName);
+            Console.SetCursorPosition(Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PUBLISHER);
+            Console.Write(bookPublisher);
+            Console.SetCursorPosition(Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.AUTHOR);
+            Console.Write(bookAuthor);
+            Console.SetCursorPosition(Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PRICE);
+            Console.Write(bookPrice);
+            Console.SetCursorPosition(Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PUBLICATION_DATE);
+            Console.Write(bookPublicationDate);
+            Console.SetCursorPosition(Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.ISBN);
+            Console.Write(bookISBN);
         }
     }
 }

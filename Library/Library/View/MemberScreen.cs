@@ -57,7 +57,9 @@ namespace Library.View
             Console.WriteLine("                                  나이          :                                                   ");
             Console.WriteLine("                                  주소          :                                                   ");
             Console.WriteLine("                                  핸드폰번호    :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                  < 회원가입 >                                                      ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
         }
 
@@ -79,7 +81,9 @@ namespace Library.View
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                  도서아이디    :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                  < 대여하기 >                                                      ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
@@ -91,7 +95,9 @@ namespace Library.View
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                  도서아이디    :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                                  < 반납하기 >                                                      ");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }

@@ -164,12 +164,12 @@ namespace Library.Controller
             return false;
         }
 
-        private bool IsAddBookCompleted(AdministratorScreen administratorScreen, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity, string BookpublicationDate, string bookISBN)
+        private bool IsAddBookCompleted(AdministratorScreen administratorScreen, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity, string bookPublicationDate, string bookISBN)
         {
             int GetYesOrNoByAdd, GetYesOrNoByReAdd;
             string bookId = "";
             // 모든 값이 입력됐는지 체크
-            if ((bookName == "" || bookName == Constant.INPUT_ESCAPE.ToString()) || (bookPublisher == "" || bookPublisher == Constant.INPUT_ESCAPE.ToString()) || (bookAuthor == "" || bookAuthor == Constant.INPUT_ESCAPE.ToString()) || (bookPrice == "" || bookPrice == Constant.INPUT_ESCAPE.ToString()) || (bookQuantity == "" || bookQuantity == Constant.INPUT_ESCAPE.ToString()) || (BookpublicationDate == "" || BookpublicationDate == Constant.INPUT_ESCAPE.ToString()) || (bookISBN == "" || bookISBN == Constant.INPUT_ESCAPE.ToString()))
+            if ((bookName == "" || bookName == Constant.INPUT_ESCAPE.ToString()) || (bookPublisher == "" || bookPublisher == Constant.INPUT_ESCAPE.ToString()) || (bookAuthor == "" || bookAuthor == Constant.INPUT_ESCAPE.ToString()) || (bookPrice == "" || bookPrice == Constant.INPUT_ESCAPE.ToString()) || (bookQuantity == "" || bookQuantity == Constant.INPUT_ESCAPE.ToString()) || (bookPublicationDate == "" || bookPublicationDate == Constant.INPUT_ESCAPE.ToString()) || (bookISBN == "" || bookISBN == Constant.INPUT_ESCAPE.ToString()))
             {
                 administratorScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.NAME); //좌표조정
@@ -188,7 +188,7 @@ namespace Library.Controller
             }
             if (GetYesOrNoByAdd == Constant.INPUT_ENTER) // 추가하시겠습니까?? -> ENTER
             {
-                DataBase.GetDataBase().InsertAddBook(Constant.TABLE_NAME_BOOK, bookName, bookPublisher, bookAuthor, int.Parse(bookPrice), int.Parse(bookQuantity), BookpublicationDate, bookISBN);
+                DataBase.GetDataBase().InsertAddBook(Constant.TABLE_NAME_BOOK, bookName, bookPublisher, bookAuthor, int.Parse(bookPrice), int.Parse(bookQuantity), bookPublicationDate, bookISBN);
                 bookId = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_NAME, bookName));
                 DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_FORM_CONTAIN_ID, bookName, bookId,Constant.LOG_TEXT_ADD_BOOK));
                 Console.CursorVisible = false;
@@ -204,7 +204,7 @@ namespace Library.Controller
 
         private void AddBook(AdministratorScreen administratorScreen)
         {
-            string bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "", BookpublicationDate = "", bookISBN = "";
+            string bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "", bookPublicationDate = "", bookISBN = "";
             int currentConsoleCursorPosY;
             bool isAddBookCompleted = false;
             isInputEscape = false;
@@ -237,13 +237,13 @@ namespace Library.Controller
                         bookQuantity = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
                         break;
                     case (int)Constant.BookAddPosY.PUBLICATION_DATE:
-                        BookpublicationDate = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PUBLICATION_DATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
+                        bookPublicationDate = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.PUBLICATION_DATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
                         break;
                     case (int)Constant.BookAddPosY.ISBN:
                         bookISBN = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.ADD_BOOK_INPUT_POS_X, (int)Constant.BookAddPosY.ISBN, Constant.MAX_LENGTH_BOOK_ISBN, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER_SPACE_PYPHEN, Constant.EXCEPTION_TYPE_ANY);
                         break;
                     case (int)Constant.BookAddPosY.ADD:
-                        isAddBookCompleted = IsAddBookCompleted(administratorScreen, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity, BookpublicationDate, bookISBN);
+                        isAddBookCompleted = IsAddBookCompleted(administratorScreen, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity, bookPublicationDate, bookISBN);
                         break;
                     default:
                         break;

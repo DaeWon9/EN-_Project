@@ -224,11 +224,11 @@ namespace Library.Model
             connection.Close();
         }
 
-        public void InsertAddBook(string tableName, string bookName, string bookPublisher, string bookAuthor, int bookPrice, int bookQuantity, string BookpublicationDate, string bookISBN)
+        public void InsertAddBook(string tableName, string bookName, string bookPublisher, string bookAuthor, int bookPrice, int bookQuantity, string bookPublicationDate, string bookISBN)
         {
             if (!connection.Ping())
                 connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_INSERT_ADD_BOOK, tableName, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity, BookpublicationDate, bookISBN);
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_ADD_BOOK, tableName, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity, bookPublicationDate, bookISBN);
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();

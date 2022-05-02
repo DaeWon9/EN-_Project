@@ -87,6 +87,7 @@ namespace Library
         public const string TEXT_IS_NOT_EXIST_IN_LIBRARY_OR_NOT_SEARCHED = "도서관에 없는 도서이거나, 검색된 도서가 아닙니다.";
         public const string TEXT_IS_NOT_EXIST_IN_LIBRARY = "도서관에 없는 도서입니다.";
         public const string TEXT_THIS_BOOK_IS_NOT_SEARCHED= "검색되지 않은 도서입니다.";
+        public const string TEXT_THIS_NUMBER_IS_NOT_SEARCHED = "검색되지 않은 번호입니다.";
         public const string TEXT_IS_ALREADY_BORROWED = "이미 대여중인 도서입니다.";
         public const string TEXT_IS_NOT_ENOUGH_QUANTITY = "대여가능한 수량이 부족합니다.";
         public const string TEXT_IS_NOT_BORROWED_BOOK = "대여중인 도서가 아닙니다.";
@@ -355,7 +356,7 @@ namespace Library
 
         public enum MemberModifyModePosY : int { NAME = 14, PASSWORD, AGE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
 
-        public enum BookAddPosY : int { NAME = 12, PUBLISHER, AUTHOR, PRICE, QUANTITY, PUBLICATION_DATE, ISBN, ADD }
+        public enum BookAddPosY : int { NAME = 12, PUBLISHER, AUTHOR, PRICE, PUBLICATION_DATE, ISBN, QUANTITY, ADD }
 
         public enum SelectBookIdPosY : int { ID = 12, MODIFY_BOOK }
 
@@ -369,6 +370,8 @@ namespace Library
     
         public enum CheckBorrowedBookModePosY : int { BOOK_ID = 12, MEMBER_ID }
 
-        public enum NaverBookPosY : int { NAME = 12, DISPLAY, SEARCH  }
+        public enum NaverBookPosY : int { NAME = 12, DISPLAY, SEARCH }
+
+        public enum AddBookByNaverPosY : int { NUMBER = 13, ADD }
     }
 }
