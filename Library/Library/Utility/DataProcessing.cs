@@ -300,7 +300,7 @@ namespace Library.Utility
             return conditionalString;
         }
 
-        public string GetConditionalStringBySearchMember(string memberName, string memberId, string memberAge, string memberAddress, string memberPhoneNumber)
+        public string GetConditionalStringBySearchMember(string memberName, string memberId, string memberBirthDate, string memberAddress, string memberPhoneNumber)
         {
             string conditionalString = "";
 
@@ -322,15 +322,15 @@ namespace Library.Utility
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
                     conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_ID, memberId);
                 }
-            if (memberAge != "" && memberAge != Constant.INPUT_ESCAPE.ToString())
+            if (memberBirthDate != "" && memberBirthDate != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
                 {
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.MEMBER_FILED_AGE, memberAge);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_BIRTH_DATE, memberBirthDate);
                 }
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
-                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.MEMBER_FILED_AGE, memberAge);
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_BIRTH_DATE, memberBirthDate);
                 }
             if (memberAddress != "" && memberAddress != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")

@@ -14,7 +14,7 @@ namespace Library.Controller
         private List<string> searchedBookIdList = new List<string>();
         private bool isInputEscape = false, isSearchAndBorrow = false, isWithdrawlCompleted = false;
         private int menuValue;
-        private string loginMemberId = "", loginMemberPassword = "", loginMemberName = "", loginMemberAge = "", loginMemberAddress = "", loginMemberPhoneNumber = "", conditionalStringByUserInput = "";
+        private string loginMemberId = "", loginMemberPassword = "", loginMemberName = "", loginMemberBirthDate = "", loginMemberAge = "", loginMemberAddress = "", loginMemberPhoneNumber = "", conditionalStringByUserInput = "";
         //Login
         private void Login(MemberScreen memberScreen) // id : admin1    pw: admin1 
         {
@@ -35,7 +35,7 @@ namespace Library.Controller
             if (loginMemberId == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString() || loginMemberPassword == Constant.INPUT_ESCAPE_IN_ARROW_KEY.ToString()) // 처음 회원 or 관리자모드 선택으로 돌아가야함
                 return;
             loginMemberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 이름 저장
-            loginMemberAge = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_AGE, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 나이 저장
+            loginMemberBirthDate = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_BIRTH_DATE, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 생년월일 저장
             loginMemberAddress = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_ADDRESS, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 주소 저장
             loginMemberPhoneNumber = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_PHONE_NUMBER, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, loginMemberId)); // 로그인한 유저의 핸드폰번호 저장
             DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), Constant.LOG_TEXT_LOGIN);
@@ -76,7 +76,7 @@ namespace Library.Controller
 
             int currentConsoleCursorPosY;
             bool isSignUpCompleted = false;
-            string name = "", id = "", password = "", passwordCheck = "", age = "", address = "", phoneNumber = "";
+            string name = "", id = "", password = "", passwordCheck = "", birthDate = "", address = "", phoneNumber = "";
             isInputEscape = false;
             Console.CursorVisible = true;
             memberScreen.PrintSignUpScreen();
@@ -116,8 +116,8 @@ namespace Library.Controller
                     case (int)Constant.SignUpPosY.PASSWORD_CHECK:
                         passwordCheck = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD_CHECK, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                         break;
-                    case (int)Constant.SignUpPosY.AGE:
-                        age = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
+                    case (int)Constant.SignUpPosY.BIRTH_DATE:
+                        birthDate = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.BIRTH_DATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
                         break;
                     case (int)Constant.SignUpPosY.ADDRESS:
                         address = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
@@ -126,7 +126,7 @@ namespace Library.Controller
                         phoneNumber = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
                         break;
                     case (int)Constant.SignUpPosY.SIGN_UP:
-                        isSignUpCompleted = IsSignUpCompleted(memberScreen, name, id, password, age, address, phoneNumber);
+                        isSignUpCompleted = IsSignUpCompleted(memberScreen, name, id, password, birthDate, address, phoneNumber);
                         break;
                     default:
                         break;
@@ -135,11 +135,11 @@ namespace Library.Controller
 
         }
 
-        private bool IsSignUpCompleted(MemberScreen memberScreen, string name, string id, string password, string age, string address, string phoneNumber)
+        private bool IsSignUpCompleted(MemberScreen memberScreen, string name, string id, string password, string birthDate, string address, string phoneNumber)
         {
             int GetYesOrNoBySignUp;
             // 모든 값이 입력됐는지 체크
-            if ((name == "" || name == Constant.INPUT_ESCAPE.ToString()) || (id == "" || id == Constant.INPUT_ESCAPE.ToString()) || (password == "" || password == Constant.INPUT_ESCAPE.ToString()) || (age == "" || age == Constant.INPUT_ESCAPE.ToString()) || (address == "" || address == Constant.INPUT_ESCAPE.ToString()) || (phoneNumber == "" || phoneNumber == Constant.INPUT_ESCAPE.ToString()))
+            if ((name == "" || name == Constant.INPUT_ESCAPE.ToString()) || (id == "" || id == Constant.INPUT_ESCAPE.ToString()) || (password == "" || password == Constant.INPUT_ESCAPE.ToString()) || (birthDate == "" || birthDate == Constant.INPUT_ESCAPE.ToString()) || (address == "" || address == Constant.INPUT_ESCAPE.ToString()) || (phoneNumber == "" || phoneNumber == Constant.INPUT_ESCAPE.ToString()))
             {
                 memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.SignUpPosY.NAME); //좌표조정
@@ -154,7 +154,7 @@ namespace Library.Controller
             if (GetYesOrNoBySignUp == Constant.INPUT_ENTER) // 가입확인문구에서 enter입력
             {
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
-                DataBase.GetDataBase().InsertMember(Constant.TABLE_NAME_MEMBER, name, id, password, int.Parse(age), address, phoneNumber); // member 테이블에 입력한 멤버정보 추가
+                DataBase.GetDataBase().InsertMember(Constant.TABLE_NAME_MEMBER, name, id, password, birthDate, address, phoneNumber); // member 테이블에 입력한 멤버정보 추가
                 DataBase.GetDataBase().CreateTable(id); // 해당 멤버의 id로 대여도서 테이블 생성 
                 DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, name, id), Constant.LOG_TEXT_SIGN_UP);
                 memberScreen.PrintMessage(Constant.TEXT_SUCCESS_SIGN_UP, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
@@ -542,7 +542,7 @@ namespace Library.Controller
             {
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.NAME);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PASSWORD);
-                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.AGE);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.BIRTH_DATE);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.ADDRESS);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
@@ -566,7 +566,7 @@ namespace Library.Controller
         private void ModifyMemberInformation(MemberScreen memberScreen) // memberId 는 primaryKey 이므로 수정불가능하게 설정
         {
             string setStringByUpdate = "";
-            string memberName = "", memberPassword = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
+            string memberName = "", memberPassword = "", memberBirthDate = "", memberAddress = "", memberPhoneNumber = "";
             bool isModifyCompleted = false;
             int currentConsoleCursorPosY = 0; // 초기화
             isWithdrawlCompleted = false;
@@ -590,9 +590,9 @@ namespace Library.Controller
                         memberPassword = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PASSWORD, memberPassword);
                         break;
-                    case (int)Constant.MemberModifyModePosY.AGE:
-                        memberAge = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
-                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_AGE, memberAge);
+                    case (int)Constant.MemberModifyModePosY.BIRTH_DATE:
+                        memberBirthDate = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.BIRTH_DATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_BIRTH_DATE, memberBirthDate);
                         break;
                     case (int)Constant.MemberModifyModePosY.ADDRESS:
                         memberAddress = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
@@ -622,8 +622,8 @@ namespace Library.Controller
                         case (int)Constant.MemberModifyModePosY.PASSWORD:
                             DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER_PASSWORD, Constant.LOG_TEXT_MODIFY_MEMBER_PASSWORD));
                             break;
-                        case (int)Constant.MemberModifyModePosY.AGE:
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_AGE, loginMemberAge, memberAge));
+                        case (int)Constant.MemberModifyModePosY.BIRTH_DATE:
+                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_BIRTH_DATE, loginMemberBirthDate, memberBirthDate));
                             break;
                         case (int)Constant.MemberModifyModePosY.ADDRESS:
                             DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER_ADDRESS, Constant.LOG_TEXT_MODIFY_MEMBER_ADDRESS, loginMemberAddress, memberAddress));

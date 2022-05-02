@@ -18,7 +18,7 @@ namespace Library.Controller
         private bool isInputEscape = false, isBookDeleteCompleted = false, isSearchAndModify = false;
         private int modifyBookId = 0;
         private string modifyBookName = "", modifyBookPublisher = "", modifyBookAuthor = "", modifyBookPrice = "", modifyBookQuantity = "";
-        private string conditionalStringByUserInput = "", managementMemberId = "", managementMemberName = "", managementMemberAge = "", managementMemberAddress = "", managementMemberPhoneNumber = "";
+        private string conditionalStringByUserInput = "", managementMemberId = "", managementMemberName = "", managementMemberBirthDate = "", managementMemberAddress = "", managementMemberPhoneNumber = "";
 
         // Login
         public void Login(AdministratorScreen administratorScreen) // id : admin1    pw: admin1
@@ -315,7 +315,7 @@ namespace Library.Controller
             {
                 managementMemberId = memberId;
                 managementMemberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
-                managementMemberAge = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_AGE, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
+                managementMemberBirthDate = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_BIRTH_DATE, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
                 managementMemberAddress = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_ADDRESS, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
                 managementMemberPhoneNumber = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_PHONE_NUMBER, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));
             }
@@ -396,7 +396,7 @@ namespace Library.Controller
             {
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.NAME);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PASSWORD);
-                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.AGE);
+                DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.BIRTH_DATE);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.ADDRESS);
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
@@ -410,7 +410,7 @@ namespace Library.Controller
         private void ModifyMemberInformation(AdministratorScreen administratorScreen) // memberId 는 primaryKey 이므로 수정불가능하게 설정
         {
             string setStringByUpdate = "";
-            string memberName = "", memberPassword = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
+            string memberName = "", memberPassword = "", memberBirthDate = "", memberAddress = "", memberPhoneNumber = "";
             bool isModifyCompleted = false, isWithdrawlCompleted = false;
             isInputEscape = false;
             int currentConsoleCursorPosY;
@@ -433,9 +433,9 @@ namespace Library.Controller
                         memberPassword = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD);
                         setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PASSWORD, memberPassword);
                         break;
-                    case (int)Constant.MemberModifyModePosY.AGE:
-                        memberAge = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
-                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_AGE, memberAge);
+                    case (int)Constant.MemberModifyModePosY.BIRTH_DATE:
+                        memberBirthDate = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.BIRTH_DATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
+                        setStringByUpdate = GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_BIRTH_DATE, memberBirthDate);
                         break;
                     case (int)Constant.MemberModifyModePosY.ADDRESS:
                         memberAddress = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
@@ -464,8 +464,8 @@ namespace Library.Controller
                         case (int)Constant.MemberModifyModePosY.PASSWORD:
                             DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_PASSWORD_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_PASSWORD));
                             break;
-                        case (int)Constant.MemberModifyModePosY.AGE:
-                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_AGE, managementMemberAge, memberAge));
+                        case (int)Constant.MemberModifyModePosY.BIRTH_DATE:
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_BIRTH_DATE, managementMemberBirthDate, memberBirthDate));
                             break;
                         case (int)Constant.MemberModifyModePosY.ADDRESS:
                             DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_ADDRESS_BY_ADMINISTRATOR, managementMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_ADDRESS, managementMemberAddress, memberAddress));
@@ -744,7 +744,7 @@ namespace Library.Controller
         // SearchMember
         private void InputMemberSearchOption(AdministratorScreen administratorScreen)
         {
-            string memberName = "", memberId = "", memberAge = "", memberAddress = "", memberPhoneNumber = "";
+            string memberName = "", memberId = "", memberBirthDate = "", memberAddress = "", memberPhoneNumber = "";
             int currentConsoleCursorPosY;
             bool isSearchMemberCompleted = false;
             isInputEscape = false;
@@ -767,8 +767,8 @@ namespace Library.Controller
                     case (int)Constant.MemberSearchPosY.ID:
                         memberId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER);
                         break;
-                    case (int)Constant.MemberSearchPosY.AGE:
-                        memberAge = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.AGE, Constant.MAX_LENGTH_MEMBER_AGE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_AGE);
+                    case (int)Constant.MemberSearchPosY.BIRTHDATE:
+                        memberBirthDate = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.BIRTHDATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
                         break;
                     case (int)Constant.MemberSearchPosY.ADDRESS:
                         memberAddress = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE);
@@ -777,7 +777,7 @@ namespace Library.Controller
                         memberPhoneNumber = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SEARCH_POS_X, (int)Constant.MemberSearchPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_NUMBER);
                         break;
                     case (int)Constant.MemberSearchPosY.SEARCH:
-                        isSearchMemberCompleted = IsSearchMemberCompleted(administratorScreen, memberName, memberId, memberAge, memberAddress, memberPhoneNumber);
+                        isSearchMemberCompleted = IsSearchMemberCompleted(administratorScreen, memberName, memberId, memberBirthDate, memberAddress, memberPhoneNumber);
                         break;
                     default:
                         break;
@@ -785,17 +785,17 @@ namespace Library.Controller
             }
         }
 
-        private bool IsSearchMemberCompleted(AdministratorScreen administratorScreen, string memberName, string memberId, string memberAge, string memberAddress, string memberPhoneNumber)
+        private bool IsSearchMemberCompleted(AdministratorScreen administratorScreen, string memberName, string memberId, string memberBirthDate, string memberAddress, string memberPhoneNumber)
         {
             int getYesOrNoBySearching, getYesOrNoByResearching;
             // ↓ 옵션입력시 모두 공백일경우 체크하는 조건문
-            if ((memberName == "" || memberName == Constant.INPUT_ESCAPE.ToString()) && (memberId == "" || memberId == Constant.INPUT_ESCAPE.ToString()) && (memberAge == "" || memberAge == Constant.INPUT_ESCAPE.ToString()) && (memberAddress == "" || memberAddress == Constant.INPUT_ESCAPE.ToString()) && (memberPhoneNumber == "" || memberPhoneNumber == Constant.INPUT_ESCAPE.ToString()))
+            if ((memberName == "" || memberName == Constant.INPUT_ESCAPE.ToString()) && (memberId == "" || memberId == Constant.INPUT_ESCAPE.ToString()) && (memberBirthDate == "" || memberBirthDate == Constant.INPUT_ESCAPE.ToString()) && (memberAddress == "" || memberAddress == Constant.INPUT_ESCAPE.ToString()) && (memberPhoneNumber == "" || memberPhoneNumber == Constant.INPUT_ESCAPE.ToString()))
             {
                 administratorScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.MemberSearchPosY.NAME); //좌표조정
                 return false;
             }
-            conditionalStringByUserInput = DataProcessing.GetDataProcessing().GetConditionalStringBySearchMember(memberName, memberId, memberAge, memberAddress, memberPhoneNumber);
+            conditionalStringByUserInput = DataProcessing.GetDataProcessing().GetConditionalStringBySearchMember(memberName, memberId, memberBirthDate, memberAddress, memberPhoneNumber);
 
             administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);

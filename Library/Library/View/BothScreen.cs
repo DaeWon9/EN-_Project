@@ -63,8 +63,8 @@ namespace Library.View
             Console.WriteLine("|  이름 변경       :");
             Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD);
             Console.WriteLine("|  비밀번호 변경   :");
-            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.AGE);
-            Console.WriteLine("|  나이 변경       :");
+            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.BIRTH_DATE);
+            Console.WriteLine("|  생년월일 변경   :");
             Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS);
             Console.WriteLine("|  주소 변경       :");
             Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
@@ -73,6 +73,8 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("|  < 회원탈퇴 >");
             Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(Constant.MODIFY_MEMBER_MODE_POS_X, (int)Constant.MemberModifyModePosY.WITHDRAWAL + 1);
+            Console.WriteLine("|");
         }
 
         public void PrintSelectedValues(MySqlDataReader reader, string tableName, string memeberName, bool isAdministator = false, bool titleOption = false)
@@ -96,10 +98,14 @@ namespace Library.View
             {
                 while (reader.Read())
                 {
+                    DateTime memberBirthDate = DateTime.ParseExact(reader[Constant.MEMBER_FILED_BIRTH_DATE].ToString(), "yyyyMMdd", null);
+                    TimeSpan ageDate = DateTime.Today - memberBirthDate;
+
                     Console.WriteLine("  이름       : " + reader[Constant.MEMBER_FILED_NAME]);
                     Console.WriteLine("  아이디     : " + reader[Constant.MEMBER_FILED_ID]);
                     Console.WriteLine("  비밀번호   : " + reader[Constant.MEMBER_FILED_PASSWORD]);
-                    Console.WriteLine("  나이       : " + reader[Constant.MEMBER_FILED_AGE]);
+                    Console.WriteLine("  생년월일   : " + reader[Constant.MEMBER_FILED_BIRTH_DATE]);
+                    Console.WriteLine("  나이       : " + (DateTime.Today.Year - memberBirthDate.Year  + 1) + "세 (만:" +(Math.Floor(int.Parse(ageDate.Days.ToString())/365.24)) + "세)");
                     Console.WriteLine("  주소       : " + reader[Constant.MEMBER_FILED_ADDRESS]);
                     Console.WriteLine("  핸드폰번호 : " + reader[Constant.MEMBER_FILED_PHONE_NUMBER]);
                     Console.WriteLine("----------------------------------------------------------------------------------------------------");

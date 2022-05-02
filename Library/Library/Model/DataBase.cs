@@ -161,11 +161,11 @@ namespace Library.Model
 
         }
 
-        public void InsertMember(string tableName, string name, string id, string password, int age, string address, string phonenumber)
+        public void InsertMember(string tableName, string name, string id, string password, string birthDate, string address, string phonenumber)
         {
             if (!connection.Ping())
                 connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_INSERT_MEMBER, tableName, name, id, password, age, address, phonenumber);
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_MEMBER, tableName, name, id, password, birthDate, address, phonenumber);
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();

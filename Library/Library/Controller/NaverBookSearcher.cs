@@ -80,7 +80,7 @@ namespace Library.Controller
             return true;
         }
 
-        private void SelectMenuBasedOnSearchResult(AdministratorScreen administratorScreen, JObject naverSearchResult)
+        private void SelectMenuBasedOnSearchResult(AdministratorScreen administratorScreen, JObject naverSearchResult) // 검색된 결과를 바탕으로 도서를 추가하는 함수
         {
             bool isAddBookByNaverCompleted = false, isInputEscape = false;
             string searhResultBookNumber = "";
@@ -124,7 +124,7 @@ namespace Library.Controller
                 SearchBookByNaver(administratorScreen);
         }
         
-        private bool IsAddBookByNaverCompleted(AdministratorScreen administratorScreen, JObject naverSearchResult, string searhResultBookNumber)
+        private bool IsAddBookByNaverCompleted(AdministratorScreen administratorScreen, JObject naverSearchResult, string searhResultBookNumber) // 검색된 도서를 바탕으로 도서추가에 성공했는지를 반환하는 함수
         {
             bool isAddBookCompleted = false, isInputEscape = false;
             int currentConsoleCursorPosY;

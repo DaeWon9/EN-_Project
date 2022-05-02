@@ -109,7 +109,7 @@ namespace Library
         public const string QUERY_STRING_SELECT = "SELECT {0} FROM {1}";
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
         public const string QUERY_STRING_ORDER_BY_SELECT = "SELECT {0} FROM {1} ORDER BY {2}";
-        public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
+        public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}')";
         public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}', '{9}', '{10}')";
         public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} (name, publisher, author, price, quantity, pubdate, isbn) VALUES ('{1}', '{2}', '{3}', {4}, {5}, '{6}', '{7}')";
         public const string QUERY_STRING_INSERT_LOG = "INSERT INTO log(date, member, activity) VALUES (now(), '{0}', '{1}')";
@@ -169,6 +169,7 @@ namespace Library
         public const string LOG_TEXT_MODIFY_MEMBER_NAME = "이름수정";
         public const string LOG_TEXT_MODIFY_MEMBER_PASSWORD = "비밀번호수정";
         public const string LOG_TEXT_MODIFY_MEMBER_AGE = "나이수정";
+        public const string LOG_TEXT_MODIFY_MEMBER_BIRTH_DATE = "생년월일수정";
         public const string LOG_TEXT_MODIFY_MEMBER_ADDRESS = "주소수정";
         public const string LOG_TEXT_MODIFY_MEMBER_PHONE_NUMBER = "번호수정";
         public const string LOG_TEXT_MODIFY_BOOK_NAME = "도서명수정";
@@ -194,6 +195,7 @@ namespace Library
         public const string MEMBER_FILED_ID = "id";
         public const string MEMBER_FILED_PASSWORD = "pw";
         public const string MEMBER_FILED_AGE = "age";
+        public const string MEMBER_FILED_BIRTH_DATE = "birthdate";
         public const string MEMBER_FILED_ADDRESS = "address";
         public const string MEMBER_FILED_PHONE_NUMBER = "phonenumber";
 
@@ -337,11 +339,11 @@ namespace Library
         // signup pos
         public const int SIGNUP_POS_X = 50;
 
-        public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, AGE, ADDRESS, PHONE_NUMBER, SIGN_UP }
+        public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, BIRTH_DATE, ADDRESS, PHONE_NUMBER, SIGN_UP }
 
         public enum BookSearchPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, ISBN, PRICE, QUANTITY, SEARCH }
 
-        public enum MemberSearchPosY : int { NAME = 12, ID, AGE, ADDRESS, PHONE_NUMBER, SEARCH }
+        public enum MemberSearchPosY : int { NAME = 12, ID, BIRTHDATE, ADDRESS, PHONE_NUMBER, SEARCH }
 
         public enum BookBorrowModePosY : int { IMMEDIATE = 12, SEARCH }
 
@@ -355,7 +357,7 @@ namespace Library
 
         public enum CheckInsertBorrowedBook : int { NOT_EXIST_BOOK = 1, DUPLICATE_BOOK_ID, SHORTAGE_BOOK_QUANTITY, SUCCESS }
 
-        public enum MemberModifyModePosY : int { NAME = 14, PASSWORD, AGE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
+        public enum MemberModifyModePosY : int { NAME = 14, PASSWORD, BIRTH_DATE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
 
         public enum BookAddPosY : int { NAME = 12, PUBLISHER, AUTHOR, PRICE, PUBLICATION_DATE, ISBN, QUANTITY, ADD }
 
