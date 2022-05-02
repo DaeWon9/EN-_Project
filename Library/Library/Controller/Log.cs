@@ -49,13 +49,15 @@ namespace Library.Controller
             StreamWriter writer;
             writer = File.CreateText(path);
             writer.WriteLine("----------------------------------------------------------------------------------------------------");
-            writer.WriteLine("              시간              |          회원정보          |                      활동            ");
+            writer.WriteLine("                                              < 로 그 현 황 >                                       ");
             writer.WriteLine("----------------------------------------------------------------------------------------------------");
             while (reader.Read())
             {
-                writer.Write(" {0}", reader[Constant.LOG_FILED_DATE] + "".PadRight(Constant.LOG_LENGTH_DATE - Encoding.Default.GetBytes(reader[Constant.LOG_FILED_DATE].ToString()).Length) + "|");
-                writer.Write(" {0}", reader[Constant.LOG_FILED_MEMBER] + "".PadRight(Constant.LOG_LENGTH_MEMBER - Encoding.Default.GetBytes(reader[Constant.LOG_FILED_MEMBER].ToString()).Length) + "|");
-                writer.WriteLine(" {0}", reader[Constant.LOG_FILED_ACTIVITY]);
+                writer.WriteLine(" < {0}번 >", reader[Constant.LOG_FILED_NUMBER]);
+                writer.WriteLine("----------------------------------------------------------------------------------------------------");
+                writer.WriteLine(" 활동시간 : {0}", reader[Constant.LOG_FILED_DATE]);
+                writer.WriteLine(" 회원정보 : {0}", reader[Constant.LOG_FILED_MEMBER]);
+                writer.WriteLine(" 활동내역 : {0}", reader[Constant.LOG_FILED_ACTIVITY]);
                 writer.WriteLine("----------------------------------------------------------------------------------------------------");
             }
             reader.Close();

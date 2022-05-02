@@ -27,6 +27,7 @@ namespace Library
         //exception type
         public const string EXCEPTION_TYPE_ANY = @"^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()-=_+]*$";
         public const string EXCEPTION_TYPE_NUMBER = @"^[0-9]*$";
+        public const string EXCEPTION_TYPE_NUMBER_SPACE_PYPHEN = @"^[0-9\s-]*$";
         public const string EXCEPTION_TYPE_KOREAN = @"^[가-힣]*$";
         public const string EXCEPTION_TYPE_KOREAN_NUMBER = @"^[가-힣-0-9]*$";
         public const string EXCEPTION_TYPE_KOREAN_NUMBER_SPACE = @"^[가-힣-0-9\s]*$";
@@ -47,6 +48,7 @@ namespace Library
         public const string EXCEPTION_TYPE_BOOK_AUTHOR = @"^[a-zA-Z0-9가-힣\s!@#$%^&*()-=_+]{2,20}$";
         public const string EXCEPTION_TYPE_BOOK_PRICE = @"^[0-9]{4,7}$";
         public const string EXCEPTION_TYPE_BOOK_QUANTITY = @"^[0-9]{1,2}$";
+        public const string EXCEPTION_TYPE_DATE = @"^([1-2][0-9]{3})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$";
 
         // TEXT
         public const string TEXT_NONE = "";
@@ -99,17 +101,17 @@ namespace Library
 
 
         // QUERY String
-        public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(50), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, borrowDate DATETIME, returnDate DATETIME, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";
+        public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(50), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, pubdate DATE, isbn varchar(30), borrowDate DATETIME, returnDate DATETIME, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";
         public const string QUERY_STRING_GET_ALL_TABLES = "SHOW tables";
 
         public const string QUERY_STRING_SELECT = "SELECT {0} FROM {1}";
         public const string QUERY_STRING_CONDITIONAL_SELECT = "SELECT {0} FROM {1} WHERE {2}";
         public const string QUERY_STRING_ORDER_BY_SELECT = "SELECT {0} FROM {1} ORDER BY {2}";
         public const string QUERY_STRING_INSERT_MEMBER = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', {4}, '{5}', '{6}')";
-        public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}')";
-        public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6})";
+        public const string QUERY_STRING_INSERT_BORROW_BOOK = "INSERT INTO {0} VALUES ({1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}', '{9}', '{10}')";
+        public const string QUERY_STRING_INSERT_ADD_BOOK = "INSERT INTO {0} (name, publisher, author, price, quantity, pubdate, isbn) VALUES ('{1}', '{2}', '{3}', {4}, {5}, '{6}', '{7}')";
         public const string QUERY_STRING_INSERT_LOG = "INSERT INTO log(date, member, activity) VALUES (now(), '{0}', '{1}')";
-        public const string QUERY_STRING_LOG_RESET = "DELETE FROM log";
+        public const string QUERY_STRING_LOG_RESET = "DELETE FROM log;ALTER TABLE log AUTO_INCREMENT=1;";
 
         public const string QUERY_STRING_CONDITIONAL_DELETE = "DELETE FROM {0} WHERE {1}";
         public const string QUERY_STRING_UPDATE = "UPDATE {0} SET {1}";
@@ -177,15 +179,12 @@ namespace Library
         public const string LOG_STRING_SEARCH_BOOK_BY_NAVER = "< 검색어: {0}, 권수: {1} > {2}";
         public const string LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR = "<id:{0} {1}> {2} -> {3}";
         public const string LOG_STRING_MODIFY_MEMBER_PASSWORD_BY_ADMINISTRATOR = "<id:{0} {1}>";
-        public const string LOG_STRING_MODIFY_MEMBER_ADDRESS_BY_ADMINISTRATOR = "<id:{0} {1}> {2}";
-        public const string LOG_STRING_MODIFIED_MEMBER_ADDRESS_BY_ADINISTRATOR = " \t\t\t  -> {0}";
-        public const string LOG_STRING_MODIFY_BOOK_NAME_BY_ADMINISTRATOR = "<id:{0} {1}> {2}";
-        public const string LOG_STRING_MODIFIED_BOOK_NAME = " \t\t\t  -> {0}";
+        public const string LOG_STRING_MODIFY_MEMBER_ADDRESS_BY_ADMINISTRATOR = "<id:{0} {1}> {2} -> {3}";
+        public const string LOG_STRING_MODIFY_BOOK_NAME_BY_ADMINISTRATOR = "<id:{0} {1}> {2} -> {3}";
 
         public const string LOG_STRING_MODIFY_MEMBER = "<{0}> {1} -> {2}";
         public const string LOG_STRING_MODIFY_MEMBER_PASSWORD = "<{0}>";
-        public const string LOG_STRING_MODIFY_MEMBER_ADDRESS = "<{0}> {1}";
-        public const string LOG_STRING_MODIFIED_MEMBER_ADDRESS = " \t\t-> {0}";
+        public const string LOG_STRING_MODIFY_MEMBER_ADDRESS = "<{0}> {1} -> {2}";
 
         // Member Filed
         public const string FILED_ALL = "*";
@@ -203,6 +202,8 @@ namespace Library
         public const string BOOK_FILED_AUTHOR = "author";
         public const string BOOK_FILED_PRICE = "price";
         public const string BOOK_FILED_QUANTITY = "quantity";
+        public const string BOOK_FILED_PUBLICATION_DATE = "pubdate";
+        public const string BOOK_FILED_ISBN = "isbn";
 
         // BorrowedBook Filed
         public const string BORROWED_BOOK_FILED_ID = "id";
@@ -260,6 +261,8 @@ namespace Library
         public const int MAX_LENGTH_BOOK_AUTHOR = 20;
         public const int MAX_LENGTH_BOOK_PRICE = 7;
         public const int MAX_LENGTH_BOOK_QUANTITY = 2;
+        public const int MAX_LENGTH_DATE = 8;
+        public const int MAX_LENGTH_BOOK_ISBN = 20;
 
         // menu cursor pos
         public const int MENU_CURSOR_POS_X = 40;
@@ -334,7 +337,7 @@ namespace Library
 
         public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, AGE, ADDRESS, PHONE_NUMBER, SIGN_UP }
 
-        public enum BookSearchPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, SEARCH }
+        public enum BookSearchPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, ISBN, PRICE, QUANTITY, SEARCH }
 
         public enum MemberSearchPosY : int { NAME = 12, ID, AGE, ADDRESS, PHONE_NUMBER, SEARCH }
 
@@ -352,13 +355,13 @@ namespace Library
 
         public enum MemberModifyModePosY : int { NAME = 14, PASSWORD, AGE, ADDRESS, PHONE_NUMBER, WITHDRAWAL }
 
-        public enum BookAddPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, PRICE, QUANTITY, ADD }
+        public enum BookAddPosY : int { NAME = 12, PUBLISHER, AUTHOR, PRICE, QUANTITY, PUBLICATION_DATE, ISBN, ADD }
 
         public enum SelectBookIdPosY : int { ID = 12, MODIFY_BOOK }
 
         public enum BookModifyModePosY : int { IMMEDIATE = 12, SEARCH }
         
-        public enum BookModifyPosY : int { NAME = 25, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE }
+        public enum BookModifyPosY : int { NAME = 27, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE }
 
         public enum SelectMemberIdPosY : int { ID = 12, MANAGEMEMT_MEMBER }
 

@@ -56,12 +56,13 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                  도서아이디 :                                                      ");
             Console.WriteLine("                                  도서명     :                                                      ");
             Console.WriteLine("                                  출판사     :                                                      ");
             Console.WriteLine("                                  저자       :                                                      ");
             Console.WriteLine("                                  가격       :                                                      ");
             Console.WriteLine("                                  수량       :                                                      ");
+            Console.WriteLine("                                  출판일     :                                                      ");
+            Console.WriteLine("                                  ISBN       :                                                      ");
             Console.WriteLine("                                  < 추가하기 >                                                      ");
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");

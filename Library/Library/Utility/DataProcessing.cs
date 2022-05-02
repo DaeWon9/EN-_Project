@@ -236,7 +236,7 @@ namespace Library.Utility
             return false;
         }
 
-        public string GetConditionalStringBySearchBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
+        public string GetConditionalStringBySearchBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookISBN, string bookPrice, string bookQuantity)
         {
             string conditionalString = "";
 
@@ -250,9 +250,7 @@ namespace Library.Utility
                 }
             if (bookName != "" && bookName != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
-                {
                     conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_NAME, bookName);
-                }
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
@@ -260,9 +258,7 @@ namespace Library.Utility
                 }
             if (bookPublisher != "" && bookPublisher != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
-                {
                     conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_PUBLISHER, bookPublisher);
-                }
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
@@ -270,13 +266,19 @@ namespace Library.Utility
                 }
             if (bookAuthor != "" && bookAuthor != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")
-                {
                     conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_AUTHOR, bookAuthor);
-                }
                 else
                 {
                     conditionalString += Constant.CONDITIONAL_STRING_AND;
                     conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.BOOK_FILED_AUTHOR, bookAuthor);
+                }
+            if (bookISBN != "" && bookISBN != Constant.INPUT_ESCAPE.ToString())
+                if (conditionalString == "")
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ISBN, bookISBN);
+                else
+                {
+                    conditionalString += Constant.CONDITIONAL_STRING_AND;
+                    conditionalString += string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ISBN, bookISBN);
                 }
             if (bookPrice != "" && bookPrice != Constant.INPUT_ESCAPE.ToString())
                 if (conditionalString == "")

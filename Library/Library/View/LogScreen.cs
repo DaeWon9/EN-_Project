@@ -17,7 +17,7 @@ namespace Library.View
             {
                 Console.WriteLine(" < {0}번 >", reader[Constant.LOG_FILED_NUMBER]);
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
-                Console.WriteLine(" 시간     : {0}", reader[Constant.LOG_FILED_DATE]);
+                Console.WriteLine(" 활동시간 : {0}", reader[Constant.LOG_FILED_DATE]);
                 Console.WriteLine(" 회원정보 : {0}", reader[Constant.LOG_FILED_MEMBER]);
                 Console.WriteLine(" 활동내역 : {0}", reader[Constant.LOG_FILED_ACTIVITY]);
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");

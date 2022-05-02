@@ -31,6 +31,7 @@ namespace Library.View
             Console.WriteLine("                                  도서명        :                                                   ");
             Console.WriteLine("                                  출판사        :                                                   ");
             Console.WriteLine("                                  저자          :                                                   ");
+            Console.WriteLine("                                  ISBN          :                                                   ");
             Console.WriteLine("                                  도서가격(MAX) :                                                   ");
             Console.WriteLine("                                  도서수량(MIN) :                                                   ");
             Console.WriteLine("                                  < 검색하기 >                                                      ");
@@ -82,6 +83,8 @@ namespace Library.View
                     Console.WriteLine("  저자       : " + reader[Constant.BOOK_FILED_AUTHOR]);
                     Console.WriteLine("  도서가격   : " + reader[Constant.BOOK_FILED_PRICE]);
                     Console.WriteLine("  도서수량   : " + reader[Constant.BOOK_FILED_QUANTITY]);
+                    Console.WriteLine("  출판일     : " + string.Format("{0:yyyy-MM-dd}", reader[Constant.BOOK_FILED_PUBLICATION_DATE]));
+                    Console.WriteLine("  ISBN       : " + reader[Constant.BOOK_FILED_ISBN]);
                     Console.WriteLine("----------------------------------------------------------------------------------------------------");
                 }
             }
@@ -123,6 +126,8 @@ namespace Library.View
                     Console.WriteLine("  도서명     : " + reader[Constant.BORROWED_BOOK_FILED_NAME]);
                     Console.WriteLine("  출판사     : " + reader[Constant.BORROWED_BOOK_FILED_PUBLISHER]);
                     Console.WriteLine("  저자       : " + reader[Constant.BORROWED_BOOK_FILED_AUTHOR]);
+                    Console.WriteLine("  출판일     : " + string.Format("{0:yyyy-MM-dd}", reader[Constant.BOOK_FILED_PUBLICATION_DATE]));
+                    Console.WriteLine("  ISBN       : " + reader[Constant.BOOK_FILED_ISBN]);
                     Console.WriteLine("  대여일자   : " + reader[Constant.BORROWED_BOOK_FILED_BORROW_DATE] + "\t\t\t남은기간 : " + remainDate.Days + "일 " + remainDate.Hours + "시간");
                     Console.WriteLine("  반납일자   : " + reader[Constant.BORROWED_BOOK_FILED_RETURN_DATE]);
                     Console.ForegroundColor = ConsoleColor.White;

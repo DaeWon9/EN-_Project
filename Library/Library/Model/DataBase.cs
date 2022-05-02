@@ -210,25 +210,25 @@ namespace Library.Model
             connection.Close();
         }
 
-        public void InsertBorrowedBook(string tableName, int bookId, string bookName, string bookPublisher, string bookAuthor, int bookPrice)
+        public void InsertBorrowedBook(string tableName, int bookId, string bookName, string bookPublisher, string bookAuthor, int bookPrice, string bookPublicationDate, string bookISBN)
         {
             DateTime borrowDate = DateTime.Now;
             DateTime returnDate = borrowDate.AddDays(7);
 
             if (!connection.Ping())
                 connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_INSERT_BORROW_BOOK, tableName, bookId, bookName, bookPublisher, bookAuthor, bookPrice, /*bookQuantity*/1, borrowDate.ToString("yyyy-MM-dd-HH-mm-ss"), returnDate.ToString("yyyy-MM-dd-HH-mm-ss"));
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_BORROW_BOOK, tableName, bookId, bookName, bookPublisher, bookAuthor, bookPrice, /*bookQuantity*/1, bookPublicationDate, bookISBN, borrowDate.ToString("yyyy-MM-dd-HH-mm-ss"), returnDate.ToString("yyyy-MM-dd-HH-mm-ss"));
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
             connection.Close();
         }
 
-        public void InsertAddBook(string tableName, int bookid, string bookName, string bookPublisher, string bookAuthor, int bookPrice, int bookQuantity)
+        public void InsertAddBook(string tableName, string bookName, string bookPublisher, string bookAuthor, int bookPrice, int bookQuantity, string BookpublicationDate, string bookISBN)
         {
             if (!connection.Ping())
                 connection.Open();
-            sqlString = string.Format(Constant.QUERY_STRING_INSERT_ADD_BOOK, tableName, bookid, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+            sqlString = string.Format(Constant.QUERY_STRING_INSERT_ADD_BOOK, tableName, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity, BookpublicationDate, bookISBN);
             MySqlCommand command = new MySqlCommand(sqlString, connection);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
@@ -237,7 +237,7 @@ namespace Library.Model
 
         public int GetBookBorrowResult(string tableName, int id, List<string> searchedBookIdList)
         {
-            string bookName = "", bookPublisher = "", bookAuthor = "";
+            string bookName = "", bookPublisher = "", bookAuthor = "", bookPublicationDate = "", bookISBN = "";
             int bookPrice = 0, bookQuantity = 0;
 
             if (!connection.Ping())
@@ -255,6 +255,8 @@ namespace Library.Model
                 bookAuthor = reader[Constant.BOOK_FILED_AUTHOR].ToString();
                 bookPrice = (int)reader[Constant.BOOK_FILED_PRICE];
                 bookQuantity = (int)reader[Constant.BOOK_FILED_QUANTITY];
+                bookPublicationDate = string.Format("{0:yyyy-MM-dd}", reader[Constant.BOOK_FILED_PUBLICATION_DATE]);
+                bookISBN = reader[Constant.BOOK_FILED_ISBN].ToString();
             }
             reader.Close();
             connection.Close();
@@ -269,7 +271,7 @@ namespace Library.Model
                 return (int)Constant.CheckInsertBorrowedBook.DUPLICATE_BOOK_ID;
 
             MinusBookQuantity(id); // 도서관에서 보유중인 도서수량 1개 뺴주고
-            InsertBorrowedBook(tableName, id, bookName, bookPublisher, bookAuthor, bookPrice); // 사용자별 개별테이블에 대여도서 정보 넣기
+            InsertBorrowedBook(tableName, id, bookName, bookPublisher, bookAuthor, bookPrice, bookPublicationDate, bookISBN); // 사용자별 개별테이블에 대여도서 정보 넣기
             return (int)Constant.CheckInsertBorrowedBook.SUCCESS;
         }
     

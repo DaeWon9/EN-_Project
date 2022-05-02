@@ -177,7 +177,7 @@ namespace Library.Controller
         //SearchBook
         private void InputBookSearchOption(MemberScreen memberScreen)
         {
-            string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
+            string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookISBN = "", bookPrice = "", bookQuantity = "";
             int currentConsoleCursorPosY;
             bool isSearchBookCompleted = false;
             isInputEscape = false;
@@ -206,6 +206,9 @@ namespace Library.Controller
                     case (int)Constant.BookSearchPosY.AUTHOR:
                         bookAuthor = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.AUTHOR, Constant.MAX_LENGTH_BOOK_AUTHOR, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER_KOREA, Constant.EXCEPTION_TYPE_BOOK_AUTHOR);
                         break;
+                    case (int)Constant.BookSearchPosY.ISBN:
+                        bookISBN = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ISBN, Constant.MAX_LENGTH_BOOK_ISBN, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER_SPACE_PYPHEN, Constant.EXCEPTION_TYPE_ANY);
+                        break;
                     case (int)Constant.BookSearchPosY.PRICE:
                         bookPrice = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
                         break;
@@ -213,7 +216,7 @@ namespace Library.Controller
                         bookQuantity = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
                         break;
                     case (int)Constant.BookSearchPosY.SEARCH:
-                        isSearchBookCompleted = IsSearchBookCompleted(memberScreen, bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+                        isSearchBookCompleted = IsSearchBookCompleted(memberScreen, bookId, bookName, bookPublisher, bookAuthor, bookISBN, bookPrice, bookQuantity);
                         break;
                     default:
                         break;
@@ -223,18 +226,18 @@ namespace Library.Controller
                 DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), Constant.LOG_TEXT_SEARCH_BOOK);
         }
 
-        private bool IsSearchBookCompleted(MemberScreen memberScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity)
+        private bool IsSearchBookCompleted(MemberScreen memberScreen, string bookId, string bookName, string bookPublisher, string bookAuthor, string bookISBN, string bookPrice, string bookQuantity)
         {
             int getYesOrNoBySearching, getYesOrNoByResearching;
 
             // 입력값이 모두 공백인지 체크
-            if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()) && (bookName == "" || bookName == Constant.INPUT_ESCAPE.ToString()) && (bookPublisher == "" || bookPublisher == Constant.INPUT_ESCAPE.ToString()) && (bookAuthor == "" || bookAuthor == Constant.INPUT_ESCAPE.ToString()) && (bookPrice == "" || bookPrice == Constant.INPUT_ESCAPE.ToString()) && (bookQuantity == "" || bookQuantity == Constant.INPUT_ESCAPE.ToString()))
+            if ((bookId == "" || bookId == Constant.INPUT_ESCAPE.ToString()) && (bookName == "" || bookName == Constant.INPUT_ESCAPE.ToString()) && (bookPublisher == "" || bookPublisher == Constant.INPUT_ESCAPE.ToString()) && (bookAuthor == "" || bookAuthor == Constant.INPUT_ESCAPE.ToString()) && (bookISBN == "" || bookISBN == Constant.INPUT_ESCAPE.ToString()) && (bookPrice == "" || bookPrice == Constant.INPUT_ESCAPE.ToString()) && (bookQuantity == "" || bookQuantity == Constant.INPUT_ESCAPE.ToString()))
             {
                 memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
                 return false;
             }
-            conditionalStringByUserInput = DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+            conditionalStringByUserInput = DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookISBN, bookPrice, bookQuantity);
 
             memberScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
@@ -254,8 +257,8 @@ namespace Library.Controller
             if (getYesOrNoBySearching == Constant.INPUT_ENTER && isSearchAndBorrow == Constant.IS_SEARCH_AND_BORROW) // 검색 후 대여까지하는 함수 -> 여기서 검색된 도서 id 리스트 만들어서 대여할때 중복체크하기
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
-                memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
-                searchedBookIdList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity));
+                memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookISBN, bookPrice, bookQuantity)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                searchedBookIdList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ID, Constant.TABLE_NAME_BOOK, DataProcessing.GetDataProcessing().GetConditionalStringBySearchBook(bookId, bookName, bookPublisher, bookAuthor, bookISBN, bookPrice, bookQuantity));
                 BorrowBookImmediately(memberScreen);
             }
 
@@ -623,8 +626,7 @@ namespace Library.Controller
                             DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_AGE, loginMemberAge, memberAge));
                             break;
                         case (int)Constant.MemberModifyModePosY.ADDRESS:
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER_ADDRESS, Constant.LOG_TEXT_MODIFY_MEMBER_ADDRESS, loginMemberAddress));
-                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFIED_MEMBER_ADDRESS, memberAddress));
+                            DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER_ADDRESS, Constant.LOG_TEXT_MODIFY_MEMBER_ADDRESS, loginMemberAddress, memberAddress));
                             break;
                         case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
                             DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, loginMemberName, loginMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_PHONE_NUMBER, loginMemberPhoneNumber, memberPhoneNumber));
