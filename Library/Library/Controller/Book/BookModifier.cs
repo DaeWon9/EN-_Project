@@ -153,14 +153,18 @@ namespace Library.Controller
                 administratorScreen.PrintSelectModifyBookScreen();
                 administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             }
-            else //검색 후 수정
+            else if (modifyMode == (int)Constant.ModifyModePosY.SEARCH) //검색 후 수정
             {
                 if (IsInputBookSearchOption(administratorScreen))
                 {
                     administratorScreen.PrintSelectModifyBookScreen();
                     administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringByUserInput()), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 }
+                else
+                    return;
             }
+            else
+                return;
 
             Console.SetCursorPosition(0, 0);      //입력창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정

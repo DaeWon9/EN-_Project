@@ -109,9 +109,23 @@ namespace Library.Controller
 
         public void SelectModifyBookMode(AdministratorScreen administratorScreen)
         {
+            bool isBack = false;
             int menuValue;
-            menuValue = GetModifyBookMode(administratorScreen);
-            bookModifier.SelectModifyBookId(administratorScreen, menuValue);
+
+            while (!isBack)
+            {
+                menuValue = GetModifyBookMode(administratorScreen);
+                switch (menuValue)
+                {
+                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
+                        isBack = true;
+                        break;
+                    default:
+                        bookModifier.SelectModifyBookId(administratorScreen, menuValue);
+                        break;
+                }
+            }
+
         }
 
         private void SelectManagementMemberMode(AdministratorScreen administratorScreen)
