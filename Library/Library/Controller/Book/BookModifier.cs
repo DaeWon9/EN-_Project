@@ -62,7 +62,6 @@ namespace Library.Controller
             administratorScreen.PrintModifyBookLabel();
             administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.BOOK_FILED_ID, modifyBookId)), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             administratorScreen.PrintModifyBookScreen();
-
             Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
 
             while (!isInputEscape && !isModifyCompleted && !isBookDeleteCompleted)

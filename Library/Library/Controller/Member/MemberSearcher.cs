@@ -11,6 +11,7 @@ namespace Library.Controller
 {
     class MemberSearcher
     {
+        private bool isBack = false;
         private string conditionalStringByUserInput = "";
         private List<string> searchedMemberIdList = new List<string>();
 
@@ -19,7 +20,17 @@ namespace Library.Controller
             return conditionalStringByUserInput;
         }
 
-        public void InputMemberSearchOption(BothScreen bothScreen)
+        public void Search(BothScreen bothScreen)
+        {
+            isBack = false;
+            while (!isBack)
+            {
+                if (IsInputMemberSearchOption(bothScreen))
+                    ShowSearchedMemberInformation(bothScreen);
+            }
+        }
+
+        public bool IsInputMemberSearchOption(BothScreen bothScreen)
         {
             string memberName = "", memberId = "", memberBirthDate = "", memberAddress = "", memberPhoneNumber = "";
             int currentConsoleCursorPosY;
@@ -69,6 +80,12 @@ namespace Library.Controller
                         break;
                 }
             }
+            if (isGetConditionalStringCompleted)
+                return true;
+            if (isInputEscape)
+                isBack = true;
+
+            return false;
         }
 
         public void ShowSearchedMemberInformation(BothScreen bothScreen)
@@ -85,7 +102,7 @@ namespace Library.Controller
                 Console.CursorVisible = false;
                 getYesOrNoByResearching = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByResearching == Constant.INPUT_ENTER)
-                    InputMemberSearchOption(bothScreen);
+                    Search(bothScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {

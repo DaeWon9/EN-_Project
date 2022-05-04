@@ -139,8 +139,7 @@ namespace Library.Controller
                 switch (menuValue)
                 {
                     case (int)Constant.MemberManagementModePosY.SEARCH:
-                        memberSearcher.InputMemberSearchOption(administratorScreen);
-                        memberSearcher.ShowSearchedMemberInformation(administratorScreen);
+                        memberSearcher.Search(administratorScreen);
                         break;
                     case (int)Constant.MemberManagementModePosY.MODIFY:
                         modifyModValue = GetModifyMemberMode(administratorScreen);

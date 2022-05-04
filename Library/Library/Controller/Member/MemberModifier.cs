@@ -11,7 +11,7 @@ namespace Library.Controller
 {
     class MemberModifier : MemberSearcher
     {
-        private string managementMemberId = "", managementMemberName = "";
+        private string managementMemberId = "";
 
         public void ManagementMember(AdministratorScreen administratorScreen, int modifyMode)
         {
@@ -19,18 +19,23 @@ namespace Library.Controller
             string memberId = "";
             bool isSelectMemberIdCompleted = false, isInputEscape = false;
 
-            if (modifyMode == (int)Constant.ModifyModePosY.IMMEDIATE)
+            if (modifyMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시 수정
             {
                 administratorScreen.PrintManagementMemberScreen();
                 administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             }
-            else 
+            else if (modifyMode == (int)Constant.ModifyModePosY.SEARCH) // 검색 후 수정
             {
-                InputMemberSearchOption(administratorScreen);
-                administratorScreen.PrintManagementMemberScreen();
-                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, GetConditionalStringByUserInput()), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
-
+                if (IsInputMemberSearchOption(administratorScreen))
+                {
+                    administratorScreen.PrintManagementMemberScreen();
+                    administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, GetConditionalStringByUserInput()), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+                }
+                else
+                    return;
             }
+            else
+                return;
 
             Console.SetCursorPosition(0, 0);      //입력창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, (int)Constant.SelectMemberIdPosY.ID); //좌표조정
@@ -73,11 +78,7 @@ namespace Library.Controller
                 }
             }
             if (isSelectMemberIdCompleted)
-            {
                 managementMemberId = memberId;
-                managementMemberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId));           
-            }
-
             if (!isInputEscape)
                 ModifyMemberInformation(administratorScreen, managementMemberId);
         }
@@ -129,7 +130,6 @@ namespace Library.Controller
                     Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                     return false;
                 }
-
             }
             return true;
         }
@@ -154,7 +154,6 @@ namespace Library.Controller
                 DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.MODIFY_MEMBER_INPUT_POS_X, Constant.WINDOW_WIDTH, (int)Constant.MemberModifyModePosY.PHONE_NUMBER);
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
                 Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
-
                 return false;
             }
             return true;
@@ -167,14 +166,13 @@ namespace Library.Controller
             bool isModifyCompleted = false, isWithdrawlCompleted = false, isInputEscape = false;
             int currentConsoleCursorPosY;
 
+            bothScreen.PrintModifyMemberInformationLabel();
+            bothScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, modifyMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+            bothScreen.PrintModifyMemberInformationScreen();
+            Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정         
+
             while (!isInputEscape && !isModifyCompleted && !isWithdrawlCompleted)
             {
-                bothScreen.PrintModifyMemberInformationLabel();
-                bothScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, modifyMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
-                bothScreen.PrintModifyMemberInformationScreen();
-                Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정         
-                setStringByUpdate = "";
-
                 currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MODIFY_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.MemberModifyModePosY.NAME, (int)Constant.MemberModifyModePosY.WITHDRAWAL);
                 isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
@@ -211,7 +209,7 @@ namespace Library.Controller
                     LogAdder.GetLogAdder().AddLogByModifyMember(bothScreen, currentConsoleCursorPosY, modifyMemberId, memberName, memberPassword, memberBirthDate, memberAddress, memberPhoneNumber);
                     isModifyCompleted = IsModifyMemberInformationCompleted(bothScreen, setStringByUpdate, modifyMemberId);
                     if (isModifyCompleted && IsReModifyByMember(bothScreen)) // 계속해서 변경
-                        isModifyCompleted = false;
+                        ModifyMemberInformation(bothScreen, modifyMemberId);
                 }
             }
 

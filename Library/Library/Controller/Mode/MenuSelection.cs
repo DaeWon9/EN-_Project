@@ -67,7 +67,6 @@ namespace Library.Controller
         public int GetManagementMemberMode(AdministratorScreen administratorScreen)
         {
             administratorScreen.PrintSelectManagementMemberModeScreen();
-            //administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             menuValue = DataProcessing.GetDataProcessing().CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.MemberManagementModePosY.SEARCH, (int)Constant.MemberManagementModePosY.SEARCH, (int)Constant.MemberManagementModePosY.MODIFY);
             return menuValue;
         }
