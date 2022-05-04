@@ -54,8 +54,8 @@ namespace Library.Controller
 
         private void Modify(AdministratorScreen administratorScreen) //  BookId 는 primaryKey 이므로 수정불가능하게 설정
         {
-            string setStringByUpdate = "";
-            string bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
+            string setStringByUpdate = "", bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";
+            string modifyBookName = "", modifyBookPublisher = "", modifyBookAuthor = "", modifyBookPrice = "", modifyBookQuantity = "";
             int currentConsoleCursorPosY;
             bool isModifyCompleted = false, isBookDeleteCompleted = false, isInputEscape = false;
 
@@ -99,7 +99,34 @@ namespace Library.Controller
 
                 if (setStringByUpdate != "") // 수정사항이 있다면
                 {
-                    LogAdder.GetLogAdder().AddLogByModifyBook(currentConsoleCursorPosY, modifyBookId.ToString(), bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
+                    modifyBookName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+                    modifyBookPublisher = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_PUBLISHER, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+                    modifyBookAuthor = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_AUTHOR, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+                    modifyBookPrice = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_PRICE, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+                    modifyBookQuantity = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_QUANTITY, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+
+                    switch (currentConsoleCursorPosY)
+                    {
+                        case (int)Constant.BookModifyPosY.NAME:
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_NAME, modifyBookName, bookName));
+                            break;
+                        case (int)Constant.BookModifyPosY.PUBLISHER:
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PUBLISHER, modifyBookPublisher, bookPublisher));
+                            break;
+                        case (int)Constant.BookModifyPosY.AUTHOR:
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_AUTHOR, modifyBookAuthor, bookAuthor));
+                            break;
+                        case (int)Constant.BookModifyPosY.PRICE:
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PRICE, modifyBookPrice, bookPrice));
+                            break;
+                        case (int)Constant.BookModifyPosY.QUANTITY:
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_QUANTITY, modifyBookQuantity, bookQuantity));
+                            break;
+                        default:
+                            break;
+                    }
+
+
                     isModifyCompleted = IsModifyBookInformationCompleted(administratorScreen, setStringByUpdate, modifyBookId);
                     if (isModifyCompleted && IsReModifyByBook(administratorScreen))
                         Modify(administratorScreen);

@@ -169,8 +169,8 @@ namespace Library.Controller
 
         public void ModifyMemberInformation(BothScreen bothScreen, string modifyMemberId) // memberId 는 primaryKey 이므로 수정불가능하게 설정
         {
-            string setStringByUpdate = "";
-            string memberName = "", memberPassword = "", memberBirthDate = "", memberAddress = "", memberPhoneNumber = "";
+            string setStringByUpdate = "", memberName = "", memberPassword = "", memberBirthDate = "", memberAddress = "", memberPhoneNumber = "";
+            string modifyMemberName = "", modifyMemberPassword = "", modifyMemberBirthDate = "", modifyMemberAddress = "", modifyMemberPhoneNumber = "";
             bool isModifyCompleted = false, isWithdrawlCompleted = false, isInputEscape = false;
             int currentConsoleCursorPosY;
 
@@ -214,7 +214,59 @@ namespace Library.Controller
 
                 if (setStringByUpdate != "") // 수정사항이 있을때
                 {
-                    LogAdder.GetLogAdder().AddLogByModifyMember(bothScreen, currentConsoleCursorPosY, modifyMemberId, memberName, memberPassword, memberBirthDate, memberAddress, memberPhoneNumber);
+                    modifyMemberName = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_NAME, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, modifyMemberId));
+                    modifyMemberPassword = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_PASSWORD, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, modifyMemberId));
+                    modifyMemberBirthDate = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_BIRTH_DATE, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, modifyMemberId));
+                    modifyMemberAddress = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_ADDRESS, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, modifyMemberId));
+                    modifyMemberPhoneNumber = DataBase.GetDataBase().GetSelectedElement(Constant.MEMBER_FILED_PHONE_NUMBER, Constant.TABLE_NAME_MEMBER, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, modifyMemberId));
+
+                    if (bothScreen.GetType().ToString() == "Library.View.AdministratorScreen") // 관리자형식으로 로그찍기
+                    {
+                        switch (currentConsoleCursorPosY)
+                        {
+                            case (int)Constant.MemberModifyModePosY.NAME:
+                                DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_NAME, modifyMemberName, memberName));
+                                break;
+                            case (int)Constant.MemberModifyModePosY.PASSWORD:
+                                DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_PASSWORD, modifyMemberPassword, memberPassword));
+                                break;
+                            case (int)Constant.MemberModifyModePosY.BIRTH_DATE:
+                                DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_BIRTH_DATE, modifyMemberBirthDate, memberBirthDate));
+                                break;
+                            case (int)Constant.MemberModifyModePosY.ADDRESS:
+                                DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_ADDRESS, modifyMemberAddress, memberAddress));
+                                break;
+                            case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
+                                DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyMemberId, Constant.LOG_TEXT_MODIFY_MEMBER_PHONE_NUMBER, modifyMemberPhoneNumber, memberPhoneNumber));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else // 회원형식으로 로그찍기
+                    {
+                        switch (currentConsoleCursorPosY)
+                        {
+                            case (int)Constant.MemberModifyModePosY.NAME:
+                                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, modifyMemberName, modifyMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_NAME, modifyMemberName, memberName));
+                                break;
+                            case (int)Constant.MemberModifyModePosY.PASSWORD:
+                                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, modifyMemberName, modifyMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_PASSWORD, modifyMemberPassword, memberPassword));
+                                break;
+                            case (int)Constant.MemberModifyModePosY.BIRTH_DATE:
+                                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, modifyMemberName, modifyMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_BIRTH_DATE, modifyMemberBirthDate, memberBirthDate));
+                                break;
+                            case (int)Constant.MemberModifyModePosY.ADDRESS:
+                                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, modifyMemberName, modifyMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_ADDRESS, modifyMemberAddress, memberAddress));
+                                break;
+                            case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
+                                DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, modifyMemberName, modifyMemberId), string.Format(Constant.LOG_STRING_MODIFY_MEMBER, Constant.LOG_TEXT_MODIFY_MEMBER_PHONE_NUMBER, modifyMemberPhoneNumber, memberPhoneNumber));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
                     isModifyCompleted = IsModifyMemberInformationCompleted(bothScreen, setStringByUpdate, modifyMemberId);
                     if (isModifyCompleted && IsReModifyByMember(bothScreen)) // 계속해서 변경
                         ModifyMemberInformation(bothScreen, modifyMemberId);
