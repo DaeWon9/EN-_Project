@@ -8,7 +8,7 @@ using Library.Utility;
 using System.Runtime.InteropServices;
 
 
-namespace Library.Controller
+namespace Library.Controller // 소멸자로 객체 소멸시켜주기생각, 함수는 최대한 해당 기능만 
 {
     class LibraryController
     {

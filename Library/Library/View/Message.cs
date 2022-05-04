@@ -23,5 +23,12 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        public void PrintConfirmationMessage(string message, ConsoleColor color)
+        {
+            PrintMessage(message, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, color); //검색하시겠습니까? 확인문구 
+            PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, color);
+            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
+        }
+
     }
 }

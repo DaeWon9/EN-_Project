@@ -190,6 +190,22 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
 
+        public void PrintSelectModifyMemberModeLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                        < 회 원 정 보 수 정 >                        *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *    ● ↑↓ 방향키로 이동하며 ENTER키를 눌러 수정방식을 선택해주세요     *             ");
+            Console.WriteLine("           *     ● 바로 수정    : 회원 아이디를 알고있을경우 바로 수정가능            *            ");
+            Console.WriteLine("            *    ● 검색 후 수정 : 검색한 회원정보를 바탕으로 수정가능                *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+        }
+
+
         public void PrintSelectModifyBookIDLabel(bool isClear = true)
         {
             if (isClear)

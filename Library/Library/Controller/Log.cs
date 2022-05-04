@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Library.Controller
 {
-    class Log : Message
+    class Log : Message //부분삭제 + 파일삭제
     {
         LogScreen logScreen = new LogScreen();
         private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), Constant.LOG_FILE_NAME); // 로그 파일 저장 경로 

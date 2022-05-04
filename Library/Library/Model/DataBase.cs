@@ -22,7 +22,7 @@ namespace Library.Model
             return database;
         }
 
-        public MySqlDataReader Select(string filed, string tableName, string conditionalString = "", string orderByString = "")
+        public MySqlDataReader Select(string filed, string tableName, string conditionalString = "", string orderByString = "") //분할해주는 게 좋을듯 구체적으로
         {
             if (!connection.Ping())
                 connection.Open();
@@ -191,6 +191,17 @@ namespace Library.Model
             for (int repeat = 0; repeat < searchedBookIdList.Count; repeat++)
             {
                 if (searchedBookIdList[repeat] == bookid.ToString())
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsRegisteredMemberId(string memberId)
+        {
+            List<string> memberIdList = GetSelectedElements(Constant.MEMBER_FILED_ID, Constant.TABLE_NAME_MEMBER);
+            for (int repeat = 0; repeat < memberIdList.Count; repeat++)
+            {
+                if (memberIdList[repeat] == memberId)
                     return true;
             }
             return false;

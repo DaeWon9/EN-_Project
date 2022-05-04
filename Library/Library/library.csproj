@@ -89,8 +89,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\BookAdder.cs" />
+    <Compile Include="Controller\BorrowBookStatus.cs" />
+    <Compile Include="Controller\Searcher\BookSearcher.cs" />
+    <Compile Include="Controller\Modifier\BookModifier.cs" />
     <Compile Include="Controller\Log.cs" />
-    <Compile Include="Controller\NaverBookSearcher.cs" />
+    <Compile Include="Controller\Modifier\MemberModifier.cs" />
+    <Compile Include="Controller\Searcher\MemberSearcher.cs" />
+    <Compile Include="Controller\Searcher\NaverBookSearcher.cs" />
     <Compile Include="Model\NaverBook.cs" />
     <Compile Include="Utility\Constant.cs" />
     <Compile Include="Controller\Administrator.cs" />

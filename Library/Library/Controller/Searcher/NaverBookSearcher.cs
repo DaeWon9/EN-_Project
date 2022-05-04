@@ -57,10 +57,8 @@ namespace Library.Controller
                 Console.SetCursorPosition(Constant.SEARCH_BY_NAVER_SELECT_OPTION_POS_X, (int)Constant.NaverBookPosY.NAME); //좌표조정
                 return false;
             }
+            administratorScreen.PrintConfirmationMessage("검색하시겠습니까??", ConsoleColor.Yellow);
 
-            administratorScreen.PrintMessage(Constant.TEXT_IS_SEARCH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
-            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
-            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
             Console.CursorVisible = false;
             GetYesOrNoByNaverSearch = DataProcessing.GetDataProcessing().GetEnterOrEscape();
 
@@ -129,7 +127,7 @@ namespace Library.Controller
             bool isAddBookCompleted = false, isInputEscape = false;
             int currentConsoleCursorPosY;
             string bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "", bookPublicationDate = "", bookISBN = "";
-            bookName = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["title"].ToString().Replace("<b>", "").Replace("</b>", "");
+            bookName = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["title"].ToString().Replace("<b>", "").Replace("</b>", ""); // 제거하는거 모듈화로 묶기
             bookPublisher = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["publisher"].ToString().Replace("<b>", "").Replace("</b>", "");
             bookAuthor = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["author"].ToString().Replace("<b>", "").Replace("</b>", "");
             bookPrice = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["price"].ToString().Replace("<b>", "").Replace("</b>", "");
@@ -140,7 +138,7 @@ namespace Library.Controller
             administratorScreen.PrintBookOptionByNaver(bookName, bookPublisher, bookAuthor, bookPrice, bookPublicationDate, bookISBN);
             Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.QUANTITY); // 커서위치조정
 
-            while (!isInputEscape && !isAddBookCompleted)
+            while (!isInputEscape && !isAddBookCompleted) // 함수로빼면 좋을듯
             {
                 currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.ADD_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookAddPosY.NAME, (int)Constant.BookAddPosY.ADD);
                 isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
@@ -190,9 +188,7 @@ namespace Library.Controller
                 Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.NAME); //좌표조정
                 return false;
             }
-            administratorScreen.PrintMessage(Constant.TEXT_IS_ADD, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
-            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
-            Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
+            administratorScreen.PrintConfirmationMessage("추가하시겠습니까??", ConsoleColor.Yellow);
             GetYesOrNoByAdd = DataProcessing.GetDataProcessing().GetEnterOrEscape();
 
             if (GetYesOrNoByAdd == Constant.INPUT_ESCAPE) // 추가하시겠습니까?? -> ESC
@@ -216,5 +212,6 @@ namespace Library.Controller
             }
             return true;
         }
+
     }
 }

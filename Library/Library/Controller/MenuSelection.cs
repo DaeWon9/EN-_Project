@@ -9,7 +9,7 @@ using Library.Model;
 
 namespace Library.Controller
 {
-    class MenuSelection 
+    class MenuSelection  // 함수로 넘기는거 생각해보기
     {
         private int menuValue;
 
@@ -53,7 +53,14 @@ namespace Library.Controller
         public int GetModifyBookMode(AdministratorScreen administratorScreen)
         {
             administratorScreen.PrintSelectModifyBookModeScreen();
-            menuValue = DataProcessing.GetDataProcessing().CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.BookModifyModePosY.IMMEDIATE, (int)Constant.BookModifyModePosY.IMMEDIATE, (int)Constant.BookModifyModePosY.SEARCH);
+            menuValue = DataProcessing.GetDataProcessing().CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.ModifyModePosY.IMMEDIATE, (int)Constant.ModifyModePosY.IMMEDIATE, (int)Constant.ModifyModePosY.SEARCH);
+            return menuValue;
+        }
+
+        public int GetModifyMemberMode(AdministratorScreen administratorScreen)
+        {
+            administratorScreen.PrintSelectModifyMemberModeScreen();
+            menuValue = DataProcessing.GetDataProcessing().CursorMove(Constant.MENU_CURSOR_POS_X, (int)Constant.ModifyModePosY.IMMEDIATE, (int)Constant.ModifyModePosY.IMMEDIATE, (int)Constant.ModifyModePosY.SEARCH);
             return menuValue;
         }
 

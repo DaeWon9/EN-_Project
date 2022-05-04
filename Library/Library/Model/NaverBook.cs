@@ -6,25 +6,21 @@ using Newtonsoft.Json.Linq;
 
 namespace Library.Model
 {
-    class NaverBook
+    class NaverBook //api는 보통 모델에 넣지않음 
     {
-        private string clientId = Constant.CLIENT_ID;
+        private string clientId = Constant.CLIENT_ID; //털리면 안됌 -> 민감한정보는 환경변수로 따로 관리
         private string clientSecert = Constant.CLIENT_SECRET;
         public JObject GetSearchBookInformationByNaver(string query, int display)
         {
-            // title -> d_titl
-            //jsonStr = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
-
             string queryString = "query=" + query;
             string displayString = "&display=" + display;
-            string url = "https://openapi.naver.com/v1/search/book.json?" + queryString + displayString;
-            //string url = "	https://openapi.naver.com/v1/search/book_adv.xml?d_isbn = 8954763006 9788954763004";
+            string url = "https://openapi.naver.com/v1/search/book.json?" + queryString + displayString; //매직넘버
 
             //request 
             WebRequest request = WebRequest.Create(url);
             request.Method = "GET";
-            request.Headers.Add("X-Naver-Client-Id", clientId);
-            request.Headers.Add("X-Naver-Client-Secret", clientSecert);
+            request.Headers.Add("X-Naver-Client-Id", Constant.CLIENT_ID);
+            request.Headers.Add("X-Naver-Client-Secret", Constant.CLIENT_SECRET);
 
             WebResponse response = request.GetResponse();
             Stream responseStream = response.GetResponseStream();

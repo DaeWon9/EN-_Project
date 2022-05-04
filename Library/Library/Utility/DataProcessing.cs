@@ -236,7 +236,7 @@ namespace Library.Utility
             return false;
         }
 
-        public string GetConditionalStringBySearchBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookISBN, string bookPrice, string bookQuantity)
+        public string GetConditionalStringBySearchBook(string bookId, string bookName, string bookPublisher, string bookAuthor, string bookISBN, string bookPrice, string bookQuantity) // 두줄겹치는거 함수화
         {
             string conditionalString = "";
 
@@ -351,6 +351,14 @@ namespace Library.Utility
                     conditionalString += string.Format(Constant.CONDITIONAL_STRING_LIKE, Constant.MEMBER_FILED_PHONE_NUMBER, memberPhoneNumber);
                 }
             return conditionalString;
+        }
+
+        public string GetStringByUpdate(string setStringForm, string filed, string inputValue)
+        {
+            string resultString = "";
+            if (inputValue != "" && inputValue != Constant.INPUT_ESCAPE.ToString())
+                resultString = string.Format(setStringForm, filed, inputValue);
+            return resultString;
         }
 
         public bool IsExit(Message message)

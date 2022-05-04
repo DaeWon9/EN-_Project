@@ -50,7 +50,7 @@ namespace Library
         public const string EXCEPTION_TYPE_BOOK_QUANTITY = @"^[0-9]{1,2}$";
         public const string EXCEPTION_TYPE_DATE = @"^([1-2][0-9]{3})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$";
 
-        // TEXT
+        // TEXT -> 컨스턴트 처리 안해도됌 -> 뷰에서 처리하는게 맞음
         public const string TEXT_NONE = "";
         public const string TEXT_OK = "[OK]";
         public const string TEXT_WELCOME = "< {0}님 환영합니다 >";
@@ -357,7 +357,7 @@ namespace Library
 
         public enum SelectBookIdPosY : int { ID = 12, MODIFY_BOOK }
 
-        public enum BookModifyModePosY : int { IMMEDIATE = 12, SEARCH }
+        public enum ModifyModePosY : int { IMMEDIATE = 12, SEARCH }
         
         public enum BookModifyPosY : int { NAME = 27, PUBLISHER, AUTHOR, PRICE, QUANTITY, DELETE }
 

@@ -126,6 +126,17 @@ namespace Library.View
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
+        public void PrintSelectModifyMemberModeScreen(bool isClear = true)
+        {
+            PrintSelectModifyMemberModeLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                   선택 : ENTER    뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                         ▶  바로 수정                                              ");
+            Console.WriteLine("                                         ▶  검색 후 수정                                           ");
+            Console.WriteLine("                                                                                                    ");
+        }
+
         public void PrintMemberSearchScreen(bool isClear = true)
         {
             PrintMemberSearchLabel(isClear);
