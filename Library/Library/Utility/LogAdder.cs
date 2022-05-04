@@ -76,5 +76,34 @@ namespace Library.Utility
             }
         }
 
+        public void AddLogByModifyBook(int currentConsoleCursorPosY, string modifyBookId, string modifiedBookName, string modifiedBookPublisher, string modifiedBookAuthor, string modifiedBookPrice, string modifiedBookQuantity)
+        {
+            string modifyBookName = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_NAME, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+            string modifyBookPublisher = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_PUBLISHER, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+            string modifyBookAuthor = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_AUTHOR, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+            string modifyBookPrice = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_PRICE, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+            string modifyBookQuantity = DataBase.GetDataBase().GetSelectedElement(Constant.BOOK_FILED_QUANTITY, Constant.TABLE_NAME_BOOK, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, modifyBookId));
+
+            switch (currentConsoleCursorPosY) 
+            {
+                case (int)Constant.BookModifyPosY.NAME:
+                    DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_NAME, modifyBookName, modifiedBookName));
+                    break;
+                case (int)Constant.BookModifyPosY.PUBLISHER:
+                    DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PUBLISHER, modifyBookPublisher, modifiedBookPublisher));
+                    break;
+                case (int)Constant.BookModifyPosY.AUTHOR:
+                    DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_AUTHOR, modifyBookAuthor, modifiedBookAuthor));
+                    break;
+                case (int)Constant.BookModifyPosY.PRICE:
+                    DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PRICE, modifyBookPrice, modifiedBookPrice));
+                    break;
+                case (int)Constant.BookModifyPosY.QUANTITY:
+                    DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK, modifyBookName, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_QUANTITY, modifyBookQuantity, modifiedBookQuantity));
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

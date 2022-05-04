@@ -100,31 +100,8 @@ namespace Library.Controller
 
                 if (setStringByUpdate != "") // 수정사항이 있다면
                 {
+                    LogAdder.GetLogAdder().AddLogByModifyBook(currentConsoleCursorPosY, modifyBookId.ToString(), bookName, bookPublisher, bookAuthor, bookPrice, bookQuantity);
                     isModifyCompleted = IsModifyBookInformationCompleted(administratorScreen, setStringByUpdate, modifyBookId);
-
-
-                    switch (currentConsoleCursorPosY) // 로그추가
-                    {
-                        case (int)Constant.BookModifyPosY.NAME:
-                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_NAME, modifyBookName, bookName));
-                            break;
-                        case (int)Constant.BookModifyPosY.PUBLISHER:
-                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PUBLISHER, modifyBookPublisher, bookPublisher));
-                            break;
-                        case (int)Constant.BookModifyPosY.AUTHOR:
-                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_AUTHOR, modifyBookAuthor, bookAuthor));
-                            break;
-                        case (int)Constant.BookModifyPosY.PRICE:
-                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PRICE, modifyBookPrice, bookPrice));
-                            break;
-                        case (int)Constant.BookModifyPosY.QUANTITY:
-                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_QUANTITY, modifyBookQuantity, bookQuantity));
-                            break;
-                        default:
-                            break;
-                    }
-
-
                     if (isModifyCompleted && IsReModifyByBook(administratorScreen))
                         Modify(administratorScreen);
                 }
