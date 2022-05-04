@@ -11,7 +11,7 @@ namespace Library.Controller
 {
     class BookReturn
     {
-        public void ReturnBook(MemberScreen memberScreen, string loginMemberId, string loginMemberName)
+        public void Return(MemberScreen memberScreen, string loginMemberId, string loginMemberName)
         {
             bool isRetunrBookCompleted = false, isInputEscape = false;
             int currentConsoleCursorPosY;

@@ -70,8 +70,8 @@ namespace Library.Controller
                 switch (menuValue)
                 {
                     case (int)Constant.AdministratorMenu.BOOK_SEARCH:
-                        bookSearcher.InputBookSearchOption(administratorScreen);
-                        bookSearcher.ShowSearchedBookInformation(administratorScreen);
+                        if(bookSearcher.IsInputBookSearchOption(administratorScreen))
+                            bookSearcher.ShowSearchedBookInformation(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BOOK_ADD:
                         BookAdder.Add(administratorScreen);
@@ -93,10 +93,10 @@ namespace Library.Controller
                         log.ShowLogScreen();
                         break;
                     case (int)Constant.AdministratorMenu.SAVE_LOG:
-                        log.SaveLogToTxt();
+                        log.SaveToTxt();
                         break;
                     case (int)Constant.AdministratorMenu.RESET_LOG:
-                        log.ResetLog();
+                        log.Reset();
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isLogout = DataProcessing.GetDataProcessing().IsLogout(administratorScreen);

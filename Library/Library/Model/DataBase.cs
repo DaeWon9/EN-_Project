@@ -16,9 +16,7 @@ namespace Library.Model
         public static DataBase GetDataBase()
         {
             if (database == null)
-            {
                 database = new DataBase();
-            }
             return database;
         }
 

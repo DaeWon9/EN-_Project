@@ -179,14 +179,8 @@ namespace Library
 
         public const string LOG_STRING_FORM_CONTAIN_ID = "{0}(id:{1}) {2}";
         public const string LOG_STRING_SEARCH_BOOK_BY_NAVER = "< 검색어: {0}, 권수: {1} > {2}";
-        public const string LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR = "<id:{0} {1}> {2} -> {3}";
-        public const string LOG_STRING_MODIFY_MEMBER_PASSWORD_BY_ADMINISTRATOR = "<id:{0} {1}>";
-        public const string LOG_STRING_MODIFY_MEMBER_ADDRESS_BY_ADMINISTRATOR = "<id:{0} {1}> {2} -> {3}";
-        public const string LOG_STRING_MODIFY_BOOK_NAME_BY_ADMINISTRATOR = "<id:{0} {1}> {2} -> {3}";
-
+        public const string LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR = "<회원id:{0} {1}> {2} -> {3}";
         public const string LOG_STRING_MODIFY_MEMBER = "<{0}> {1} -> {2}";
-        public const string LOG_STRING_MODIFY_MEMBER_PASSWORD = "<{0}>";
-        public const string LOG_STRING_MODIFY_MEMBER_ADDRESS = "<{0}> {1} -> {2}";
 
         // Member Filed
         public const string FILED_ALL = "*";

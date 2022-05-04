@@ -90,14 +90,13 @@ namespace Library.Controller
                 switch (menuValue)
                 {
                     case (int)Constant.MemberMenu.BOOK_SEARCH:
-                        bookSearcher.InputBookSearchOption(memberScreen);
-                        bookSearcher.ShowSearchedBookInformation(memberScreen);
+                        bookSearcher.Search(memberScreen);
                         break;
                     case (int)Constant.MemberMenu.BOOK_BORROW:
                         SelectBorrowBookMode(memberScreen, bookSearcher);
                         break;
                     case (int)Constant.MemberMenu.BOOK_RETURN:
-                        bookReturn.ReturnBook(memberScreen, loginMemberId, loginMemberName);
+                        bookReturn.Return(memberScreen, loginMemberId, loginMemberName);
                         break;
                     case (int)Constant.MemberMenu.BOOK_CHECK:
                         bookBorrower.CheckBorrowedBook(memberScreen, loginMemberId, loginMemberName);

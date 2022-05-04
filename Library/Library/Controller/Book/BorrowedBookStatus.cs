@@ -24,7 +24,7 @@ namespace Library.Controller
             return false;
         }
 
-        public void ShowBorrowBookStatus(AdministratorScreen administratorScreen)
+        public void Show(AdministratorScreen administratorScreen)
         {
             isInputEscape = false;
             string memberName = "", memberId = "", bookId = "";
@@ -95,7 +95,7 @@ namespace Library.Controller
                 if (isInputEscape) //esc 눌렀을때 뒤로가기
                 {
                     Console.CursorVisible = true;
-                    ShowBorrowBookStatus(administratorScreen);
+                    Show(administratorScreen);
                 }
             }
         }
@@ -124,7 +124,7 @@ namespace Library.Controller
                 if (isInputEscape) //esc 눌렀을때 뒤로가기
                 {
                     Console.CursorVisible = true;
-                    ShowBorrowBookStatus(administratorScreen);
+                    Show(administratorScreen);
                 }
             }
         }

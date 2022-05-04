@@ -34,7 +34,13 @@ namespace Library.Controller
             return false;
         }
 
-        public void InputBookSearchOption(BothScreen bothScreen)
+        public void Search(BothScreen bothScreen)
+        {
+            if (IsInputBookSearchOption(bothScreen))
+                ShowSearchedBookInformation(bothScreen);
+        }
+
+        public bool IsInputBookSearchOption(BothScreen bothScreen)
         {
             string bookId = "", bookName = "", bookPublisher = "", bookAuthor = "", bookISBN = "", bookPrice = "", bookQuantity = "";
             int currentConsoleCursorPosY;
@@ -91,6 +97,9 @@ namespace Library.Controller
                         break;
                 }
             }
+            if (isGetConditionalStringCompleted)
+                return true;
+            return false;
         }
 
         public void ShowSearchedBookInformation(BothScreen bothScreen)
@@ -108,7 +117,7 @@ namespace Library.Controller
 
                 getYesOrNoByResearching = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByResearching == Constant.INPUT_ENTER)
-                    InputBookSearchOption(bothScreen);
+                    Search(bothScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
             {

@@ -60,12 +60,12 @@ namespace Library.Controller
 
                 GetYesOrNoByReAdd = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (GetYesOrNoByReAdd == Constant.INPUT_ENTER) // 계속해서 추가할것임.
-                    AddBook(administratorScreen);
+                    Add(administratorScreen);
             }
             return true;
         }
 
-        public void AddBook(AdministratorScreen administratorScreen)
+        public void Add(AdministratorScreen administratorScreen)
         {
             string bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "", bookPublicationDate = "", bookISBN = "";
             int currentConsoleCursorPosY;

@@ -17,9 +17,7 @@ namespace Library.Utility
         public static DataProcessing GetDataProcessing() 
         {
             if (dataProcessing == null)
-            {
                 dataProcessing = new DataProcessing();
-            }
             return dataProcessing;
         }
 

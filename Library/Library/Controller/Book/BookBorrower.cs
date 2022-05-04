@@ -127,16 +127,18 @@ namespace Library.Controller
             isInputEscape = false;
             Console.CursorVisible = true;
 
-            if (borrowMode == (int)Constant.ModifyModePosY.IMMEDIATE)
+            if (borrowMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시대여
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
                 memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE); // 도서관에 보유중인 책 정보 표시
             }
-            else
+            else //검색 후 대여
             {
-                InputBookSearchOption(memberScreen);
-                memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
-                memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringByUserInput()), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                if (IsInputBookSearchOption(memberScreen))
+                {
+                    memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
+                    memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringByUserInput()), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                }
             }
 
             Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 

@@ -110,6 +110,7 @@
     <Compile Include="Model\DataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\DataProcessing.cs" />
+    <Compile Include="Utility\LogAdder.cs" />
     <Compile Include="View\BothScreen.cs" />
     <Compile Include="View\AdministratorScreen.cs" />
     <Compile Include="View\Label.cs" />

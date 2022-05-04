@@ -92,7 +92,7 @@ namespace Library.Controller
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                         break;
                     case (int)Constant.BookModifyPosY.DELETE:
-                        //isBookDeleteCompleted = IsDeleteBookCompleted(administratorScreen, modifyBookId);
+                        isBookDeleteCompleted = IsDeleteBookCompleted(administratorScreen, modifyBookId);
                         break;
                     default:
                         break;
@@ -106,7 +106,7 @@ namespace Library.Controller
                     switch (currentConsoleCursorPosY) // 로그추가
                     {
                         case (int)Constant.BookModifyPosY.NAME:
-                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_BOOK_NAME_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_NAME, modifyBookName, bookName));
+                            DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_NAME, modifyBookName, bookName));
                             break;
                         case (int)Constant.BookModifyPosY.PUBLISHER:
                             DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_MODIFY_MEMBER_BY_ADMINISTRATOR, modifyBookId, Constant.LOG_TEXT_MODIFY_BOOK_PUBLISHER, modifyBookPublisher, bookPublisher));
@@ -126,7 +126,7 @@ namespace Library.Controller
 
 
                     if (isModifyCompleted && IsReModifyByBook(administratorScreen))
-                        ModifyBook(administratorScreen);
+                        Modify(administratorScreen);
                 }
             }
         }
@@ -148,16 +148,18 @@ namespace Library.Controller
             int currentConsoleCursorPosY, getYesOrNoByModify;
             bool isSelectBookIdCompleted = false, isInputEscape = false;
 
-            if (modifyMode == (int)Constant.ModifyModePosY.IMMEDIATE)
+            if (modifyMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시수정
             {
                 administratorScreen.PrintSelectModifyBookScreen();
                 administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             }
-            else
+            else //검색 후 수정
             {
-                InputBookSearchOption(administratorScreen);
-                administratorScreen.PrintSelectModifyBookScreen();
-                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringByUserInput()), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                if (IsInputBookSearchOption(administratorScreen))
+                {
+                    administratorScreen.PrintSelectModifyBookScreen();
+                    administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringByUserInput()), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
+                }
             }
 
             Console.SetCursorPosition(0, 0);      //입력창 보이게 맨위로 올리고 
@@ -221,7 +223,7 @@ namespace Library.Controller
             }
 
             if (!isInputEscape)
-                ModifyBook(administratorScreen);
+                Modify(administratorScreen);
 
         }
 

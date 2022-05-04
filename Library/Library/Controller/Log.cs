@@ -9,7 +9,7 @@ using Library.Model;
 using Library.View;
 using System.IO;
 
-namespace Library.Controller
+namespace Library
 {
     class Log : Message //부분삭제 + 파일삭제
     {
@@ -21,7 +21,7 @@ namespace Library.Controller
             ReadyAnyKey();
         }
 
-        public void ResetLog()
+        public void Reset()
         {
             int getYesOrNoByResetLog;
             PrintMessage(Constant.TEXT_IS_RESET_LOG, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red);
@@ -43,7 +43,7 @@ namespace Library.Controller
             }
         }
 
-        public void SaveLogToTxt() // Log.txt 파일 저장하기
+        public void SaveToTxt() // Log.txt 파일 저장하기
         {
             MySqlDataReader reader = DataBase.GetDataBase().GetLog(Constant.TEXT_NONE);
             StreamWriter writer;
@@ -65,7 +65,6 @@ namespace Library.Controller
             PrintMessage(Constant.TEXT_SUCCESS_SAVE_LOG, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             ReadyAnyKey();
         }
-
         private void ReadyAnyKey()
         {
             Console.CursorVisible = false;
