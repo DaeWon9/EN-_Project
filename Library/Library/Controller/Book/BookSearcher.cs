@@ -13,6 +13,7 @@ namespace Library.Controller
     {
         private string conditionalStringByUserInput = "";
         private List<string> searchedBookIdList = new List<string>();
+        private bool isBack = false;
 
         public List<string> GetSearchedBookIdList()
         {
@@ -36,8 +37,12 @@ namespace Library.Controller
 
         public void Search(BothScreen bothScreen)
         {
-            if (IsInputBookSearchOption(bothScreen))
-                ShowSearchedBookInformation(bothScreen);
+            isBack = false;
+            while (!isBack)
+            {
+                if (IsInputBookSearchOption(bothScreen))
+                    ShowSearchedBookInformation(bothScreen);
+            }
         }
 
         public bool IsInputBookSearchOption(BothScreen bothScreen)
@@ -99,6 +104,9 @@ namespace Library.Controller
             }
             if (isGetConditionalStringCompleted)
                 return true;
+            if (isInputEscape)
+                isBack = true;
+
             return false;
         }
 

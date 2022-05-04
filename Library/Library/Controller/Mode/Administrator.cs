@@ -70,8 +70,7 @@ namespace Library.Controller
                 switch (menuValue)
                 {
                     case (int)Constant.AdministratorMenu.BOOK_SEARCH:
-                        if(bookSearcher.IsInputBookSearchOption(administratorScreen))
-                            bookSearcher.ShowSearchedBookInformation(administratorScreen);
+                        bookSearcher.Search(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BOOK_ADD:
                         BookAdder.Add(administratorScreen);
