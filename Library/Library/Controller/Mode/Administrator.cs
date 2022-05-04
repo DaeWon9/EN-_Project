@@ -120,7 +120,7 @@ namespace Library.Controller
                         isBack = true;
                         break;
                     default:
-                        bookModifier.SelectModifyBookId(administratorScreen, menuValue);
+                        bookModifier.SelectModifyBookMode(administratorScreen, menuValue);
                         break;
                 }
             }

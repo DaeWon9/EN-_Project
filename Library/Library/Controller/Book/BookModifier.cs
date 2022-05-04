@@ -12,7 +12,7 @@ namespace Library.Controller
 {
     class BookModifier : BookSearcher
     {
-        private int modifyBookId = 0;
+        private int modifyBookId, BookModifyMode;
         private string modifyBookName = "", modifyBookPublisher = "", modifyBookAuthor = "", modifyBookPrice = "", modifyBookQuantity = "";
 
         private bool IsModifyBookInformationCompleted(AdministratorScreen administratorScreen, string setString, int bookId)
@@ -105,6 +105,8 @@ namespace Library.Controller
                         Modify(administratorScreen);
                 }
             }
+            if (isInputEscape)
+                SelectModifyBookMode(administratorScreen, BookModifyMode);
         }
 
         private bool IsAlreadyRegisteredBookInLibrary(string bookId)
@@ -118,12 +120,12 @@ namespace Library.Controller
             return false;
         }
 
-        public void SelectModifyBookId(AdministratorScreen administratorScreen, int modifyMode)
+        public void SelectModifyBookMode(AdministratorScreen administratorScreen, int modifyMode)
         {
             string bookId = "";
             int currentConsoleCursorPosY, getYesOrNoByModify;
             bool isSelectBookIdCompleted = false, isInputEscape = false;
-
+            BookModifyMode = modifyMode;
             if (modifyMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시수정
             {
                 administratorScreen.PrintSelectModifyBookScreen();
@@ -203,7 +205,9 @@ namespace Library.Controller
             }
 
             if (!isInputEscape)
-                Modify(administratorScreen);
+                Modify(administratorScreen); // 여기수정
+            else if (modifyMode == (int)Constant.ModifyModePosY.SEARCH)
+                SelectModifyBookMode(administratorScreen, BookModifyMode);
 
         }
 
