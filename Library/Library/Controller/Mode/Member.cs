@@ -115,9 +115,21 @@ namespace Library.Controller
 
         private void SelectBorrowBookMode(MemberScreen memberScreen, BookSearcher bookSearcher)
         {
+            bool isBack = false;
             int menuValue;
-            menuValue = GetBorrowBookMode(memberScreen);
-            bookBorrower.Borrow(memberScreen, menuValue, loginMemberId, loginMemberName);
+            while (!isBack)
+            {
+                menuValue = GetBorrowBookMode(memberScreen);
+                switch (menuValue)
+                {
+                    case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
+                        isBack = true;
+                        break;
+                    default:
+                        bookBorrower.Borrow(memberScreen, menuValue, loginMemberId, loginMemberName);
+                        break;
+                }
+            }
         }
     }
 }

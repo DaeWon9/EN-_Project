@@ -126,12 +126,12 @@ namespace Library.Controller
             int currentConsoleCursorPosY, getYesOrNoByModify;
             bool isSelectBookIdCompleted = false, isInputEscape = false;
             BookModifyMode = modifyMode;
-            if (modifyMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시수정
+            if (BookModifyMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시수정
             {
                 administratorScreen.PrintSelectModifyBookScreen();
                 administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
             }
-            else if (modifyMode == (int)Constant.ModifyModePosY.SEARCH) //검색 후 수정
+            else if (BookModifyMode == (int)Constant.ModifyModePosY.SEARCH) //검색 후 수정
             {
                 if (IsInputBookSearchOption(administratorScreen))
                 {
@@ -205,7 +205,7 @@ namespace Library.Controller
             }
 
             if (!isInputEscape)
-                Modify(administratorScreen); // 여기수정
+                Modify(administratorScreen); 
             else if (modifyMode == (int)Constant.ModifyModePosY.SEARCH)
                 SelectModifyBookMode(administratorScreen, BookModifyMode);
 

@@ -106,7 +106,7 @@ namespace Library.Controller
             }
         }
 
-        public void SelectModifyBookMode(AdministratorScreen administratorScreen)
+        private void SelectModifyBookMode(AdministratorScreen administratorScreen)
         {
             bool isBack = false;
             int menuValue;

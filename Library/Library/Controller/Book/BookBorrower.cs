@@ -13,6 +13,7 @@ namespace Library.Controller
     class BookBorrower : BookSearcher
     {
         private bool isInputEscape;
+        private int BookBorrowMode;
 
         public void CheckBorrowedBook(MemberScreen memberScreen, string loginMemberId, string loginMemberName)
         {
@@ -125,21 +126,25 @@ namespace Library.Controller
             int currentConsoleCursorPosY;
             bool isBorrowBookCompleted = false;
             isInputEscape = false;
-            Console.CursorVisible = true;
-
-            if (borrowMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시대여
+            BookBorrowMode = borrowMode;
+;
+            if (BookBorrowMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시대여
             {
                 memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
                 memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE); // 도서관에 보유중인 책 정보 표시
             }
-            else //검색 후 대여
+            else if (BookBorrowMode == (int)Constant.ModifyModePosY.SEARCH) //검색 후 대여
             {
                 if (IsInputBookSearchOption(memberScreen))
                 {
                     memberScreen.PrintBorrowBookScreen(); // 도서 대여 UI 출력
                     memberScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK, GetConditionalStringByUserInput()), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
                 }
+                else
+                    return;
             }
+            else
+                return;
 
             Console.SetCursorPosition(0, 0);      //대여창 보이게 맨위로 올리고 
             Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
@@ -160,10 +165,8 @@ namespace Library.Controller
                         break;
                 }
             }
-            /*
-            if (borrowMode == (int)Constant.ModifyModePosY.SEARCH)
-                InputBookSearchOption(memberScreen);
-            */
+            if (isInputEscape && BookBorrowMode != (int)Constant.ModifyModePosY.IMMEDIATE)
+                Borrow(memberScreen, BookBorrowMode, loginMemberId, loginMemberName);
         }
 
     }
