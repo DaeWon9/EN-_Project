@@ -52,7 +52,7 @@ namespace Library.Controller
             return true;
         }
 
-        private void ModifyBook(AdministratorScreen administratorScreen) //  BookId 는 primaryKey 이므로 수정불가능하게 설정
+        private void Modify(AdministratorScreen administratorScreen) //  BookId 는 primaryKey 이므로 수정불가능하게 설정
         {
             string setStringByUpdate = "";
             string bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "";

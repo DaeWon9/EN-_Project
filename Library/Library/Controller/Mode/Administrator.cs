@@ -19,7 +19,7 @@ namespace Library.Controller
         MemberSearcher memberSearcher = new MemberSearcher();
         MemberModifier memberModifier = new MemberModifier();
         BookAdder BookAdder = new BookAdder();
-        BorrowBookStatus borrowBookStatus = new BorrowBookStatus();
+        BorrowedBookStatus borrowBookStatus = new BorrowedBookStatus();
 
         // Login
         public void Login(AdministratorScreen administratorScreen) // id : admin1    pw: admin1
@@ -74,7 +74,7 @@ namespace Library.Controller
                         bookSearcher.ShowSearchedBookInformation(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BOOK_ADD:
-                        BookAdder.AddBook(administratorScreen);
+                        BookAdder.Add(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BOOK_MODIFY:
                         SelectModifyBookMode(administratorScreen);
@@ -83,7 +83,7 @@ namespace Library.Controller
                         SelectManagementMemberMode(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.BORROW_BOOK_STATUS:
-                        borrowBookStatus.ShowBorrowBookStatus(administratorScreen);
+                        borrowBookStatus.Show(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.SEARCH_BY_NAVER:
                         naverBookSearcher.SearchBookByNaver(administratorScreen);

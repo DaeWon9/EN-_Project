@@ -9,7 +9,7 @@ using Library.View;
 
 namespace Library.Controller
 {
-    class BorrowBookStatus
+    class BorrowedBookStatus
     {
         private bool isInputEscape;
 

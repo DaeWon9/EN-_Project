@@ -82,7 +82,7 @@ namespace Library.Controller
             }
 
             if (!isInputEscape)
-                ModifyMemberInformation(administratorScreen);
+                ModifyMemberInformation(administratorScreen, managementMemberId);
         }
 
         private bool IsMemberNotReturnBorrowedBook()
@@ -94,29 +94,29 @@ namespace Library.Controller
             return false;
         }
 
-        private bool IsReModifyByMember(AdministratorScreen administratorScreen)
+        private bool IsReModifyByMember(BothScreen bothScreen)
         {
             int getYesOrNoByReModify;
-            administratorScreen.PrintConfirmationMessage("정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??", ConsoleColor.Yellow);
+            bothScreen.PrintConfirmationMessage("정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??", ConsoleColor.Yellow);
             getYesOrNoByReModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
             if (getYesOrNoByReModify == Constant.INPUT_ESCAPE) // 계속해서 변경 x
                 return false;
             return true;
         }
 
-        private bool IsWithdrawlCompleted(AdministratorScreen administratorScreen)
+        private bool IsWithdrawlCompleted(BothScreen bothScreen)
         {
             int getYesOrNoByWithdrawl;
             string memberName;
             if (IsMemberNotReturnBorrowedBook()) // 반납안한 책이 있음
             {
-                administratorScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                bothScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
                 return false;
             }
             else // 클린한 상태임 -> 회원탈퇴 가능
             {
-                administratorScreen.PrintConfirmationMessage("< 주의 > 모든정보가 삭제됩니다. 정말로 삭제하시겠습니까??", ConsoleColor.Yellow);
+                bothScreen.PrintConfirmationMessage("< 주의 > 모든정보가 삭제됩니다. 정말로 삭제하시겠습니까??", ConsoleColor.Yellow);
 
                 getYesOrNoByWithdrawl = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                 if (getYesOrNoByWithdrawl == Constant.INPUT_ENTER) // 탈퇴진행
@@ -137,10 +137,10 @@ namespace Library.Controller
             return true;
         }
 
-        private bool IsModifyMemberInformationCompleted(AdministratorScreen administratorScreen, string setString)
+        private bool IsModifyMemberInformationCompleted(BothScreen bothScreen, string setString)
         {
             int getYesOrNoByModify;
-            administratorScreen.PrintConfirmationMessage("수정하시겠습니까??", ConsoleColor.Yellow);
+            bothScreen.PrintConfirmationMessage("수정하시겠습니까??", ConsoleColor.Yellow);
         
             getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
             if (getYesOrNoByModify == Constant.INPUT_ENTER) // 변경하시겠습니까? 에서 enter입력
@@ -163,15 +163,15 @@ namespace Library.Controller
             return true;
         }
 
-        private void ModifyMemberInformation(AdministratorScreen administratorScreen) // memberId 는 primaryKey 이므로 수정불가능하게 설정
+        public void ModifyMemberInformation(BothScreen bothScreen, string modifyMemberId) // memberId 는 primaryKey 이므로 수정불가능하게 설정
         {
             string setStringByUpdate = "";
             string memberName = "", memberPassword = "", memberBirthDate = "", memberAddress = "", memberPhoneNumber = "";
             bool isModifyCompleted = false, isWithdrawlCompleted = false, isInputEscape = false;
             int currentConsoleCursorPosY;
-            administratorScreen.PrintModifyMemberInformationLabel();
-            administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, managementMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
-            administratorScreen.PrintModifyMemberInformationScreen();
+            bothScreen.PrintModifyMemberInformationLabel();
+            bothScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.MEMBER_FILED_ID, modifyMemberId)), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+            bothScreen.PrintModifyMemberInformationScreen();
             Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
 
             while (!isInputEscape && !isModifyCompleted && !isWithdrawlCompleted)
@@ -181,27 +181,27 @@ namespace Library.Controller
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.MemberModifyModePosY.NAME:
-                        memberName = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN_ENGLISH, Constant.EXCEPTION_TYPE_MEMBER_NAME);
+                        memberName = DataProcessing.GetDataProcessing().GetInputValues(bothScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN_ENGLISH, Constant.EXCEPTION_TYPE_MEMBER_NAME);
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_NAME, memberName);
                         break;
                     case (int)Constant.MemberModifyModePosY.PASSWORD:
-                        memberPassword = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD);
+                        memberPassword = DataProcessing.GetDataProcessing().GetInputValues(bothScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD);
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PASSWORD, memberPassword);
                         break;
                     case (int)Constant.MemberModifyModePosY.BIRTH_DATE:
-                        memberBirthDate = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.BIRTH_DATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
+                        memberBirthDate = DataProcessing.GetDataProcessing().GetInputValues(bothScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.BIRTH_DATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_BIRTH_DATE, memberBirthDate);
                         break;
                     case (int)Constant.MemberModifyModePosY.ADDRESS:
-                        memberAddress = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
+                        memberAddress = DataProcessing.GetDataProcessing().GetInputValues(bothScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_NONE, Constant.EXCEPTION_TYPE_ANY, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_ADDRESS, memberAddress);
                         break;
                     case (int)Constant.MemberModifyModePosY.PHONE_NUMBER:
-                        memberPhoneNumber = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
+                        memberPhoneNumber = DataProcessing.GetDataProcessing().GetInputValues(bothScreen, Constant.MODIFY_MEMBER_INPUT_POS_X, (int)Constant.MemberModifyModePosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PHONE_NUMBER, memberPhoneNumber);
                         break;
                     case (int)Constant.MemberModifyModePosY.WITHDRAWAL:
-                        isWithdrawlCompleted = IsWithdrawlCompleted(administratorScreen);
+                        isWithdrawlCompleted = IsWithdrawlCompleted(bothScreen);
                         break;
                     default:
                         break;
@@ -209,7 +209,7 @@ namespace Library.Controller
 
                 if (setStringByUpdate != "")
                 {
-                    isModifyCompleted = IsModifyMemberInformationCompleted(administratorScreen, setStringByUpdate);
+                    isModifyCompleted = IsModifyMemberInformationCompleted(bothScreen, setStringByUpdate);
 
                     switch (currentConsoleCursorPosY)
                     {
@@ -232,8 +232,8 @@ namespace Library.Controller
                             break;
                     }
 
-                    if (isModifyCompleted && IsReModifyByMember(administratorScreen)) // 계속해서 변경
-                        ModifyMemberInformation(administratorScreen);
+                    if (isModifyCompleted && IsReModifyByMember(bothScreen)) // 계속해서 변경
+                        ModifyMemberInformation(bothScreen, modifyMemberId);
                 }
             }
 

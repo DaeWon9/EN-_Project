@@ -89,20 +89,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\BookAdder.cs" />
-    <Compile Include="Controller\BorrowBookStatus.cs" />
-    <Compile Include="Controller\Searcher\BookSearcher.cs" />
-    <Compile Include="Controller\Modifier\BookModifier.cs" />
+    <Compile Include="Controller\Book\BookAdder.cs" />
+    <Compile Include="Controller\Book\BookBorrower.cs" />
+    <Compile Include="Controller\Book\BookReturn.cs" />
+    <Compile Include="Controller\Book\BorrowedBookStatus.cs" />
+    <Compile Include="Controller\Book\BookSearcher.cs" />
+    <Compile Include="Controller\Book\BookModifier.cs" />
     <Compile Include="Controller\Log.cs" />
-    <Compile Include="Controller\Modifier\MemberModifier.cs" />
-    <Compile Include="Controller\Searcher\MemberSearcher.cs" />
-    <Compile Include="Controller\Searcher\NaverBookSearcher.cs" />
+    <Compile Include="Controller\Member\MemberModifier.cs" />
+    <Compile Include="Controller\Member\MemberSearcher.cs" />
+    <Compile Include="Controller\NaverBookSearcher.cs" />
+    <Compile Include="Controller\Member\MemberSignUp.cs" />
     <Compile Include="Model\NaverBook.cs" />
     <Compile Include="Utility\Constant.cs" />
-    <Compile Include="Controller\Administrator.cs" />
+    <Compile Include="Controller\Mode\Administrator.cs" />
     <Compile Include="Controller\LibraryController.cs" />
-    <Compile Include="Controller\Member.cs" />
-    <Compile Include="Controller\MenuSelection.cs" />
+    <Compile Include="Controller\Mode\Member.cs" />
+    <Compile Include="Controller\Mode\MenuSelection.cs" />
     <Compile Include="LibraryStarter.cs" />
     <Compile Include="Model\DataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -137,23 +137,6 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
         }
 
-        public void PrintMemberSearchScreen(bool isClear = true)
-        {
-            PrintMemberSearchLabel(isClear);
-            Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
-            Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                  이름          :                                                   ");
-            Console.WriteLine("                                  아이디        :                                                   ");
-            Console.WriteLine("                                  생년월일      :                                                   ");
-            Console.WriteLine("                                  주소          :                                                   ");
-            Console.WriteLine("                                  핸드폰번호    :                                                   ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("                                  < 검색하기 >                                                      ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("----------------------------------------------------------------------------------------------------");
-        }
 
         public void PrintSelectCheckBorrowedBookModeScreen(bool isClear = true)
         {
