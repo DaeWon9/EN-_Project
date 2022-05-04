@@ -12,24 +12,25 @@ namespace Library.Controller
     class MemberModifier : MemberSearcher
     {
         private string managementMemberId = "";
-
-        public void ManagementMember(AdministratorScreen administratorScreen, int modifyMode)
+        private int MemberModifyMode;
+        public void ManagementMember(BothScreen bothScreen, int modifyMode)
         {
             int currentConsoleCursorPosY, getYesOrNoByModify;
             string memberId = "";
             bool isSelectMemberIdCompleted = false, isInputEscape = false;
+            MemberModifyMode = modifyMode;
 
-            if (modifyMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시 수정
+            if (MemberModifyMode == (int)Constant.ModifyModePosY.IMMEDIATE) // 즉시 수정
             {
-                administratorScreen.PrintManagementMemberScreen();
-                administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+                bothScreen.PrintManagementMemberScreen();
+                bothScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
             }
-            else if (modifyMode == (int)Constant.ModifyModePosY.SEARCH) // 검색 후 수정
+            else if (MemberModifyMode == (int)Constant.ModifyModePosY.SEARCH) // 검색 후 수정
             {
-                if (IsInputMemberSearchOption(administratorScreen))
+                if (IsInputMemberSearchOption(bothScreen))
                 {
-                    administratorScreen.PrintManagementMemberScreen();
-                    administratorScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, GetConditionalStringByUserInput()), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
+                    bothScreen.PrintManagementMemberScreen();
+                    bothScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER, GetConditionalStringByUserInput()), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
                 }
                 else
                     return;
@@ -44,9 +45,16 @@ namespace Library.Controller
             {
                 if (memberId != "" && !DataBase.GetDataBase().IsRegisteredMemberId(memberId))// 회원아이디가 입력됐는데, 등록되지 않은 아이디임
                 {
-                    administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_REGISTERED_MEMBER_ID, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    bothScreen.PrintMessage("등록되지 않은 회원ID입니다", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SELECT_MANAGEMENT_MEMBER_ID_OPTION_POS_X, (int)Constant.SelectMemberIdPosY.ID); //좌표조정
                     DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MANAGEMENT_MEMBER_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectMemberIdPosY.ID);
+                    memberId = "";
+                }
+                if (modifyMode == (int)Constant.ModifyModePosY.SEARCH && memberId != "" && !IsExistMemberIdInSearchedMemberList(memberId)) // 검색 후 멤버 이름 입력됐는데, 검색된 멤버가 아님
+                {
+                    bothScreen.PrintMessage("검색되지 않은 회원ID입니다", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
+                    DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
                     memberId = "";
                 }
 
@@ -55,13 +63,13 @@ namespace Library.Controller
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.SelectMemberIdPosY.ID:
-                        memberId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SELECT_MANAGEMENT_MEMBER_ID_POS_X, (int)Constant.SelectMemberIdPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                        memberId = DataProcessing.GetDataProcessing().GetInputValues(bothScreen, Constant.SELECT_MANAGEMENT_MEMBER_ID_POS_X, (int)Constant.SelectMemberIdPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
                         break;
                     case (int)Constant.SelectMemberIdPosY.MANAGEMEMT_MEMBER:
                         if (memberId != "" && memberId != Constant.INPUT_ESCAPE.ToString())
                         {
-                            administratorScreen.PrintMessage(Constant.TEXT_IS_MANAGEMENT, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
-                            administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+                            bothScreen.PrintMessage(Constant.TEXT_IS_MANAGEMENT, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+                            bothScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
                             getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
                             if (getYesOrNoByModify == Constant.INPUT_ENTER)
@@ -80,7 +88,7 @@ namespace Library.Controller
             if (isSelectMemberIdCompleted)
                 managementMemberId = memberId;
             if (!isInputEscape)
-                ModifyMemberInformation(administratorScreen, managementMemberId);
+                ModifyMemberInformation(bothScreen, managementMemberId);
         }
 
         private bool IsMemberNotReturnBorrowedBook()
@@ -212,6 +220,9 @@ namespace Library.Controller
                         ModifyMemberInformation(bothScreen, modifyMemberId);
                 }
             }
+
+            if (isInputEscape)
+                ManagementMember(bothScreen, MemberModifyMode);
 
         }
 

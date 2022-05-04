@@ -91,6 +91,20 @@ namespace Library.View
 
         }
 
+        public void PrintManagementMemberScreen(bool isClear = true)
+        {
+            PrintMemberManagementLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                     회원아이디 :                                                   ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("                                     < 수정하기 >                                                   ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
         public void PrintSelectedValues(MySqlDataReader reader, string tableName, string memeberName, bool isAdministator = false, bool titleOption = false)
         {
             if (tableName == Constant.TABLE_NAME_BOOK)

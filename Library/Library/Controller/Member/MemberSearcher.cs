@@ -20,6 +20,15 @@ namespace Library.Controller
             return conditionalStringByUserInput;
         }
 
+        public bool IsExistMemberIdInSearchedMemberList(string memberId)
+        {
+            for (int repeat = 0; repeat < searchedMemberIdList.Count; repeat++)
+            {
+                if (searchedMemberIdList[repeat] == memberId)
+                    return true;
+            }
+            return false;
+        }
         public void Search(BothScreen bothScreen)
         {
             isBack = false;
@@ -105,12 +114,7 @@ namespace Library.Controller
                     Search(bothScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
-            {
-                bothScreen.PrintBookSearchScreen();
-                bothScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_MEMBER), Constant.TABLE_NAME_MEMBER, Constant.TEXT_NONE);
-                Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
-                Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.MemberSearchPosY.NAME); //좌표조정
-            }
+                Search(bothScreen);
         }
 
     }

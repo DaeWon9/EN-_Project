@@ -37,12 +37,8 @@ namespace Library.Controller
 
         public void Search(BothScreen bothScreen)
         {
-            isBack = false;
-            while (!isBack)
-            {
-                if (IsInputBookSearchOption(bothScreen))
-                    ShowSearchedBookInformation(bothScreen);
-            }
+            if (IsInputBookSearchOption(bothScreen))
+                ShowSearchedBookInformation(bothScreen);
         }
 
         public bool IsInputBookSearchOption(BothScreen bothScreen)
@@ -128,12 +124,7 @@ namespace Library.Controller
                     Search(bothScreen);
             }
             if (getYesOrNoBySearching == Constant.INPUT_ESCAPE)
-            {
-                bothScreen.PrintBookSearchScreen();
-                bothScreen.PrintSelectedValues(DataBase.GetDataBase().Select(Constant.FILED_ALL, Constant.TABLE_NAME_BOOK), Constant.TABLE_NAME_BOOK, Constant.TEXT_NONE);
-                Console.SetCursorPosition(0, 0);      //검색창 보이게 맨위로 올리고 
-                Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.BookSearchPosY.ID); //좌표조정
-            }
+                Search(bothScreen);
         }
     }
 }
