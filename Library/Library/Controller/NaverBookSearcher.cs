@@ -12,7 +12,7 @@ using Library.Model;
 
 namespace Library.Controller
 {
-    class NaverBookSearcher
+    class NaverBookSearcher : BookAdder
     {
         NaverBook naverbook = new NaverBook();
 
@@ -92,8 +92,15 @@ namespace Library.Controller
             {
                 if (searhResultBookNumber != "" && (int.Parse(searhResultBookNumber) < 1 || int.Parse(searhResultBookNumber) > int.Parse(naverSearchResult["display"].ToString()))) // 검색된 넘버를 사용자가 입력했을때 범위내에 있는지 체크
                 {
-                    administratorScreen.PrintMessage(Constant.TEXT_THIS_NUMBER_IS_NOT_SEARCHED, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    administratorScreen.PrintMessage("검색되지 않은 번호입니다", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.AddBookByNaverPosY.NUMBER); //좌표조정
+                    DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.AddBookByNaverPosY.NUMBER);
+                    searhResultBookNumber = "";
+                }
+                if (searhResultBookNumber != "" && IsAlreadyRegisteredBookISBNInLibrary(naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["isbn"].ToString().Replace("<b>", "").Replace("</b>", ""))) // isbn으로 이미 등록되어있는 책인지 체크
+                {
+                    administratorScreen.PrintMessage("이미 등록되어있는 도서입니다.", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.NAME); //좌표조정
                     DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.AddBookByNaverPosY.NUMBER);
                     searhResultBookNumber = "";
                 }

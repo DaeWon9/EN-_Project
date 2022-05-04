@@ -11,7 +11,7 @@ namespace Library.Controller
 {
     class BookAdder
     {
-        private bool IsAlreadyRegisteredBookISBNInLibrary(string bookISBN)
+        public bool IsAlreadyRegisteredBookISBNInLibrary(string bookISBN)
         {
             List<string> bookISBNList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ISBN, Constant.TABLE_NAME_BOOK);
             for (int repeat = 0; repeat < bookISBNList.Count; repeat++)
