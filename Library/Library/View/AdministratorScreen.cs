@@ -33,8 +33,20 @@ namespace Library.View
             Console.WriteLine("                                         ▶  회원관리                                               ");
             Console.WriteLine("                                         ▶  대여상황                                               ");
             Console.WriteLine("                                         ▶  네이버검색                                             ");
+            Console.WriteLine("                                         ▶  로그관리                                               ");
+            Console.WriteLine("                                                                                                    ");
+        }
+
+        public void PrintManagementLogScreen(bool isClear = true)
+        {
+            PrintLibraryLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
+            Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                         ▶  로그보기                                               ");
-            Console.WriteLine("                                         ▶  로그저장                                               ");
+            Console.WriteLine("                                         ▶  로그삭제                                               ");
+            Console.WriteLine("                                         ▶  로그파일저장                                           ");
+            Console.WriteLine("                                         ▶  로그파일삭제                                           ");
             Console.WriteLine("                                         ▶  로그초기화                                             ");
             Console.WriteLine("                                                                                                    ");
         }

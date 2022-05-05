@@ -320,6 +320,21 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
 
+        public void PrintManagemnetLogLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                           < 로 그 관 리 >                           *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *      ● 그동안 기록된 로그를 관리하는 기능입니다                        *             ");
+            Console.WriteLine("           *       ● ↑↓ 방향키로 이동하며 ENTER키를 눌러 기능을 선택해주세요        *            ");
+            Console.WriteLine("            *                                                                         *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+        }
+
         public void PrintLogLabel(bool isClear = true)
         {
             if (isClear)

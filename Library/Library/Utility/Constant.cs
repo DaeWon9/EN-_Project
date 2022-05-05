@@ -340,7 +340,7 @@ namespace Library
 
         public enum BookReturnPosY : int { ID = 12, RETURN }
 
-        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SEARCH_BY_NAVER, SHOW_LOG, SAVE_LOG, RESET_LOG}
+        public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SEARCH_BY_NAVER, LOG}
 
         public enum MemberMenu : int { BOOK_SEARCH = 13, BOOK_BORROW, BOOK_RETURN, BOOK_CHECK, MODIFY_MEMBER_INFORMATION }
 
@@ -365,5 +365,7 @@ namespace Library
         public enum NaverBookPosY : int { NAME = 12, DISPLAY, SEARCH }
 
         public enum AddBookByNaverPosY : int { NUMBER = 13, ADD }
+    
+        public enum LogManagementPosY : int { SHOW = 12, DELETE, SAVE_FILE, DELETE_FILE, RESET}
     }
 }

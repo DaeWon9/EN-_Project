@@ -87,15 +87,8 @@ namespace Library.Controller
                     case (int)Constant.AdministratorMenu.SEARCH_BY_NAVER:
                         naverBookSearcher.SearchBookByNaver(administratorScreen);
                         break;
-                    case (int)Constant.AdministratorMenu.SHOW_LOG:
-                        administratorScreen.PrintLogLabel();
-                        log.ShowLogScreen();
-                        break;
-                    case (int)Constant.AdministratorMenu.SAVE_LOG:
-                        log.SaveToTxt();
-                        break;
-                    case (int)Constant.AdministratorMenu.RESET_LOG:
-                        log.Reset();
+                    case (int)Constant.AdministratorMenu.LOG:
+                        log.ManagemenLog(administratorScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isLogout = DataProcessing.GetDataProcessing().IsLogout(administratorScreen);
@@ -105,6 +98,8 @@ namespace Library.Controller
                 }
             }
         }
+
+
 
         private void SelectModifyBookMode(AdministratorScreen administratorScreen)
         {
