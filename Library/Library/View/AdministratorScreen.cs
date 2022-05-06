@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
-
+using Library.Utility;
 namespace Library.View
 {
     class AdministratorScreen : BothScreen
@@ -182,13 +182,13 @@ namespace Library.View
             {
                 Console.WriteLine(string.Format("{0}번", repeat + 1));
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
-                Console.WriteLine("  제목   : " + jObject["items"][repeat]["title"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("  저자   : " + jObject["items"][repeat]["author"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("  가격   : " + jObject["items"][repeat]["price"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("  출판사 : " + jObject["items"][repeat]["publisher"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("  출판일 : " + jObject["items"][repeat]["pubdate"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("  ISBN   : " + jObject["items"][repeat]["isbn"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("  설명   : " + jObject["items"][repeat]["description"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("  제목   : " + DataProcessing.GetDataProcessing().DeleteTag(jObject["items"][repeat]["title"].ToString()));
+                Console.WriteLine("  저자   : " + DataProcessing.GetDataProcessing().DeleteTag(jObject["items"][repeat]["author"].ToString()));
+                Console.WriteLine("  가격   : " + DataProcessing.GetDataProcessing().DeleteTag(jObject["items"][repeat]["price"].ToString()));
+                Console.WriteLine("  출판사 : " + DataProcessing.GetDataProcessing().DeleteTag(jObject["items"][repeat]["publisher"].ToString()));
+                Console.WriteLine("  출판일 : " + DataProcessing.GetDataProcessing().DeleteTag(jObject["items"][repeat]["pubdate"].ToString()));
+                Console.WriteLine("  ISBN   : " + DataProcessing.GetDataProcessing().DeleteTag(jObject["items"][repeat]["isbn"].ToString()));
+                Console.WriteLine("  설명   : " + DataProcessing.GetDataProcessing().DeleteTag(jObject["items"][repeat]["description"].ToString()));
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
 
             }

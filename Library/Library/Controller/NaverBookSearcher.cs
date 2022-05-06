@@ -128,12 +128,12 @@ namespace Library.Controller
             bool isAddBookCompleted = false, isInputEscape = false;
             int currentConsoleCursorPosY;
             string bookName = "", bookPublisher = "", bookAuthor = "", bookPrice = "", bookQuantity = "", bookPublicationDate = "", bookISBN = "";
-            bookName = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["title"].ToString().Replace("<b>", "").Replace("</b>", ""); // 제거하는거 모듈화로 묶기
-            bookPublisher = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["publisher"].ToString().Replace("<b>", "").Replace("</b>", "");
-            bookAuthor = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["author"].ToString().Replace("<b>", "").Replace("</b>", "");
-            bookPrice = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["price"].ToString().Replace("<b>", "").Replace("</b>", "");
-            bookPublicationDate = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["pubdate"].ToString().Replace("<b>", "").Replace("</b>", "");
-            bookISBN = naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["isbn"].ToString().Replace("<b>", "").Replace("</b>", "");
+            bookName = DataProcessing.GetDataProcessing().DeleteTag(naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["title"].ToString());
+            bookPublisher = DataProcessing.GetDataProcessing().DeleteTag(naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["publisher"].ToString());
+            bookAuthor = DataProcessing.GetDataProcessing().DeleteTag(naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["author"].ToString());
+            bookPrice = DataProcessing.GetDataProcessing().DeleteTag(naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["price"].ToString());
+            bookPublicationDate = DataProcessing.GetDataProcessing().DeleteTag(naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["pubdate"].ToString());
+            bookISBN = DataProcessing.GetDataProcessing().DeleteTag(naverSearchResult["items"][int.Parse(searhResultBookNumber) - 1]["isbn"].ToString());
 
             administratorScreen.PrintAddBookScreen();
             administratorScreen.PrintBookOptionByNaver(bookName, bookPublisher, bookAuthor, bookPrice, bookPublicationDate, bookISBN);

@@ -400,5 +400,11 @@ namespace Library.Utility
             ClearConsoleLine(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y -1);
             ClearConsoleLine(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_MAX_POS_X, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y);
         }
+    
+        public string DeleteTag(string str)
+        {
+            string resultString = str.Replace("<b>", "").Replace("</b>", "");
+            return resultString;
+        }
     }
 }
