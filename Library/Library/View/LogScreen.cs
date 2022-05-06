@@ -1,5 +1,7 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
+using Library.Utility;
+using System.IO;
 
 namespace Library.View
 {
@@ -36,5 +38,25 @@ namespace Library.View
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
+        public void SaveLogFile(MySqlDataReader reader, string path)
+        {
+            StreamWriter writer;
+
+            writer = File.CreateText(path);
+            writer.WriteLine("----------------------------------------------------------------------------------------------------");
+            writer.WriteLine("                                              < 로 그 현 황 >                                       ");
+            writer.WriteLine("----------------------------------------------------------------------------------------------------");
+            while (reader.Read())
+            {
+                writer.WriteLine(" < {0}번 >", reader[Constant.LOG_FILED_NUMBER]);
+                writer.WriteLine("----------------------------------------------------------------------------------------------------");
+                writer.WriteLine("  활동시간 : {0}", reader[Constant.LOG_FILED_DATE]);
+                writer.WriteLine("  회원정보 : {0}", reader[Constant.LOG_FILED_MEMBER]);
+                writer.WriteLine("  활동내역 : {0}", reader[Constant.LOG_FILED_ACTIVITY]);
+                writer.WriteLine("----------------------------------------------------------------------------------------------------");
+            }
+            writer.Close();
+            reader.Close();
+        }
     }
 }

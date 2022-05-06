@@ -11,9 +11,8 @@ namespace Library
     class Log : Message //부분삭제 + 파일삭제
     {
         LogScreen logScreen = new LogScreen();
-        private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), Constant.LOG_FILE_NAME); // 로그 파일 저장 경로 
-        
-        
+        private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), Constant.LOG_FILE_NAME); // 로그 파일 저장 경로
+
         public void ManagementLog(AdministratorScreen administratorScreen)
         {
             bool isInputEscape = false;
@@ -148,8 +147,6 @@ namespace Library
 
         private void SaveToTxtFile() // Log.txt 파일 저장하기
         {
-            MySqlDataReader reader = DataBase.GetDataBase().GetLog(Constant.TEXT_NONE);
-            StreamWriter writer;
             int getYesOrNoBySaveLogFile;
 
             DataProcessing.GetDataProcessing().ClearErrorMessage();
@@ -162,25 +159,12 @@ namespace Library
             }
             if (getYesOrNoBySaveLogFile == Constant.INPUT_ENTER) // 저장 하시겠습니까?? -> ENTER
             {
-                writer = File.CreateText(path);
-                writer.WriteLine("----------------------------------------------------------------------------------------------------");
-                writer.WriteLine("                                              < 로 그 현 황 >                                       ");
-                writer.WriteLine("----------------------------------------------------------------------------------------------------");
-                while (reader.Read())
-                {
-                    writer.WriteLine(" < {0}번 >", reader[Constant.LOG_FILED_NUMBER]);
-                    writer.WriteLine("----------------------------------------------------------------------------------------------------");
-                    writer.WriteLine("  활동시간 : {0}", reader[Constant.LOG_FILED_DATE]);
-                    writer.WriteLine("  회원정보 : {0}", reader[Constant.LOG_FILED_MEMBER]);
-                    writer.WriteLine("  활동내역 : {0}", reader[Constant.LOG_FILED_ACTIVITY]);
-                    writer.WriteLine("----------------------------------------------------------------------------------------------------");
-                }
-                writer.Close();
+                MySqlDataReader reader = DataBase.GetDataBase().GetLog(Constant.TEXT_NONE);
+                logScreen.SaveLogFile(reader, path);
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
                 PrintMessage("로그저장에 성공했습니다!", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                 Console.ReadKey();
             }
-            reader.Close();
         }
 
         private void DeleteTxtFile()
