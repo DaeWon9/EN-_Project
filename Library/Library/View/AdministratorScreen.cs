@@ -27,13 +27,13 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    로그아웃 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  도서찾기                                               ");
-            Console.WriteLine("                                         ▶  도서추가                                               ");
-            Console.WriteLine("                                         ▶  도서수정                                               ");
-            Console.WriteLine("                                         ▶  회원관리                                               ");
-            Console.WriteLine("                                         ▶  대여상황                                               ");
-            Console.WriteLine("                                         ▶  네이버검색                                             ");
-            Console.WriteLine("                                         ▶  로그관리                                               ");
+            Console.WriteLine("                                             도서찾기                                               ");
+            Console.WriteLine("                                             도서추가                                               ");
+            Console.WriteLine("                                             도서수정                                               ");
+            Console.WriteLine("                                             회원관리                                               ");
+            Console.WriteLine("                                             대여상황                                               ");
+            Console.WriteLine("                                             네이버검색                                             ");
+            Console.WriteLine("                                             로그관리                                               ");
             Console.WriteLine("                                                                                                    ");
         }
 
@@ -43,11 +43,11 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                   뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  로그보기                                               ");
-            Console.WriteLine("                                         ▶  로그삭제                                               ");
-            Console.WriteLine("                                         ▶  로그파일저장                                           ");
-            Console.WriteLine("                                         ▶  로그파일삭제                                           ");
-            Console.WriteLine("                                         ▶  로그초기화                                             ");
+            Console.WriteLine("                                             로그보기                                               ");
+            Console.WriteLine("                                             로그삭제                                               ");
+            Console.WriteLine("                                             로그파일저장                                           ");
+            Console.WriteLine("                                             로그파일삭제                                           ");
+            Console.WriteLine("                                             로그초기화                                             ");
             Console.WriteLine("                                                                                                    ");
         }
 
@@ -107,8 +107,8 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  바로 수정                                              ");
-            Console.WriteLine("                                         ▶  검색 후 수정                                           ");
+            Console.WriteLine("                                             바로 수정                                              ");
+            Console.WriteLine("                                             검색 후 수정                                           ");
             Console.WriteLine("                                                                                                    ");
         }
 
@@ -118,10 +118,9 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  회원정보 검색                                          ");
-            Console.WriteLine("                                         ▶  회원정보 수정                                          ");
+            Console.WriteLine("                                             회원정보 검색                                          ");
+            Console.WriteLine("                                             회원정보 수정                                          ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
         public void PrintSelectModifyMemberModeScreen(bool isClear = true)
@@ -130,8 +129,8 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  바로 수정                                              ");
-            Console.WriteLine("                                         ▶  검색 후 수정                                           ");
+            Console.WriteLine("                                             바로 수정                                              ");
+            Console.WriteLine("                                             검색 후 수정                                           ");
             Console.WriteLine("                                                                                                    ");
         }
 

@@ -16,8 +16,8 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER        종료 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  회원모드                                               ");
-            Console.WriteLine("                                         ▶  관리자모드                                             ");
+            Console.WriteLine("                                             회원모드                                               ");
+            Console.WriteLine("                                             관리자모드                                             ");
             Console.WriteLine("                                                                                                    ");
         }
 

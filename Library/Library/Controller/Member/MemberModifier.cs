@@ -91,10 +91,10 @@ namespace Library.Controller
                 ModifyMemberInformation(bothScreen, managementMemberId);
         }
 
-        private bool IsMemberNotReturnBorrowedBook()
+        private bool IsMemberNotReturnBorrowedBook(string memberId)
         {
 
-            List<string> BorrowedBookList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ID, managementMemberId);
+            List<string> BorrowedBookList = DataBase.GetDataBase().GetSelectedElements(Constant.BOOK_FILED_ID, memberId);
             if (BorrowedBookList.Count > 0) // 반납안한 책이 있음 
                 return true;
             return false;
@@ -110,11 +110,11 @@ namespace Library.Controller
             return true;
         }
 
-        private bool IsWithdrawlCompleted(BothScreen bothScreen)
+        private bool IsWithdrawlCompleted(BothScreen bothScreen, string memberId)
         {
             int getYesOrNoByWithdrawl;
             string memberName;
-            if (IsMemberNotReturnBorrowedBook()) // 반납안한 책이 있음
+            if (IsMemberNotReturnBorrowedBook(memberId)) // 반납안한 책이 있음
             {
                 bothScreen.PrintMessage(Constant.TEXT_UNABLE_WITHDRAWAL, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.MemberModifyModePosY.NAME); //좌표조정
@@ -206,7 +206,7 @@ namespace Library.Controller
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.MEMBER_FILED_PHONE_NUMBER, memberPhoneNumber);
                         break;
                     case (int)Constant.MemberModifyModePosY.WITHDRAWAL:
-                        isWithdrawlCompleted = IsWithdrawlCompleted(bothScreen);
+                        isWithdrawlCompleted = IsWithdrawlCompleted(bothScreen, modifyMemberId);
                         break;
                     default:
                         break;

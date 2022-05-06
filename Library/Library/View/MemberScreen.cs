@@ -15,8 +15,8 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER        종료 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  로그인                                                 ");
-            Console.WriteLine("                                         ▶  회원가입                                               ");
+            Console.WriteLine("                                             로그인                                                 ");
+            Console.WriteLine("                                             회원가입                                               ");
             Console.WriteLine("                                                                                                    ");
         }
         public void PrintLoginScreen(bool isClear = true)
@@ -36,11 +36,11 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    로그아웃 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  도서찾기                                               ");
-            Console.WriteLine("                                         ▶  도서대여                                               ");
-            Console.WriteLine("                                         ▶  도서반납                                               ");
-            Console.WriteLine("                                         ▶  대여도서확인                                           ");
-            Console.WriteLine("                                         ▶  회원정보수정                                           ");
+            Console.WriteLine("                                             도서찾기                                               ");
+            Console.WriteLine("                                             도서대여                                               ");
+            Console.WriteLine("                                             도서반납                                               ");
+            Console.WriteLine("                                             대여도서확인                                           ");
+            Console.WriteLine("                                             회원정보수정                                           ");
             Console.WriteLine("                                                                                                    ");
         }
 
@@ -79,8 +79,8 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                   선택 : ENTER    뒤로가기 : ESC   ");
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("                                         ▶  바로 대여                                              ");
-            Console.WriteLine("                                         ▶  검색 후 대여                                           ");
+            Console.WriteLine("                                             바로 대여                                              ");
+            Console.WriteLine("                                             검색 후 대여                                           ");
             Console.WriteLine("                                                                                                    ");
         }
 

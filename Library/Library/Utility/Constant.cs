@@ -261,7 +261,7 @@ namespace Library
         public const int MAX_LENGTH_BOOK_ISBN = 30;
 
         // menu cursor pos
-        public const int MENU_CURSOR_POS_X = 40;
+        public const int MENU_CURSOR_POS_X = 43;
         public const int MENU_CURSOR_MIN_POS_Y = 12;
         public const int FIRST_MENU_CURSOR_MAX_POS_Y = 13;
         public const int BORROW_MODE_CURSOR_MAX_POS_Y = 13;

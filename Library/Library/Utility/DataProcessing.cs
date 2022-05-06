@@ -27,8 +27,11 @@ namespace Library.Utility
             int cursorPosY = posY;
             isInputEnter = false;
             isInputEscape = false;
+            //Console.CursorVisible = false;
             while (!isInputEnter && !isInputEscape)
             {
+                Console.SetCursorPosition(cursorPosX, cursorPosY);
+                Console.Write(">");
                 Console.SetCursorPosition(cursorPosX, cursorPosY);
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
@@ -44,6 +47,8 @@ namespace Library.Utility
                             cursorPosY--;
                         break;
                     case ConsoleKey.Enter:
+                        Console.SetCursorPosition(cursorPosX, cursorPosY);
+                        Console.Write(" ");
                         isInputEnter = true;
                         break;
                     case ConsoleKey.Escape:
@@ -51,9 +56,11 @@ namespace Library.Utility
                         isInputEscape = true;
                         break;
                     default:
+                        Console.Write("\b \b");
                         break;
                 }
             }
+            Console.CursorVisible = true;
             return cursorPosY; // -1 반환되면 esc / 다른값 -> enter
         }
 
