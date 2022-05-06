@@ -27,7 +27,7 @@ namespace Library.Utility
             int cursorPosY = posY;
             isInputEnter = false;
             isInputEscape = false;
-            //Console.CursorVisible = false;
+            Console.CursorVisible = false;
             while (!isInputEnter && !isInputEscape)
             {
                 Console.SetCursorPosition(cursorPosX, cursorPosY);
@@ -48,7 +48,7 @@ namespace Library.Utility
                         break;
                     case ConsoleKey.Enter:
                         Console.SetCursorPosition(cursorPosX, cursorPosY);
-                        Console.Write(" ");
+                        Console.Write(" "); 
                         isInputEnter = true;
                         break;
                     case ConsoleKey.Escape:
