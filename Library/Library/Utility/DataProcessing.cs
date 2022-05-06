@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Library.View;
 
@@ -52,6 +49,8 @@ namespace Library.Utility
                         isInputEnter = true;
                         break;
                     case ConsoleKey.Escape:
+                        Console.SetCursorPosition(cursorPosX, cursorPosY);
+                        Console.Write(" ");
                         cursorPosY = Constant.INPUT_ESCAPE_IN_ARROW_KEY;
                         isInputEscape = true;
                         break;

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace Library.View
@@ -159,7 +155,6 @@ namespace Library.View
             Console.WriteLine("                                     < 검색하기 >                                                   ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("                                                                                                    ");
-            Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
         public void PrintResultSerchedBookByNaver(JObject jObject)
@@ -176,7 +171,7 @@ namespace Library.View
 
             if (jObject["items"].ToString() == "[]")
             {
-                Console.WriteLine("검색된 도서가 없습니다.");
+                Console.WriteLine("  검색된 도서가 없습니다.");
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
                 return;
             }
@@ -187,13 +182,13 @@ namespace Library.View
             {
                 Console.WriteLine(string.Format("{0}번", repeat + 1));
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
-                Console.WriteLine("제목   : " + jObject["items"][repeat]["title"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("저자   : " + jObject["items"][repeat]["author"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("가격   : " + jObject["items"][repeat]["price"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("출판사 : " + jObject["items"][repeat]["publisher"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("출판일 : " + jObject["items"][repeat]["pubdate"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("ISBN   : " + jObject["items"][repeat]["isbn"].ToString().Replace("<b>", "").Replace("</b>", ""));
-                Console.WriteLine("설명   : " + jObject["items"][repeat]["description"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("  제목   : " + jObject["items"][repeat]["title"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("  저자   : " + jObject["items"][repeat]["author"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("  가격   : " + jObject["items"][repeat]["price"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("  출판사 : " + jObject["items"][repeat]["publisher"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("  출판일 : " + jObject["items"][repeat]["pubdate"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("  ISBN   : " + jObject["items"][repeat]["isbn"].ToString().Replace("<b>", "").Replace("</b>", ""));
+                Console.WriteLine("  설명   : " + jObject["items"][repeat]["description"].ToString().Replace("<b>", "").Replace("</b>", ""));
                 Console.WriteLine("----------------------------------------------------------------------------------------------------");
 
             }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Library.Utility;
 using Library.Model;
 using Library.View;
@@ -13,7 +10,6 @@ namespace Library.Controller
     {
         private string conditionalStringByUserInput = "";
         private List<string> searchedBookIdList = new List<string>();
-        private bool isBack = false;
 
         public List<string> GetSearchedBookIdList()
         {
@@ -100,8 +96,6 @@ namespace Library.Controller
             }
             if (isGetConditionalStringCompleted)
                 return true;
-            if (isInputEscape)
-                isBack = true;
 
             return false;
         }

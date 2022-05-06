@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Xml;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Library.View;
 using Library.Utility;
@@ -145,7 +139,7 @@ namespace Library.Controller
             administratorScreen.PrintBookOptionByNaver(bookName, bookPublisher, bookAuthor, bookPrice, bookPublicationDate, bookISBN);
             Console.SetCursorPosition(Constant.ADD_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookAddPosY.QUANTITY); // 커서위치조정
 
-            while (!isInputEscape && !isAddBookCompleted) // 함수로빼면 좋을듯
+            while (!isInputEscape && !isAddBookCompleted) 
             {
                 currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.ADD_BOOK_SELECT_OPTION_POS_X, Console.CursorTop, (int)Constant.BookAddPosY.NAME, (int)Constant.BookAddPosY.ADD);
                 isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());

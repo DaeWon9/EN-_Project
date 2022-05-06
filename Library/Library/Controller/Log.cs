@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using Library.Utility;
 using Library.Model;
@@ -173,9 +170,9 @@ namespace Library
                 {
                     writer.WriteLine(" < {0}번 >", reader[Constant.LOG_FILED_NUMBER]);
                     writer.WriteLine("----------------------------------------------------------------------------------------------------");
-                    writer.WriteLine(" 활동시간 : {0}", reader[Constant.LOG_FILED_DATE]);
-                    writer.WriteLine(" 회원정보 : {0}", reader[Constant.LOG_FILED_MEMBER]);
-                    writer.WriteLine(" 활동내역 : {0}", reader[Constant.LOG_FILED_ACTIVITY]);
+                    writer.WriteLine("  활동시간 : {0}", reader[Constant.LOG_FILED_DATE]);
+                    writer.WriteLine("  회원정보 : {0}", reader[Constant.LOG_FILED_MEMBER]);
+                    writer.WriteLine("  활동내역 : {0}", reader[Constant.LOG_FILED_ACTIVITY]);
                     writer.WriteLine("----------------------------------------------------------------------------------------------------");
                 }
                 writer.Close();

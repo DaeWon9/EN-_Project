@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-namespace Library
+﻿namespace Library
 {
     class Constant
     {
         // SQL connection
         public const string DATABASE_CONNECTION_INFORMATION = "Server=localhost;Port=3307;Database=daewonLibrary;Uid=root;Pwd=0000;";
 
-        // naver api
-        public const string CLIENT_ID = "RS8gQbYXLAarLLZv26GN";
-        public const string CLIENT_SECRET = "_QKwOfvRUZ";
+        public const string NAVER_SEARCH_QUERY = "https://openapi.naver.com/v1/search/book.json?query={0}&display={1}";
 
         //window size
         public const int WINDOW_WIDTH = 100;

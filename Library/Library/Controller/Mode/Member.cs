@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Library.View;
 using Library.Utility;
 using Library.Model;
@@ -17,9 +14,9 @@ namespace Library.Controller
         MemberModifier memberModifier = new MemberModifier();
         MemberSignUp memberSignUp = new MemberSignUp();
 
-        private string loginMemberId = "", loginMemberPassword = "", loginMemberName = "", loginMemberBirthDate = "", loginMemberAge = "", loginMemberAddress = "", loginMemberPhoneNumber = "", conditionalStringByUserInput = "";
+        private string loginMemberId = "", loginMemberPassword = "", loginMemberName = "", loginMemberBirthDate = "", loginMemberAddress = "", loginMemberPhoneNumber = "";
         //Login
-        private void Login(MemberScreen memberScreen) // id : admin1    pw: admin1 
+        private void Login(MemberScreen memberScreen) 
         {
             bool isLoginCheck = false;
             loginMemberId = "";

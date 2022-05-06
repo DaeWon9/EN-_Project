@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
 namespace Library.Model
@@ -99,7 +96,11 @@ namespace Library.Model
 
             if (!connection.Ping())
                 connection.Open();
-            sqlString =string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
+
+            if (conditionalString == "")
+                sqlString = string.Format(Constant.QUERY_STRING_SELECT, filed, tableName);
+            else
+                sqlString = string.Format(Constant.QUERY_STRING_CONDITIONAL_SELECT, filed, tableName, conditionalString);
 
 
             MySqlCommand command = new MySqlCommand(sqlString, connection);
