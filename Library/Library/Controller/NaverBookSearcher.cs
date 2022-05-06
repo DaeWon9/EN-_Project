@@ -1,5 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Net;
 using Library.View;
 using Library.Utility;
 using Library.Model;
@@ -8,7 +10,28 @@ namespace Library.Controller
 {
     class NaverBookSearcher : BookAdder
     {
-        NaverBook naverbook = new NaverBook();
+        private string CientId = DataBase.GetDataBase().GetSelectedElement(Constant.FILED_CLIENT_ID, Constant.TABLE_NAME_ADMINISTRATOR, Constant.TEXT_NONE);
+        private string ClientSecert = DataBase.GetDataBase().GetSelectedElement(Constant.FILED_CLIENT_SECRET, Constant.TABLE_NAME_ADMINISTRATOR, Constant.TEXT_NONE);
+        private JObject GetSearchBookInformationByNaver(string query, int display)
+        {
+            string url = String.Format(Constant.NAVER_SEARCH_QUERY, query, display);
+
+            //request 
+            WebRequest request = WebRequest.Create(url);
+            request.Method = "GET";
+            request.Headers.Add("X-Naver-Client-Id", CientId);
+            request.Headers.Add("X-Naver-Client-Secret", ClientSecert);
+
+            WebResponse response = request.GetResponse();
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            JObject jsonResult = JObject.Parse(reader.ReadToEnd());
+
+            reader.Close();
+            response.Close();
+            responseStream.Close();
+            return jsonResult;
+        }
 
         public void SearchBookByNaver(AdministratorScreen administratorScreen) // 네이버로 도서검색 하기 여기서 도서명 및 권수를 입력받음
         {
@@ -58,7 +81,7 @@ namespace Library.Controller
 
             if (GetYesOrNoByNaverSearch == Constant.INPUT_ENTER) // 검색확인문구에서 enter입력
             {
-                naverSearchResult = naverbook.GetSearchBookInformationByNaver(bookName, int.Parse(bookDisplay));
+                naverSearchResult = GetSearchBookInformationByNaver(bookName, int.Parse(bookDisplay));
                 DataBase.GetDataBase().AddLog(Constant.LOG_ADMINISTRATOR_TEXT_FROM, string.Format(Constant.LOG_STRING_SEARCH_BOOK_BY_NAVER, bookName, bookDisplay, Constant.LOG_TEXT_SEARCH_BOOK_BY_NABER));
                 SelectMenuBasedOnSearchResult(administratorScreen, naverSearchResult);
             }

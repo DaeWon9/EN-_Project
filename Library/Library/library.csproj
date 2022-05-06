@@ -100,7 +100,6 @@
     <Compile Include="Controller\Member\MemberSearcher.cs" />
     <Compile Include="Controller\NaverBookSearcher.cs" />
     <Compile Include="Controller\Member\MemberSignUp.cs" />
-    <Compile Include="Model\NaverBook.cs" />
     <Compile Include="Utility\Constant.cs" />
     <Compile Include="Controller\Mode\Administrator.cs" />
     <Compile Include="Controller\LibraryController.cs" />

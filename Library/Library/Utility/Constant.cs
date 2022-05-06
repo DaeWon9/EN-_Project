@@ -133,6 +133,8 @@
         public const string TABLE_NAME_LOG = "log";
 
         // Administrator Filed
+        public const string FILED_CLIENT_ID = "client_id";
+        public const string FILED_CLIENT_SECRET = "client_secret";
         public const string ADMINISTRATOR_FILED_ID = "id";
         public const string ADMINISTRATOR_FILED_PASSWORD = "pw";
 
