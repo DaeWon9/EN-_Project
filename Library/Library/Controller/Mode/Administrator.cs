@@ -88,7 +88,7 @@ namespace Library.Controller
                         naverBookSearcher.SearchBookByNaver(administratorScreen);
                         break;
                     case (int)Constant.AdministratorMenu.LOG:
-                        log.ManagemenLog(administratorScreen);
+                        log.ManagementLog(administratorScreen);
                         break;
                     case Constant.INPUT_ESCAPE_IN_ARROW_KEY:
                         isLogout = DataProcessing.GetDataProcessing().IsLogout(administratorScreen);

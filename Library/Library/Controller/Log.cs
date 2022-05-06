@@ -17,23 +17,24 @@ namespace Library
         private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), Constant.LOG_FILE_NAME); // 로그 파일 저장 경로 
         
         
-        public void ManagemenLog(AdministratorScreen administratorScreen)
+        public void ManagementLog(AdministratorScreen administratorScreen)
         {
             bool isInputEscape = false;
             int currentConsoleCursorPosY;
-            administratorScreen.PrintManagementLogScreen();
-            Console.SetCursorPosition(Constant.MENU_CURSOR_POS_X, (int)Constant.LogManagementPosY.SHOW); // 좌표조정
-
             while (!isInputEscape)
             {
+                administratorScreen.PrintManagementLogScreen();
+                Console.SetCursorPosition(Constant.MENU_CURSOR_POS_X, (int)Constant.LogManagementPosY.SHOW); // 좌표조정
+
                 currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.MENU_CURSOR_POS_X, Console.CursorTop, (int)Constant.LogManagementPosY.SHOW, (int)Constant.LogManagementPosY.RESET);
                 isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.LogManagementPosY.SHOW:
-                        ShowLogScreen();
+                        ShowLogScreen(administratorScreen);
                         break;
                     case (int)Constant.LogManagementPosY.DELETE:
+                        DeleteLog(logScreen);
                         break;
                     case (int)Constant.LogManagementPosY.SAVE_FILE:
                         SaveToTxtFile();
@@ -50,9 +51,80 @@ namespace Library
             }
         }
         
-        private void ShowLogScreen()
+        private void ShowLogScreen(AdministratorScreen administratorScreen)
         {
+            administratorScreen.PrintLogLabel();
             logScreen.PrintLog(DataBase.GetDataBase().GetLog(Constant.TEXT_NONE));
+            DataProcessing.GetDataProcessing().IsOnlyInputEscape();
+        }
+
+
+        private bool IsLogNumberValid(string logNumber)
+        {
+            List<string> logNumberList = DataBase.GetDataBase().GetSelectedElements(Constant.LOG_FILED_NUMBER, Constant.TABLE_NAME_LOG);
+            for (int repeat = 0; repeat < logNumberList.Count; repeat++)
+            {
+                if (logNumberList[repeat] == logNumber)
+                    return true;
+            }
+            return false;
+        }
+
+        private void DeleteLog(LogScreen logScreen)
+        {
+            bool isInputEscape = false, isDeleteLogCompleted = false;
+            int currentConsoleCursorPosY, getYesOrNoByDelete;
+            string logNumber = "";
+            logScreen.PrintDeleteLogScreen();
+            logScreen.PrintLog(DataBase.GetDataBase().GetLog(Constant.TEXT_NONE));
+
+
+            Console.SetCursorPosition(0, 0);      //입력창 보이게 맨위로 올리고 
+            Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.LogDeletePosY.NUMBER); //좌표조정
+
+            while (!isInputEscape && !isDeleteLogCompleted)
+            {
+                if (logNumber != "" && !IsLogNumberValid(logNumber))// 책이름이 입력됐는데, 도서관에 없는책임
+                {
+                    logScreen.PrintMessage("존재하지 않는 로그번호입니다.", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
+                    DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
+                    logNumber = "";
+                }
+
+                currentConsoleCursorPosY = DataProcessing.GetDataProcessing().CursorMove(Constant.SELECT_DELETE_LOG_OPTION_POS_X, Console.CursorTop, (int)Constant.LogDeletePosY.NUMBER, (int)Constant.LogDeletePosY.DELETE);
+                isInputEscape = DataProcessing.GetDataProcessing().IsInputEscape(currentConsoleCursorPosY.ToString());
+                switch (currentConsoleCursorPosY)
+                {
+                    case (int)Constant.SelectBookIdPosY.ID:
+                        logNumber = DataProcessing.GetDataProcessing().GetInputValues(logScreen, Constant.SELECT_LOG_NUMBER_POS_X, (int)Constant.LogDeletePosY.NUMBER, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_ANY);
+                        break;
+                    case (int)Constant.SelectBookIdPosY.MODIFY_BOOK:
+                        if (logNumber != "" && logNumber != Constant.INPUT_ESCAPE.ToString())
+                        {
+                            logScreen.PrintConfirmationMessage("해당 로그를 삭제하시겠습니까??", ConsoleColor.Yellow);
+                            getYesOrNoByDelete = DataProcessing.GetDataProcessing().GetEnterOrEscape();
+                            if (getYesOrNoByDelete == Constant.INPUT_ENTER)
+                            {
+                                DataBase.GetDataBase().Delete(Constant.TABLE_NAME_LOG, string.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_INT, Constant.LOG_FILED_NUMBER, logNumber));// 해당로그 delete
+                                DataProcessing.GetDataProcessing().ClearErrorMessage();
+                                isDeleteLogCompleted = true;
+                            }
+                            if (getYesOrNoByDelete == Constant.INPUT_ESCAPE)
+                            {
+                                DataProcessing.GetDataProcessing().ClearErrorMessage();
+                                Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.LogDeletePosY.NUMBER); //좌표조정
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (!isInputEscape)
+                DeleteLog(logScreen);
+
+
         }
 
         private void Reset()
@@ -65,6 +137,7 @@ namespace Library
             if (getYesOrNoByResetLog == Constant.INPUT_ESCAPE) // 초기화 하시겠습니까?? -> ESC
             {
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
+                Console.SetCursorPosition(Constant.MENU_CURSOR_POS_X, (int)Constant.LogManagementPosY.SHOW); // 좌표조정
             }
             if (getYesOrNoByResetLog == Constant.INPUT_ENTER) // 초기화 하시겠습니까?? -> ENTER
             {
@@ -72,6 +145,7 @@ namespace Library
                 DataBase.GetDataBase().ResetLog();
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
                 PrintMessage("로그초기화에 성공하였습니다!", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+                Console.ReadKey();
             }
         }
 
@@ -87,6 +161,7 @@ namespace Library
             if (getYesOrNoBySaveLogFile == Constant.INPUT_ESCAPE) // 저장 하시겠습니까?? -> ESC
             {
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
+                Console.SetCursorPosition(Constant.MENU_CURSOR_POS_X, (int)Constant.LogManagementPosY.SHOW); // 좌표조정
             }
             if (getYesOrNoBySaveLogFile == Constant.INPUT_ENTER) // 저장 하시겠습니까?? -> ENTER
             {
@@ -103,11 +178,12 @@ namespace Library
                     writer.WriteLine(" 활동내역 : {0}", reader[Constant.LOG_FILED_ACTIVITY]);
                     writer.WriteLine("----------------------------------------------------------------------------------------------------");
                 }
-                reader.Close();
                 writer.Close();
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
                 PrintMessage("로그저장에 성공했습니다!", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+                Console.ReadKey();
             }
+            reader.Close();
         }
 
         private void DeleteTxtFile()
@@ -119,13 +195,23 @@ namespace Library
             if (getYesOrNoByDeleteLogFile == Constant.INPUT_ESCAPE) // 삭제 하시겠습니까?? -> ESC
             {
                 DataProcessing.GetDataProcessing().ClearErrorMessage();
+                Console.SetCursorPosition(Constant.MENU_CURSOR_POS_X, (int)Constant.LogManagementPosY.SHOW); // 좌표조정
             }
             if (getYesOrNoByDeleteLogFile == Constant.INPUT_ENTER) // 삭제 하시겠습니까?? -> ENTER
             {
                 if (File.Exists(path)) // Log파일이 존재한다면
+                {
                     File.Delete(path); // 파일삭제
-                DataProcessing.GetDataProcessing().ClearErrorMessage();
-                PrintMessage("로그파일 삭제에 성공했습니다!", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+                    DataProcessing.GetDataProcessing().ClearErrorMessage();
+                    PrintMessage("로그파일 삭제에 성공했습니다!", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+                    Console.ReadKey();
+                }
+                else
+                {
+                    DataProcessing.GetDataProcessing().ClearErrorMessage();
+                    PrintMessage("로그파일이 존재하지 않습니다", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+                    Console.ReadKey();
+                }
             }
         }
     }

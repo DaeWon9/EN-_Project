@@ -328,6 +328,10 @@ namespace Library
         // signup pos
         public const int SIGNUP_POS_X = 50;
 
+        // log pos
+        public const int SELECT_LOG_NUMBER_POS_X = 50;
+        public const int SELECT_DELETE_LOG_OPTION_POS_X = 35;
+
         public enum SignUpPosY : int { NAME = 12, ID, PASSWORD, PASSWORD_CHECK, BIRTH_DATE, ADDRESS, PHONE_NUMBER, SIGN_UP }
 
         public enum BookSearchPosY : int { ID = 12, NAME, PUBLISHER, AUTHOR, ISBN, PRICE, QUANTITY, SEARCH }
@@ -339,6 +343,8 @@ namespace Library
         public enum BookBorrowPosY : int { ID = 12, BORROW }
 
         public enum BookReturnPosY : int { ID = 12, RETURN }
+
+        public enum LogDeletePosY : int { NUMBER = 12, DELETE}
 
         public enum AdministratorMenu : int { BOOK_SEARCH = 13, BOOK_ADD, BOOK_MODIFY, MEMBER_MANAGEMENT, BORROW_BOOK_STATUS, SEARCH_BY_NAVER, LOG}
 

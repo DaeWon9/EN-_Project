@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace Library.View
 {
-    internal class LogScreen
+    internal class LogScreen : Label
     {
         public void PrintLog(MySqlDataReader reader)
         {
@@ -24,6 +24,20 @@ namespace Library.View
             }
             Console.WriteLine("                                                                                뒤로가기 : ESC      ");
             reader.Close();
+        }
+
+        public void PrintDeleteLogScreen(bool isClear = true)
+        {
+            PrintDeleteLogLabel(isClear);
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                                                                뒤로가기 : ESC      ");
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("                                     로그번호 :                                                     ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("                                     < 삭제하기 >                                                   ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("                                                                                                    ");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
 
     }

@@ -163,7 +163,7 @@ namespace Library.View
             Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
             Console.WriteLine("              *                        < 회 원 정 보 수 정 >                        *               ");
             Console.WriteLine("             *                                                                       *              ");
-            Console.WriteLine("            *       ● 좌측은 회원님의 등록되어있는 정보입니다.                       *             ");
+            Console.WriteLine("            *       ● 상단은 회원님의 등록되어있는 정보입니다.                       *             ");
             Console.WriteLine("           *        ● ↑↓ 방향키로 옵션 이동 후 ENTER를 누르면 입력 가능합니다       *            ");
             Console.WriteLine("            *       ● 입력 도중 ESC를 누르면 입력을 취소할 수 있습니다               *             ");
             Console.WriteLine("             *      ● 수정을 원하는 내용 입력 후 ENTER를 눌러주세요                 *              ");
@@ -343,7 +343,7 @@ namespace Library.View
             Console.WriteLine("              *                           < 로 그 현 황 >                           *               ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("            *        ● 그동안 기록된 로그 현황입니다.                                *             ");
-            Console.WriteLine("           *         ● 바탕화면에 자동으로 Log.txt 파일이 저장됩니다.                 *            ");
+            Console.WriteLine("           *                                                                           *            ");
             Console.WriteLine("            *                                                                         *             ");
             Console.WriteLine("             *                                                                       *              ");
             Console.WriteLine("              *                                                                     *               ");
@@ -351,6 +351,21 @@ namespace Library.View
             Console.WriteLine("                                                                                                    ");
             Console.WriteLine("                                                                                뒤로가기 : ESC      ");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
+        }
+
+        public void PrintDeleteLogLabel(bool isClear = true)
+        {
+            if (isClear)
+                Console.Clear();
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
+            Console.WriteLine("              *                           < 로 그 삭 제 >                           *               ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("            *        ● 그동안 기록된 로그 현황입니다.                                *             ");
+            Console.WriteLine("           *         ● 삭제를 원하시는 로그 번호를 입력주세요                         *            ");
+            Console.WriteLine("            *        ● 입력하신 후 < 삭제하기 > 에서 ENTER 눌러주세요                *             ");
+            Console.WriteLine("             *                                                                       *              ");
+            Console.WriteLine("              *                                                                     *               ");
+            Console.WriteLine("               *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *                ");
         }
 
         public void PrintExplainSearchBookByNaverLabel(bool isClear = true)
