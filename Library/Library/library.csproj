@@ -98,7 +98,7 @@
     <Compile Include="Controller\Log.cs" />
     <Compile Include="Controller\Member\MemberModifier.cs" />
     <Compile Include="Controller\Member\MemberSearcher.cs" />
-    <Compile Include="Controller\NaverBookSearcher.cs" />
+    <Compile Include="Controller\Book\NaverBookSearcher.cs" />
     <Compile Include="Controller\Member\MemberSignUp.cs" />
     <Compile Include="Utility\Constant.cs" />
     <Compile Include="Controller\Mode\Administrator.cs" />

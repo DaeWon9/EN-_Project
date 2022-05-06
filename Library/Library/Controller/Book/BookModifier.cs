@@ -15,7 +15,7 @@ namespace Library.Controller
         private bool IsModifyBookInformationCompleted(AdministratorScreen administratorScreen, string setString, int bookId)
         {
             int getYesOrNoByModify;
-            administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage("수정하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
             getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
@@ -41,7 +41,7 @@ namespace Library.Controller
         private bool IsReModifyByBook(AdministratorScreen administratorScreen)
         {
             int getYesOrNoByReModify;
-            administratorScreen.PrintMessage(Constant.TEXT_SUCCESS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            administratorScreen.PrintMessage("정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             getYesOrNoByReModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
             if (getYesOrNoByReModify == Constant.INPUT_ESCAPE) // 계속해서 변경 x
@@ -80,11 +80,11 @@ namespace Library.Controller
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_AUTHOR, bookAuthor);
                         break;
                     case (int)Constant.BookModifyPosY.PRICE:
-                        bookPrice = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
+                        bookPrice = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.PRICE, Constant.MAX_LENGTH_BOOK_PRICE, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_PRICE);
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_PRICE, bookPrice);
                         break;
                     case (int)Constant.BookModifyPosY.QUANTITY:
-                        bookQuantity = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
+                        bookQuantity = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.MODIFY_BOOK_INPUT_POS_X, (int)Constant.BookModifyPosY.QUANTITY, Constant.MAX_LENGTH_BOOK_QUANTITY, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_QUANTITY);
                         setStringByUpdate = DataProcessing.GetDataProcessing().GetStringByUpdate(Constant.SET_STRING_EQUAL_BY_STRING, Constant.BOOK_FILED_QUANTITY, bookQuantity);
                         break;
                     case (int)Constant.BookModifyPosY.DELETE:
@@ -175,7 +175,7 @@ namespace Library.Controller
             {
                 if (bookId != "" && !IsAlreadyRegisteredBookInLibrary(bookId))// 책이름이 입력됐는데, 도서관에 없는책임
                 {
-                    administratorScreen.PrintMessage(Constant.TEXT_IS_NOT_EXIST_IN_LIBRARY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    administratorScreen.PrintMessage("도서관에 없는 도서입니다.", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
                     DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
                     bookId = "";
@@ -183,7 +183,7 @@ namespace Library.Controller
 
                 if (modifyMode == (int)Constant.ModifyModePosY.SEARCH && bookId != "" && !IsExistBookIdInSearchedBookList(bookId)) // 검색 후 책이름 입력됐는데, 검색된 책이 아님
                 {
-                    administratorScreen.PrintMessage(Constant.TEXT_THIS_BOOK_IS_NOT_SEARCHED, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    administratorScreen.PrintMessage("검색되지 않은 도서입니다.", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SELECT_MODIFY_BOOK_ID_OPTION_POS_X, (int)Constant.SelectBookIdPosY.ID); //좌표조정
                     DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SELECT_MODIFY_BOOK_ID_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SelectBookIdPosY.ID);
                     bookId = "";
@@ -194,12 +194,12 @@ namespace Library.Controller
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.SelectBookIdPosY.ID:
-                        bookId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SELECT_MODIFY_BOOK_ID_POS_X, (int)Constant.SelectBookIdPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        bookId = DataProcessing.GetDataProcessing().GetInputValues(administratorScreen, Constant.SELECT_MODIFY_BOOK_ID_POS_X, (int)Constant.SelectBookIdPosY.ID, Constant.MAX_LENGTH_BOOK_ID, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
                         break;
                     case (int)Constant.SelectBookIdPosY.MODIFY_BOOK:
                         if (bookId != "" && bookId != Constant.INPUT_ESCAPE.ToString())
                         {
-                            administratorScreen.PrintMessage(Constant.TEXT_IS_MODIFY, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+                            administratorScreen.PrintMessage("수정하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
                             administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
                             getYesOrNoByModify = DataProcessing.GetDataProcessing().GetEnterOrEscape();
@@ -263,13 +263,13 @@ namespace Library.Controller
             string bookName;
             if (IsBookBorrwed(bookId)) // 해당책을 대여한 회원이 있음
             {
-                administratorScreen.PrintMessage(Constant.TEXT_UNABLE_DELETE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                administratorScreen.PrintMessage("해당도서를 대여중인 회원이 존재하여 삭제가 불가능합니다", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.MODIFY_SELECT_OPTION_POS_X, (int)Constant.BookModifyPosY.NAME); //좌표조정
                 return false;
             }
             else // 클린한 상태임 -> 도서삭제 가능
             {
-                administratorScreen.PrintMessage(Constant.TEXT_IS_DELETE, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red); // 정말로 탈퇴할건지 물어보기
+                administratorScreen.PrintMessage("< 주의 > 모든정보가 삭제됩니다. 정말로 삭제하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red); // 정말로 탈퇴할건지 물어보기
                 administratorScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
 

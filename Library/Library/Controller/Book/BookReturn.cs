@@ -26,7 +26,7 @@ namespace Library.Controller
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.BookReturnPosY.ID:
-                        bookId = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
+                        bookId = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SEARCH_POS_X, (int)Constant.BookSearchPosY.ID, Constant.MAX_LENGTH_BOOK_ID, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_BOOK_ID);
                         break;
                     case (int)Constant.BookReturnPosY.RETURN:
                         isRetunrBookCompleted = IsReturnBookCompleted(memberScreen, bookId, loginMemberId, loginMemberName);
@@ -57,13 +57,13 @@ namespace Library.Controller
 
             if ((returnBookId == "" || returnBookId == Constant.INPUT_ESCAPE.ToString()))// 입력값이 공백인지 체크
             {
-                memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                memberScreen.PrintMessage("옵션을 입력해주세요", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                 return false; // 다시입력받기
             }
 
             DataProcessing.GetDataProcessing().ClearErrorMessage();
-            memberScreen.PrintMessage(Constant.TEXT_IS_RETURN, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            memberScreen.PrintMessage("반납하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
 
             getYesOrNoByReturn = DataProcessing.GetDataProcessing().GetEnterOrEscape();
@@ -79,7 +79,7 @@ namespace Library.Controller
                     DataBase.GetDataBase().Delete(loginMemberId, String.Format(Constant.CONDITIONAL_STRING_COMPARE_EQUAL_BY_STRING, Constant.BOOK_FILED_ID, returnBookId));
                     DataBase.GetDataBase().PlusBookQuantity(int.Parse(returnBookId));
                     DataProcessing.GetDataProcessing().ClearErrorMessage();
-                    memberScreen.PrintMessage(Constant.TEXT_SUCCESS_RETURN_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+                    memberScreen.PrintMessage("도서반납에 성공하였습니다! 계속해서 반납하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
                     memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow); // 계속해서 반납의사 물어보는 문구
                     getYesOrNoByReturnAgain = DataProcessing.GetDataProcessing().GetEnterOrEscape(); // enter or esc받을때까지 입력받음
                     if (getYesOrNoByReturnAgain == Constant.INPUT_ENTER) // 계속해서 반납하기 -> 즉 반납이 끝나지 않음
@@ -96,7 +96,7 @@ namespace Library.Controller
                 else // 대여중인 도서목록에 반납할도서가 없다면. 반납 실패.
                 {
                     DataProcessing.GetDataProcessing().ClearErrorMessage();
-                    memberScreen.PrintMessage(Constant.TEXT_IS_NOT_BORROWED_BOOK, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    memberScreen.PrintMessage("대여중인 도서가 아닙니다.", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.BORROW_BOOK_SELECT_OPTION_POS_X, (int)Constant.BookBorrowPosY.ID); //좌표조정
                     return false;
                 }

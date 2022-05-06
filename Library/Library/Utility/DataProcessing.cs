@@ -104,7 +104,7 @@ namespace Library.Utility
                 if (input.Length > maxInputLength) // 키입력받기전에 최대길이 넘어가는경우 체크
                 {
                     input = input.Substring(0, input.Length-1);
-                    message.PrintMessage(Constant.TEXT_PLEASE_INPUT_CORRECT_LENGTH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    message.PrintMessage("올바른 범위로 입력하세요", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     continue;
                 }
 
@@ -147,7 +147,7 @@ namespace Library.Utility
                     }
                     else
                     {
-                        message.PrintMessage(Constant.TEXT_PLEASE_INPUT_CORRECT_LENGTH, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                        message.PrintMessage("올바른 범위로 입력하세요", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                         ClearConsoleLine(posX, Constant.CURSOR_POS_RIGHT, posY); // 받았던 값 지우고
                         input = ""; // 입력받은값 초기화
                     }
@@ -368,7 +368,7 @@ namespace Library.Utility
         public bool IsExit(Message message)
         {
             Console.CursorVisible = false;
-            message.PrintMessage(Constant.TEXT_IS_EXIST, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red);
+            message.PrintMessage("종료하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red);
             message.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
 
             if (GetEnterOrEscape() == Constant.INPUT_ENTER) // enter 눌리면 true 반환
@@ -383,7 +383,7 @@ namespace Library.Utility
         public bool IsLogout(Message message)
         {
             Console.CursorVisible = false;
-            message.PrintMessage(Constant.TEXT_IS_LOGOUT, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red);
+            message.PrintMessage("로그아웃하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Red);
             message.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
 
             if (GetEnterOrEscape() == Constant.INPUT_ENTER) // enter 눌리면 true 반환

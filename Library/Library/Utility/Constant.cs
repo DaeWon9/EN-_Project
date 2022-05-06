@@ -43,57 +43,12 @@
         public const string EXCEPTION_TYPE_BOOK_QUANTITY = @"^[0-9]{1,2}$";
         public const string EXCEPTION_TYPE_DATE = @"^([1-2][0-9]{3})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$";
 
-        // TEXT -> 컨스턴트 처리 안해도됌 -> 뷰에서 처리하는게 맞음
+        // TEXT -> 컨스턴트 처리 안해도됌
         public const string TEXT_NONE = "";
         public const string TEXT_OK = "[OK]";
         public const string TEXT_WELCOME = "< {0}님 환영합니다 >";
         public const string TEXT_ADMINISTRATOR_MODE = "< 관리자모드 >";
         public const string TEXT_YES_OR_NO = "< YES : ENTER | NO : ESC >";
-        public const string TEXT_IS_EXIST = "종료하시겠습니까??";
-        public const string TEXT_IS_LOGOUT = "로그아웃하시겠습니까??";
-        public const string TEXT_IS_SEARCH = "검색하시겠습니까??";
-        public const string TEXT_IS_SIGN_UP = "가입하시겠습니까??";
-        public const string TEXT_IS_BORROW = "대여하시겠습니까??";
-        public const string TEXT_IS_RETURN = "반납하시겠습니까??";
-        public const string TEXT_IS_MODIFY = "수정하시겠습니까??";
-        public const string TEXT_IS_ADD = "추가하시겠습니까??";
-        public const string TEXT_IS_MANAGEMENT = "선택한 회원의 정보를 수정하시겠습니까??";
-        public const string TEXT_IS_WITHDRAWAL = "< 주의 > 모든정보가 삭제됩니다. 정말로 탈퇴하시겠습니까??";
-        public const string TEXT_IS_DELETE = "< 주의 > 모든정보가 삭제됩니다. 정말로 삭제하시겠습니까??";
-        public const string TEXT_IS_RESET_LOG = "< 주의 > 모든로그가 삭제됩니다. 정말로 삭제하시겠습니까??";
-
-        public const string TEXT_UNABLE_WITHDRAWAL = "대여중인 도서가 존재하여 탈퇴가 불가능합니다";
-        public const string TEXT_UNABLE_DELETE = "해당도서를 대여중인 회원이 존재하여 삭제가 불가능합니다";
-
-        public const string TEXT_PLEASE_INPUT_OPTION = "옵션을 입력해주세요";
-        public const string TEXT_PLEASE_INPUT_NUMBER = "숫자만 입력하세요";
-        public const string TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER = "한글 & 숫자만 입력하세요";
-        public const string TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER = "영어 & 숫자만 입력하세요";
-        public const string TEXT_PLEASE_INPUT_CORRECT_STRING = "올바른 글자만 입력하세요";
-        public const string TEXT_PLEASE_INPUT_CORRECT_LENGTH = "올바른 범위로 입력하세요";
-
-        public const string TEXT_ALREADY_REGISTERED_ID = "이미 등록되어있는 ID입니다.";
-        public const string TEXT_ALREADY_REGISTERED_BOOK = "이미 등록되어있는 도서입니다.";
-        public const string TEXT_IS_NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
-        public const string TEXT_IS_NOT_CORRECT_ID_PASSWORD = "ID & PASSWORD 가 틀립니다";
-
-        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY_OR_NOT_SEARCHED = "도서관에 없는 도서이거나, 검색된 도서가 아닙니다.";
-        public const string TEXT_IS_NOT_EXIST_IN_LIBRARY = "도서관에 없는 도서입니다.";
-        public const string TEXT_THIS_BOOK_IS_NOT_SEARCHED= "검색되지 않은 도서입니다.";
-        public const string TEXT_THIS_NUMBER_IS_NOT_SEARCHED = "검색되지 않은 번호입니다.";
-        public const string TEXT_IS_ALREADY_BORROWED = "이미 대여중인 도서입니다.";
-        public const string TEXT_IS_NOT_ENOUGH_QUANTITY = "대여가능한 수량이 부족합니다.";
-        public const string TEXT_IS_NOT_BORROWED_BOOK = "대여중인 도서가 아닙니다.";
-        public const string TEXT_IS_NOT_REGISTERED_MEMBER_ID = "등록되지않은 회원ID입니다.";
-
-        public const string TEXT_SUCCESS_RESET_LOG = "로그초기화에 성공하였습니다!";
-        public const string TEXT_SUCCESS_SAVE_LOG = "로그저장에 성공하였습니다!";
-        public const string TEXT_SUCCESS_BORROW = "도서대여에 성공했습니다! 계속해서 대여하시겠습니까??";
-        public const string TEXT_SUCCESS_SIGN_UP = "회원가입에 성공하였습니다!";
-        public const string TEXT_SUCCESS_MODIFY = "정보 변경에 성공하였습니다! 계속해서 변경하시겠습니까??";
-        public const string TEXT_SUCCESS_RETURN_BOOK = "도서반납에 성공하였습니다! 계속해서 반납하시겠습니까??";
-        public const string TEXT_SUCCESS_ADD_BOOK = "도서추가에 성공하였습니다! 계속해서 추가하시겠습니까??";
-
 
         // QUERY String
         public const string QUERY_STRING_CREATE_TABLE_BY_USER_ID = "CREATE TABLE {0} ( id INT NOT NULL, name VARCHAR(100), publisher VARCHAR(20), author VARCHAR(20), price INT, quantity INT, pubdate DATE, isbn varchar(30), borrowDate DATETIME, returnDate DATETIME, PRIMARY KEY(id) ) ENGINE = InnoDB DEFAULT CHARSET = utf8";

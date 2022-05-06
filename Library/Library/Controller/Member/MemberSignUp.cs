@@ -34,7 +34,7 @@ namespace Library.Controller
             {
                 if (IsIdDuplicate(id))
                 {
-                    memberScreen.PrintMessage(Constant.TEXT_ALREADY_REGISTERED_ID, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    memberScreen.PrintMessage("이미 등록되어있는 ID입니다.", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ID); //좌표조정
                     DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SIGNUP_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SignUpPosY.ID);
                     id = "";
@@ -42,7 +42,7 @@ namespace Library.Controller
 
                 if ((password.Length > 1 && passwordCheck.Length > 1) && (password != passwordCheck))
                 {
-                    memberScreen.PrintMessage(Constant.TEXT_IS_NOT_CORRECT_PASSWORD, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                    memberScreen.PrintMessage("비밀번호가 일치하지 않습니다.", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                     Console.SetCursorPosition(Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ID); //좌표조정
                     DataProcessing.GetDataProcessing().ClearConsoleLine(Constant.SIGNUP_POS_X, Constant.WINDOW_WIDTH, (int)Constant.SignUpPosY.PASSWORD_CHECK);
                     passwordCheck = "";
@@ -53,25 +53,25 @@ namespace Library.Controller
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.SignUpPosY.NAME:
-                        name = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, Constant.TEXT_PLEASE_INPUT_CORRECT_STRING, Constant.EXCEPTION_TYPE_KOREAN_ENGLISH, Constant.EXCEPTION_TYPE_MEMBER_NAME);
+                        name = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.NAME, Constant.MAX_LENGTH_MEMBER_NAME, "올바른 글자만 입력하세요", Constant.EXCEPTION_TYPE_KOREAN_ENGLISH, Constant.EXCEPTION_TYPE_MEMBER_NAME);
                         break;
                     case (int)Constant.SignUpPosY.ID:
-                        id = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
+                        id = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ID, Constant.MAX_LENGTH_MEMBER_ID, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_ID);
                         break;
                     case (int)Constant.SignUpPosY.PASSWORD:
-                        password = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
+                        password = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD, Constant.MAX_LENGTH_MEMBER_PASSWORD, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                         break;
                     case (int)Constant.SignUpPosY.PASSWORD_CHECK:
-                        passwordCheck = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD_CHECK, Constant.MAX_LENGTH_MEMBER_PASSWORD, Constant.TEXT_PLEASE_INPUT_ENGLISH_OR_NUMBER, Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
+                        passwordCheck = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PASSWORD_CHECK, Constant.MAX_LENGTH_MEMBER_PASSWORD, "영어 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_ENGLISH_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PASSWORD, Constant.IS_PASSWORD);
                         break;
                     case (int)Constant.SignUpPosY.BIRTH_DATE:
-                        birthDate = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.BIRTH_DATE, Constant.MAX_LENGTH_DATE, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
+                        birthDate = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.BIRTH_DATE, Constant.MAX_LENGTH_DATE, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_DATE);
                         break;
                     case (int)Constant.SignUpPosY.ADDRESS:
-                        address = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, Constant.TEXT_PLEASE_INPUT_KOREAN_OR_NUMBER, Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
+                        address = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.ADDRESS, Constant.MAX_LENGTH_MEMBER_ADDRESS, "한글 & 숫자만 입력하세요", Constant.EXCEPTION_TYPE_KOREAN_NUMBER_SPACE, Constant.EXCEPTION_TYPE_MEMBER_ADDRESS);
                         break;
                     case (int)Constant.SignUpPosY.PHONE_NUMBER:
-                        phoneNumber = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
+                        phoneNumber = DataProcessing.GetDataProcessing().GetInputValues(memberScreen, Constant.SIGNUP_POS_X, (int)Constant.SignUpPosY.PHONE_NUMBER, Constant.MAX_LENGTH_MEMBER_PHONE_NUMBER, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_MEMBER_PHONE_NUMBER);
                         break;
                     case (int)Constant.SignUpPosY.SIGN_UP:
                         isSignUpCompleted = IsSignUpCompleted(memberScreen, name, id, password, birthDate, address, phoneNumber);
@@ -89,12 +89,12 @@ namespace Library.Controller
             // 모든 값이 입력됐는지 체크
             if ((name == "" || name == Constant.INPUT_ESCAPE.ToString()) || (id == "" || id == Constant.INPUT_ESCAPE.ToString()) || (password == "" || password == Constant.INPUT_ESCAPE.ToString()) || (birthDate == "" || birthDate == Constant.INPUT_ESCAPE.ToString()) || (address == "" || address == Constant.INPUT_ESCAPE.ToString()) || (phoneNumber == "" || phoneNumber == Constant.INPUT_ESCAPE.ToString()))
             {
-                memberScreen.PrintMessage(Constant.TEXT_PLEASE_INPUT_OPTION, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
+                memberScreen.PrintMessage("옵션을 입력해주세요", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Red);
                 Console.SetCursorPosition(Constant.SEARCH_SELECT_OPTION_POS_X, (int)Constant.SignUpPosY.NAME); //좌표조정
                 return false;
             }
 
-            memberScreen.PrintMessage(Constant.TEXT_IS_SIGN_UP, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
+            memberScreen.PrintMessage("가입하시겠습니까??", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y - 1, ConsoleColor.Yellow);
             memberScreen.PrintMessage(Constant.TEXT_YES_OR_NO, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
             Console.SetCursorPosition(Constant.CURSOR_POS_LEFT, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y); //좌표조정
             Console.CursorVisible = false;
@@ -105,7 +105,7 @@ namespace Library.Controller
                 DataBase.GetDataBase().InsertMember(Constant.TABLE_NAME_MEMBER, name, id, password, birthDate, address, phoneNumber); // member 테이블에 입력한 멤버정보 추가
                 DataBase.GetDataBase().CreateTable(id); // 해당 멤버의 id로 대여도서 테이블 생성 
                 DataBase.GetDataBase().AddLog(string.Format(Constant.LOG_MEMBER_TEXT_FORM, name, id), Constant.LOG_TEXT_SIGN_UP);
-                memberScreen.PrintMessage(Constant.TEXT_SUCCESS_SIGN_UP, Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
+                memberScreen.PrintMessage("회원가입에 성공하였습니다!", Constant.WINDOW_WIDTH_CENTER, Constant.EXCEPTION_MESSAGE_CURSOR_POS_Y, ConsoleColor.Yellow);
                 if (DataProcessing.GetDataProcessing().GetEnterOrEscape() != Constant.INPUT_ESCAPE) //esc 눌렀을때 뒤로가기
                 {
                     Console.CursorVisible = true;

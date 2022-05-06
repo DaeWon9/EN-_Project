@@ -93,7 +93,7 @@ namespace Library
                 switch (currentConsoleCursorPosY)
                 {
                     case (int)Constant.SelectBookIdPosY.ID:
-                        logNumber = DataProcessing.GetDataProcessing().GetInputValues(logScreen, Constant.SELECT_LOG_NUMBER_POS_X, (int)Constant.LogDeletePosY.NUMBER, Constant.MAX_LENGTH_BOOK_ID, Constant.TEXT_PLEASE_INPUT_NUMBER, Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_ANY);
+                        logNumber = DataProcessing.GetDataProcessing().GetInputValues(logScreen, Constant.SELECT_LOG_NUMBER_POS_X, (int)Constant.LogDeletePosY.NUMBER, Constant.MAX_LENGTH_BOOK_ID, "숫자만 입력하세요", Constant.EXCEPTION_TYPE_NUMBER, Constant.EXCEPTION_TYPE_ANY);
                         break;
                     case (int)Constant.SelectBookIdPosY.MODIFY_BOOK:
                         if (logNumber != "" && logNumber != Constant.INPUT_ESCAPE.ToString())
