@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import org.json.simple.JSONArray;
 
+import Model.DataBase;
 import View.ImagePanel;
 import View.MainFrame;
 import View.ShowSearchedImage;
@@ -63,7 +64,9 @@ public class MainController
 				mainFrame.getContentPane().removeAll();
 				mainFrame.getContentPane().add(mainFrame.logPanel);
 				mainFrame.revalidate();
-				mainFrame.repaint();				
+				mainFrame.repaint();
+				DataBase dataBase = new DataBase();
+				dataBase.AddLog();
 			}
 		});
 	}
