@@ -9,13 +9,13 @@ import Utility.Constant;
 
 public class MainFrame extends JFrame
 {
-	ImageSearcher imageSearcher = new ImageSearcher(); //-> 테스트용
+	//ImageSearcher imageSearcher = new ImageSearcher(); //-> 테스트용
 	
 	Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public LogPanel logPanel = new LogPanel();
 	public SearchPanel searchPanel = new SearchPanel();
 	public SearchResultPanel searchResultPanel = new SearchResultPanel();
-	public ImagePanel imagePanel = new ImagePanel(imageSearcher.GetImageList("python"), 10);
+	//public ImagePanel imagePanel = new ImagePanel(imageSearcher.GetImageList("python"), 10);
 	
 	public void ShowFrame()
 	{		
@@ -50,7 +50,7 @@ public class MainFrame extends JFrame
 			getContentPane().removeAll();
 			getContentPane().setLayout(null);
 			getContentPane().add(searchResultPanel);
-			getContentPane().add(imagePanel);
+			//getContentPane().add(imagePanel);
 			revalidate();
 			repaint();
 		}

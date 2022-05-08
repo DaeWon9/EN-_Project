@@ -21,7 +21,7 @@ public class ImageSearcher
 		JSONObject responseJson = null;
 		try
 		{
-			URL url = new URL(Constant.KAKAO_API_SEARCH_QUERY);
+			URL url = new URL(Constant.KAKAO_API_SEARCH_QUERY + query);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("Authorization", "KakaoAK 0a2ee0db0f8fc875f74abcdb7e816265");

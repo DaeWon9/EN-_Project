@@ -6,6 +6,6 @@ public final class Constant
 	public static final int APPLICATION_WIDTH = 800;
 	public static final int APPLICATION_HEIGHT = 600;
 
-	public static final String KAKAO_API_SEARCH_QUERY = "https://dapi.kakao.com/v2/search/image?query=python";
+	public static final String KAKAO_API_SEARCH_QUERY = "https://dapi.kakao.com/v2/search/image?query=";
 	
 }
