@@ -36,7 +36,8 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainFrame.Change("searchResultPanel");	
-				ShowSearchedImage showSearchedImage = new ShowSearchedImage(imageSearcher.GetImageList("python"), 10);
+				String data = mainFrame.searchPanel.inputTextFiled.getText(); 
+	            System.out.println(data);
 			}
 		});
 				

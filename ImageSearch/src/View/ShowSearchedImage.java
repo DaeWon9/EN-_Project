@@ -11,7 +11,6 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.imageio.ImageIO;
@@ -33,7 +32,7 @@ public class ShowSearchedImage extends JFrame
 		setLocation((windowSize.width - Constant.APPLICATION_WIDTH) / 2,
                 (windowSize.height - Constant.APPLICATION_HEIGHT) / 2); 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
-		
+				
 		JPanel iamgePanel = new JPanel(new GridLayout(2,5));
 		iamgePanel.setBorder(new EmptyBorder(10,10,10,10));
 		
@@ -54,42 +53,11 @@ public class ShowSearchedImage extends JFrame
         	e.printStackTrace();
         }
 		add(iamgePanel);
-
-		/*
-		JButton imageButton = new JButton(new ImageIcon(image));
-		imageButton.setSize(90,20);
-		imageButton.setLocation(300, 250);
-		add(imageButton);
-		*/
 		setVisible(true);	
 	}
 	
 	public void CreateImagePanel(JSONArray jsonArray, int display)
 	{
-		/*
-		if (jsonArray.size() > 0)
-		{
-			for (int i=0; i<display; i++)
-			{
-				JSONObject jsonObject = (JSONObject)jsonArray.get(i);
-				System.out.println(jsonObject.get("image_url"));
-			}
-		}
-		*/
-		
-		JPanel iamgePanel = new JPanel(new GridLayout(2,5));
-		iamgePanel.setBorder(new EmptyBorder(10,10,10,10));
-		
-		if (jsonArray.size() > 0)
-		{
-			for (int i=0; i<display; i++)
-			{
-				JSONObject jsonObject = (JSONObject)jsonArray.get(i);
-				ImageIcon imageIcon = new ImageIcon(jsonObject.get("image_url").toString());		
-				JButton imageButton = new JButton(imageIcon);
-				iamgePanel.add(imageButton);
-			}
-		}		
 		
 	}
 }

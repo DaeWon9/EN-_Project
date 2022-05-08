@@ -10,12 +10,13 @@ import javax.swing.JTextField;
 public class SearchPanel extends JPanel
 {
 	public JButton searchButton, showLogButton;
+	public JTextField inputTextFiled;
 
 	public SearchPanel()
 	{
 		setLayout(null);
 		setBackground(Color.WHITE);
-		JTextField inputTextFiled = new JTextField();
+		inputTextFiled = new JTextField();
 		inputTextFiled.setSize(300,30);
 		inputTextFiled.setLocation(250,200);
 		add(inputTextFiled);
