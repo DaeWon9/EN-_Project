@@ -29,7 +29,7 @@ public class MainFrame extends JFrame
 		setVisible(true);	
 	}	
 	
-	public void Change(String panelName)
+	public void BackStage(String panelName)
 	{
 		if (panelName.equals("logPanel"))
 		{
@@ -42,15 +42,6 @@ public class MainFrame extends JFrame
 		{
 			getContentPane().removeAll();
 			getContentPane().add(searchPanel);
-			revalidate();
-			repaint();
-		}
-		else if (panelName.equals("searchResultPanel"))
-		{
-			getContentPane().removeAll();
-			getContentPane().setLayout(null);
-			getContentPane().add(searchResultPanel);
-			//getContentPane().add(imagePanel);
 			revalidate();
 			repaint();
 		}

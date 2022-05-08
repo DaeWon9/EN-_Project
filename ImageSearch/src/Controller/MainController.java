@@ -3,6 +3,10 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import org.json.simple.JSONArray;
+
 import View.ImagePanel;
 import View.MainFrame;
 import View.ShowSearchedImage;
@@ -19,7 +23,7 @@ public class MainController
 		mainFrame.logPanel.backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.Change("searchPanel");	
+				mainFrame.BackStage("searchPanel");	
 			}
 		});
 		
@@ -27,7 +31,7 @@ public class MainController
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.Change("searchPanel");	
+				mainFrame.BackStage("searchPanel");	
 				
 			}
 		});
@@ -37,15 +41,18 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String data = mainFrame.searchPanel.inputTextFiled.getText(); 
-				System.out.println(data);
-				ImagePanel imagePanel = new ImagePanel(imageSearcher.GetImageList(data), 10);
 				
-				mainFrame.getContentPane().removeAll();
-				mainFrame.getContentPane().setLayout(null);
-				mainFrame.getContentPane().add(mainFrame.searchResultPanel);
-				mainFrame.getContentPane().add(imagePanel);
-				mainFrame.revalidate();
-				mainFrame.repaint();
+				JSONArray imageList = imageSearcher.GetImageList(data);
+				if (imageList != null)
+				{
+					ImagePanel imagePanel = new ImagePanel(imageList, 10);
+					mainFrame.getContentPane().removeAll();
+					mainFrame.getContentPane().setLayout(null);
+					mainFrame.getContentPane().add(mainFrame.searchResultPanel);
+					mainFrame.getContentPane().add(imagePanel);
+					mainFrame.revalidate();
+					mainFrame.repaint();
+				}
 			}
 		});
 				
@@ -53,7 +60,10 @@ public class MainController
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.Change("logPanel");					
+				mainFrame.getContentPane().removeAll();
+				mainFrame.getContentPane().add(mainFrame.logPanel);
+				mainFrame.revalidate();
+				mainFrame.repaint();				
 			}
 		});
 	}

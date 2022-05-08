@@ -4,16 +4,16 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
 
 public class ImagePanel extends JPanel
 {
@@ -23,7 +23,7 @@ public class ImagePanel extends JPanel
 		setBounds(0,200,800,400);
 		setBackground(Color.WHITE);
 		JPanel iamgePanel = new JPanel(new GridLayout(2,5,10,10));
-		if (jsonArray.size()>0)
+		if (jsonArray != null)
 		{
 			try
 			{
@@ -54,9 +54,14 @@ public class ImagePanel extends JPanel
 					}
 				}
 			}
-			catch (IOException e) {
-	        	e.printStackTrace();
-	        }
+			catch (MalformedURLException e) 
+			{
+				e.printStackTrace();
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			} 
 		}
 		add(iamgePanel);
 	}

@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.swing.JOptionPane;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,20 +19,21 @@ public class ImageSearcher
 {
 	private JSONObject SearchImage(String query)
 	{
-		HttpURLConnection connection = null;
-		JSONObject responseJson = null;
+		JSONObject responseJson = new JSONObject();
 		try
 		{
 			URL url = new URL(Constant.KAKAO_API_SEARCH_QUERY + query);
-			connection = (HttpURLConnection) url.openConnection();
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("Authorization", "KakaoAK 0a2ee0db0f8fc875f74abcdb7e816265");
 			
 			int responseCode = connection.getResponseCode();
 			if (responseCode == 401)
 				System.out.println("401:: Header에러");
+			else if (responseCode == 400)
+				JOptionPane.showMessageDialog(null, "검색어를 입력해주세요");
 			else if (responseCode == 500)
-				System.out.println("500:: 서버에러");
+				JOptionPane.showMessageDialog(null, "현재 서버에 문제가 있습니다. 관리자에게 문의하세요");
 			else
 			{
 				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
