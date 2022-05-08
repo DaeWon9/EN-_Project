@@ -1,5 +1,5 @@
 package Controller;
 
-public class LogManagement {
-
+public class LogManagement 
+{
 }
