@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import View.MainFrame;
+import View.ShowSearchedImage;
 
 public class MainController
 {	
@@ -11,6 +12,7 @@ public class MainController
 	{
 		MainFrame mainFrame = new MainFrame();
 		ImageSearcher imageSearcher = new ImageSearcher();
+		
 		mainFrame.ShowFrame();
 		
 		mainFrame.logPanel.backButton.addActionListener(new ActionListener() {
@@ -34,7 +36,7 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainFrame.Change("searchResultPanel");	
-				mainFrame.searchPanel.ShowImages(imageSearcher.GetImageList());
+				ShowSearchedImage showSearchedImage = new ShowSearchedImage(imageSearcher.GetImageList("python"), 10);
 			}
 		});
 				

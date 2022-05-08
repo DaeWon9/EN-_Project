@@ -15,7 +15,7 @@ import Utility.Constant;
 
 public class ImageSearcher 
 {
-	private JSONObject SearchImage(String query, int display)
+	private JSONObject SearchImage(String query)
 	{
 		HttpURLConnection connection = null;
 		JSONObject responseJson = null;
@@ -61,9 +61,9 @@ public class ImageSearcher
 		return responseJson;
 	}
 
-	public JSONArray GetImageList()
+	public JSONArray GetImageList(String query)
 	{
-		JSONObject searchResult = SearchImage("python", 10);
+		JSONObject searchResult = SearchImage(query);
 		JSONArray jsonArray = (JSONArray)searchResult.get("documents");
 		return jsonArray;
 	}

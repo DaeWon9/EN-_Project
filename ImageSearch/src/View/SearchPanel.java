@@ -7,17 +7,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 public class SearchPanel extends JPanel
 {
 	public JButton searchButton, showLogButton;
-	private MainFrame mainFrame;
-	
-	public SearchPanel(MainFrame mainFrame)
+
+	public SearchPanel()
 	{
-		this.mainFrame = mainFrame;
 		setLayout(null);
 		setBackground(Color.WHITE);
 		JTextField inputTextFiled = new JTextField();
@@ -38,19 +33,6 @@ public class SearchPanel extends JPanel
 		ImageIcon imageIcon = new ImageIcon(MainFrame.class.getResource("/Image/MainBackground.jpg"));
 		JLabel backgroundImage = new JLabel(imageIcon);
 		backgroundImage.setBounds(0,0,800,600);
-		add(backgroundImage);
+		add(backgroundImage);	
 	}
-	
-	public void ShowImages(JSONArray jsonArray)
-	{
-		if (jsonArray.size() > 0)
-		{
-			for (int i=0; i<jsonArray.size(); i++)
-			{
-				JSONObject jsonObject = (JSONObject)jsonArray.get(i);
-				System.out.println(jsonObject.get("image_url"));
-			}
-		}
-	}
-
 }

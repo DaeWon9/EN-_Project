@@ -8,11 +8,9 @@ import javax.swing.JPanel;
 public class LogPanel extends JPanel
 {
 	public JButton backButton;
-	private MainFrame mainFrame;
-	
-	public LogPanel(MainFrame mainFrame)
+
+	public LogPanel()
 	{
-		this.mainFrame = mainFrame;
 		setLayout(null);
 		setBackground(Color.WHITE);
 		ImageIcon imageIcon = new ImageIcon(LogPanel.class.getResource("/Image/BackStage.png"));		

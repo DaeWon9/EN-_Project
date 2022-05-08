@@ -7,9 +7,9 @@ import Utility.Constant;
 public class MainFrame extends JFrame
 {
 	Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public LogPanel logPanel = new LogPanel(this);
-	public SearchPanel searchPanel = new SearchPanel(this);
-	public SearchResultPanel searchResultPanel = new SearchResultPanel(this);
+	public LogPanel logPanel = new LogPanel();
+	public SearchPanel searchPanel = new SearchPanel();
+	public SearchResultPanel searchResultPanel = new SearchResultPanel();
 	
 	public void ShowFrame()
 	{		
