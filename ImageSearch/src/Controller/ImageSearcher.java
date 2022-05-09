@@ -34,7 +34,7 @@ public class ImageSearcher
 			else if (responseCode == 400)
 				JOptionPane.showMessageDialog(null, "검색어를 입력해주세요");
 			else if (responseCode == 500)
-				JOptionPane.showMessageDialog(null, "현재 서버에 문제가 있습니다. 관리자에게 문의하세요");
+				JOptionPane.showMessageDialog(null, "특수문자만 입력하셨거나, 서버오류입니다");
 			else
 			{
 				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

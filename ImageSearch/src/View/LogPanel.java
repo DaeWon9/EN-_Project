@@ -44,7 +44,6 @@ public class LogPanel extends JPanel
 		scrollPane.setLocation(150,80);
 		add(scrollPane);
 		
-		
 		ImageIcon DeleteButtonImage = new ImageIcon(LogPanel.class.getResource("/Image/DeleteButton.png"));		
 		deleteButton = new JButton(DeleteButtonImage);
 		deleteButton.setBorderPainted(false);

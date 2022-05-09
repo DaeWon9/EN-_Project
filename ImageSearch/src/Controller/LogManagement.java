@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Model.LogDAO;
@@ -25,7 +27,7 @@ public class LogManagement
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "로그출력에 문제가 생겼습니다. 관리자에게 문의하세요");
 		}
 	}
 }

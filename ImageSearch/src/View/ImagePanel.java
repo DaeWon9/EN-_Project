@@ -109,6 +109,10 @@ public class ImagePanel extends JPanel
 		{
 			JOptionPane.showMessageDialog(null, "해당 개수만큼 출력하지 못했습니다.");
 		}
+		catch (IndexOutOfBoundsException e)
+		{
+			JOptionPane.showMessageDialog(null, "해당 개수만큼 출력하지 못했습니다.");
+		}
 		panel.add(iamgePanel);
 		
 		return panel;

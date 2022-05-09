@@ -2,6 +2,9 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
 import org.json.simple.JSONArray;
 import Model.LogDAO;
 import Model.SearchWordDTO;
@@ -76,6 +79,11 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String data = mainFrame.searchPanel.inputTextFiled.getText(); 
+				if (data.length() > 100)
+				{
+					JOptionPane.showMessageDialog(null, "100글자 이내로 입력해주세요");
+					return;
+				}
 				JSONArray imageList = imageSearcher.GetImageList(data);
 				if (imageList != null)
 				{
@@ -96,8 +104,8 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainFrame.getContentPane().removeAll();
-				logManagement.LogInputToLogPanel(logDAO, mainFrame.logPanel.txtLog);
 				mainFrame.getContentPane().add(mainFrame.logPanel);
+				logManagement.LogInputToLogPanel(logDAO, mainFrame.logPanel.txtLog);
 				mainFrame.revalidate();
 				mainFrame.repaint();
 			}
