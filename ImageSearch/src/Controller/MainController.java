@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import org.json.simple.JSONArray;
 
-import Model.DataBase;
+import Model.LogDAO;
 import View.ImagePanel;
 import View.MainFrame;
 import View.ShowSearchedImage;
@@ -18,6 +18,7 @@ public class MainController
 	{
 		MainFrame mainFrame = new MainFrame();
 		ImageSearcher imageSearcher = new ImageSearcher();
+		LogDAO dataBase = new LogDAO();
 		
 		mainFrame.ShowFrame();
 		
@@ -65,8 +66,7 @@ public class MainController
 				mainFrame.getContentPane().add(mainFrame.logPanel);
 				mainFrame.revalidate();
 				mainFrame.repaint();
-				DataBase dataBase = new DataBase();
-				dataBase.AddLog();
+				dataBase.AddLog("python");
 			}
 		});
 	}

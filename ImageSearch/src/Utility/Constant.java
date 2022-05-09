@@ -11,5 +11,5 @@ public final class Constant
 	public static final String DATABASE_PASSWORD = "0000";
 	
 	public static final String KAKAO_API_SEARCH_QUERY = "https://dapi.kakao.com/v2/search/image?query=";
-	
+	public static final String INSERT_LOG_QUERY = "INSERT INTO log VALUES ('%s', '%s')";
 }
