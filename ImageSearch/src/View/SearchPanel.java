@@ -23,12 +23,17 @@ public class SearchPanel extends JPanel
 		inputTextFiled.setLocation(250,200);
 		add(inputTextFiled);
 		
-		searchButton = new JButton("검색하기");
+		
+		ImageIcon searchButtonImage = new ImageIcon(SearchPanel.class.getResource("/Image/SearchButton.png"));		
+		searchButton = new JButton(searchButtonImage);
+		searchButton.setBorderPainted(false);
 		searchButton.setSize(90,20);
 		searchButton.setLocation(300, 250);
 		add(searchButton);
 		
-		showLogButton = new JButton("기록보기");
+		ImageIcon showLogButtonImage = new ImageIcon(SearchPanel.class.getResource("/Image/ShowLogButton.png"));		
+		showLogButton = new JButton(showLogButtonImage);
+		showLogButton.setBorderPainted(false);
 		showLogButton.setSize(90,20);
 		showLogButton.setLocation(400, 250);
 		add(showLogButton);
@@ -40,3 +45,4 @@ public class SearchPanel extends JPanel
 		add(backgroundImage);	
 	}
 }
+

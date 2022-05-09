@@ -2,6 +2,8 @@ package View;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Controller.ImageSearcher;
@@ -16,6 +18,8 @@ public class MainFrame extends JFrame
 
 	public void ShowFrame()
 	{		
+		ImageIcon iconImage = new ImageIcon(MainFrame.class.getResource("/Image/Ryan.png"));		
+		setIconImage(iconImage.getImage());
 		setTitle(Constant.APPLICATION_TITLE);
 		setSize(Constant.APPLICATION_WIDTH, Constant.APPLICATION_HEIGHT);
 		setLocation((windowSize.width - Constant.APPLICATION_WIDTH) / 2,
@@ -30,6 +34,7 @@ public class MainFrame extends JFrame
 	{
 		if (panelName.equals("searchPanel"))
 		{
+			searchPanel.inputTextFiled.setText(""); 
 			getContentPane().removeAll();
 			getContentPane().add(searchPanel);
 			revalidate();

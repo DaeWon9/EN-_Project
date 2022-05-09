@@ -20,7 +20,7 @@ public class LogManagement
 		{
 			while(logList.next())
 			{
-				logArea.append("\t" + logList.getString(Constant.LOG_FILED_SEARCH_TIME) + "\t" + logList.getString(Constant.LOG_FILED_SEARCH_WORD) + "\n");
+				logArea.append("          " + logList.getString(Constant.LOG_FILED_SEARCH_TIME) + "\t" + logList.getString(Constant.LOG_FILED_SEARCH_WORD) + "\n");
 			}
 		}
 		catch (SQLException e) 

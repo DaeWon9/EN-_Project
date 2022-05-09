@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -29,11 +30,11 @@ import Utility.Constant;
 
 public class ImagePanel extends JPanel
 {
-	JButton backButton;
-	public ImagePanel(JSONArray jsonArray, int display)
+	public JPanel CreateImagePanel(JSONArray jsonArray, int display)
 	{	
-		setBounds(0,200,800,400);
-		setBackground(Color.WHITE);
+		JPanel panel = new JPanel();
+		panel.setBounds(0,170,800,400);
+		panel.setBackground(Color.WHITE);
 		int coulum = 0;
 		int row = 0;
 		int interval = 0;
@@ -61,95 +62,64 @@ public class ImagePanel extends JPanel
 		}
 		
 		JPanel iamgePanel = new JPanel(new GridLayout(row,coulum,interval,interval));
-		if (jsonArray != null)
+		iamgePanel.setBackground(Color.WHITE);
+		try
 		{
-			try
+			for (int i=0; i<display; i++)
 			{
-				if (jsonArray.size() >= display)
-				{
-					for (int i=0; i<display; i++)
-					{
-						JSONObject jsonObject = (JSONObject)jsonArray.get(i);
-						URL url = new URL (jsonObject.get("image_url").toString());
-						Image orignalImage = ImageIO.read(url);
-						Image image = orignalImage.getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
-						JButton imageButton = new JButton(new ImageIcon(image));
-						imageButton.addMouseListener(new MouseListener() {		
-							@Override
-							public void mouseReleased(MouseEvent e) {		
-							}				
-							@Override
-							public void mousePressed(MouseEvent e) {
-							}					
-							@Override
-							public void mouseExited(MouseEvent e) {
-							}
-							@Override
-							public void mouseEntered(MouseEvent e) {
-							}
-							@Override
-							public void mouseClicked(MouseEvent e) {
-								if (e.getClickCount() > 1)
-								{
-									ShowOriginalImage(orignalImage);
-								}	
-							}
-						});
-						imageButton.setBorderPainted(false);
-						iamgePanel.add(imageButton);
+				JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+				URL url = new URL (jsonObject.get("image_url").toString());
+				Image orignalImage = ImageIO.read(url);
+				Image image = orignalImage.getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
+				JButton imageButton = new JButton(new ImageIcon(image));
+				imageButton.addMouseListener(new MouseListener() {		
+					@Override
+					public void mouseReleased(MouseEvent e) {		
+					}				
+					@Override
+					public void mousePressed(MouseEvent e) {
+					}					
+					@Override
+					public void mouseExited(MouseEvent e) {
 					}
-				}
-				else
-				{
-					for (int i=0; i<jsonArray.size(); i++)
-					{
-						JSONObject jsonObject = (JSONObject)jsonArray.get(i);
-						URL url = new URL (jsonObject.get("image_url").toString());
-						Image orignalImage = ImageIO.read(url);
-						Image image = orignalImage.getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
-						JButton imageButton = new JButton(new ImageIcon(image));
-						imageButton.addMouseListener(new MouseListener() {		
-							@Override
-							public void mouseReleased(MouseEvent e) {		
-							}				
-							@Override
-							public void mousePressed(MouseEvent e) {
-							}					
-							@Override
-							public void mouseExited(MouseEvent e) {
-							}
-							@Override
-							public void mouseEntered(MouseEvent e) {
-							}
-							@Override
-							public void mouseClicked(MouseEvent e) {
-								if (e.getClickCount() > 1)
-								{
-									ShowOriginalImage(orignalImage);
-								}	
-							}
-						});
-						imageButton.setBorderPainted(false);
-						iamgePanel.add(imageButton);
+					@Override
+					public void mouseEntered(MouseEvent e) {
 					}
-				}
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						if (e.getClickCount() > 1)
+						{
+							ShowOriginalImage(orignalImage);
+						}	
+					}
+				});
+				imageButton.setContentAreaFilled(false);
+				iamgePanel.add(imageButton);
 			}
-			catch (MalformedURLException e) 
-			{
-				e.printStackTrace();
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			} 
 		}
-		add(iamgePanel);
+		catch (MalformedURLException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			JOptionPane.showMessageDialog(null, "해당 개수만큼 출력하지 못했습니다.");
+		} 
+		catch (NullPointerException e)
+		{
+			JOptionPane.showMessageDialog(null, "해당 개수만큼 출력하지 못했습니다.");
+		}
+		panel.add(iamgePanel);
+		
+		return panel;
 	}
 	
 	public void ShowOriginalImage(Image image)
 	{	
 		Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 		JFrame imageFrame = new JFrame();
+		ImageIcon iconImage = new ImageIcon(MainFrame.class.getResource("/Image/Ryan.png"));		
+		imageFrame.setIconImage(iconImage.getImage());
 		imageFrame.setTitle(Constant.APPLICATION_TITLE);
 		imageFrame.setSize(image.getWidth(null), image.getHeight(null) );
 		imageFrame.setLocation((windowSize.width - Constant.APPLICATION_WIDTH) / 2,

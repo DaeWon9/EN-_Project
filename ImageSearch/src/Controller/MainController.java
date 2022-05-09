@@ -13,6 +13,7 @@ public class MainController
 	public void Start()
 	{
 		MainFrame mainFrame = new MainFrame();
+		ImagePanel imagePanel = new ImagePanel();
 		ImageSearcher imageSearcher = new ImageSearcher();
 		SearchWordDTO searchWordDTO = new SearchWordDTO();
 		LogDAO logDAO = new LogDAO();
@@ -20,17 +21,14 @@ public class MainController
 		
 		mainFrame.ShowFrame();
 		
-		mainFrame.searchResultPanel.backButton.addActionListener(new ActionListener() {
-			
+		mainFrame.searchResultPanel.backButton.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.BackStage("searchPanel");	
-				
+				mainFrame.BackStage("searchPanel");		
 			}
 		});
 		
-		mainFrame.searchResultPanel.searchButton.addActionListener(new ActionListener() {
-			
+		mainFrame.searchResultPanel.searchButton.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String data = mainFrame.searchResultPanel.inputTextFiled.getText(); 
@@ -41,15 +39,13 @@ public class MainController
 					searchWordDTO.Set(data);
 					logDAO.AddLog(data);
 					display = Integer.parseInt(mainFrame.searchResultPanel.displayBox.getSelectedItem().toString());
-					ImagePanel imagePanel = new ImagePanel(imageList, display);
 					mainFrame.getContentPane().removeAll();
 					mainFrame.getContentPane().setLayout(null);
 					mainFrame.getContentPane().add(mainFrame.searchResultPanel);
-					mainFrame.getContentPane().add(imagePanel);
+					mainFrame.getContentPane().add(imagePanel.CreateImagePanel(imageList, display));
 					mainFrame.revalidate();
 					mainFrame.repaint();
-				}
-				
+				}	
 			}
 		});
 
@@ -66,19 +62,17 @@ public class MainController
 					searchWordDTO.Set(data);
 					logDAO.AddLog(data);
 					display = Integer.parseInt(mainFrame.searchResultPanel.displayBox.getSelectedItem().toString());
-					ImagePanel imagePanel = new ImagePanel(imageList, display);
 					mainFrame.getContentPane().removeAll();
 					mainFrame.getContentPane().setLayout(null);
 					mainFrame.getContentPane().add(mainFrame.searchResultPanel);
-					mainFrame.getContentPane().add(imagePanel);
+					mainFrame.getContentPane().add(imagePanel.CreateImagePanel(imageList, display));
 					mainFrame.revalidate();
 					mainFrame.repaint();
 				}
 			}
 		});
 		
-		mainFrame.searchPanel.searchButton.addActionListener(new ActionListener() {
-			
+		mainFrame.searchPanel.searchButton.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String data = mainFrame.searchPanel.inputTextFiled.getText(); 
@@ -87,19 +81,18 @@ public class MainController
 				{
 					searchWordDTO.Set(data);
 					logDAO.AddLog(data);
-					ImagePanel imagePanel = new ImagePanel(imageList, 10);
+					mainFrame.searchResultPanel.inputTextFiled.setText(""); 
 					mainFrame.getContentPane().removeAll();
 					mainFrame.getContentPane().setLayout(null);
 					mainFrame.getContentPane().add(mainFrame.searchResultPanel);
-					mainFrame.getContentPane().add(imagePanel);
+					mainFrame.searchResultPanel.displayBox.setSelectedIndex(0);
 					mainFrame.revalidate();
 					mainFrame.repaint();
 				}
 			}
 		});
 				
-		mainFrame.searchPanel.showLogButton.addActionListener(new ActionListener() {
-			
+		mainFrame.searchPanel.showLogButton.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainFrame.getContentPane().removeAll();
