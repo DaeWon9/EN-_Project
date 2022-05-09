@@ -11,5 +11,14 @@ public final class Constant
 	public static final String DATABASE_PASSWORD = "0000";
 	
 	public static final String KAKAO_API_SEARCH_QUERY = "https://dapi.kakao.com/v2/search/image?query=";
+	
 	public static final String INSERT_LOG_QUERY = "INSERT INTO log VALUES ('%s', '%s')";
+	public static final String SELECT_LOG_QUERY = "SELECT %s FROM LOG";
+	public static final String DELETE_LOG_QUERY = "DELETE FROM log";
+	public static final String UPDATE_LOG_QUERY = "UPDATE log SET searchTime = '%s' WHERE searchWord = '%s'";
+
+	public static final String LOG_FILED_ALL = "*";
+	public static final String LOG_FILED_SEARCH_WORD = "searchWord";
+
+
 }
