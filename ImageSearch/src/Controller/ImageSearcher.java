@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.swing.JOptionPane;
 
@@ -22,7 +23,7 @@ public class ImageSearcher
 		JSONObject responseJson = new JSONObject();
 		try
 		{
-			URL url = new URL(Constant.KAKAO_API_SEARCH_QUERY + query);
+			URL url = new URL(Constant.KAKAO_API_SEARCH_QUERY + URLEncoder.encode(query, "UTF-8"));
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("Authorization", "KakaoAK 0a2ee0db0f8fc875f74abcdb7e816265");

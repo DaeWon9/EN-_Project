@@ -32,14 +32,48 @@ public class LogDAO
 				sql = String.format(Constant.UPDATE_LOG_QUERY,(timeFormat.format(today)), searchWord);
 			else // 이미 검색된 단어가 아니면 그냥 추가
 				sql = String.format(Constant.INSERT_LOG_QUERY, searchWord, (timeFormat.format(today)));
-			System.out.println(sql);
 			Statement statement = connection.createStatement();
+			statement.execute(sql);
 			connection.close();
 		} 
 		catch (ClassNotFoundException | SQLException e) 
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void DeleteAllLog() 
+	{
+		try 
+		{
+			connection = getConnection();
+			sql = Constant.DELETE_LOG_QUERY;
+			Statement statement = connection.createStatement();
+			statement.execute(sql);
+			connection.close();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public ResultSet GetLogList()
+	{
+		ResultSet resultSet = null;
+		try 
+		{
+			connection = getConnection();
+			sql = String.format(Constant.SELECT_LOG_QUERY, Constant.LOG_FILED_ALL);
+			Statement statement = connection.createStatement();
+			resultSet = statement.executeQuery(sql);
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return resultSet;
 	}
 	
 	private ArrayList<String> GetSearchedWordList()

@@ -1,6 +1,8 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -30,9 +32,10 @@ public class SearchPanel extends JPanel
 		showLogButton.setSize(90,20);
 		showLogButton.setLocation(400, 250);
 		add(showLogButton);
-		
+			
 		ImageIcon imageIcon = new ImageIcon(MainFrame.class.getResource("/Image/MainBackground.jpg"));
-		JLabel backgroundImage = new JLabel(imageIcon);
+		Image image = imageIcon.getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH);
+		JLabel backgroundImage = new JLabel(new ImageIcon(image));
 		backgroundImage.setBounds(0,0,800,600);
 		add(backgroundImage);	
 	}

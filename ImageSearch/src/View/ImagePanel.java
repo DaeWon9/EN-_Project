@@ -1,8 +1,14 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,9 +16,15 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import Utility.Constant;
 
 
 public class ImagePanel extends JPanel
@@ -22,7 +34,33 @@ public class ImagePanel extends JPanel
 	{	
 		setBounds(0,200,800,400);
 		setBackground(Color.WHITE);
-		JPanel iamgePanel = new JPanel(new GridLayout(2,5,10,10));
+		int coulum = 0;
+		int row = 0;
+		int interval = 0;
+		int imageSize = 0;
+		switch (display)
+		{
+			case 10:
+				coulum = 5; 
+				row = 2;
+				interval = 10;
+				imageSize = 80;
+				break;
+			case 20:
+				coulum = 5; 
+				row = 4;
+				interval = 10;	
+				imageSize = 60;
+				break;
+			case 30:
+				coulum = 6; 
+				row = 5;
+				interval = 10;	
+				imageSize = 40;
+				break;
+		}
+		
+		JPanel iamgePanel = new JPanel(new GridLayout(row,coulum,interval,interval));
 		if (jsonArray != null)
 		{
 			try
@@ -33,9 +71,30 @@ public class ImagePanel extends JPanel
 					{
 						JSONObject jsonObject = (JSONObject)jsonArray.get(i);
 						URL url = new URL (jsonObject.get("image_url").toString());
-						Image image = ImageIO.read(url).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+						Image orignalImage = ImageIO.read(url);
+						Image image = orignalImage.getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
 						JButton imageButton = new JButton(new ImageIcon(image));
-						//imageButton.setSize(100,100);
+						imageButton.addMouseListener(new MouseListener() {		
+							@Override
+							public void mouseReleased(MouseEvent e) {		
+							}				
+							@Override
+							public void mousePressed(MouseEvent e) {
+							}					
+							@Override
+							public void mouseExited(MouseEvent e) {
+							}
+							@Override
+							public void mouseEntered(MouseEvent e) {
+							}
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								if (e.getClickCount() > 1)
+								{
+									ShowOriginalImage(orignalImage);
+								}	
+							}
+						});
 						imageButton.setBorderPainted(false);
 						iamgePanel.add(imageButton);
 					}
@@ -46,9 +105,30 @@ public class ImagePanel extends JPanel
 					{
 						JSONObject jsonObject = (JSONObject)jsonArray.get(i);
 						URL url = new URL (jsonObject.get("image_url").toString());
-						Image image = ImageIO.read(url).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+						Image orignalImage = ImageIO.read(url);
+						Image image = orignalImage.getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
 						JButton imageButton = new JButton(new ImageIcon(image));
-						//imageButton.setSize(100,100);
+						imageButton.addMouseListener(new MouseListener() {		
+							@Override
+							public void mouseReleased(MouseEvent e) {		
+							}				
+							@Override
+							public void mousePressed(MouseEvent e) {
+							}					
+							@Override
+							public void mouseExited(MouseEvent e) {
+							}
+							@Override
+							public void mouseEntered(MouseEvent e) {
+							}
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								if (e.getClickCount() > 1)
+								{
+									ShowOriginalImage(orignalImage);
+								}	
+							}
+						});
 						imageButton.setBorderPainted(false);
 						iamgePanel.add(imageButton);
 					}
@@ -64,5 +144,23 @@ public class ImagePanel extends JPanel
 			} 
 		}
 		add(iamgePanel);
+	}
+	
+	public void ShowOriginalImage(Image image)
+	{	
+		Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
+		JFrame imageFrame = new JFrame();
+		imageFrame.setTitle(Constant.APPLICATION_TITLE);
+		imageFrame.setSize(image.getWidth(null), image.getHeight(null) );
+		imageFrame.setLocation((windowSize.width - Constant.APPLICATION_WIDTH) / 2,
+                (windowSize.height - Constant.APPLICATION_HEIGHT) / 2); 
+		imageFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
+		
+		JLabel originalImage = new JLabel(new ImageIcon(image));
+		originalImage.setBounds(0,0,800,600);
+		imageFrame.add(originalImage);	
+		
+		imageFrame.setResizable(false);
+		imageFrame.setVisible(true);	
 	}
 }

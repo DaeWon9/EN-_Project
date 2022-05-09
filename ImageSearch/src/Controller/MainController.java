@@ -2,15 +2,11 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
-
 import org.json.simple.JSONArray;
-
 import Model.LogDAO;
+import Model.SearchWordDTO;
 import View.ImagePanel;
 import View.MainFrame;
-import View.ShowSearchedImage;
 
 public class MainController
 {	
@@ -18,16 +14,11 @@ public class MainController
 	{
 		MainFrame mainFrame = new MainFrame();
 		ImageSearcher imageSearcher = new ImageSearcher();
-		LogDAO dataBase = new LogDAO();
+		SearchWordDTO searchWordDTO = new SearchWordDTO();
+		LogDAO logDAO = new LogDAO();
+		LogManagement logManagement = new LogManagement();
 		
 		mainFrame.ShowFrame();
-		
-		mainFrame.logPanel.backButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				mainFrame.BackStage("searchPanel");	
-			}
-		});
 		
 		mainFrame.searchResultPanel.backButton.addActionListener(new ActionListener() {
 			
@@ -38,15 +29,64 @@ public class MainController
 			}
 		});
 		
+		mainFrame.searchResultPanel.searchButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String data = mainFrame.searchResultPanel.inputTextFiled.getText(); 
+				int display;
+				JSONArray imageList = imageSearcher.GetImageList(data);
+				if (imageList != null)
+				{
+					searchWordDTO.Set(data);
+					logDAO.AddLog(data);
+					display = Integer.parseInt(mainFrame.searchResultPanel.displayBox.getSelectedItem().toString());
+					ImagePanel imagePanel = new ImagePanel(imageList, display);
+					mainFrame.getContentPane().removeAll();
+					mainFrame.getContentPane().setLayout(null);
+					mainFrame.getContentPane().add(mainFrame.searchResultPanel);
+					mainFrame.getContentPane().add(imagePanel);
+					mainFrame.revalidate();
+					mainFrame.repaint();
+				}
+				
+			}
+		});
+
+		mainFrame.searchResultPanel.displayBox.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				String data = searchWordDTO.Get(); 
+				int display;
+				mainFrame.searchResultPanel.displayBox.getSelectedItem().toString();
+				JSONArray imageList = imageSearcher.GetImageList(data);
+				if (imageList != null)
+				{
+					searchWordDTO.Set(data);
+					logDAO.AddLog(data);
+					display = Integer.parseInt(mainFrame.searchResultPanel.displayBox.getSelectedItem().toString());
+					ImagePanel imagePanel = new ImagePanel(imageList, display);
+					mainFrame.getContentPane().removeAll();
+					mainFrame.getContentPane().setLayout(null);
+					mainFrame.getContentPane().add(mainFrame.searchResultPanel);
+					mainFrame.getContentPane().add(imagePanel);
+					mainFrame.revalidate();
+					mainFrame.repaint();
+				}
+			}
+		});
+		
 		mainFrame.searchPanel.searchButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String data = mainFrame.searchPanel.inputTextFiled.getText(); 
-				
 				JSONArray imageList = imageSearcher.GetImageList(data);
 				if (imageList != null)
 				{
+					searchWordDTO.Set(data);
+					logDAO.AddLog(data);
 					ImagePanel imagePanel = new ImagePanel(imageList, 10);
 					mainFrame.getContentPane().removeAll();
 					mainFrame.getContentPane().setLayout(null);
@@ -63,10 +103,29 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainFrame.getContentPane().removeAll();
+				logManagement.LogInputToLogPanel(logDAO, mainFrame.logPanel.txtLog);
 				mainFrame.getContentPane().add(mainFrame.logPanel);
 				mainFrame.revalidate();
 				mainFrame.repaint();
-				dataBase.AddLog("python");
+			}
+		});
+		
+		mainFrame.logPanel.backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.BackStage("searchPanel");	
+			}
+		});
+
+		mainFrame.logPanel.deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logDAO.DeleteAllLog();
+				mainFrame.getContentPane().removeAll();
+				logManagement.LogInputToLogPanel(logDAO, mainFrame.logPanel.txtLog);
+				mainFrame.getContentPane().add(mainFrame.logPanel);
+				mainFrame.revalidate();
+				mainFrame.repaint();
 			}
 		});
 	}

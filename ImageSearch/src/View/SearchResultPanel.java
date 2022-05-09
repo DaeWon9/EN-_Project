@@ -6,11 +6,15 @@ import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class SearchResultPanel extends JPanel
 {
-	public JButton backButton;
+	public JButton backButton, searchButton, showLogButton;
+	public JTextField inputTextFiled;
+	public JComboBox displayBox;
 	
 	public SearchResultPanel()
 	{
@@ -23,5 +27,23 @@ public class SearchResultPanel extends JPanel
 		backButton.setSize(30,30);
 		backButton.setLocation(740,10);
 		add(backButton);
+		
+		inputTextFiled = new JTextField();
+		inputTextFiled.setSize(500,30);
+		inputTextFiled.setLocation(100,100);
+		add(inputTextFiled);
+		
+		searchButton = new JButton("검색하기");
+		searchButton.setSize(90,20);
+		searchButton.setLocation(620, 100);
+		add(searchButton);
+		
+		String[] display ={"10", "20", "30"};
+		displayBox = new JComboBox(display);
+		displayBox.setSize(90,20);
+		displayBox.setLocation(620, 150);
+        add(displayBox);
+
+		
 	}
 }

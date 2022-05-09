@@ -9,14 +9,11 @@ import Utility.Constant;
 
 public class MainFrame extends JFrame
 {
-	//ImageSearcher imageSearcher = new ImageSearcher(); //-> 테스트용
-	
 	Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public LogPanel logPanel = new LogPanel();
 	public SearchPanel searchPanel = new SearchPanel();
 	public SearchResultPanel searchResultPanel = new SearchResultPanel();
-	//public ImagePanel imagePanel = new ImagePanel(imageSearcher.GetImageList("python"), 10);
-	
+
 	public void ShowFrame()
 	{		
 		setTitle(Constant.APPLICATION_TITLE);
@@ -31,14 +28,7 @@ public class MainFrame extends JFrame
 	
 	public void BackStage(String panelName)
 	{
-		if (panelName.equals("logPanel"))
-		{
-			getContentPane().removeAll();
-			getContentPane().add(logPanel);
-			revalidate();
-			repaint();
-		}
-		else if (panelName.equals("searchPanel"))
+		if (panelName.equals("searchPanel"))
 		{
 			getContentPane().removeAll();
 			getContentPane().add(searchPanel);
