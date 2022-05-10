@@ -13,7 +13,7 @@ import Utility.Constant;
 
 public class LogManagement 
 {
-	public void LogInputToLogPanel(LogDAO logDAO, JTextArea logArea)
+	public void LogInputToLogPanel(LogDAO logDAO, JTextArea logArea) // dbì— ìˆëŠ” ë¡œê·¸ì •ë³´ë“¤ì„ ë¡œê·¸íŒ¨ë„ì˜ txtAreaì— ì¶”ê°€í•´ì£¼ëŠ” í•¨ìˆ˜
 	{
 		ResultSet logList = logDAO.GetLogList();
 		logArea.selectAll();
@@ -24,10 +24,11 @@ public class LogManagement
 			{
 				logArea.append("          " + logList.getString(Constant.LOG_FILED_SEARCH_TIME) + "\t" + logList.getString(Constant.LOG_FILED_SEARCH_WORD) + "\n");
 			}
+			logList.close();
 		}
 		catch (SQLException e) 
 		{
-			JOptionPane.showMessageDialog(null, "·Î±×Ãâ·Â¿¡ ¹®Á¦°¡ »ı°å½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä");
+			JOptionPane.showMessageDialog(null, "ë¡œê·¸ì¶œë ¥ì— ë¬¸ì œê°€ ìƒê²¼ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”");
 		}
 	}
 }

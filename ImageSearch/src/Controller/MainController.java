@@ -81,7 +81,7 @@ public class MainController
 				String data = mainFrame.searchPanel.inputTextFiled.getText(); 
 				if (data.length() > 100)
 				{
-					JOptionPane.showMessageDialog(null, "100±ÛÀÚ ÀÌ³»·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
+					JOptionPane.showMessageDialog(null, "100ï¿½ï¿½ï¿½ï¿½ ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 					return;
 				}
 				JSONArray imageList = imageSearcher.GetImageList(data);
@@ -103,9 +103,9 @@ public class MainController
 		mainFrame.searchPanel.showLogButton.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logManagement.LogInputToLogPanel(logDAO, mainFrame.logPanel.txtLog);
 				mainFrame.getContentPane().removeAll();
 				mainFrame.getContentPane().add(mainFrame.logPanel);
-				logManagement.LogInputToLogPanel(logDAO, mainFrame.logPanel.txtLog);
 				mainFrame.revalidate();
 				mainFrame.repaint();
 			}

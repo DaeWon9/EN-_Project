@@ -18,7 +18,7 @@ import Utility.Constant;
 
 public class ImageSearcher 
 {
-	private JSONObject SearchImage(String query)
+	private JSONObject SearchImage(String query) // 카카오 API로 이미지 검색 후 결과값 제이슨오브젝트로 반환
 	{
 		JSONObject responseJson = new JSONObject();
 		try
@@ -30,11 +30,11 @@ public class ImageSearcher
 			
 			int responseCode = connection.getResponseCode();
 			if (responseCode == 401)
-				System.out.println("401:: Header����");
+				System.out.println("401:: Header에러");
 			else if (responseCode == 400)
-				JOptionPane.showMessageDialog(null, "�˻�� �Է����ּ���");
+				JOptionPane.showMessageDialog(null, "검색어를 입력해주세요");
 			else if (responseCode == 500)
-				JOptionPane.showMessageDialog(null, "Ư�����ڸ� �Է��ϼ̰ų�, ���������Դϴ�");
+				JOptionPane.showMessageDialog(null, "특수문자만 입력하셨거나, 서버오류입니다");
 			else
 			{
 				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -65,7 +65,7 @@ public class ImageSearcher
 		return responseJson;
 	}
 
-	public JSONArray GetImageList(String query)
+	public JSONArray GetImageList(String query) // 이미지 정보를 담고있는 제이슨어레이 반환
 	{
 		JSONObject searchResult = SearchImage(query);
 		JSONArray jsonArray = (JSONArray)searchResult.get("documents");

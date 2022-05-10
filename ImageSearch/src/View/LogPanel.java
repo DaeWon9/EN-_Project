@@ -35,7 +35,7 @@ public class LogPanel extends JPanel
 		logLabel.setLocation(282,20);
 		add(logLabel);
 		
-		Font font = new Font("±¼¸²", Font.BOLD, 15);
+		Font font = new Font("êµ´ë¦¼", Font.BOLD, 15);
 		txtLog.setFont(font);
 		
 		txtLog.setEditable(false);

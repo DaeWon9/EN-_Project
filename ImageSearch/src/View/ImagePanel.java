@@ -63,11 +63,12 @@ public class ImagePanel extends JPanel
 		
 		JPanel iamgePanel = new JPanel(new GridLayout(row,coulum,interval,interval));
 		iamgePanel.setBackground(Color.WHITE);
-		try
+		for (int i=0; i<display; i++)
 		{
-			for (int i=0; i<display; i++)
+			try
 			{
 				JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+				System.out.println(jsonObject.get("image_url").toString());
 				URL url = new URL (jsonObject.get("image_url").toString());
 				Image orignalImage = ImageIO.read(url);
 				Image image = orignalImage.getScaledInstance(imageSize, imageSize, Image.SCALE_SMOOTH);
@@ -96,22 +97,23 @@ public class ImagePanel extends JPanel
 				imageButton.setContentAreaFilled(false);
 				iamgePanel.add(imageButton);
 			}
-		}
-		catch (MalformedURLException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
-		{
-			JOptionPane.showMessageDialog(null, "ÇØ´ç °³¼ö¸¸Å­ Ãâ·ÂÇÏÁö ¸øÇß½À´Ï´Ù.");
-		} 
-		catch (NullPointerException e)
-		{
-			JOptionPane.showMessageDialog(null, "ÇØ´ç °³¼ö¸¸Å­ Ãâ·ÂÇÏÁö ¸øÇß½À´Ï´Ù.");
-		}
-		catch (IndexOutOfBoundsException e)
-		{
-			JOptionPane.showMessageDialog(null, "ÇØ´ç °³¼ö¸¸Å­ Ãâ·ÂÇÏÁö ¸øÇß½À´Ï´Ù.");
+			catch (MalformedURLException e) 
+			{
+				e.printStackTrace();
+			} 
+			catch (IOException e) 
+			{
+				display++;
+			} 
+			catch (NullPointerException e)
+			{
+				display++;
+			}
+			catch (IndexOutOfBoundsException e)
+			{
+				JOptionPane.showMessageDialog(null, "í•´ë‹¹ ê°œìˆ˜ë§Œí¼ ì¶œë ¥í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
+				break;
+			}
 		}
 		panel.add(iamgePanel);
 		

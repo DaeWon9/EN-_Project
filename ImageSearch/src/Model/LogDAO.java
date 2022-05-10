@@ -28,9 +28,9 @@ public class LogDAO
 			connection = getConnection();
 			Date today = new Date();
 			
-			if (IsAlreaySearchedWord(searchWord)) // 이미 해당 단어를 검색한 기록이 있으면 시간만 업데이트
+			if (IsAlreaySearchedWord(searchWord))
 				sql = String.format(Constant.UPDATE_LOG_QUERY,(timeFormat.format(today)), searchWord);
-			else // 이미 검색된 단어가 아니면 그냥 추가
+			else
 				sql = String.format(Constant.INSERT_LOG_QUERY, searchWord, (timeFormat.format(today)));
 			Statement statement = connection.createStatement();
 			statement.execute(sql);
@@ -94,7 +94,6 @@ public class LogDAO
 		{
 			e.printStackTrace();
 		}
-		
 		return searchedWordList;
 	}
 	
