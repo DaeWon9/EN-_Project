@@ -2,9 +2,7 @@ package View;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,11 +14,12 @@ public class LogPanel extends JPanel
 {
 	public JButton backButton, deleteButton;
 	public JTextArea txtLog = new JTextArea();	
+
 	public LogPanel()
 	{
 		setBackground(Color.WHITE);
 		setLayout(null);
-		ImageIcon imageIcon = new ImageIcon(SearchResultPanel.class.getResource("/Image/BackStage.png"));		
+		ImageIcon imageIcon = new ImageIcon(LogPanel.class.getResource("/Image/BackStage.png"));		
 		backButton = new JButton(imageIcon);
 		backButton.setBorderPainted(false);
 		backButton.setContentAreaFilled(false);
@@ -28,8 +27,7 @@ public class LogPanel extends JPanel
 		backButton.setLocation(740,10);
 		add(backButton);
 		
-		ImageIcon imageIcon2 = new ImageIcon(SearchResultPanel.class.getResource("/Image/SearchHistory.png"));		
-		Image image = imageIcon2.getImage().getScaledInstance(235, 50, Image.SCALE_SMOOTH);
+		ImageIcon imageIcon2 = new ImageIcon(LogPanel.class.getResource("/Image/SearchHistory.png"));		
 		JLabel logLabel = new JLabel(imageIcon2);
 		logLabel.setSize(235,50);
 		logLabel.setLocation(282,20);
@@ -37,7 +35,6 @@ public class LogPanel extends JPanel
 		
 		Font font = new Font("굴림", Font.BOLD, 15);
 		txtLog.setFont(font);
-		
 		txtLog.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(txtLog);
 		scrollPane.setSize(500,400);

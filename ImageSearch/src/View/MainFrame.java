@@ -29,17 +29,4 @@ public class MainFrame extends JFrame
 		setResizable(false);
 		setVisible(true);	
 	}	
-	
-	public void BackStage(String panelName)
-	{
-		if (panelName.equals("searchPanel"))
-		{
-			searchPanel.inputTextFiled.setText(""); 
-			getContentPane().removeAll();
-			getContentPane().add(searchPanel);
-			revalidate();
-			repaint();
-		}
-		
-	}
 }

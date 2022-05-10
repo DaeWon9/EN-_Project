@@ -27,7 +27,11 @@ public class MainController
 		mainFrame.searchResultPanel.backButton.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.BackStage("searchPanel");		
+				mainFrame.searchPanel.inputTextFiled.setText(""); 
+				mainFrame.getContentPane().removeAll();
+				mainFrame.getContentPane().add(mainFrame.searchPanel);
+				mainFrame.revalidate();
+				mainFrame.repaint();
 			}
 		});
 		
@@ -35,6 +39,11 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String data = mainFrame.searchResultPanel.inputTextFiled.getText(); 
+				if (data.length() > 100)
+				{
+					JOptionPane.showMessageDialog(null, "100글자 이내로 입력해주세요");
+					return;
+				}
 				int display;
 				JSONArray imageList = imageSearcher.GetImageList(data);
 				if (imageList != null)
@@ -81,7 +90,7 @@ public class MainController
 				String data = mainFrame.searchPanel.inputTextFiled.getText(); 
 				if (data.length() > 100)
 				{
-					JOptionPane.showMessageDialog(null, "100���� �̳��� �Է����ּ���");
+					JOptionPane.showMessageDialog(null, "100글자 이내로 입력해주세요");
 					return;
 				}
 				JSONArray imageList = imageSearcher.GetImageList(data);
@@ -114,7 +123,11 @@ public class MainController
 		mainFrame.logPanel.backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.BackStage("searchPanel");	
+				mainFrame.searchPanel.inputTextFiled.setText(""); 
+				mainFrame.getContentPane().removeAll();
+				mainFrame.getContentPane().add(mainFrame.searchPanel);
+				mainFrame.revalidate();
+				mainFrame.repaint();	
 			}
 		});
 

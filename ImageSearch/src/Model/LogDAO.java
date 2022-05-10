@@ -89,6 +89,7 @@ public class LogDAO
 			{
 				searchedWordList.add(resultSet.getString(Constant.LOG_FILED_SEARCH_WORD));
 			}
+			resultSet.close();
 		} 
 		catch (ClassNotFoundException | SQLException e) 
 		{

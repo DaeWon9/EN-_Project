@@ -2,6 +2,7 @@ package Utility;
 
 public final class Constant 
 {
+	// 처리안해도됌
 	public static final String APPLICATION_TITLE = "EN# ImageSearch";
 	public static final int APPLICATION_WIDTH = 800;
 	public static final int APPLICATION_HEIGHT = 600;
@@ -17,6 +18,7 @@ public final class Constant
 	public static final String DELETE_LOG_QUERY = "DELETE FROM log";
 	public static final String UPDATE_LOG_QUERY = "UPDATE log SET searchTime = '%s' WHERE searchWord = '%s'";
 
+	//
 	public static final String LOG_FILED_ALL = "*";
 	public static final String LOG_FILED_SEARCH_WORD = "searchWord";
 	public static final String LOG_FILED_SEARCH_TIME = "searchTime";

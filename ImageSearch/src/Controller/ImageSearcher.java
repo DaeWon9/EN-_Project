@@ -29,7 +29,7 @@ public class ImageSearcher
 			connection.setRequestProperty("Authorization", "KakaoAK 0a2ee0db0f8fc875f74abcdb7e816265");
 			
 			int responseCode = connection.getResponseCode();
-			if (responseCode == 401)
+			if (responseCode == 401) //switch
 				System.out.println("401:: Header에러");
 			else if (responseCode == 400)
 				JOptionPane.showMessageDialog(null, "검색어를 입력해주세요");
