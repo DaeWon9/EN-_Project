@@ -121,12 +121,15 @@ public class MainController
 		mainFrame.logPanel.deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logDAO.DeleteAllLog();
-				mainFrame.getContentPane().removeAll();
-				logManagement.LogInputToLogPanel(logDAO, mainFrame.logPanel.txtLog);
-				mainFrame.getContentPane().add(mainFrame.logPanel);
-				mainFrame.revalidate();
-				mainFrame.repaint();
+				int dialogResult = JOptionPane.showConfirmDialog (null, "로그를 삭제하시겠습니까?","Warning",JOptionPane.YES_NO_OPTION);
+				if(dialogResult == JOptionPane.YES_OPTION){
+					logDAO.DeleteAllLog();
+					mainFrame.getContentPane().removeAll();
+					logManagement.LogInputToLogPanel(logDAO, mainFrame.logPanel.txtLog);
+					mainFrame.getContentPane().add(mainFrame.logPanel);
+					mainFrame.revalidate();
+					mainFrame.repaint();
+				}
 			}
 		});
 	}
