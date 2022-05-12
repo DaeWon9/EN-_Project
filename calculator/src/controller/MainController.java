@@ -18,8 +18,7 @@ public class MainController
 	{	
 		mainFrame.showFrame();
 		SetNumberButtonListener();
-		SetOperatorButtonListener();
-		
+		SetOperatorButtonListener();	
 	}
 	
 	
@@ -45,6 +44,7 @@ public class MainController
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.SEVEN.getIndex()].addActionListener(numberButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.EIGHT.getIndex()].addActionListener(numberButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.NINE.getIndex()].addActionListener(numberButtonListener);
+		mainFrame.buttonPanel.button[Constant.ButtonIndex.POINT.getIndex()].addActionListener(numberButtonListener);
 	}
 	
 }

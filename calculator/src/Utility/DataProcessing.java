@@ -11,7 +11,19 @@ public class DataProcessing
 		return dataProcessing;
 	}
 	
-	public String appendComma(long number) 
+	public int countChar(String targetString, char targetChar)
+	{
+		int count = 0;
+		for (int index = 0; index < targetString.length(); index++)
+		{
+			if (targetString.charAt(index) == targetChar)
+				count++;
+		}
+		return count;
+	}
+	
+
+	public String appendComma(long number)
 	{
 		String formatResult= "";
 		NumberFormat numberFormat = NumberFormat.getNumberInstance();
