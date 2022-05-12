@@ -22,7 +22,7 @@ public class MainController
 	}
 	
 	
-	private void SetOperatorButtonListener()
+	private void SetOperatorButtonListener() // 연산자 버튼 이벤트처리
 	{
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.DIVISON.getIndex()].addActionListener(operatorButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.MULTIPLY.getIndex()].addActionListener(operatorButtonListener);
@@ -32,7 +32,7 @@ public class MainController
 	}
 	
 	
-	private void SetNumberButtonListener()
+	private void SetNumberButtonListener() // 숫자 버튼 이벤트처리
 	{
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.ZERO.getIndex()].addActionListener(numberButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.ONE.getIndex()].addActionListener(numberButtonListener);

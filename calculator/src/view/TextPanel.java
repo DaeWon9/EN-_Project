@@ -17,7 +17,6 @@ public class TextPanel extends JPanel
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBackground(Color.GRAY);
 		
-	
 		logButton = new JButton("시계");
 		logButton.setAlignmentX(RIGHT_ALIGNMENT);
 		add(logButton);
@@ -28,13 +27,10 @@ public class TextPanel extends JPanel
 		formula.setAlignmentX(RIGHT_ALIGNMENT);
 		add(formula);
 		
-
 		answer = new JLabel("0");
-		answer.setFont(new Font("맑은 고딕", Font.BOLD , 38));
+		answer.setFont(new Font("맑은 고딕", Font.BOLD , 35));
 		answer.setForeground(Color.WHITE);	
 		answer.setAlignmentX(SwingConstants.RIGHT);
 		add(answer);
-		
-
 	}
 }

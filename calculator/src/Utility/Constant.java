@@ -2,6 +2,7 @@ package Utility;
 
 public class Constant 
 {
+	public static final int MAX_LONG_LENGTH = 16;
 
 	public enum ButtonIndex
 	{ 
@@ -36,8 +37,5 @@ public class Constant
 		NEGATE, ZERO, POINT, CALCULATION ;		
 	}
 	*/
-	
-
-	public static final int MAX_LONG_LENGTH = 16;
 	
 }

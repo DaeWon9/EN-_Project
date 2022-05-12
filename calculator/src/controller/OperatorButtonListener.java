@@ -37,31 +37,27 @@ public class OperatorButtonListener implements ActionListener
 	{
 		String formulaString = "", calculationResult;
 		
-		if ( ((JButton)e.getSource()).getText() == "=" ) //계산하기
+		checkLastCharIsPoint();
+		if ( ((JButton)e.getSource()).getText() == "=" ) // operator중에서 "="이 입력되면 계산
 		{
-			if (inputNumberDTO.get() == "")
-				operandDTO.setRightOperand(inputNumberDTO.getLast());
-			else
-				operandDTO.setRightOperand(inputNumberDTO.get());
-			
+			setRigthOperand();
 			formulaString = operandDTO.getLeftOperand() + operatorDTO.get() + operandDTO.getRightOperand();
 			formulaLabel.setText(formulaString + "=");
 			
-			calculationResult = calculation.calculate(operandDTO, operatorDTO);	
-			
+			calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
+			calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가
+			// 계산결과값으로 새로 set
 			answerDTO.set(calculationResult);
-			operandDTO.setLeftOperand(answerDTO.get());
+			operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(answerDTO.get()));
 			answerLabel.setText(answerDTO.get());
 			inputNumberDTO.setLast(operandDTO.getRightOperand());
 			inputNumberDTO.set("");
 		}
+		
 		else // 수식 셋팅
 		{
-			if (inputNumberDTO.get() == "")
-				operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(answerDTO.get()));
-			else
-				operandDTO.setLeftOperand(inputNumberDTO.get());
-			
+			setLeftOperand();
+			// 추가된 값으로 새로 set
 			operatorDTO.set(((JButton)e.getSource()).getText());
 			formulaString = operandDTO.getLeftOperand() + operatorDTO.get();
 			formulaLabel.setText(formulaString);
@@ -71,4 +67,33 @@ public class OperatorButtonListener implements ActionListener
 
 	}
 
+	private void checkLastCharIsPoint() // 마지막 문자가 .이면 마지막문자 제거해주기
+	{
+		char lastChar;
+		if (inputNumberDTO.get().length() > 0)
+		{
+			lastChar = inputNumberDTO.get().charAt(inputNumberDTO.get().length() - 1);
+			if (lastChar == '.') // 마지막이 .으로 끝나면
+			{
+				inputNumberDTO.set(inputNumberDTO.get().substring(0, inputNumberDTO.get().length()-1)); // 마지막 문자 지워주기
+				answerLabel.setText(inputNumberDTO.get()); // 라벨새로지정
+			}
+		}
+	}
+	
+	private void setRigthOperand()
+	{
+		if (inputNumberDTO.get() == "")
+			operandDTO.setRightOperand(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.getLast()));
+		else
+			operandDTO.setRightOperand(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
+	}
+	
+	private void setLeftOperand()
+	{
+		if (inputNumberDTO.get() == "")
+			operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(answerDTO.get()));
+		else
+			operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
+	}
 }
