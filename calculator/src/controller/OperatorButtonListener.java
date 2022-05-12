@@ -19,7 +19,7 @@ public class OperatorButtonListener implements ActionListener
 	private JLabel formulaLabel;
 	
 	private Calculation calculation = new Calculation();
-	private OperatorDTO operatorDTO = new OperatorDTO("");
+	private OperatorDTO operatorDTO = new OperatorDTO();
 	private OperandDTO operandDTO = new OperandDTO();
 	
 	
@@ -29,7 +29,6 @@ public class OperatorButtonListener implements ActionListener
 		this.inputNumberDTO = inputNumberDTO;
 		this.answerLabel = answerLabel;
 		this.formulaLabel = formulaLabel;
-
 	}
 	
 	@Override

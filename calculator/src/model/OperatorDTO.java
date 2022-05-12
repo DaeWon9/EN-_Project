@@ -3,19 +3,25 @@ package model;
 public class OperatorDTO 
 {
 	private String operator;
-	
-	public OperatorDTO(String str)
-	{
-		this.operator = str;
-	}
+	private String lastOperator;
 	
 	public String get()
 	{
 		return operator;
 	}
 	
+	public String getLast()
+	{
+		return lastOperator;
+	}
+	
 	public void set(String operator)
 	{
 		this.operator = operator;
+	}
+	
+	public void setLast(String operator)
+	{
+		this.lastOperator = operator;
 	}
 }
