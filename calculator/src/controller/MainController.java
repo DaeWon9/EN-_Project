@@ -27,7 +27,7 @@ public class MainController
 			public void actionPerformed(ActionEvent e) 
 			{
 				inputString += "1";
-				answerDTO.Set(dataProcessing.formatNumber(Integer.parseInt(inputString)));
+				answerDTO.Set(dataProcessing.formatNumber(Long.parseLong(inputString)));
 				mainFrame.textPanel.answer.setText(answerDTO.Get());
 			}
 		});
