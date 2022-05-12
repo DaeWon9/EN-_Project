@@ -23,4 +23,12 @@ public class DataProcessing
 	{
 		return str.replace(",", "");
 	}
+	
+	public static String deleteUnnecessaryDecimalPoint(double doubleValue)
+	{
+	    if(doubleValue == (long) doubleValue)
+	        return String.format("%d",(long)doubleValue);
+	    else
+	        return String.format("%s",doubleValue);
+	}
 }

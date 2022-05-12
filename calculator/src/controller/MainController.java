@@ -23,9 +23,6 @@ public class MainController
 	}
 	
 	
-	
-	
-	
 	private void SetOperatorButtonListener()
 	{
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.DIVISON.getIndex()].addActionListener(operatorButtonListener);
@@ -38,6 +35,7 @@ public class MainController
 	
 	private void SetNumberButtonListener()
 	{
+		mainFrame.buttonPanel.button[Constant.ButtonIndex.ZERO.getIndex()].addActionListener(numberButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.ONE.getIndex()].addActionListener(numberButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.TWO.getIndex()].addActionListener(numberButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.THREE.getIndex()].addActionListener(numberButtonListener);

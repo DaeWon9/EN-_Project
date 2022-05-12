@@ -1,32 +1,26 @@
 package controller;
 
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import javax.script.ScriptEngine;
-
+import Utility.DataProcessing;
+import model.OperandDTO;
+import model.OperatorDTO;
 public class Calculation 
 {
-	public double calculate(String formulaString)
+	public String calculate(OperandDTO operandDTO, OperatorDTO operatorDTO)
 	{
-		String[] operatorArray = {"÷", "x", "\\-", "\\+"};
-		String[] splitArray;
 		double calculateResult = 0.0;
-		
-		for (String operator : operatorArray) 
-		{
-			splitArray = formulaString.split(operator);
-			if (splitArray.length == 2)
-			{
-				if (operator == "÷")
-					calculateResult = Double.parseDouble(splitArray[0]) / Double.parseDouble(splitArray[1]);
-				else if (operator == "x")
-					calculateResult = Double.parseDouble(splitArray[0]) * Double.parseDouble(splitArray[1]);
-				else if (operator == "\\-")
-					calculateResult = Double.parseDouble(splitArray[0]) - Double.parseDouble(splitArray[1]);
-				else if (operator == "\\+")
-					calculateResult = Double.parseDouble(splitArray[0]) + Double.parseDouble(splitArray[1]);
-			}
-		}
-		return calculateResult;	
+		String returnString;
+	
+		if (operatorDTO.get() == "÷")
+			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) / Double.parseDouble(operandDTO.getRightOperand());
+		else if (operatorDTO.get() == "x")
+			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) * Double.parseDouble(operandDTO.getRightOperand());
+		else if (operatorDTO.get() == "-")
+			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) - Double.parseDouble(operandDTO.getRightOperand());
+		else if (operatorDTO.get() == "+")
+			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) + Double.parseDouble(operandDTO.getRightOperand());
+
+
+		returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult);
+		return returnString;	
 	}
 }

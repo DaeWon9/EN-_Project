@@ -2,12 +2,9 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.script.ScriptException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import Utility.Constant;
 import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.OperatorDTO;
@@ -38,8 +35,7 @@ public class OperatorButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)  // operator가 입력되면
 	{
-		String formulaString = ""; 
-		double calculationResult;
+		String formulaString = "", calculationResult;
 		
 		if ( ((JButton)e.getSource()).getText() == "=" ) //계산하기
 		{
@@ -50,8 +46,10 @@ public class OperatorButtonListener implements ActionListener
 			
 			formulaString = operandDTO.getLeftOperand() + operatorDTO.get() + operandDTO.getRightOperand();
 			formulaLabel.setText(formulaString + "=");
-			calculationResult = calculation.calculate(formulaString);	
-			answerDTO.set(Double.toString(calculationResult));
+			
+			calculationResult = calculation.calculate(operandDTO, operatorDTO);	
+			
+			answerDTO.set(calculationResult);
 			operandDTO.setLeftOperand(answerDTO.get());
 			answerLabel.setText(answerDTO.get());
 			inputNumberDTO.setLast(operandDTO.getRightOperand());
