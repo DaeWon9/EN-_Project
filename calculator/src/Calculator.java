@@ -1,11 +1,9 @@
-import view.MainFrame;
-import view.TextPanel;
+import controller.MainController;
 
 public class Calculator {
 
 	public static void main(String[] args) {
-		MainFrame mainFrame = new MainFrame();
-		//TextPanel textPanel = new TextPanel();
+		MainController mainController = new MainController();
+		mainController.start();
 	}
-
 }

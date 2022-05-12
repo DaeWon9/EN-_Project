@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 public class TextPanel extends JPanel
 {
 	public JButton logButton;
-	public JLabel calculationProcess, calculationResult;
+	public JLabel formula, answer;
 	public TextPanel()
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -22,18 +22,18 @@ public class TextPanel extends JPanel
 		logButton.setAlignmentX(RIGHT_ALIGNMENT);
 		add(logButton);
 		
-		calculationProcess = new JLabel("=");
-		calculationProcess.setFont(new Font("맑은 고딕", 0, 30));
-		calculationProcess.setForeground(Color.WHITE);
-		calculationProcess.setAlignmentX(RIGHT_ALIGNMENT);
-		add(calculationProcess);
+		formula = new JLabel("=");
+		formula.setFont(new Font("맑은 고딕", 0, 30));
+		formula.setForeground(Color.WHITE);
+		formula.setAlignmentX(RIGHT_ALIGNMENT);
+		add(formula);
 		
 
-		calculationResult = new JLabel("0");
-		calculationResult.setFont(new Font("맑은 고딕", Font.BOLD , 55));
-		calculationResult.setForeground(Color.WHITE);	
-		calculationResult.setAlignmentX(SwingConstants.RIGHT);
-		add(calculationResult);
+		answer = new JLabel("0");
+		answer.setFont(new Font("맑은 고딕", Font.BOLD , 55));
+		answer.setForeground(Color.WHITE);	
+		answer.setAlignmentX(SwingConstants.RIGHT);
+		add(answer);
 		
 
 	}

@@ -21,7 +21,7 @@ public class MainFrame extends JFrame
 	public TextPanel textPanel = new TextPanel();
 	public ButtonPanel buttonPanel = new ButtonPanel();
 	Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public MainFrame()
+	public void showFrame()
 	{
 		setTitle("계산기");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
