@@ -6,7 +6,9 @@ public class DataProcessing
 {
 	public String formatNumber(long number) 
 	{
+		String formatResult= "";
 		NumberFormat numberFormat = NumberFormat.getNumberInstance();
-		return numberFormat.format(number);
+		formatResult = numberFormat.format(number);
+		return formatResult;
 	}
 }

@@ -26,9 +26,12 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				inputString += "1";
-				answerDTO.Set(dataProcessing.formatNumber(Long.parseLong(inputString)));
-				mainFrame.textPanel.answer.setText(answerDTO.Get());
+				if (inputString.length() < 16)
+				{
+					inputString += "1";
+					answerDTO.Set(dataProcessing.formatNumber(Long.parseLong(inputString)));
+					mainFrame.textPanel.answer.setText(answerDTO.Get());
+				}
 			}
 		});
 		
