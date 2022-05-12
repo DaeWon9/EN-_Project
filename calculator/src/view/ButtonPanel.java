@@ -13,10 +13,12 @@ import Utility.Constant;
 
 public class ButtonPanel extends JPanel
 {
+	public JButton[] button;
+	
 	public ButtonPanel()
 	{
 		Font buttonFont = new Font("맑은 고딕", 0, 20);
-		JButton[] button = new JButton[20]; //버튼 20개임
+		button = new JButton[20]; //버튼 20개임
 		setLayout(new GridLayout(5,4,2,2)); // 5행4열로 배치하고 간격 2로 설정
 		setBackground(Color.GRAY);
 		
