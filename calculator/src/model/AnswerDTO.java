@@ -9,12 +9,12 @@ public class AnswerDTO
 		this.answer = str;
 	}
 	
-	public String Get()
+	public String get()
 	{
 		return answer;
 	}
 	
-	public void Set(String answer)
+	public void set(String answer)
 	{
 		this.answer = answer;
 	}

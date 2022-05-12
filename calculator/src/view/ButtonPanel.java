@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -25,7 +26,7 @@ public class ButtonPanel extends JPanel
 		button[Constant.ButtonIndex.CE.getIndex()] = new JButton("CE");
 		button[Constant.ButtonIndex.C.getIndex()] = new JButton("C");
 		button[Constant.ButtonIndex.BACK_SPACE.getIndex()] = new JButton("<-");
-		button[Constant.ButtonIndex.DIVISON.getIndex()] = new JButton("/");
+		button[Constant.ButtonIndex.DIVISON.getIndex()] = new JButton("÷");
 		button[Constant.ButtonIndex.SEVEN.getIndex()] = new JButton("7");
 		button[Constant.ButtonIndex.EIGHT.getIndex()] = new JButton("8");
 		button[Constant.ButtonIndex.NINE.getIndex()] = new JButton("9");
