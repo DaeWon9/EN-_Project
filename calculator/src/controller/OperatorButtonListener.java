@@ -19,7 +19,7 @@ public class OperatorButtonListener implements ActionListener
 	private JLabel formulaLabel;
 	
 	private Calculation calculation = new Calculation();
-	private OperatorDTO operatorDTO = new OperatorDTO();
+	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO();
 	
 	
@@ -39,29 +39,32 @@ public class OperatorButtonListener implements ActionListener
 		checkLastCharIsPoint();
 		if ( ((JButton)e.getSource()).getText() == "=" ) // operator중에서 "="이 입력되면 계산
 		{
-			setRigthOperand();
+			setRigthOperand(); // 경우의 수 더 생각하기
 			formulaString = operandDTO.getLeftOperand() + operatorDTO.get() + operandDTO.getRightOperand();
 			formulaLabel.setText(formulaString + "=");
 			
 			calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
-			calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가
+			if (!calculationResult.equals("Infinity"))
+				calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가
 			// 계산결과값으로 새로 set
 			answerDTO.set(calculationResult);
 			operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(answerDTO.get()));
 			answerLabel.setText(answerDTO.get());
 			inputNumberDTO.setLast(operandDTO.getRightOperand());
-			inputNumberDTO.set("");
+			inputNumberDTO.set("0");
+			operatorDTO.setLast(operatorDTO.get());
 		}
 		
 		else // 수식 셋팅
 		{
-			setLeftOperand();
+			setLeftOperand(); // 경우의 수 더 생각하기
 			// 추가된 값으로 새로 set
 			operatorDTO.set(((JButton)e.getSource()).getText());
 			formulaString = operandDTO.getLeftOperand() + operatorDTO.get();
 			formulaLabel.setText(formulaString);
 			inputNumberDTO.setLast(inputNumberDTO.get());
-			inputNumberDTO.set("");
+			inputNumberDTO.set("0");
+			operatorDTO.setLast(operatorDTO.get());
 		}
 
 	}

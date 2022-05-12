@@ -22,13 +22,13 @@ public class TextPanel extends JPanel
 		add(logButton);
 		
 		formula = new JLabel(" ");
-		formula.setFont(new Font("맑은 고딕", 0, 20));
+		formula.setFont(new Font("맑은 고딕", 0, 15));
 		formula.setForeground(Color.WHITE);
 		formula.setAlignmentX(RIGHT_ALIGNMENT);
 		add(formula);
 		
 		answer = new JLabel("0");
-		answer.setFont(new Font("맑은 고딕", Font.BOLD , 35));
+		answer.setFont(new Font("맑은 고딕", Font.BOLD , 30));
 		answer.setForeground(Color.WHITE);	
 		answer.setAlignmentX(SwingConstants.RIGHT);
 		add(answer);

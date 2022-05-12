@@ -5,6 +5,13 @@ public class OperatorDTO
 	private String operator;
 	private String lastOperator;
 	
+	public OperatorDTO(String operator, String lastOperator)
+	{
+		this.operator = operator;
+		this.lastOperator = lastOperator;
+	}
+	
+	
 	public String get()
 	{
 		return operator;
