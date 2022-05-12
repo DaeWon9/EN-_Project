@@ -11,12 +11,12 @@ import model.InputNumberDTO;
 public class NumberButtonListener implements ActionListener
 {
 	private InputNumberDTO inputNumberDTO;
-	private JLabel answer;
+	private JLabel answerLabel;
 	
-	public NumberButtonListener(JLabel answer, InputNumberDTO inputNumberDTO)
+	public NumberButtonListener(JLabel answerLabel, InputNumberDTO inputNumberDTO)
 	{
 		this.inputNumberDTO = inputNumberDTO;
-		this.answer = answer;
+		this.answerLabel = answerLabel;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ public class NumberButtonListener implements ActionListener
 			inputNumber += ((JButton)e.getSource()).getText();
 			inputNumberDTO.set(DataProcessing.getDataProcessing().appendComma(Long.parseLong(inputNumber)));
 		}
-		answer.setText(inputNumberDTO.get());
+		answerLabel.setText(inputNumberDTO.get());
 	}
 
 }

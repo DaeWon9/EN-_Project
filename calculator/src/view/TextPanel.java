@@ -22,7 +22,7 @@ public class TextPanel extends JPanel
 		logButton.setAlignmentX(RIGHT_ALIGNMENT);
 		add(logButton);
 		
-		formula = new JLabel("=");
+		formula = new JLabel(" ");
 		formula.setFont(new Font("맑은 고딕", 0, 20));
 		formula.setForeground(Color.WHITE);
 		formula.setAlignmentX(RIGHT_ALIGNMENT);

@@ -4,9 +4,9 @@ public class AnswerDTO
 {
 	private String answer;
 	
-	public AnswerDTO(String str)
+	public AnswerDTO(String answer)
 	{
-		this.answer = str;
+		this.answer = answer;
 	}
 	
 	public String get()
