@@ -6,27 +6,46 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import model.AnswerDTO;
 import model.InputNumberDTO;
+import model.OperandDTO;
+import model.OperatorDTO;
 
 public class ExtraButtonListener implements ActionListener
 {
-	private InputNumberDTO inputNumberDTO;
 	private JLabel answerLabel;
-	
-	public ExtraButtonListener(JLabel answerLabel, InputNumberDTO inputNumberDTO)
+	private JLabel formulaLabel;
+	private AnswerDTO answerDTO;
+	private InputNumberDTO inputNumberDTO;
+	private OperatorDTO operatorDTO;
+	private OperandDTO operandDTO;
+
+	public ExtraButtonListener(JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
 	{
-		this.inputNumberDTO = inputNumberDTO;
 		this.answerLabel = answerLabel;
+		this.formulaLabel = formulaLabel;
+		this.answerDTO = answerDTO;
+		this.inputNumberDTO = inputNumberDTO;
+		this.operatorDTO = operatorDTO;
+		this.operandDTO = operandDTO;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if (((JButton)e.getSource()).getText().equals("C"))
+		if (((JButton)e.getSource()).getText().equals("C")) // C버튼은 다 초기화
 		{
-			System.out.println("C버튼");
+			answerDTO.set("0");
+			inputNumberDTO.set("0");
+			inputNumberDTO.setLast("");
+			operatorDTO.set("");
+			operatorDTO.setLast("");
+			operandDTO.setLeftOperand("");
+			operandDTO.setRightOperand("");
+			answerLabel.setText("0");
+			formulaLabel.setText(" ");
 		}
 		
-		else if (((JButton)e.getSource()).getText().equals("CE"))
+		else if (((JButton)e.getSource()).getText().equals("CE")) // CE버튼은 최근 입력삭제
 		{
 			System.out.println("CE버튼");
 		}

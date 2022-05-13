@@ -13,22 +13,23 @@ import model.OperandDTO;
 
 public class OperatorButtonListener implements ActionListener
 {
-	private AnswerDTO answerDTO;
-	private InputNumberDTO inputNumberDTO;
 	private JLabel answerLabel;
 	private JLabel formulaLabel;
+	private AnswerDTO answerDTO;
+	private InputNumberDTO inputNumberDTO;
+	private OperatorDTO operatorDTO;
+	private OperandDTO operandDTO;
 	
 	private Calculation calculation = new Calculation();
-	private OperatorDTO operatorDTO = new OperatorDTO("", "");
-	private OperandDTO operandDTO = new OperandDTO();
 	
-	
-	public OperatorButtonListener(JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO)
+	public OperatorButtonListener(JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
 	{
-		this.answerDTO = answerDTO;
-		this.inputNumberDTO = inputNumberDTO;
 		this.answerLabel = answerLabel;
 		this.formulaLabel = formulaLabel;
+		this.answerDTO = answerDTO;
+		this.inputNumberDTO = inputNumberDTO;
+		this.operatorDTO = operatorDTO;
+		this.operandDTO = operandDTO;
 	}
 	
 	@Override
