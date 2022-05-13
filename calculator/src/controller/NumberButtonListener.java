@@ -56,6 +56,7 @@ public class NumberButtonListener implements ActionListener
 		}
 		
 		answerLabel.setText(inputNumberDTO.get());
+
 	}
 
 }

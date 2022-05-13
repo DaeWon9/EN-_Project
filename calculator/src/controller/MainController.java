@@ -12,13 +12,21 @@ public class MainController
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("0", "");
 	private NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame.textPanel.answer, inputNumberDTO);
 	private OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO);
-	
+	private ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame.textPanel.answer, inputNumberDTO);
 	
 	public void start()
 	{	
 		mainFrame.showFrame();
 		SetNumberButtonListener();
 		SetOperatorButtonListener();	
+		SetExtraButtonListener();
+	}
+	
+	private void SetExtraButtonListener() // 그 외의 버튼 이벤트처리
+	{
+		mainFrame.buttonPanel.button[Constant.ButtonIndex.CE.getIndex()].addActionListener(extraButtonListener);
+		mainFrame.buttonPanel.button[Constant.ButtonIndex.C.getIndex()].addActionListener(extraButtonListener);
+		mainFrame.buttonPanel.button[Constant.ButtonIndex.BACK_SPACE.getIndex()].addActionListener(extraButtonListener);
 	}
 	
 	

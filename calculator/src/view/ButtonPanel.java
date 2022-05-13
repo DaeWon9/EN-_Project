@@ -53,7 +53,7 @@ public class ButtonPanel extends JPanel
 		{
 			switch (repeat)
 			{
-				case 19:
+				case 19: // Constant.ButtonIndex.CALCULATION.getIndex() ...
 					buttonColor = blueButtonColor;
 					break;
 				case 4:
@@ -79,6 +79,7 @@ public class ButtonPanel extends JPanel
 			if (repeat == 19)
 				button[repeat].setForeground(Color.WHITE);
 			button[repeat].setBorderPainted(false);
+			button[repeat].setFocusPainted(false); 
 			add(button[repeat]);
 		}
 		

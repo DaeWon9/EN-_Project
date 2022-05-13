@@ -24,7 +24,7 @@ public class TextPanel extends JPanel
 		add(blank);
 		
 		ImageIcon logButtonIcon = new ImageIcon(TextPanel.class.getResource("/Image/clockIcon.png"));	
-		logButton = new JButton(logButtonIcon);
+		logButton = new JButton(logButtonIcon);	
 		logButton.setSize(logButtonIcon.getIconWidth(), logButtonIcon.getIconHeight());
 		logButton.setAlignmentX(RIGHT_ALIGNMENT);
 		logButton.setBorderPainted(false);
