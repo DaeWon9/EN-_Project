@@ -64,9 +64,9 @@ public class ExtraButtonListener implements ActionListener
 			answerLabel.setText(inputNumberDTO.get());
 		}
 		
-		else if (((JButton)e.getSource()).getText().equals("+/-")) // +/-버튼은 숫자 부호 바꾸기 -> 상단에 수식에 negate() 뜨는거 추가해야함..
+		else if (((JButton)e.getSource()).getText().equals("+/-")) // +/-버튼은 숫자 부호 바꾸기 -> 상단에 수식에 negate() 뜨는거 추가해야함.. 
 		{		
-			if (inputNumberDTO.get().equals("0")) // 입력값이 없으면 -> answer에 있는값 부호 바꿔주기
+			if (inputNumberDTO.get().equals("")) // 입력값이 없으면 -> answer에 있는값 부호 바꿔주기
 			{
 				if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
 					answerDTO.set(answerDTO.get().substring(1));
