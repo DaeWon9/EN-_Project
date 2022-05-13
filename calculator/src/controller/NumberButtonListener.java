@@ -1,8 +1,10 @@
 package controller;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import Utility.Constant;
 import Utility.DataProcessing;
@@ -12,11 +14,13 @@ public class NumberButtonListener implements ActionListener
 {
 	private InputNumberDTO inputNumberDTO;
 	private JLabel answerLabel;
+	private JFrame mainFrame;
 	
-	public NumberButtonListener(JLabel answerLabel, InputNumberDTO inputNumberDTO)
+	public NumberButtonListener(JFrame mainFrame, JLabel answerLabel, InputNumberDTO inputNumberDTO)
 	{
 		this.inputNumberDTO = inputNumberDTO;
 		this.answerLabel = answerLabel;
+		this.mainFrame = mainFrame;
 	}
 	
 	@Override
@@ -56,7 +60,6 @@ public class NumberButtonListener implements ActionListener
 		}
 		
 		answerLabel.setText(inputNumberDTO.get());
-
-	}
-
+		DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
+	}	
 }

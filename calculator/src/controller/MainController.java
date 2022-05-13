@@ -17,9 +17,9 @@ public class MainController
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO();
 	
-	private NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame.textPanel.answer, inputNumberDTO);
-	private OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
-	private ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
+	private NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame, mainFrame.textPanel.answer, inputNumberDTO);
+	private OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
+	private ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame, mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
 	
 	public void start()
 	{	

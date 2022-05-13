@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Utility.DataProcessing;
@@ -13,6 +14,7 @@ import model.OperandDTO;
 
 public class OperatorButtonListener implements ActionListener
 {
+	private JFrame mainFrame;
 	private JLabel answerLabel;
 	private JLabel formulaLabel;
 	private AnswerDTO answerDTO;
@@ -22,8 +24,9 @@ public class OperatorButtonListener implements ActionListener
 	
 	private Calculation calculation = new Calculation();
 	
-	public OperatorButtonListener(JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
+	public OperatorButtonListener(JFrame mainFrame, JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
 	{
+		this.mainFrame = mainFrame;
 		this.answerLabel = answerLabel;
 		this.formulaLabel = formulaLabel;
 		this.answerDTO = answerDTO;
@@ -54,6 +57,7 @@ public class OperatorButtonListener implements ActionListener
 			inputNumberDTO.setLast(operandDTO.getRightOperand());
 			inputNumberDTO.set("0");
 			operatorDTO.setLast(operatorDTO.get());
+			DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 		}
 		
 		else // 수식 셋팅

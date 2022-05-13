@@ -1,6 +1,12 @@
 package Utility;
 
+import java.awt.Font;
 import java.text.NumberFormat;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import view.MainFrame;
 
 public class DataProcessing 
 {
@@ -57,7 +63,6 @@ public class DataProcessing
 		return formatResult;
 	}
 
-	
 	public String deleteComma(String str) // 문자열 숫자에 ,제거하는 함수
 	{
 		return str.replace(",", "");
@@ -69,5 +74,16 @@ public class DataProcessing
 	        return String.format("%d",(long)doubleValue);
 	    else
 	        return String.format("%s",doubleValue);
+	}
+
+	public void resizeLabel(JFrame frame, JLabel label)
+	{
+		label.setFont(new Font("맑은 고딕", 0, 45));
+		while (label.getFont().getSize()/2 * label.getText().length() > frame.getWidth() - 50)
+		{
+			label.setFont(new Font("맑은 고딕", 0, label.getFont().getSize() - 1));
+			if (label.getFont().getSize() < 0)
+				break;
+		}
 	}
 }

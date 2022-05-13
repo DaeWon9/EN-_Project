@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class TextPanel extends JPanel
 {
@@ -38,7 +37,7 @@ public class TextPanel extends JPanel
 		
 		answer = new JLabel("0");
 		answer.setFont(new Font("맑은 고딕", 0, 45));
-		answer.setAlignmentX(SwingConstants.RIGHT);
+		answer.setAlignmentX(RIGHT_ALIGNMENT);
 		add(answer);
 		
 		JLabel blank1 = new JLabel(" ");
