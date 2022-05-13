@@ -27,9 +27,7 @@ public class MainController implements KeyListener
 		setNumberButtonListener();
 		setOperatorButtonListener();	
 		setExtraButtonListener();
-		mainFrame.setFocusable(true);	
-		mainFrame.addKeyListener(this);	
-
+		mainFrame.addKeyListener(this);
 	}
 	
 	private void setNumberButtonListener() // 숫자 버튼 이벤트처리
@@ -69,9 +67,9 @@ public class MainController implements KeyListener
 	@Override
 	public void keyReleased(KeyEvent e) {}
 	@Override
-	public void keyPressed(KeyEvent ke) 
+	public void keyPressed(KeyEvent e) 
 	{
-	    switch (ke.getKeyCode()) 
+	    switch (e.getKeyCode()) 
 	    {
 	    case KeyEvent.VK_0: 
 	    case KeyEvent.VK_NUMPAD0:
@@ -119,6 +117,9 @@ public class MainController implements KeyListener
 	        break;
 	    case KeyEvent.VK_ENTER : 
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.CALCULATION.getIndex()].doClick();   
+	    	break;
+	    case KeyEvent.VK_MULTIPLY :
+	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.MULTIPLY.getIndex()].doClick();   
 	    	break;
 	    case KeyEvent.VK_MINUS :
 	    case KeyEvent.VK_SUBTRACT : 

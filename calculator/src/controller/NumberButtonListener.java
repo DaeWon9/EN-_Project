@@ -63,5 +63,6 @@ public class NumberButtonListener implements ActionListener
 		
 		answerLabel.setText(inputNumberDTO.get());
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
+		mainFrame.requestFocus();
 	}	
 }

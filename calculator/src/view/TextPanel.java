@@ -45,5 +45,6 @@ public class TextPanel extends JPanel
 		blank1.setFont(new Font("맑은 고딕", 0, 10));
 		blank1.setAlignmentX(RIGHT_ALIGNMENT);
 		add(blank1);
+		
 	}
 }

@@ -24,5 +24,8 @@ public class MainFrame extends JFrame
 		add(buttonPanel, BorderLayout.CENTER);
 		setSize(335,510);
 		setVisible(true);
+		
+		setFocusable(true);
+		requestFocus();
 	}
 }

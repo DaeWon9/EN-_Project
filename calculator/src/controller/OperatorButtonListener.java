@@ -72,7 +72,7 @@ public class OperatorButtonListener implements ActionListener
 			inputNumberDTO.set("0");
 			operatorDTO.setLast(operatorDTO.get());
 		}
-
+		mainFrame.requestFocus();
 	}
 
 	private void checkLastCharIsPoint() // 마지막 문자가 .이면 마지막문자 제거해주기

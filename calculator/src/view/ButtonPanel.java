@@ -82,6 +82,5 @@ public class ButtonPanel extends JPanel
 			button[repeat].setFocusPainted(false); 
 			add(button[repeat]);
 		}
-		
 	}
 }
