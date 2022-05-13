@@ -45,7 +45,7 @@ public class ExtraButtonListener implements ActionListener
 			formulaLabel.setText(" ");
 		}
 		
-		else if (((JButton)e.getSource()).getText().equals("CE")) // CE버튼은 최근 입력삭제....?
+		else if (((JButton)e.getSource()).getText().equals("CE")) // CE버튼은 최근 입력삭제....? -> 예외처리 추가해야함
 		{
 			answerDTO.set("0");
 			inputNumberDTO.set("0");
@@ -57,6 +57,15 @@ public class ExtraButtonListener implements ActionListener
 			inputNumberDTO.set(inputNumberDTO.get().substring(0, inputNumberDTO.get().length()-1));
 			if(inputNumberDTO.get() == "") // 공백까지 지워지면 0으로 셋팅
 				inputNumberDTO.set("0");
+			answerLabel.setText(inputNumberDTO.get());
+		}
+		
+		else if (((JButton)e.getSource()).getText().equals("+/-")) // +/-버튼은 숫자 부호 바꾸기
+		{		
+			if (inputNumberDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
+				inputNumberDTO.set(inputNumberDTO.get().substring(1));
+			else // -가 아니면 -붙여주기
+				inputNumberDTO.set("-" + inputNumberDTO.get());
 			answerLabel.setText(inputNumberDTO.get());
 		}
 	}

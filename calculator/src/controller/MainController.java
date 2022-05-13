@@ -58,6 +58,7 @@ public class MainController
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.CE.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.C.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.BACK_SPACE.getIndex()].addActionListener(extraButtonListener);
+		mainFrame.buttonPanel.button[Constant.ButtonIndex.NEGATE.getIndex()].addActionListener(extraButtonListener);
 	}
 	
 }
