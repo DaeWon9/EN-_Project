@@ -41,16 +41,13 @@ public class OperatorButtonListener implements ActionListener
 		String formulaString = "", calculationResult;
 		
 		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
-
+		operatorDTO.set(((JButton)e.getSource()).getText());
 		if (!inputNumberDTO.get().equals(""))
 		{
 			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
 			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(Double.parseDouble(inputNumberDTO.get())));
 			answerLabel.setText(inputNumberDTO.get());
-		}
-
-		operatorDTO.set(((JButton)e.getSource()).getText());
-		
+		}		
 		
 		if (inputNumberDTO.get().equals("")) // 숫자가 입력되지 않고 오퍼레이터가 입력된경우
 		{
@@ -63,17 +60,19 @@ public class OperatorButtonListener implements ActionListener
 			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 라스트 오퍼레이터가 있고 = 가 입력된경우
 			{
 				operandDTO.setLeftOperand(answerDTO.get());
+				if (operandDTO.getRightOperand() == null || operandDTO.getRightOperand().equals(""))
+					operandDTO.setRightOperand(answerDTO.get());
 				calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
 				if (!calculationResult.equals("Infinity"))
 					calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가
 				
 				answerDTO.set(calculationResult);
-				formulaString = answerDTO.get() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
+				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(answerDTO.get());
 			}
 			else // 다른오퍼레이터
-			{
+			{ 
 				formulaString = answerDTO.get() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
 				operatorDTO.setLast(operatorDTO.get());
@@ -107,6 +106,7 @@ public class OperatorButtonListener implements ActionListener
 			else if (!operatorDTO.get().equals("=") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라이스인풋값이 없으면 -> 즉 처음입력
 			{
 				operandDTO.setLeftOperand(inputNumberDTO.get());
+				answerDTO.set(inputNumberDTO.get()); ///////////////////////////////////////////////////
 				inputNumberDTO.setLast(inputNumberDTO.get());
 				operatorDTO.setLast(operatorDTO.get());
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.get();
@@ -137,7 +137,7 @@ public class OperatorButtonListener implements ActionListener
 					calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가		
 				answerDTO.set(calculationResult);
 				inputNumberDTO.setLast("");
-				formulaString = answerDTO.get() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
+				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(answerDTO.get()); 
 			}
@@ -150,7 +150,7 @@ public class OperatorButtonListener implements ActionListener
 					calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가		
 				answerDTO.set(calculationResult);
 				inputNumberDTO.setLast("");
-				formulaString = answerDTO.get() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
+				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(answerDTO.get());
 			}

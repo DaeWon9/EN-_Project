@@ -11,7 +11,7 @@ public class Calculation
 		String returnString;		
 		
 		operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand()));
-		operandDTO.setRightOperand(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand()));
+		operandDTO.setRightOperand(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand())); 
 	
 		if (operatorDTO.getLast() == "÷")
 			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) / Double.parseDouble(operandDTO.getRightOperand());
