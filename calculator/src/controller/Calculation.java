@@ -9,6 +9,9 @@ public class Calculation
 	{
 		double calculateResult = 0.0;
 		String returnString;		
+		
+		operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand()));
+		operandDTO.setRightOperand(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand()));
 	
 		if (operatorDTO.getLast() == "÷")
 			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) / Double.parseDouble(operandDTO.getRightOperand());
@@ -22,4 +25,4 @@ public class Calculation
 		returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult); //반환할때 불필요 소수점 제거
 		return returnString;	
 	}
-}
+} 

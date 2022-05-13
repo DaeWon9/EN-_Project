@@ -12,7 +12,7 @@ import view.MainFrame;
 public class MainController implements KeyListener
 {
 	private MainFrame mainFrame = new MainFrame();
-	private AnswerDTO answerDTO = new AnswerDTO("0"); 
+	private AnswerDTO answerDTO = new AnswerDTO("0");
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO();
