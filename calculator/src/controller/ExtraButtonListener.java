@@ -32,7 +32,7 @@ public class ExtraButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if (((JButton)e.getSource()).getText().equals("C")) // C버튼은 다 초기화
+		if (((JButton)e.getSource()).getText().equals("C")) // C버튼은 전부 초기화
 		{
 			answerDTO.set("0");
 			inputNumberDTO.set("0");
@@ -45,14 +45,20 @@ public class ExtraButtonListener implements ActionListener
 			formulaLabel.setText(" ");
 		}
 		
-		else if (((JButton)e.getSource()).getText().equals("CE")) // CE버튼은 최근 입력삭제
+		else if (((JButton)e.getSource()).getText().equals("CE")) // CE버튼은 최근 입력삭제....?
 		{
-			System.out.println("CE버튼");
+			answerDTO.set("0");
+			inputNumberDTO.set("0");
+			answerLabel.setText("0");
 		}
 		
 		else if (((JButton)e.getSource()).getText().equals("<-"))
 		{
-			System.out.println("<-버튼");
+			/*
+			input
+			integerPart = inputNumber.substring(0, inputNumber.length()-1);
+			answerLabel.setText(inputNumberDTO.get());
+			*/
 		}
 	}
 
