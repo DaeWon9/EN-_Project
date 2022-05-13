@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -16,7 +17,7 @@ public class TextPanel extends JPanel
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBackground(new Color(241, 243, 249));
-				
+		
 		JLabel blank = new JLabel(" ");
 		blank.setFont(new Font("맑은 고딕", 0, 5));
 		blank.setAlignmentX(RIGHT_ALIGNMENT);
