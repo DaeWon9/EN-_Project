@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,11 +25,13 @@ public class MainFrame extends JFrame
 	public void showFrame()
 	{
 		setTitle("계산기");
+		ImageIcon imageIcon = new ImageIcon(MainFrame.class.getResource("/Image/calculatorIcon.png"));		
+		setIconImage(imageIcon.getImage());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocation((windowSize.width - 422) / 2, (windowSize.height - 534) / 2); 	
+		setLocation((windowSize.width - 322) / 2, (windowSize.height - 502) / 2); 	
 		add(textPanel, BorderLayout.NORTH);
 		add(buttonPanel, BorderLayout.CENTER);
-		setSize(422,534);
+		setSize(335,510);
 		setVisible(true);
 	}
 }

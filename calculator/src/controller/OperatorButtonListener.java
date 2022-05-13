@@ -85,7 +85,7 @@ public class OperatorButtonListener implements ActionListener
 	
 	private void setRigthOperand()
 	{
-		if (inputNumberDTO.get() == "")
+		if (inputNumberDTO.get().equals("0"))
 			operandDTO.setRightOperand(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.getLast()));
 		else
 			operandDTO.setRightOperand(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
@@ -93,7 +93,7 @@ public class OperatorButtonListener implements ActionListener
 	
 	private void setLeftOperand()
 	{
-		if (inputNumberDTO.get() == "")
+		if (inputNumberDTO.get().equals("0"))
 			operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(answerDTO.get()));
 		else
 			operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));

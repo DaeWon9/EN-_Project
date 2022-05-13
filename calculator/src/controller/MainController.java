@@ -9,7 +9,7 @@ public class MainController
 {
 	private MainFrame mainFrame = new MainFrame();
 	private AnswerDTO answerDTO = new AnswerDTO("0"); 
-	private InputNumberDTO inputNumberDTO = new InputNumberDTO("0", "0");
+	private InputNumberDTO inputNumberDTO = new InputNumberDTO("0", "");
 	private NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame.textPanel.answer, inputNumberDTO);
 	private OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO);
 	
