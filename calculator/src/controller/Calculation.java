@@ -10,13 +10,13 @@ public class Calculation
 		double calculateResult = 0.0;
 		String returnString;		
 	
-		if (operatorDTO.get() == "÷")
+		if (operatorDTO.getLast() == "÷")
 			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) / Double.parseDouble(operandDTO.getRightOperand());
-		else if (operatorDTO.get() == "x")
+		else if (operatorDTO.getLast() == "x")
 			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) * Double.parseDouble(operandDTO.getRightOperand());
-		else if (operatorDTO.get() == "-")
+		else if (operatorDTO.getLast() == "-")
 			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) - Double.parseDouble(operandDTO.getRightOperand());
-		else if (operatorDTO.get() == "+")
+		else if (operatorDTO.getLast() == "+")
 			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) + Double.parseDouble(operandDTO.getRightOperand());
 
 		returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult); //반환할때 불필요 소수점 제거

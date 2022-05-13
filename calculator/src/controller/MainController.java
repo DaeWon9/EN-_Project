@@ -13,7 +13,7 @@ public class MainController implements KeyListener
 {
 	private MainFrame mainFrame = new MainFrame();
 	private AnswerDTO answerDTO = new AnswerDTO("0"); 
-	private InputNumberDTO inputNumberDTO = new InputNumberDTO("0", "");
+	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO();
 	
@@ -135,11 +135,19 @@ public class MainController implements KeyListener
 	    case KeyEvent.VK_BACK_SPACE : 
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.BACK_SPACE.getIndex()].doClick();   
 	    	break;
+	    case KeyEvent.VK_ESCAPE : 
+	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.C.getIndex()].doClick();   
+	    	break;
+	    case KeyEvent.VK_DELETE : 
+	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.CE.getIndex()].doClick();   
+	    	break;
+	    case KeyEvent.VK_F9 : 
+	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.NEGATE.getIndex()].doClick();   
+	    	break;
 	    }
 
 	}
 
-	
 }
 
 
