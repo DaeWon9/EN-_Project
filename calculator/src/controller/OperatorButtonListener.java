@@ -41,7 +41,7 @@ public class OperatorButtonListener implements ActionListener
 		String formulaString = "", calculationResult;
 		
 		checkLastCharIsPoint();
-		if ( ((JButton)e.getSource()).getText() == "=" ) // operator중에서 "="이 입력되면 계산
+		if ( ((JButton)e.getSource()).getText().equals("=") ) // operator중에서 "="이 입력되면 계산
 		{
 			setRigthOperand(); // 경우의 수 더 생각하기
 			formulaString = operandDTO.getLeftOperand() + operatorDTO.get() + operandDTO.getRightOperand();
@@ -50,6 +50,7 @@ public class OperatorButtonListener implements ActionListener
 			calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
 			if (!calculationResult.equals("Infinity"))
 				calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가
+
 			// 계산결과값으로 새로 set
 			answerDTO.set(calculationResult);
 			operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(answerDTO.get()));
