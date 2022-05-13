@@ -52,13 +52,12 @@ public class ExtraButtonListener implements ActionListener
 			answerLabel.setText("0");
 		}
 		
-		else if (((JButton)e.getSource()).getText().equals("<-"))
+		else if (((JButton)e.getSource()).getText().equals("<-")) // <-버튼은 숫자입력값에서 하나 지우기
 		{
-			/*
-			input
-			integerPart = inputNumber.substring(0, inputNumber.length()-1);
+			inputNumberDTO.set(inputNumberDTO.get().substring(0, inputNumberDTO.get().length()-1));
+			if(inputNumberDTO.get() == "") // 공백까지 지워지면 0으로 셋팅
+				inputNumberDTO.set("0");
 			answerLabel.setText(inputNumberDTO.get());
-			*/
 		}
 	}
 
