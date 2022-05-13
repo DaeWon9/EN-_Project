@@ -17,12 +17,7 @@ public class TextPanel extends JPanel
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBackground(new Color(241, 243, 249));
-		
-		JLabel blank = new JLabel(" ");
-		blank.setFont(new Font("맑은 고딕", 0, 5));
-		blank.setAlignmentX(RIGHT_ALIGNMENT);
-		add(blank);
-		
+	
 		ImageIcon logButtonIcon = new ImageIcon(TextPanel.class.getResource("/Image/clockIcon.png"));	
 		logButton = new JButton(logButtonIcon);	
 		logButton.setSize(logButtonIcon.getIconWidth(), logButtonIcon.getIconHeight());
@@ -41,10 +36,7 @@ public class TextPanel extends JPanel
 		answer.setAlignmentX(RIGHT_ALIGNMENT);
 		add(answer);
 		
-		JLabel blank1 = new JLabel(" ");
-		blank1.setFont(new Font("맑은 고딕", 0, 10));
-		blank1.setAlignmentX(RIGHT_ALIGNMENT);
-		add(blank1);
+		setPreferredSize(new Dimension(322, 140));
 		
 	}
 }

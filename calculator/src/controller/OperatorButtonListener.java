@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.OperatorDTO;
@@ -21,7 +20,6 @@ public class OperatorButtonListener implements ActionListener
 	private InputNumberDTO inputNumberDTO;
 	private OperatorDTO operatorDTO;
 	private OperandDTO operandDTO;
-	
 	private Calculation calculation = new Calculation();
 	
 	public OperatorButtonListener(JFrame mainFrame, JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
@@ -38,8 +36,7 @@ public class OperatorButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)  // operator가 입력되면
 	{
-		String formulaString = "", calculationResult;
-		
+		String formulaString = "", calculationResult;		
 		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
 		operatorDTO.set(((JButton)e.getSource()).getText());
 		if (!inputNumberDTO.get().equals(""))
@@ -47,7 +44,7 @@ public class OperatorButtonListener implements ActionListener
 			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
 			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(Double.parseDouble(inputNumberDTO.get())));
 			answerLabel.setText(inputNumberDTO.get());
-		}		
+		}	
 		
 		if (inputNumberDTO.get().equals("")) // 숫자가 입력되지 않고 오퍼레이터가 입력된경우
 		{
@@ -90,9 +87,12 @@ public class OperatorButtonListener implements ActionListener
 				answerLabel.setText(answerDTO.get());
 			}
 			
-			else if (operatorDTO.get().equals("=") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 = 고, 라이스인풋값이 없으면 -> 즉 처음입력
+			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 오퍼레이터가 = 리고 라스트 오퍼레이터가있음 -> 평범한 계산
 			{
-				operandDTO.setLeftOperand(inputNumberDTO.get());
+				if (formulaLabel.getText().contains("="))
+					operandDTO.setLeftOperand(inputNumberDTO.get());
+				else
+					operandDTO.setRightOperand(inputNumberDTO.get());
 				calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
 				if (!calculationResult.equals("Infinity"))
 					calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가		
@@ -100,9 +100,10 @@ public class OperatorButtonListener implements ActionListener
 				inputNumberDTO.setLast("");
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(answerDTO.get()); 
+				answerLabel.setText(answerDTO.get());
+				operandDTO.setLeftOperand(answerDTO.get());
 			}
-			
+		
 			else if (!operatorDTO.get().equals("=") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라이스인풋값이 없으면 -> 즉 처음입력
 			{
 				operandDTO.setLeftOperand(inputNumberDTO.get());
@@ -129,19 +130,6 @@ public class OperatorButtonListener implements ActionListener
 				answerLabel.setText(answerDTO.get());
 			}
 			
-			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 오퍼레이터가 = 리고 라스트 오퍼레이터가있음 -> 평범한 계산
-			{
-				operandDTO.setRightOperand(inputNumberDTO.get());
-				calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
-				if (!calculationResult.equals("Infinity"))
-					calculationResult = DataProcessing.getDataProcessing().appendCommaInString(calculationResult); // 계산결과에 ,추가		
-				answerDTO.set(calculationResult);
-				inputNumberDTO.setLast("");
-				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
-				formulaLabel.setText(formulaString);
-				answerLabel.setText(answerDTO.get()); 
-			}
-			
 			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 = 이고 라스트오퍼레이터가 있으며, 라스트인풋이 없을경우
 			{
 				operandDTO.setLeftOperand(inputNumberDTO.get());
@@ -154,7 +142,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(answerDTO.get());
 			}
-		}
+		}	
 		inputNumberDTO.set("");
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 		mainFrame.requestFocus();
