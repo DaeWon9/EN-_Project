@@ -17,6 +17,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import Utility.Constant;
 import model.AnswerDTO;
@@ -29,7 +30,8 @@ import view.MainFrame;
 public class MainController implements KeyListener, ComponentListener
 {
 	private MainFrame mainFrame = new MainFrame();
-	private LogPanel logPanel = new LogPanel();
+	private LogPanel logPanel = new LogPanel();	
+	private JScrollPane scrollPane = new JScrollPane(logPanel.logButtonPanel);
 	private AnswerDTO answerDTO = new AnswerDTO("0");
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
@@ -88,6 +90,10 @@ public class MainController implements KeyListener, ComponentListener
 					mainFrame.textPanel.setBackground(new Color(169, 171, 175));
 					mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
 					mainFrame.getContentPane().add(logPanel, BorderLayout.CENTER);
+					
+					scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);
+					mainFrame.getContentPane().add(scrollPane);
+
 					mainFrame.revalidate();
 					mainFrame.repaint();
 				}
@@ -241,7 +247,10 @@ public class MainController implements KeyListener, ComponentListener
 			leftPanel.setLayout(new BorderLayout());
 			leftPanel.add(mainFrame.textPanel, BorderLayout.NORTH);
 			leftPanel.add(mainFrame.buttonPanel, BorderLayout.CENTER);
-
+		
+			scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);
+			logPanel.add(scrollPane);
+			
 			mainFrame.getContentPane().add(leftPanel, BorderLayout.CENTER);
 			mainFrame.getContentPane().add(logPanel, BorderLayout.EAST);
 			mainFrame.revalidate();

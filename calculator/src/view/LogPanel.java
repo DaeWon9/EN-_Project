@@ -22,11 +22,12 @@ public class LogPanel extends JPanel
 		setLayout(new BorderLayout());
 		setBackground(new Color(241, 243, 249));
 		setPreferredSize(new Dimension(250,140));
-		
+
 		titleLabel = new JLabel(" [ 기록 ]");
 		titleLabel.setFont(new Font("맑은 고딕", 0, 20));
 		titleLabel.setAlignmentX(LEFT_ALIGNMENT);
 		add(titleLabel, BorderLayout.NORTH);
+
 		
 		logButtonPanel = new JPanel();
 		logButtonPanel.setBackground(new Color(241, 243, 249));
@@ -36,12 +37,6 @@ public class LogPanel extends JPanel
 		topLabel.setFont(new Font("맑은 고딕", 0, 15));
 		topLabel.setAlignmentX(LEFT_ALIGNMENT);
 		logButtonPanel.add(topLabel);
-		
-		
-		//JScrollPane scrollPane = new JScrollPane();
-		//scrollPane.setAlignmentX(RIGHT_ALIGNMENT);
-		//scrollPane.setSize(500,400);
-		//logButtonPanel.add(scrollPane);
 		
 		add(logButtonPanel, BorderLayout.CENTER);
 	}
