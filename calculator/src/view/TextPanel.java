@@ -15,12 +15,17 @@ import javax.swing.JPanel;
 public class TextPanel extends JPanel
 {
 	public JButton logButton;
-	public JLabel formula, answer;
+	public JLabel emptyLabel, formula, answer;
 	public TextPanel()
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBackground(new Color(241, 243, 249));
 	
+		emptyLabel = new JLabel("");
+		emptyLabel.setFont(new Font("맑은 고딕", 0, 26));
+		emptyLabel.setAlignmentX(RIGHT_ALIGNMENT);
+		add(emptyLabel);
+		
 		ImageIcon logButtonIcon = new ImageIcon(TextPanel.class.getResource("/Image/clockIcon.png"));	
 		logButton = new JButton(logButtonIcon);	
 		logButton.setSize(logButtonIcon.getIconWidth(), logButtonIcon.getIconHeight());

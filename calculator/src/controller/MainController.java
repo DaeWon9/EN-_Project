@@ -135,6 +135,7 @@ public class MainController implements KeyListener, ComponentListener
 	
 	private void showMainPanels()
 	{
+		mainFrame.textPanel.emptyLabel.setText("");
 		mainFrame.textPanel.logButton.setVisible(true);
 		mainFrame.getContentPane().removeAll();
 		mainFrame.textPanel.setBackground(new Color(241, 243, 249));
@@ -157,7 +158,7 @@ public class MainController implements KeyListener, ComponentListener
 	    case KeyEvent.VK_NUMPAD0:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.ZERO.getIndex()].doClick(); 
 	    	logPanel.topLabel.setVisible(false);
-			logManagement.addLog(logPanel.logButtonPanel, "5*2=", "10");
+			logManagement.addLog(logPanel.logButtonPanel, "5x2=", "10");
 			
 	        break;
 	    case KeyEvent.VK_NUMPAD1:
@@ -242,6 +243,7 @@ public class MainController implements KeyListener, ComponentListener
 			mainFrame.textPanel.setBackground(new Color(241, 243, 249));
 			mainFrame.textPanel.logButton.setVisible(false);
 			logPanel.titleLabel.setText(" [ 기록 ]");
+			mainFrame.textPanel.emptyLabel.setText(" ");
 			
 			JPanel leftPanel = new JPanel();
 			leftPanel.setLayout(new BorderLayout());
