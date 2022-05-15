@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -10,6 +11,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Utility.Constant;
 import model.AnswerDTO;
@@ -27,6 +34,7 @@ public class MainController implements KeyListener, ComponentListener
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO();
+	private LogManagement logManagement = new LogManagement();
 	
 	private NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame, mainFrame.textPanel.answer, inputNumberDTO);
 	private OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
@@ -52,9 +60,7 @@ public class MainController implements KeyListener, ComponentListener
 			public void mouseReleased(MouseEvent e) 
 			{
 				if (mainFrame.textPanel.getBackground().toString().contains("[r=169,g=171,b=175]"))
-				{
 					showMainPanels();
-				}
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {}
@@ -71,12 +77,20 @@ public class MainController implements KeyListener, ComponentListener
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				mainFrame.getContentPane().removeAll();
-				mainFrame.textPanel.setBackground(new Color(169, 171, 175));
-				mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
-				mainFrame.getContentPane().add(logPanel, BorderLayout.CENTER);
-				mainFrame.revalidate();
-				mainFrame.repaint();
+				if (mainFrame.textPanel.getBackground().toString().contains("[r=169,g=171,b=175]"))
+				{
+					showMainPanels();
+				}
+				else
+				{
+					logPanel.titleLabel.setText(" ");
+					mainFrame.getContentPane().removeAll();
+					mainFrame.textPanel.setBackground(new Color(169, 171, 175));
+					mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
+					mainFrame.getContentPane().add(logPanel, BorderLayout.CENTER);
+					mainFrame.revalidate();
+					mainFrame.repaint();
+				}
 			}
 		});
 	}
@@ -115,6 +129,7 @@ public class MainController implements KeyListener, ComponentListener
 	
 	private void showMainPanels()
 	{
+		mainFrame.textPanel.logButton.setVisible(true);
 		mainFrame.getContentPane().removeAll();
 		mainFrame.textPanel.setBackground(new Color(241, 243, 249));
 		mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
@@ -134,7 +149,10 @@ public class MainController implements KeyListener, ComponentListener
 	    {
 	    case KeyEvent.VK_0: 
 	    case KeyEvent.VK_NUMPAD0:
-	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.ZERO.getIndex()].doClick();   
+	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.ZERO.getIndex()].doClick(); 
+	    	logPanel.topLabel.setVisible(false);
+			logManagement.addLog(logPanel.logButtonPanel, "5*2=", "10");
+			
 	        break;
 	    case KeyEvent.VK_NUMPAD1:
 	    case KeyEvent.VK_1:
@@ -216,8 +234,15 @@ public class MainController implements KeyListener, ComponentListener
 		{
 			mainFrame.getContentPane().removeAll();
 			mainFrame.textPanel.setBackground(new Color(241, 243, 249));
-			mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
-			mainFrame.getContentPane().add(mainFrame.buttonPanel, BorderLayout.CENTER);
+			mainFrame.textPanel.logButton.setVisible(false);
+			logPanel.titleLabel.setText(" [ 기록 ]");
+			
+			JPanel leftPanel = new JPanel();
+			leftPanel.setLayout(new BorderLayout());
+			leftPanel.add(mainFrame.textPanel, BorderLayout.NORTH);
+			leftPanel.add(mainFrame.buttonPanel, BorderLayout.CENTER);
+
+			mainFrame.getContentPane().add(leftPanel, BorderLayout.CENTER);
 			mainFrame.getContentPane().add(logPanel, BorderLayout.EAST);
 			mainFrame.revalidate();
 			mainFrame.repaint();

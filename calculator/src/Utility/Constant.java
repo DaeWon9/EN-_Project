@@ -4,6 +4,8 @@ public class Constant
 {
 	public static final int MAX_LONG_LENGTH = 16;
 
+	public static final String LOG_STRING_FORM = "<HTML><body style='text-align:right;'> %s <br> %s</body></HTML>";
+	
 	public enum ButtonIndex
 	{ 
 		CE(0), C(1), BACK_SPACE(2), DIVISON(3), 
@@ -14,5 +16,6 @@ public class Constant
 	    private final int index;
 	    ButtonIndex(int index) {this.index = index;}  
 	    public int getIndex() {return index;}
+	    
 	}	
 }
