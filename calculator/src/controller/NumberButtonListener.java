@@ -1,10 +1,7 @@
 package controller;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -63,7 +60,7 @@ public class NumberButtonListener implements ActionListener
 				inputNumberDTO.set(DataProcessing.getDataProcessing().appendCommaInLong(Long.parseLong(inputNumber)));
 			}
 		}
-		
+	
 		answerLabel.setText(inputNumberDTO.get());
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 		mainFrame.requestFocus();

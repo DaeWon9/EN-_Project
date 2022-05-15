@@ -66,6 +66,7 @@ public class ExtraButtonListener implements ActionListener
 				else
 					answerLabel.setText(inputNumberDTO.get());
 			}
+			DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 		}
 		
 		else if (((JButton)e.getSource()).getText().equals("+/-")) // +/-버튼은 숫자 부호 바꾸기 -> 상단에 수식에 negate() 뜨는거 추가해야함.. 

@@ -1,17 +1,28 @@
 package controller;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import Utility.Constant;
 import model.AnswerDTO;
 import model.InputNumberDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
+import view.LogPanel;
 import view.MainFrame;
 
-public class MainController implements KeyListener
+public class MainController implements KeyListener, ComponentListener
 {
 	private MainFrame mainFrame = new MainFrame();
+	private LogPanel logPanel = new LogPanel();
 	private AnswerDTO answerDTO = new AnswerDTO("0");
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
@@ -27,7 +38,47 @@ public class MainController implements KeyListener
 		setNumberButtonListener();
 		setOperatorButtonListener();	
 		setExtraButtonListener();
+		setTextPanelEventListner();
 		mainFrame.addKeyListener(this);
+		mainFrame.addComponentListener(this);
+
+	}
+	
+	private void setTextPanelEventListner()
+	{
+		mainFrame.textPanel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) 
+			{
+				if (mainFrame.textPanel.getBackground().toString().contains("[r=169,g=171,b=175]"))
+				{
+					showMainPanels();
+				}
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}	
+			@Override
+			public void mouseEntered(MouseEvent e) {}	
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+		
+		mainFrame.textPanel.logButton.addActionListener(new ActionListener() 
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				mainFrame.getContentPane().removeAll();
+				mainFrame.textPanel.setBackground(new Color(169, 171, 175));
+				mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
+				mainFrame.getContentPane().add(logPanel, BorderLayout.CENTER);
+				mainFrame.revalidate();
+				mainFrame.repaint();
+			}
+		});
 	}
 	
 	private void setNumberButtonListener() // 숫자 버튼 이벤트처리
@@ -60,6 +111,16 @@ public class MainController implements KeyListener
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.C.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.BACK_SPACE.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.NEGATE.getIndex()].addActionListener(extraButtonListener);
+	}
+	
+	private void showMainPanels()
+	{
+		mainFrame.getContentPane().removeAll();
+		mainFrame.textPanel.setBackground(new Color(241, 243, 249));
+		mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
+		mainFrame.getContentPane().add(mainFrame.buttonPanel, BorderLayout.CENTER);
+		mainFrame.revalidate();
+		mainFrame.repaint();
 	}
 	
 	@Override
@@ -148,6 +209,41 @@ public class MainController implements KeyListener
 
 	}
 
+	@Override
+	public void componentResized(ComponentEvent e) {
+		showMainPanels();
+		if (mainFrame.getSize().width > 580)
+		{
+			mainFrame.getContentPane().removeAll();
+			mainFrame.textPanel.setBackground(new Color(241, 243, 249));
+			mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
+			mainFrame.getContentPane().add(mainFrame.buttonPanel, BorderLayout.CENTER);
+			mainFrame.getContentPane().add(logPanel, BorderLayout.EAST);
+			mainFrame.revalidate();
+			mainFrame.repaint();
+		}
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }
 
 

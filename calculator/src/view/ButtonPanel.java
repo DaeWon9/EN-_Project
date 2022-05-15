@@ -30,7 +30,7 @@ public class ButtonPanel extends JPanel
 		
 		button[Constant.ButtonIndex.CE.getIndex()] = new JButton("CE");
 		button[Constant.ButtonIndex.C.getIndex()] = new JButton("C");
-		button[Constant.ButtonIndex.BACK_SPACE.getIndex()] = new JButton("<-");
+		button[Constant.ButtonIndex.BACK_SPACE.getIndex()] = new JButton("<-"); // \232B
 		button[Constant.ButtonIndex.DIVISON.getIndex()] = new JButton("÷");
 		button[Constant.ButtonIndex.SEVEN.getIndex()] = new JButton("7");
 		button[Constant.ButtonIndex.EIGHT.getIndex()] = new JButton("8");

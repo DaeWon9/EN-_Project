@@ -3,8 +3,11 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 public class MainFrame extends JFrame
@@ -20,6 +23,7 @@ public class MainFrame extends JFrame
 		setIconImage(imageIcon.getImage());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocation((windowSize.width - 322) / 2, (windowSize.height - 502) / 2); 	
+		
 		add(textPanel, BorderLayout.NORTH);
 		add(buttonPanel, BorderLayout.CENTER);
 		setSize(335,510);
