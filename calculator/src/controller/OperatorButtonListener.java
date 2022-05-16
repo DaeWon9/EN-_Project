@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.OperatorDTO;
@@ -16,6 +18,7 @@ import model.OperandDTO;
 public class OperatorButtonListener implements ActionListener
 {
 	private JFrame mainFrame;
+	private JPanel logPanel;
 	private JLabel answerLabel;
 	private JLabel formulaLabel;
 	private AnswerDTO answerDTO;
@@ -23,10 +26,12 @@ public class OperatorButtonListener implements ActionListener
 	private OperatorDTO operatorDTO;
 	private OperandDTO operandDTO;
 	private Calculation calculation = new Calculation();
+	private LogManagement logManagement = new LogManagement();
 	
-	public OperatorButtonListener(JFrame mainFrame, JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
+	public OperatorButtonListener(JFrame mainFrame, JPanel logpanel, JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
 	{
 		this.mainFrame = mainFrame;
+		this.logPanel = logpanel;
 		this.answerLabel = answerLabel;
 		this.formulaLabel = formulaLabel;
 		this.answerDTO = answerDTO;
@@ -69,6 +74,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(answerDTO.get());
+				logManagement.addLog(logPanel, formulaString, answerDTO.get());
 			}
 			else // 다른오퍼레이터
 			{ 
@@ -104,6 +110,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(answerDTO.get());
 				operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
+				logManagement.addLog(logPanel, formulaString, answerDTO.get());
 			}
 		
 			else if (!operatorDTO.get().equals("=") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라이스인풋값이 없으면 -> 즉 처음입력
@@ -130,6 +137,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = answerDTO.get() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(answerDTO.get());
+				logManagement.addLog(logPanel, formulaString, answerDTO.get());
 			}
 			
 			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 = 이고 라스트오퍼레이터가 있으며, 라스트인풋이 없을경우
@@ -143,6 +151,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(answerDTO.get());
+				logManagement.addLog(logPanel, formulaString, answerDTO.get());
 			}
 		}	
 		inputNumberDTO.set("");

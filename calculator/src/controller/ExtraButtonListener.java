@@ -44,8 +44,10 @@ public class ExtraButtonListener implements ActionListener
 			inputNumberDTO.setLast("");
 			operatorDTO.set("");
 			operatorDTO.setLast("");
+			/*
 			operandDTO.setLeftOperand(new BigDecimal("0"));
 			operandDTO.setRightOperand(new BigDecimal("0"));
+			*/
 			answerLabel.setText("0");
 			formulaLabel.setText(" ");
 		}

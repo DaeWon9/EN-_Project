@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Utility.Constant;
+import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.InputNumberDTO;
 import model.OperandDTO;
@@ -37,10 +38,9 @@ public class MainController implements KeyListener, ComponentListener
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO();
-	private LogManagement logManagement = new LogManagement();
 	
 	private NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame, mainFrame.textPanel.answer, inputNumberDTO);
-	private OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
+	private OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, logPanel.logButtonPanel, mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
 	private ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame, mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
 	
 	public void start()
@@ -158,9 +158,6 @@ public class MainController implements KeyListener, ComponentListener
 	    case KeyEvent.VK_0: 
 	    case KeyEvent.VK_NUMPAD0:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.ZERO.getIndex()].doClick(); 
-	    	logPanel.topLabel.setVisible(false);
-			logManagement.addLog(logPanel.logButtonPanel, "5x2=", "10");
-			
 	        break;
 	    case KeyEvent.VK_NUMPAD1:
 	    case KeyEvent.VK_1:
@@ -237,6 +234,7 @@ public class MainController implements KeyListener, ComponentListener
 
 	@Override
 	public void componentResized(ComponentEvent e) {
+		DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
 		showMainPanels();
 		if (mainFrame.getSize().width > 580)
 		{
