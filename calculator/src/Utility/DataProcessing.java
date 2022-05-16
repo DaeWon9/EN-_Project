@@ -68,6 +68,7 @@ public class DataProcessing
 		return str.replace(",", "");
 	}
 	
+	/*
 	public String deleteUnnecessaryDecimalPoint(double doubleValue) // 불필요 소수점 제거하는 함수
 	{
 	    if(doubleValue == (long) doubleValue)
@@ -75,7 +76,7 @@ public class DataProcessing
 	    else
 	        return String.format("%s",doubleValue);
 	}
-
+    */
 	public void resizeLabel(JFrame frame, JLabel label)
 	{
 		label.setFont(new Font("맑은 고딕", 0, 45));

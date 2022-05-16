@@ -1,5 +1,7 @@
 package controller;
 
+import java.math.BigDecimal;
+
 import javax.swing.JPanel;
 
 import Utility.DataProcessing;
@@ -10,22 +12,35 @@ public class Calculation
 {
 	public String calculate(OperandDTO operandDTO, OperatorDTO operatorDTO) //계산하는 함수
 	{
-		double calculateResult = 0.0;
+		BigDecimal leftOperand, rightOperand;
+		BigDecimal calculateResult = null;
 		String returnString;		
 		
-		operandDTO.setLeftOperand(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand()));
-		operandDTO.setRightOperand(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand())); 
+		operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand().toString())));
+		operandDTO.setRightOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand().toString()))); 
 	
-		if (operatorDTO.getLast() == "÷")
-			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) / Double.parseDouble(operandDTO.getRightOperand());
-		else if (operatorDTO.getLast() == "x")
-			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) * Double.parseDouble(operandDTO.getRightOperand());
-		else if (operatorDTO.getLast() == "-")
-			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) - Double.parseDouble(operandDTO.getRightOperand());
-		else if (operatorDTO.getLast() == "+")
-			calculateResult = Double.parseDouble(operandDTO.getLeftOperand()) + Double.parseDouble(operandDTO.getRightOperand());
-
-		returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult); //반환할때 불필요 소수점 제거
-		return returnString;	
+		leftOperand = operandDTO.getLeftOperand();
+		rightOperand = operandDTO.getRightOperand();
+		
+		switch (operatorDTO.getLast())
+		{
+			case "÷":
+				calculateResult = leftOperand.divide(rightOperand);
+				break;
+			case "x":
+				calculateResult = leftOperand.multiply(rightOperand);
+				break;
+			case "-":
+				calculateResult = leftOperand.subtract(rightOperand);
+				break;
+			case "+":
+				calculateResult = leftOperand.add(rightOperand);
+				break;
+			default:
+				break;			
+		}
+		
+		//returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult); //반환할때 불필요 소수점 제거
+		return calculateResult.toString();	
 	}
 } 

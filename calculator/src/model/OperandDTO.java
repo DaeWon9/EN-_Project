@@ -1,26 +1,28 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class OperandDTO 
 {
-	private String leftOperand;
-	private String rigthOperand;
+	private BigDecimal leftOperand;
+	private BigDecimal rigthOperand;
 	
-	public String getLeftOperand()
+	public BigDecimal getLeftOperand()
 	{
 		return leftOperand;
 	}
 	
-	public String getRightOperand()
+	public BigDecimal getRightOperand()
 	{
 		return rigthOperand;
 	}
 	
-	public void setLeftOperand(String operand)
+	public void setLeftOperand(BigDecimal operand)
 	{
 		this.leftOperand = operand;
 	}
 	
-	public void setRightOperand(String operand)
+	public void setRightOperand(BigDecimal operand)
 	{
 		this.rigthOperand = operand;
 	}
