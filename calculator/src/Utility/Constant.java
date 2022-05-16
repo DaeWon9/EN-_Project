@@ -4,7 +4,7 @@ public class Constant
 {
 	public static final int MAX_LONG_LENGTH = 16;
 
-	public static final String LOG_STRING_FORM = "<HTML><body style='text-align:right;'> %s <br> %s</body></HTML>";
+	public static final String LOG_STRING_FORM = "<HTML><body style='text-align:right;'> %s = <br> %s</body></HTML>";
 	
 	public enum ButtonIndex
 	{ 
