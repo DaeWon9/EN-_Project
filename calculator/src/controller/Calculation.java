@@ -41,6 +41,8 @@ public class Calculation
 		}
 		
 		//returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult); //반환할때 불필요 소수점 제거
-		return calculateResult.toString();	
+		if (calculateResult.toString().length() > 16)
+			return String.format("%e", calculateResult);	
+		return String.format("%s", calculateResult);	
 	}
 } 

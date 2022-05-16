@@ -25,6 +25,8 @@ public class OperatorButtonListener implements ActionListener
 	private InputNumberDTO inputNumberDTO;
 	private OperatorDTO operatorDTO;
 	private OperandDTO operandDTO;
+	private Calculation calculation;
+	private LogManagement logManagement;
 	
 	public OperatorButtonListener(JFrame mainFrame, JPanel logpanel, JLabel answerLabel, JLabel formulaLabel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
 	{
@@ -36,15 +38,13 @@ public class OperatorButtonListener implements ActionListener
 		this.inputNumberDTO = inputNumberDTO;
 		this.operatorDTO = operatorDTO;
 		this.operandDTO = operandDTO;
+		this.calculation = new Calculation();
+		this.logManagement = new LogManagement(logPanel, operandDTO, operatorDTO, answerDTO);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)  // operator가 입력되면
-	{
-		Calculation calculation = new Calculation();
-		LogManagement logManagement = new LogManagement(logPanel, operandDTO, operatorDTO, answerDTO);
-		
-		
+	{		
 		String formulaString = "", calculationResult;		
 		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
 		operatorDTO.set(((JButton)e.getSource()).getText());
@@ -76,7 +76,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(answerDTO.get());
+				answerLabel.setText(String.format("%e" ,answerDTO.get()));
 			}
 			else // 다른오퍼레이터
 			{ 

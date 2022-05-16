@@ -14,9 +14,10 @@ import javax.swing.JScrollPane;
 
 public class LogPanel extends JPanel
 {
+	public JButton deleteButton;
 	public JLabel titleLabel, topLabel;
 	public JPanel logButtonPanel;
-	public LogPanel()
+	public LogPanel() 
 	{
 		
 		setLayout(new BorderLayout());
@@ -39,5 +40,14 @@ public class LogPanel extends JPanel
 		logButtonPanel.add(topLabel);
 		
 		add(logButtonPanel, BorderLayout.CENTER);
+		
+		
+		ImageIcon deleteButtonIcon = new ImageIcon(LogPanel.class.getResource("/Image/deleteIcon.png"));	
+		deleteButton = new JButton(deleteButtonIcon);	
+		deleteButton.setSize(deleteButtonIcon.getIconWidth(), deleteButtonIcon.getIconHeight());
+		deleteButton.setAlignmentX(RIGHT_ALIGNMENT);
+		deleteButton.setBorderPainted(false);
+		deleteButton.setContentAreaFilled(false);
+		add(deleteButton, BorderLayout.SOUTH);
 	}
 }
