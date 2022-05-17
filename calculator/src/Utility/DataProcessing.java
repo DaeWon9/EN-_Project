@@ -56,7 +56,11 @@ public class DataProcessing
 			integerPart = numberString.substring(0, numberString.length()-1);
 			formatResult = numberFormat.format(Long.parseLong(integerPart));
 		}
-		else // 정수면
+		else if (numberString.equals("0으로 나눌 수 없습니다"))
+		{
+			formatResult = "0으로 나눌 수 없습니다";
+		}
+		else
 		{
 			formatResult = numberFormat.format(Long.parseLong(numberString));
 		}
@@ -68,7 +72,7 @@ public class DataProcessing
 		return str.replace(",", "");
 	}
 	
-	/*
+
 	public String deleteUnnecessaryDecimalPoint(double doubleValue) // 불필요 소수점 제거하는 함수
 	{
 	    if(doubleValue == (long) doubleValue)
@@ -76,14 +80,14 @@ public class DataProcessing
 	    else
 	        return String.format("%s",doubleValue);
 	}
-    */
+
 	public void resizeLabel(JFrame frame, JLabel label)
 	{
 		label.setFont(new Font("맑은 고딕", 0, 45));
 		while (label.getFont().getSize()/2 * label.getText().length() > frame.getWidth() - 50)
 		{
 			label.setFont(new Font("맑은 고딕", 0, label.getFont().getSize() - 1));
-			if (label.getFont().getSize() < 0)
+			if (label.getFont().getSize() < 1)
 				break;
 		}
 	}

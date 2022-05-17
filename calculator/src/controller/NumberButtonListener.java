@@ -60,7 +60,8 @@ public class NumberButtonListener implements ActionListener
 				inputNumberDTO.set(DataProcessing.getDataProcessing().appendCommaInLong(Long.parseLong(inputNumber)));
 			}
 		}
-	
+		// 마지막ㅇ ㅅ
+
 		answerLabel.setText(inputNumberDTO.get());
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 		mainFrame.requestFocus();

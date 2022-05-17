@@ -47,11 +47,13 @@ public class OperatorButtonListener implements ActionListener
 	{		
 		String formulaString = "", calculationResult;		
 		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
+	
 		operatorDTO.set(((JButton)e.getSource()).getText());
 		if (!inputNumberDTO.get().equals(""))
 		{
 			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
-			//inputNumberDTO.set(DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(Double.parseDouble(inputNumberDTO.get())));
+			if (inputNumberDTO.get().contains("."))
+				inputNumberDTO.set(DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(Double.parseDouble(inputNumberDTO.get())));
 			answerLabel.setText(inputNumberDTO.get());
 		}	
 		
@@ -66,7 +68,7 @@ public class OperatorButtonListener implements ActionListener
 			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 라스트 오퍼레이터가 있고 = 가 입력된경우
 			{
 				operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
-				if (operandDTO.getRightOperand() == null || operandDTO.getRightOperand().equals(""))
+				if (operandDTO.getRightOperand() == null)
 					operandDTO.setRightOperand(new BigDecimal(answerDTO.get()));
 				calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
 				//if (!calculationResult.equals("Infinity"))
@@ -76,7 +78,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(String.format("%e" ,answerDTO.get()));
+				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
 			}
 			else // 다른오퍼레이터
 			{ 
@@ -92,9 +94,10 @@ public class OperatorButtonListener implements ActionListener
 			{
 				answerDTO.set(inputNumberDTO.get());
 				inputNumberDTO.setLast(inputNumberDTO.get());
-				formulaString = answerDTO.get() + operatorDTO.get();
+				operandDTO.setLeftOperand(new BigDecimal(inputNumberDTO.get()));
+				formulaString = operandDTO.getLeftOperand() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(answerDTO.get());
+				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
 			}
 			
 			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 오퍼레이터가 = 리고 라스트 오퍼레이터가있음 -> 평범한 계산
@@ -111,7 +114,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(answerDTO.get());
+				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
 				operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
 			}
 		
@@ -139,7 +142,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = answerDTO.get() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(answerDTO.get());
+				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
 
 			}
 			
@@ -154,7 +157,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(answerDTO.get());
+				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
 			}
 		}	
 		inputNumberDTO.set("");

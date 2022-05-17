@@ -18,7 +18,7 @@ public class ButtonPanel extends JPanel
 	
 	public ButtonPanel()
 	{
-		Font buttonFont = new Font("맑은 고딕", 0, 20);
+		Font buttonFont = new Font(null, 0, 17);
 		Color buttonColor = Color.white;
 		Color operatorButtonColor = new Color(248, 249, 252);
 		Color blueButtonColor = new Color(0, 103, 192);
@@ -31,7 +31,7 @@ public class ButtonPanel extends JPanel
 		
 		button[Constant.ButtonIndex.CE.getIndex()] = new JButton("CE");
 		button[Constant.ButtonIndex.C.getIndex()] = new JButton("C");
-		button[Constant.ButtonIndex.BACK_SPACE.getIndex()] = new JButton("<-"); // \232B
+		button[Constant.ButtonIndex.BACK_SPACE.getIndex()] = new JButton("⌫");
 		button[Constant.ButtonIndex.DIVISON.getIndex()] = new JButton("÷");
 		button[Constant.ButtonIndex.SEVEN.getIndex()] = new JButton("7");
 		button[Constant.ButtonIndex.EIGHT.getIndex()] = new JButton("8");

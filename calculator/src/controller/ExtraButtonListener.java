@@ -44,10 +44,10 @@ public class ExtraButtonListener implements ActionListener
 			inputNumberDTO.setLast("");
 			operatorDTO.set("");
 			operatorDTO.setLast("");
-			/*
-			operandDTO.setLeftOperand(new BigDecimal("0"));
-			operandDTO.setRightOperand(new BigDecimal("0"));
-			*/
+
+			operandDTO.setLeftOperand(null);
+			operandDTO.setRightOperand(null);
+
 			answerLabel.setText("0");
 			formulaLabel.setText(" ");
 		}
@@ -59,24 +59,31 @@ public class ExtraButtonListener implements ActionListener
 			answerLabel.setText("0");
 		}
 		
-		else if (((JButton)e.getSource()).getText().equals("<-")) // <-버튼은 숫자입력값에서 하나 지우기
+		else if (((JButton)e.getSource()).getText().equals("⌫")) // <-버튼은 숫자입력값에서 하나 지우기
 		{
+
+			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
 			if (inputNumberDTO.get().length() > 0)
 			{
 				inputNumberDTO.set(inputNumberDTO.get().substring(0, inputNumberDTO.get().length()-1));
 				if(inputNumberDTO.get().equals("") || inputNumberDTO.get().equals("-")) // 공백까지 지워지면 0으로 셋팅
 					answerLabel.setText("0");
 				else
-					answerLabel.setText(inputNumberDTO.get());
+					answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(inputNumberDTO.get()));
 			}
+			inputNumberDTO.set(answerLabel.getText());
 			DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 		}
 		
 		else if (((JButton)e.getSource()).getText().equals("+/-")) // +/-버튼은 숫자 부호 바꾸기 -> 상단에 수식에 negate() 뜨는거 추가해야함.. 
-		{		
-			if (inputNumberDTO.get().equals("")) // 입력값이 없으면 -> answer에 있는값 부호 바꿔주기
+		{	
+			if (inputNumberDTO.get().equals("0"))
+				answerLabel.setText("0");	
+			else if (inputNumberDTO.get().equals("")) // 입력값이 없으면 -> answer에 있는값 부호 바꿔주기
 			{
-				if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
+				if (answerDTO.get().equals("0"))
+					answerLabel.setText("0");	
+				else if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
 					answerDTO.set(answerDTO.get().substring(1));
 				else // -가 아니면 -붙여주기
 					answerDTO.set("-" + answerDTO.get());

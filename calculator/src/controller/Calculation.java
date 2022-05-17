@@ -13,7 +13,7 @@ public class Calculation
 	public String calculate(OperandDTO operandDTO, OperatorDTO operatorDTO) //계산하는 함수
 	{
 		BigDecimal leftOperand, rightOperand;
-		BigDecimal calculateResult = null;
+		BigDecimal calculateResult = new BigDecimal("0");
 		String returnString;		
 		
 		operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand().toString())));
@@ -22,27 +22,37 @@ public class Calculation
 		leftOperand = operandDTO.getLeftOperand();
 		rightOperand = operandDTO.getRightOperand();
 		
-		switch (operatorDTO.getLast())
+		try
 		{
-			case "÷":
-				calculateResult = leftOperand.divide(rightOperand);
-				break;
-			case "x":
-				calculateResult = leftOperand.multiply(rightOperand);
-				break;
-			case "-":
-				calculateResult = leftOperand.subtract(rightOperand);
-				break;
-			case "+":
-				calculateResult = leftOperand.add(rightOperand);
-				break;
-			default:
-				break;			
+			switch (operatorDTO.getLast())
+			{
+				case "÷":
+					calculateResult = leftOperand.divide(rightOperand, 15, BigDecimal.ROUND_DOWN);
+					break;
+				case "x":
+					calculateResult = leftOperand.multiply(rightOperand);
+					break;
+				case "-":
+					calculateResult = leftOperand.subtract(rightOperand);
+					break;
+				case "+":
+					calculateResult = leftOperand.add(rightOperand); 
+					break;
+				default:
+					break;			
+			}
+		}
+		catch(ArithmeticException e)
+		{
+			return "0으로 나눌 수 없습니다";
 		}
 		
-		//returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult); //반환할때 불필요 소수점 제거
-		if (calculateResult.toString().length() > 16)
-			return String.format("%e", calculateResult);	
-		return String.format("%s", calculateResult);	
+		//returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult.toString()); //반환할때 불필요 소수점 제거
+
+		BigDecimal compareNumber = new BigDecimal("10000000000000000");
+		if (calculateResult.compareTo(compareNumber) > 0)
+			return String.format("%e", calculateResult);	//calculateResult.stripTrailingZeros().toPlainString()
+		return calculateResult.toString();	
+		//return calculateResult.toString();
 	}
 } 
