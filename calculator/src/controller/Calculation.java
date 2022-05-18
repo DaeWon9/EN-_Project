@@ -15,7 +15,9 @@ public class Calculation
 	{
 		BigDecimal leftOperand, rightOperand;
 		BigDecimal calculateResult = new BigDecimal("0");
-
+		if (operandDTO.getLeftOperand() == null)
+			operandDTO.setLeftOperand(new BigDecimal("0"));
+		
 		operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand().toString())));
 		operandDTO.setRightOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand().toString()))); 
 	

@@ -80,7 +80,7 @@ public class OperatorButtonListener implements ActionListener
 				
 				answerDTO.set(calculationResult);
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
-				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN) || DataProcessing.getDataProcessing().numberFormat(answerDTO.get()).equals("오버플로"))
 					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
@@ -118,7 +118,7 @@ public class OperatorButtonListener implements ActionListener
 				answerDTO.set(calculationResult);
 				inputNumberDTO.setLast("");
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
-				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN) || DataProcessing.getDataProcessing().numberFormat(answerDTO.get()).equals("오버플로"))
 					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get())); 
@@ -149,7 +149,7 @@ public class OperatorButtonListener implements ActionListener
 				operatorDTO.setLast(operatorDTO.get());
 				inputNumberDTO.setLast(inputNumberDTO.get());
 				formulaString = DataProcessing.getDataProcessing().numberFormat(answerDTO.get()) + operatorDTO.get();
-				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN) || DataProcessing.getDataProcessing().numberFormat(answerDTO.get()).equals("오버플로"))
 					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
@@ -165,7 +165,7 @@ public class OperatorButtonListener implements ActionListener
 				answerDTO.set(calculationResult);
 				inputNumberDTO.setLast("");
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
-				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN) || DataProcessing.getDataProcessing().numberFormat(answerDTO.get()).equals("오버플로"))
 					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
