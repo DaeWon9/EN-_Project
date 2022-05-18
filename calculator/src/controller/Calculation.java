@@ -1,6 +1,7 @@
 package controller;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import javax.swing.JPanel;
 
@@ -27,10 +28,10 @@ public class Calculation
 			switch (operatorDTO.getLast())
 			{
 				case "÷":
-					calculateResult = leftOperand.divide(rightOperand, 15, BigDecimal.ROUND_DOWN);
+					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL128);
 					break;
 				case "x":
-					calculateResult = leftOperand.multiply(rightOperand);
+					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);
 					break;
 				case "-":
 					calculateResult = leftOperand.subtract(rightOperand);
