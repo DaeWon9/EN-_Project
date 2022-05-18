@@ -1,3 +1,4 @@
+package main;
 import controller.MainController;
 
 public class Calculator {

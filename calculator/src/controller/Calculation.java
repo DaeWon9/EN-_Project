@@ -44,14 +44,16 @@ public class Calculation
 		}
 		catch(ArithmeticException e)
 		{
-			return "0으로 나눌 수 없습니다";
+			return "0으로 나눌 수 없습니다"; 
 		}
 		
 		//returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult.toString()); //반환할때 불필요 소수점 제거
 
-		BigDecimal compareNumber = new BigDecimal("10000000000000000");
+		/*
+		BigDecimal compareNumber = new BigDecimal("1000000000000000");
 		if (calculateResult.compareTo(compareNumber) > 0)
 			return String.format("%e", calculateResult);	//calculateResult.stripTrailingZeros().toPlainString()
+		*/
 		return calculateResult.toString();	
 		//return calculateResult.toString();
 	}

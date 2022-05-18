@@ -1,6 +1,8 @@
 package Utility;
 
 import java.awt.Font;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import javax.swing.JFrame;
@@ -28,6 +30,7 @@ public class DataProcessing
 		return count;
 	}
 	
+
 	public String appendCommaInLong(Long number) // 숫자에 ,추가하는 함수
 	{
 		String formatResult= "";
@@ -36,34 +39,20 @@ public class DataProcessing
 		return formatResult;
 	}
 
-	public String appendCommaInString(String numberString) // 문자열 숫자에 ,추가하는 함수
+	
+	public String numberFormat(String numberString)
 	{
 		String formatResult= "";
-		String integerPart;
-		String decimalPointPart;
-		
-		NumberFormat numberFormat = NumberFormat.getNumberInstance();
-		
-		if (numberString.split("\\.").length == 2) // point로 쪼갰을 때 정수부와 실수부로 쪼개진다면
-		{
-			integerPart = numberString.split("\\.")[0];
-			decimalPointPart = numberString.split("\\.")[1];
-			integerPart = numberFormat.format(Long.parseLong(integerPart));
-			formatResult = integerPart + "." + decimalPointPart;
-		}
-		else if (numberString.contains(".")) // 마지막만 point면 
-		{
-			integerPart = numberString.substring(0, numberString.length()-1);
-			formatResult = numberFormat.format(Long.parseLong(integerPart));
-		}
-		else if (numberString.equals("0으로 나눌 수 없습니다"))
-		{
-			formatResult = "0으로 나눌 수 없습니다";
-		}
+		BigDecimal bigDeciaml = new BigDecimal(numberString);
+		DecimalFormat decimalFormat = new DecimalFormat(",###.################");
+		DecimalFormat exponentialFormat = new DecimalFormat("0.###############E0");
+
+		if (bigDeciaml.compareTo(new BigDecimal("10000000000000000")) > 0)
+			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E", "e+");
+		else if (bigDeciaml.compareTo(new BigDecimal("0.00000000000001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) != 0 )
+			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E-", "e-");
 		else
-		{
-			formatResult = numberFormat.format(Long.parseLong(numberString));
-		}
+			formatResult = decimalFormat.format(bigDeciaml);
 		return formatResult;
 	}
 
@@ -72,7 +61,7 @@ public class DataProcessing
 		return str.replace(",", "");
 	}
 	
-
+	/*
 	public String deleteUnnecessaryDecimalPoint(double doubleValue) // 불필요 소수점 제거하는 함수
 	{
 	    if(doubleValue == (long) doubleValue)
@@ -80,6 +69,7 @@ public class DataProcessing
 	    else
 	        return String.format("%s",doubleValue);
 	}
+	*/
 
 	public void resizeLabel(JFrame frame, JLabel label)
 	{

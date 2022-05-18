@@ -50,14 +50,14 @@ public class NumberButtonListener implements ActionListener
 		else if (inputNumber.contains(".") && inputNumber.length() <= Constant.MAX_LONG_LENGTH + 1)
 		{
 			integerPart = inputNumber.substring(0, inputNumber.length()-1);
-			integerPart = DataProcessing.getDataProcessing().appendCommaInLong(Long.parseLong(integerPart));
+			integerPart = DataProcessing.getDataProcessing().appendCommaInLong(Long.parseLong(integerPart)); 
 			inputNumberDTO.set(integerPart + ".");
 		}
 		else
 		{
 			if (inputNumber.length() <= Constant.MAX_LONG_LENGTH)
 			{
-				inputNumberDTO.set(DataProcessing.getDataProcessing().appendCommaInLong(Long.parseLong(inputNumber)));
+				inputNumberDTO.set(DataProcessing.getDataProcessing().numberFormat(inputNumber));
 			}
 		}
 		// 마지막ㅇ ㅅ

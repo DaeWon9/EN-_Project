@@ -52,8 +52,6 @@ public class OperatorButtonListener implements ActionListener
 		if (!inputNumberDTO.get().equals(""))
 		{
 			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
-			if (inputNumberDTO.get().contains("."))
-				inputNumberDTO.set(DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(Double.parseDouble(inputNumberDTO.get())));
 			answerLabel.setText(inputNumberDTO.get());
 		}	
 		
@@ -78,7 +76,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			}
 			else // 다른오퍼레이터
 			{ 
@@ -97,7 +95,7 @@ public class OperatorButtonListener implements ActionListener
 				operandDTO.setLeftOperand(new BigDecimal(inputNumberDTO.get()));
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.get();
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			}
 			
 			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 오퍼레이터가 = 리고 라스트 오퍼레이터가있음 -> 평범한 계산
@@ -114,12 +112,13 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get())); 
 				operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
 			}
 		
 			else if (!operatorDTO.get().equals("=") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라이스인풋값이 없으면 -> 즉 처음입력
 			{
+				operandDTO.setLeftOperand(new BigDecimal(inputNumberDTO.get()));
 				operandDTO.setLeftOperand(new BigDecimal(inputNumberDTO.get()));
 				answerDTO.set(operandDTO.getLeftOperand().toString()); ///////////////////////////////////////////////////
 				inputNumberDTO.setLast(inputNumberDTO.get());
@@ -142,7 +141,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = answerDTO.get() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 
 			}
 			
@@ -157,7 +156,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = operandDTO.getLeftOperand() + operatorDTO.getLast() + operandDTO.getRightOperand() + operatorDTO.get();
 				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
-				answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(answerDTO.get()));
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			}
 		}	
 		inputNumberDTO.set("");

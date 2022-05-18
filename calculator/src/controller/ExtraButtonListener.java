@@ -69,7 +69,7 @@ public class ExtraButtonListener implements ActionListener
 				if(inputNumberDTO.get().equals("") || inputNumberDTO.get().equals("-")) // 공백까지 지워지면 0으로 셋팅
 					answerLabel.setText("0");
 				else
-					answerLabel.setText(DataProcessing.getDataProcessing().appendCommaInString(inputNumberDTO.get()));
+					answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(inputNumberDTO.get()));
 			}
 			inputNumberDTO.set(answerLabel.getText());
 			DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
@@ -87,7 +87,7 @@ public class ExtraButtonListener implements ActionListener
 					answerDTO.set(answerDTO.get().substring(1));
 				else // -가 아니면 -붙여주기
 					answerDTO.set("-" + answerDTO.get());
-				answerLabel.setText(answerDTO.get());		
+				answerLabel.setText(answerDTO.get());		 
 			}
 			else
 			{
