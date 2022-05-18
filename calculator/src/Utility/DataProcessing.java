@@ -78,8 +78,20 @@ public class DataProcessing
 
 	public void resizeLabel(JFrame frame, JLabel label)
 	{
+		int minimumSize;
+		
+		if (frame.getWidth() > 580)
+			minimumSize = frame.getWidth() - 270 - 50; 
+		else
+			minimumSize = frame.getWidth() - 50;
 		label.setFont(new Font("맑은 고딕", 0, 45));
-		while (label.getFont().getSize()/2 * label.getText().length() > frame.getWidth() - 50)
+				
+		if (label.getText().matches(Constant.EXCEPTION_TYPE_KOREAN))
+		{
+			label.setFont(new Font("맑은 고딕", 0, 28));
+			return;
+		}
+		while (label.getFont().getSize()/2 * label.getText().length() > minimumSize)
 		{
 			label.setFont(new Font("맑은 고딕", 0, label.getFont().getSize() - 1));
 			if (label.getFont().getSize() < 1)

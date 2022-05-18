@@ -3,6 +3,9 @@ package Utility;
 public class Constant 
 {
 	public static final int MAX_LONG_LENGTH = 16;
+	
+	public static final String EXCEPTION_TYPE_KOREAN = ".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*";
+	
 	public enum ButtonIndex
 	{ 
 		CE(0), C(1), BACK_SPACE(2), DIVISON(3), 

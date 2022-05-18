@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Utility.Constant;
 import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.OperatorDTO;
@@ -41,10 +42,14 @@ public class OperatorButtonListener implements ActionListener
 		this.calculation = new Calculation();
 		this.logManagement = new LogManagement(logPanel, operandDTO, operatorDTO, answerDTO);
 	}
-	
+	 
 	@Override
 	public void actionPerformed(ActionEvent e)  // operator가 입력되면
 	{		
+		
+		if (answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+			return;
+		
 		String formulaString = "", calculationResult;		
 		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
 			
@@ -65,7 +70,8 @@ public class OperatorButtonListener implements ActionListener
 			
 			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 라스트 오퍼레이터가 있고 = 가 입력된경우
 			{
-				operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+					operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
 				if (operandDTO.getRightOperand() == null)
 					operandDTO.setRightOperand(new BigDecimal(answerDTO.get()));
 				calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
@@ -74,7 +80,8 @@ public class OperatorButtonListener implements ActionListener
 				
 				answerDTO.set(calculationResult);
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
-				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			}
@@ -83,7 +90,8 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = DataProcessing.getDataProcessing().numberFormat(answerDTO.get()) + operatorDTO.get();
 				formulaLabel.setText(formulaString);
 				operatorDTO.setLast(operatorDTO.get());
-				operandDTO.setRightOperand(new BigDecimal(answerDTO.get()));
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+					operandDTO.setRightOperand(new BigDecimal(answerDTO.get()));
 			}
 		}
 		else // 숫자가 입력되고 오퍼레이터가 입력된 경우
@@ -110,10 +118,12 @@ public class OperatorButtonListener implements ActionListener
 				answerDTO.set(calculationResult);
 				inputNumberDTO.setLast("");
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
-				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get())); 
-				operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+					operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
 			}
 		
 			else if (!operatorDTO.get().equals("=") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라이스인풋값이 없으면 -> 즉 처음입력
@@ -139,7 +149,8 @@ public class OperatorButtonListener implements ActionListener
 				operatorDTO.setLast(operatorDTO.get());
 				inputNumberDTO.setLast(inputNumberDTO.get());
 				formulaString = DataProcessing.getDataProcessing().numberFormat(answerDTO.get()) + operatorDTO.get();
-				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 
@@ -154,7 +165,8 @@ public class OperatorButtonListener implements ActionListener
 				answerDTO.set(calculationResult);
 				inputNumberDTO.setLast("");
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
-				logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
+					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				formulaLabel.setText(formulaString);
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			}

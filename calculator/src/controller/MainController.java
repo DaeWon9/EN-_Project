@@ -87,7 +87,7 @@ public class MainController implements KeyListener, ComponentListener
 				}
 				else
 				{
-					logPanel.titleLabel.setText(" ");
+					logPanel.titleLabel.setText("");
 					mainFrame.getContentPane().removeAll();
 					mainFrame.textPanel.setBackground(new Color(169, 171, 175));
 					mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
@@ -239,7 +239,7 @@ public class MainController implements KeyListener, ComponentListener
 	public void componentResized(ComponentEvent e) {
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
 		showMainPanels();
-		if (mainFrame.getSize().width > 750)
+		if (mainFrame.getSize().width > 580)
 		{
 			mainFrame.getContentPane().removeAll();
 			mainFrame.textPanel.setBackground(new Color(241, 243, 249));

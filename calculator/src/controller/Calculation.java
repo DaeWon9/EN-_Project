@@ -44,7 +44,6 @@ public class Calculation
 		}
 		catch(ArithmeticException e) 
 		{
-			System.out.println(e.getMessage());
 			if(e.getMessage().equals("Division by zero"))
 				return "0으로 나눌 수 없습니다"; 
 			else
