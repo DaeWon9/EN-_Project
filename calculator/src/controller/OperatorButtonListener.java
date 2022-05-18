@@ -47,7 +47,7 @@ public class OperatorButtonListener implements ActionListener
 	{		
 		String formulaString = "", calculationResult;		
 		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
-	
+			
 		operatorDTO.set(((JButton)e.getSource()).getText());
 		if (!inputNumberDTO.get().equals(""))
 		{

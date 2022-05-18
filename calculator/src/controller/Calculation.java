@@ -15,8 +15,7 @@ public class Calculation
 	{
 		BigDecimal leftOperand, rightOperand;
 		BigDecimal calculateResult = new BigDecimal("0");
-		String returnString;		
-		
+
 		operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand().toString())));
 		operandDTO.setRightOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand().toString()))); 
 	
@@ -28,10 +27,10 @@ public class Calculation
 			switch (operatorDTO.getLast())
 			{
 				case "÷":
-					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL64);
+					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL128);
 					break;
 				case "x":
-					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL64);
+					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);
 					break;
 				case "-":
 					calculateResult = leftOperand.subtract(rightOperand);
@@ -43,19 +42,15 @@ public class Calculation
 					break;			
 			}
 		}
-		catch(ArithmeticException e)
+		catch(ArithmeticException e) 
 		{
-			return "0으로 나눌 수 없습니다"; 
+			System.out.println(e.getMessage());
+			if(e.getMessage().equals("Division by zero"))
+				return "0으로 나눌 수 없습니다"; 
+			else
+				return "정의되지 않은 결과입니다.";
 		}
-		
-		//returnString = DataProcessing.getDataProcessing().deleteUnnecessaryDecimalPoint(calculateResult.toString()); //반환할때 불필요 소수점 제거
 
-		/*
-		BigDecimal compareNumber = new BigDecimal("1000000000000000");
-		if (calculateResult.compareTo(compareNumber) > 0)
-			return String.format("%e", calculateResult);	//calculateResult.stripTrailingZeros().toPlainString()
-		*/
 		return calculateResult.toString();	
-		//return calculateResult.toString();
 	}
 } 

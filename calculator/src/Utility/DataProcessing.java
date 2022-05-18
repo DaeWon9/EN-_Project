@@ -42,16 +42,19 @@ public class DataProcessing
 	
 	public String numberFormat(String numberString)
 	{
+		if (numberString.equals("0으로 나눌 수 없습니다"))
+			return "0으로 나눌 수 없습니다";
+		
 		String formatResult= "";
 		BigDecimal bigDeciaml = new BigDecimal(numberString);
 		DecimalFormat decimalFormat = new DecimalFormat(",###.################");
 		DecimalFormat exponentialFormat = new DecimalFormat("0.###############E0");
 
-		if (bigDeciaml.compareTo(new BigDecimal("9.999999999999999e+9999")) > 0 || bigDeciaml.compareTo(new BigDecimal("-9.999999999999999e+9999")) < 0)
+		if (bigDeciaml.compareTo(new BigDecimal("9.999999999999999e+9999")) > 0 || bigDeciaml.compareTo(new BigDecimal("-9.999999999999999e+9999")) < 0 || (bigDeciaml.compareTo(new BigDecimal("1e-9999")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) > 0) || (bigDeciaml.compareTo(new BigDecimal("-1e-9999")) > 0 && bigDeciaml.compareTo(BigDecimal.ZERO) < 0))
 			formatResult = "오버플로";
 		else if (bigDeciaml.compareTo(new BigDecimal("10000000000000000")) > 0)
 			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E", "e+");
-		else if (bigDeciaml.compareTo(new BigDecimal("0.00000000000001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) != 0 )
+		else if (bigDeciaml.compareTo(new BigDecimal("0.0000000000000001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) != 0 )
 			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E-", "e-");
 		else
 			formatResult = decimalFormat.format(bigDeciaml).replace("E", "e");
