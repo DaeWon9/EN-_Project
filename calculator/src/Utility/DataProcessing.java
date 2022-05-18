@@ -8,7 +8,6 @@ import java.text.NumberFormat;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import view.MainFrame;
 
 public class DataProcessing 
 {
@@ -80,11 +79,7 @@ public class DataProcessing
 	public void resizeLabel(JFrame frame, JLabel label)
 	{
 		int minimumSize;
-		
-		if (frame.getWidth() > 580)
-			minimumSize = frame.getWidth() - 270 - 50; 
-		else
-			minimumSize = frame.getWidth() - 50;
+		minimumSize = setMininumTextSize(frame);
 		label.setFont(new Font("맑은 고딕", 0, 45));
 				
 		if (label.getText().matches(Constant.EXCEPTION_TYPE_KOREAN))
@@ -98,5 +93,16 @@ public class DataProcessing
 			if (label.getFont().getSize() < 1)
 				break;
 		}
+	}
+	
+	private int setMininumTextSize(JFrame frame)
+	{
+		int minimumSize;
+		if (frame.getWidth() > 580)
+			minimumSize = frame.getWidth() - 300 - 50; 
+		else
+			minimumSize = frame.getWidth() - 50;
+		
+		return minimumSize;
 	}
 }

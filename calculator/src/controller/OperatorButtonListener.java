@@ -40,7 +40,7 @@ public class OperatorButtonListener implements ActionListener
 		this.operatorDTO = operatorDTO;
 		this.operandDTO = operandDTO;
 		this.calculation = new Calculation();
-		this.logManagement = new LogManagement(logPanel, operandDTO, operatorDTO, answerDTO);
+		this.logManagement = new LogManagement(logPanel, operandDTO, operatorDTO, answerDTO, inputNumberDTO);
 	}
 	 
 	@Override

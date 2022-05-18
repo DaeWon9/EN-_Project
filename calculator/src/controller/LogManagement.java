@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import Utility.Constant;
 import Utility.DataProcessing;
 import model.AnswerDTO;
+import model.InputNumberDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
 
@@ -28,13 +29,15 @@ public class LogManagement
 	private OperandDTO operandDTO;
 	private OperatorDTO operatorDTO;
 	private AnswerDTO answerDTO;
+	private InputNumberDTO inputNumberDTO;
 	
-	public LogManagement(JPanel logPanel, OperandDTO operandDTO, OperatorDTO operatorDTO, AnswerDTO answerDTO)
+	public LogManagement(JPanel logPanel, OperandDTO operandDTO, OperatorDTO operatorDTO, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO)
 	{
 		this.logPanel = logPanel;
 		this.operandDTO = operandDTO;
 		this.operatorDTO = operatorDTO;
 		this.answerDTO = answerDTO;
+		this.inputNumberDTO = inputNumberDTO;
 	}
 	
 	public void addLog(JLabel formulaLabel, JLabel answerLabel, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
@@ -72,7 +75,8 @@ public class LogManagement
 				operandDTO.setLeftOperand(new BigDecimal(answer));
 				operandDTO.setRightOperand(RightOperand);
 				operatorDTO.setLast(operator);			
-				answerDTO.set(answer);			
+				answerDTO.set(answer);	
+				//inputNumberDTO.set(logString);
 			}
 		});
 		
