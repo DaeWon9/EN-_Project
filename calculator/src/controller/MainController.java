@@ -132,6 +132,7 @@ public class MainController implements KeyListener, ComponentListener
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.C.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.BACK_SPACE.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.NEGATE.getIndex()].addActionListener(extraButtonListener);
+		
 	}
 	
 	private void showMainPanels()

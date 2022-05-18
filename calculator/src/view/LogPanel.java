@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -48,6 +50,16 @@ public class LogPanel extends JPanel
 		deleteButton.setAlignmentX(RIGHT_ALIGNMENT);
 		deleteButton.setBorderPainted(false);
 		deleteButton.setContentAreaFilled(false);
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logButtonPanel.removeAll();
+				topLabel.setText("아직 기록이 없음");
+				logButtonPanel.add(topLabel);
+				logButtonPanel.repaint();
+				logButtonPanel.revalidate();
+			}
+		});
 		add(deleteButton, BorderLayout.SOUTH);
 	}
 }
