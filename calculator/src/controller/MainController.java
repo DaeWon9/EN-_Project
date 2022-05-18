@@ -3,6 +3,7 @@ package controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -92,8 +93,9 @@ public class MainController implements KeyListener, ComponentListener
 					mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
 					mainFrame.getContentPane().add(logPanel, BorderLayout.CENTER);
 					
-					scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);
-					mainFrame.getContentPane().add(scrollPane);
+					scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);		
+					scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10,100));
+					logPanel.add(scrollPane);
 
 					mainFrame.revalidate();
 					mainFrame.repaint();
@@ -237,20 +239,21 @@ public class MainController implements KeyListener, ComponentListener
 	public void componentResized(ComponentEvent e) {
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
 		showMainPanels();
-		if (mainFrame.getSize().width > 580)
+		if (mainFrame.getSize().width > 750)
 		{
 			mainFrame.getContentPane().removeAll();
 			mainFrame.textPanel.setBackground(new Color(241, 243, 249));
 			mainFrame.textPanel.logButton.setVisible(false);
 			logPanel.titleLabel.setText(" [ 기록 ]");
 			mainFrame.textPanel.emptyLabel.setText(" ");
-			
+				
 			JPanel leftPanel = new JPanel();
 			leftPanel.setLayout(new BorderLayout());
 			leftPanel.add(mainFrame.textPanel, BorderLayout.NORTH);
 			leftPanel.add(mainFrame.buttonPanel, BorderLayout.CENTER);
 		
 			scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);
+			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10,100));
 			logPanel.add(scrollPane);
 			
 			mainFrame.getContentPane().add(leftPanel, BorderLayout.CENTER);

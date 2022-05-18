@@ -28,10 +28,10 @@ public class Calculation
 			switch (operatorDTO.getLast())
 			{
 				case "÷":
-					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL128);
+					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL64);
 					break;
 				case "x":
-					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);
+					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL64);
 					break;
 				case "-":
 					calculateResult = leftOperand.subtract(rightOperand);

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 public class LogPanel extends JPanel
 {
@@ -24,7 +25,7 @@ public class LogPanel extends JPanel
 		
 		setLayout(new BorderLayout());
 		setBackground(new Color(241, 243, 249));
-		setPreferredSize(new Dimension(300,140));
+		setPreferredSize(new Dimension(270,140));
 
 		titleLabel = new JLabel(" [ 기록 ]");
 		titleLabel.setFont(new Font("맑은 고딕", 0, 20));
@@ -40,26 +41,27 @@ public class LogPanel extends JPanel
 		topLabel.setFont(new Font("맑은 고딕", 0, 15));
 		topLabel.setAlignmentX(LEFT_ALIGNMENT);
 		logButtonPanel.add(topLabel);
-
+		
 		add(logButtonPanel, BorderLayout.CENTER);
 		
 		
 		ImageIcon deleteButtonIcon = new ImageIcon(LogPanel.class.getResource("/Image/deleteIcon.png"));	
 		deleteButton = new JButton(deleteButtonIcon);	
 		deleteButton.setSize(deleteButtonIcon.getIconWidth(), deleteButtonIcon.getIconHeight());
-		deleteButton.setAlignmentX(RIGHT_ALIGNMENT);
+		
+		deleteButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		deleteButton.setBorderPainted(false);
 		deleteButton.setContentAreaFilled(false);
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logButtonPanel.removeAll();
-				topLabel.setText("아직 기록이 없음");
 				logButtonPanel.add(topLabel);
 				logButtonPanel.repaint();
 				logButtonPanel.revalidate();
 			}
 		});
+		
 		add(deleteButton, BorderLayout.SOUTH);
 	}
 }

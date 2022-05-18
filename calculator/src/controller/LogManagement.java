@@ -39,20 +39,36 @@ public class LogManagement
 	
 	public void addLog(JLabel formulaLabel, JLabel answerLabel, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
 	{ 
+		String log_string_form;
+		String logString;
 		String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + " " + operator + " " + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
-		String logString = String.format(Constant.LOG_STRING_FORM, formula, DataProcessing.getDataProcessing().numberFormat(answer));
+		formula = DataProcessing.getDataProcessing().deleteComma(formula);
+		if (formula.length() > 25)
+		{
+			log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'>%s</p><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
+			logString = String.format(log_string_form, DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + " " + operator, DataProcessing.getDataProcessing().numberFormat(RightOperand.toString()), DataProcessing.getDataProcessing().numberFormat(answer));
+		}
+		else
+		{
+			log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
+			logString = String.format(log_string_form, formula, DataProcessing.getDataProcessing().numberFormat(answer));
+		}
+
 		JButton logButton = new JButton(logString);
 		logButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		logButton.setFont(buttonFont);
 		logButton.setMinimumSize(new Dimension(350,60));
 		logButton.setFocusPainted(false); 
 		logButton.setContentAreaFilled(false);
+		//logButton.setBorderPainted(false);
 		logButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				formulaLabel.setText(leftOperand + operator + RightOperand + "=");
-				answerLabel.setText(answer);
+				String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + operator + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
+				formula = DataProcessing.getDataProcessing().deleteComma(formula);
+				formulaLabel.setText(formula);
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answer));
 				operandDTO.setLeftOperand(leftOperand);
 				operandDTO.setRightOperand(RightOperand);
 				operatorDTO.setLast(operator);			
