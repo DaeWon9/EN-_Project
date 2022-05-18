@@ -25,7 +25,7 @@ public class LogPanel extends JPanel
 		
 		setLayout(new BorderLayout());
 		setBackground(new Color(241, 243, 249));
-		setPreferredSize(new Dimension(270,140));
+		setPreferredSize(new Dimension(280,140));
 
 		titleLabel = new JLabel(" [ 기록 ]");
 		titleLabel.setFont(new Font("맑은 고딕", 0, 20));

@@ -44,7 +44,8 @@ public class DataProcessing
 	{
 		if (numberString.equals("0으로 나눌 수 없습니다"))
 			return "0으로 나눌 수 없습니다";
-		
+		else if (numberString.equals("정의되지 않은 결과입니다."))
+			return "정의되지 않은 결과입니다.";
 		String formatResult= "";
 		BigDecimal bigDeciaml = new BigDecimal(numberString);
 		DecimalFormat decimalFormat = new DecimalFormat(",###.################");
@@ -88,7 +89,7 @@ public class DataProcessing
 				
 		if (label.getText().matches(Constant.EXCEPTION_TYPE_KOREAN))
 		{
-			label.setFont(new Font("맑은 고딕", 0, 28));
+			label.setFont(new Font("맑은 고딕", 0, 25));
 			return;
 		}
 		while (label.getFont().getSize()/2 * label.getText().length() > minimumSize)

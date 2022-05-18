@@ -45,12 +45,12 @@ public class LogManagement
 		formula = DataProcessing.getDataProcessing().deleteComma(formula);
 		if (formula.length() > 25)
 		{
-			log_string_form = "<HTML><body><p style='font-size:10px;text-align:right;'>%s</p><p style='font-size:10px;text-align:right;'> %s = </p><p style='font-size:12px;text-align:right;'><strong>%s</strong></p></body></HTML>";
+			log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'>%s</p><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
 			logString = String.format(log_string_form, DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + " " + operator, DataProcessing.getDataProcessing().numberFormat(RightOperand.toString()), DataProcessing.getDataProcessing().numberFormat(answer));
 		}
 		else
 		{
-			log_string_form = "<HTML><body><p style='font-size:10px;text-align:right;'> %s = </p><p style='font-size:12px;text-align:right;'><strong>%s</strong></p></body></HTML>";
+			log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
 			logString = String.format(log_string_form, formula, DataProcessing.getDataProcessing().numberFormat(answer));
 		}
 
@@ -69,7 +69,7 @@ public class LogManagement
 				formula = DataProcessing.getDataProcessing().deleteComma(formula);
 				formulaLabel.setText(formula + "=");
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answer));
-				operandDTO.setLeftOperand(leftOperand);
+				operandDTO.setLeftOperand(new BigDecimal(answer));
 				operandDTO.setRightOperand(RightOperand);
 				operatorDTO.setLast(operator);			
 				answerDTO.set(answer);			
