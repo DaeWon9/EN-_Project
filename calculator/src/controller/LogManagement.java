@@ -67,7 +67,7 @@ public class LogManagement
 			public void actionPerformed(ActionEvent e) {
 				String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + operator + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
 				formula = DataProcessing.getDataProcessing().deleteComma(formula);
-				formulaLabel.setText(formula);
+				formulaLabel.setText(formula + "=");
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answer));
 				operandDTO.setLeftOperand(leftOperand);
 				operandDTO.setRightOperand(RightOperand);
