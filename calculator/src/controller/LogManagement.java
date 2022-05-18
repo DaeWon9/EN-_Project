@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import Utility.Constant;
+import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
@@ -38,8 +39,8 @@ public class LogManagement
 	
 	public void addLog(JLabel formulaLabel, JLabel answerLabel, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
 	{ 
-		String formula = leftOperand + operator + RightOperand;
-		String logString = String.format(Constant.LOG_STRING_FORM, formula, answer);
+		String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + " " + operator + " " + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
+		String logString = String.format(Constant.LOG_STRING_FORM, formula, DataProcessing.getDataProcessing().numberFormat(answer));
 		JButton logButton = new JButton(logString);
 		logButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		logButton.setFont(buttonFont);
