@@ -37,7 +37,7 @@ public class LogPanel extends JPanel
 		logButtonPanel.setBackground(new Color(241, 243, 249));
 		logButtonPanel.setLayout(new BoxLayout(logButtonPanel, BoxLayout.Y_AXIS));
 
-		topLabel = new JLabel(" ");
+		topLabel = new JLabel("아직 기록이 없음");
 		topLabel.setFont(new Font("맑은 고딕", 0, 15));
 		topLabel.setAlignmentX(LEFT_ALIGNMENT);
 		logButtonPanel.add(topLabel);
@@ -56,6 +56,7 @@ public class LogPanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logButtonPanel.removeAll();
+				topLabel.setText("아직 기록이 없음");
 				logButtonPanel.add(topLabel);
 				logButtonPanel.repaint();
 				logButtonPanel.revalidate();

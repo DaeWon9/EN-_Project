@@ -58,7 +58,22 @@ public class MainController implements KeyListener, ComponentListener
 	private void setTextPanelEventListner()
 	{
 		mainFrame.textPanel.addMouseListener(new MouseListener() {
-			
+			@Override
+			public void mouseReleased(MouseEvent e) 
+			{
+				if (mainFrame.textPanel.getBackground().toString().contains("[r=169,g=171,b=175]"))
+					showMainPanels();
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}	
+			@Override
+			public void mouseEntered(MouseEvent e) {}	
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+		mainFrame.textPanel.formulaScroll.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) 
 			{
@@ -81,9 +96,7 @@ public class MainController implements KeyListener, ComponentListener
 			public void actionPerformed(ActionEvent e) 
 			{
 				if (mainFrame.textPanel.getBackground().toString().contains("[r=169,g=171,b=175]"))
-				{
 					showMainPanels();
-				}
 				else
 				{
 					logPanel.titleLabel.setText("");
@@ -267,24 +280,16 @@ public class MainController implements KeyListener, ComponentListener
 	}
 
 	@Override
-	public void componentMoved(ComponentEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void componentMoved(ComponentEvent e) {	
 	}
 
 	@Override
 	public void componentShown(ComponentEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void componentHidden(ComponentEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-
-	
 }
 
 
