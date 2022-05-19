@@ -8,17 +8,16 @@ import javax.swing.JLabel;
 import Utility.Constant;
 import Utility.DataProcessing;
 import model.InputNumberDTO;
+import view.MainFrame;
 
 public class NumberButtonListener implements ActionListener
 {
 	private InputNumberDTO inputNumberDTO;
-	private JLabel answerLabel;
-	private JFrame mainFrame;
+	private MainFrame mainFrame;
 	
-	public NumberButtonListener(JFrame mainFrame, JLabel answerLabel, InputNumberDTO inputNumberDTO)
+	public NumberButtonListener(MainFrame mainFrame, InputNumberDTO inputNumberDTO)
 	{
 		this.inputNumberDTO = inputNumberDTO;
-		this.answerLabel = answerLabel;
 		this.mainFrame = mainFrame;
 	}
 		
@@ -60,8 +59,8 @@ public class NumberButtonListener implements ActionListener
 				inputNumberDTO.set(DataProcessing.getDataProcessing().numberFormat(inputNumber));
 			}
 		}
-		answerLabel.setText(inputNumberDTO.get());
-		DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
+		mainFrame.textPanel.answer.setText(inputNumberDTO.get());
+		DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
 		mainFrame.requestFocus();
 	}	
 }

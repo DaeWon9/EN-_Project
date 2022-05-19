@@ -40,20 +40,20 @@ public class MainController implements KeyListener, ComponentListener
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO();
 	
-	private NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame, mainFrame.textPanel.answer, inputNumberDTO);
-	private OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, logPanel.logButtonPanel, mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
-	private ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame, mainFrame.textPanel.answer, mainFrame.textPanel.formula, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
-	
 	public void start()
-	{	
+	{
+		NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame, inputNumberDTO);
+		OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, logPanel, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
+		ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
+		
 		mainFrame.showFrame();
-		setNumberButtonListener();
-		setOperatorButtonListener();	
-		setExtraButtonListener();
+		setNumberButtonListener(numberButtonListener);
+		setOperatorButtonListener(operatorButtonListener);	
+		setExtraButtonListener(extraButtonListener);
 		setTextPanelEventListner();
 		mainFrame.addKeyListener(this);
 		mainFrame.addComponentListener(this);
-
+		//System.out.println(mainFrame.textPanel.formulaScroll.getHorizontalScrollBar().isVisible());
 	}
 	
 	private void setTextPanelEventListner()
@@ -95,6 +95,8 @@ public class MainController implements KeyListener, ComponentListener
 					
 					scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);		
 					scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10,100));
+					scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+
 					logPanel.add(scrollPane);
 
 					mainFrame.revalidate();
@@ -104,7 +106,7 @@ public class MainController implements KeyListener, ComponentListener
 		});
 	}
 	
-	private void setNumberButtonListener() // 숫자 버튼 이벤트처리
+	private void setNumberButtonListener(NumberButtonListener numberButtonListener) // 숫자 버튼 이벤트처리
 	{
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.ZERO.getIndex()].addActionListener(numberButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.ONE.getIndex()].addActionListener(numberButtonListener);
@@ -119,7 +121,7 @@ public class MainController implements KeyListener, ComponentListener
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.POINT.getIndex()].addActionListener(numberButtonListener);
 	}
 	
-	private void setOperatorButtonListener() // 연산자 버튼 이벤트처리
+	private void setOperatorButtonListener(OperatorButtonListener operatorButtonListener) // 연산자 버튼 이벤트처리
 	{
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.DIVISON.getIndex()].addActionListener(operatorButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.MULTIPLY.getIndex()].addActionListener(operatorButtonListener);
@@ -128,13 +130,12 @@ public class MainController implements KeyListener, ComponentListener
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.CALCULATION.getIndex()].addActionListener(operatorButtonListener);
 	}
 	
-	private void setExtraButtonListener() // 그 외의 버튼 이벤트처리
+	private void setExtraButtonListener(ExtraButtonListener extraButtonListener) // 그 외의 버튼 이벤트처리
 	{
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.CE.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.C.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.BACK_SPACE.getIndex()].addActionListener(extraButtonListener);
 		mainFrame.buttonPanel.button[Constant.ButtonIndex.NEGATE.getIndex()].addActionListener(extraButtonListener);
-		
 	}
 	
 	private void showMainPanels()
@@ -254,6 +255,7 @@ public class MainController implements KeyListener, ComponentListener
 		
 			scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);
 			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10,100));
+			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 			logPanel.add(scrollPane);
 			
 			mainFrame.getContentPane().add(leftPanel, BorderLayout.CENTER);
@@ -261,7 +263,6 @@ public class MainController implements KeyListener, ComponentListener
 			mainFrame.revalidate();
 			mainFrame.repaint();
 		}
-		
 	}
 
 	@Override

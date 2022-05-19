@@ -99,9 +99,9 @@ public class DataProcessing
 	{
 		int minimumSize;
 		if (frame.getWidth() > 580)
-			minimumSize = frame.getWidth() - 300 - 50; 
+			minimumSize = frame.getWidth() - 300 - 70; 
 		else
-			minimumSize = frame.getWidth() - 50;
+			minimumSize = frame.getWidth() - 70;
 		
 		return minimumSize;
 	}
