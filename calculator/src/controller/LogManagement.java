@@ -20,18 +20,19 @@ import model.AnswerDTO;
 import model.InputNumberDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
+import view.LogPanel;
 
 
 public class LogManagement
 {
 	private Font buttonFont = new Font("맑은 고딕", 0, 20);
-	private JPanel logPanel;
+	private LogPanel logPanel;
 	private OperandDTO operandDTO;
 	private OperatorDTO operatorDTO;
 	private AnswerDTO answerDTO;
 	private InputNumberDTO inputNumberDTO;
 	
-	public LogManagement(JPanel logPanel, OperandDTO operandDTO, OperatorDTO operatorDTO, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO)
+	public LogManagement(LogPanel logPanel, OperandDTO operandDTO, OperatorDTO operatorDTO, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO)
 	{
 		this.logPanel = logPanel;
 		this.operandDTO = operandDTO;
@@ -81,7 +82,7 @@ public class LogManagement
 		});
 		
 		
-		logPanel.add(logButton,1);
+		logPanel.logButtonPanel.add(logButton,1);
 		if (logPanel.getComponentCount()>21) // 로그패널의 요소 개수가 21개가 넘어가면 (상단에 텍스트가 포함되어서 21)
 			logPanel.remove(logPanel.getComponent(21)); // 가장 아래요소 제거
 		

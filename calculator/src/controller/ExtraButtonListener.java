@@ -110,6 +110,7 @@ public class ExtraButtonListener implements ActionListener
 				DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
 			}
 		}
+		DataProcessing.getDataProcessing().setArrowButtonVisible(mainFrame);
 		mainFrame.requestFocus();
 	}
 

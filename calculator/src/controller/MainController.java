@@ -53,7 +53,6 @@ public class MainController implements KeyListener, ComponentListener
 		setTextPanelEventListner();
 		mainFrame.addKeyListener(this);
 		mainFrame.addComponentListener(this);
-		//System.out.println(mainFrame.textPanel.formulaScroll.getHorizontalScrollBar().isVisible());
 	}
 	
 	private void setTextPanelEventListner()
@@ -90,6 +89,7 @@ public class MainController implements KeyListener, ComponentListener
 					logPanel.titleLabel.setText("");
 					mainFrame.getContentPane().removeAll();
 					mainFrame.textPanel.setBackground(new Color(169, 171, 175));
+					mainFrame.textPanel.formulaScroll.getViewport().setBackground(new Color(169, 171, 175));
 					mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
 					mainFrame.getContentPane().add(logPanel, BorderLayout.CENTER);
 					
@@ -144,6 +144,7 @@ public class MainController implements KeyListener, ComponentListener
 		mainFrame.textPanel.logButton.setVisible(true);
 		mainFrame.getContentPane().removeAll();
 		mainFrame.textPanel.setBackground(new Color(241, 243, 249));
+		mainFrame.textPanel.formulaScroll.getViewport().setBackground(new Color(241, 243, 249));
 		mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
 		mainFrame.getContentPane().add(mainFrame.buttonPanel, BorderLayout.CENTER);
 		mainFrame.revalidate();

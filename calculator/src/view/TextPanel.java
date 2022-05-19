@@ -57,6 +57,7 @@ public class TextPanel extends JPanel
 		
 		formulaScroll = new JScrollPane(formula);
 		formulaScroll.setMaximumSize(new Dimension(10000,30));
+		formulaScroll.setMinimumSize(new Dimension(215,30));
 		JScrollBar jScrollBar = formulaScroll.getHorizontalScrollBar();
 		jScrollBar.setPreferredSize(new Dimension(400,0));
 		jScrollBar.setUnitIncrement(20);
@@ -66,36 +67,38 @@ public class TextPanel extends JPanel
 		
 		ImageIcon leftArrowIcon = new ImageIcon(TextPanel.class.getResource("/Image/leftArrow.png"));	
 		leftArrowButton = new JButton(leftArrowIcon);	
-		leftArrowButton.setSize(logButtonIcon.getIconWidth(), logButtonIcon.getIconHeight());
+		leftArrowButton.setAlignmentX(LEFT_ALIGNMENT);
+		leftArrowButton.setPreferredSize(new Dimension(20,20));
+		leftArrowButton.setMaximumSize(new Dimension(20,20));
 		leftArrowButton.setBorderPainted(false);
 		leftArrowButton.setContentAreaFilled(false);
-		leftArrowButton.setAlignmentX(LEFT_ALIGNMENT);
 		leftArrowButton.setVisible(false);	
 		leftArrowButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				jScrollBar.getModel().setValue(jScrollBar.getModel().getValue() - 100);
+				jScrollBar.getModel().setValue(jScrollBar.getModel().getValue() - 200);
 			}
 		});
 		
 		ImageIcon rightArrowIcon = new ImageIcon(TextPanel.class.getResource("/Image/rightArrow.png"));		
 		rightArrowButton = new JButton(rightArrowIcon);	
-		rightArrowButton.setSize(logButtonIcon.getIconWidth(), logButtonIcon.getIconHeight());
+		rightArrowButton.setAlignmentX(RIGHT_ALIGNMENT);
+		rightArrowButton.setPreferredSize(new Dimension(20,20));
+		rightArrowButton.setMaximumSize(new Dimension(20,20));
 		rightArrowButton.setBorderPainted(false);
 		rightArrowButton.setContentAreaFilled(false);
-		rightArrowButton.setAlignmentX(RIGHT_ALIGNMENT);
 		rightArrowButton.setVisible(false);
 		rightArrowButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				jScrollBar.getModel().setValue(jScrollBar.getModel().getValue() + 100);
+				jScrollBar.getModel().setValue(jScrollBar.getModel().getValue() + 200);
 			}
 		});
 		
 		
 		formulaPanel.add(leftArrowButton, BorderLayout.WEST);
-		formulaPanel.add(rightArrowButton, BorderLayout.EAST);
 		formulaPanel.add(formulaScroll, BorderLayout.CENTER);
+		formulaPanel.add(rightArrowButton, BorderLayout.EAST);
 		add(formulaPanel);
 	
 		

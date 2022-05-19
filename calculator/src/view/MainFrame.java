@@ -18,11 +18,11 @@ public class MainFrame extends JFrame
 	public void showFrame()
 	{
 		setTitle("계산기");
-		setMinimumSize(new Dimension(322, 502));
+		setMinimumSize(new Dimension(335, 502));
 		ImageIcon imageIcon = new ImageIcon(MainFrame.class.getResource("/Image/calculatorIcon.png"));		
 		setIconImage(imageIcon.getImage());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocation((windowSize.width - 322) / 2, (windowSize.height - 502) / 2); 	
+		setLocation((windowSize.width - 335) / 2, (windowSize.height - 502) / 2); 	
 		
 		add(textPanel, BorderLayout.NORTH);
 		add(buttonPanel, BorderLayout.CENTER);

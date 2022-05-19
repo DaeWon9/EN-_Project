@@ -167,6 +167,7 @@ public class OperatorButtonListener implements ActionListener
 		}	
 		inputNumberDTO.set("");
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
+		DataProcessing.getDataProcessing().setArrowButtonVisible(mainFrame);
 		mainFrame.requestFocus();
 	}
 
@@ -183,5 +184,4 @@ public class OperatorButtonListener implements ActionListener
 			}
 		}
 	}
-
 }

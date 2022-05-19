@@ -8,6 +8,8 @@ import java.text.NumberFormat;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import view.MainFrame;
+
 
 public class DataProcessing 
 {
@@ -105,4 +107,32 @@ public class DataProcessing
 		
 		return minimumSize;
 	}
+	
+	
+	private boolean isScrollbarVisible(MainFrame mainFrame)
+	{
+		return mainFrame.textPanel.formulaScroll.getHorizontalScrollBar().isVisible();
+	}
+	
+	public void setArrowButtonVisible(MainFrame mainFrame)
+	{
+		if (isScrollbarVisible(mainFrame))
+		{
+			mainFrame.textPanel.leftArrowButton.setVisible(true);
+			mainFrame.textPanel.rightArrowButton.setVisible(true);
+		}
+
+		else
+		{
+			mainFrame.textPanel.leftArrowButton.setVisible(false);
+			mainFrame.textPanel.rightArrowButton.setVisible(false);
+		}
+
+	}
+	
+	
+	
+	
+	
+	
 }
