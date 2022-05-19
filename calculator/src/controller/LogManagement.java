@@ -47,7 +47,7 @@ public class LogManagement
 	public void addLog(JLabel formulaLabel, JLabel answerLabel, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
 	{ 
 		logPanel.topLabel.setText(" ");
-		
+		logPanel.deleteButton.setVisible(true);
 		String log_string_form;
 		String logString;
 		String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + " " + operator + " " + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());

@@ -56,11 +56,14 @@ public class LogPanel extends JPanel
 				logButtonPanel.removeAll();
 				topLabel.setText("아직 기록이 없음");
 				logButtonPanel.add(topLabel);
+				deleteButton.setVisible(false);
 				logButtonPanel.repaint();
 				logButtonPanel.revalidate();
 			}
 		});
 		
+		
+		deleteButton.setVisible(false);
 		add(deleteButton, BorderLayout.SOUTH);
 	}
 }
