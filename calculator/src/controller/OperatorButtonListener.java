@@ -139,14 +139,17 @@ public class OperatorButtonListener implements ActionListener
 				calculationResult = calculation.calculate(operandDTO, operatorDTO);	//계산
 				answerDTO.set(calculationResult);
 				inputNumberDTO.setLast("");
-				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN)) //위치 조정해줘야할듯?????
+				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN)) 
+				{
 					logManagement.addLog(formulaLabel, answerLabel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
-				operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
-				operandDTO.setRightOperand(null);
-				operatorDTO.setLast(operatorDTO.get());
-				inputNumberDTO.setLast(inputNumberDTO.get());
-				formulaString = DataProcessing.getDataProcessing().numberFormat(answerDTO.get()) + operatorDTO.get();
-				formulaLabel.setText(formulaString);
+					operandDTO.setLeftOperand(new BigDecimal(answerDTO.get()));
+
+					operandDTO.setRightOperand(null);
+					operatorDTO.setLast(operatorDTO.get());
+					inputNumberDTO.setLast(inputNumberDTO.get());
+					formulaString = DataProcessing.getDataProcessing().numberFormat(answerDTO.get()) + operatorDTO.get();
+					formulaLabel.setText(formulaString);
+				}	
 				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 
 			}

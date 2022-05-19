@@ -23,7 +23,7 @@ public class NumberButtonListener implements ActionListener
 	}
 		
 	@Override
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e)
 	{
 		String inputNumber;
 		String integerPart;
@@ -60,8 +60,6 @@ public class NumberButtonListener implements ActionListener
 				inputNumberDTO.set(DataProcessing.getDataProcessing().numberFormat(inputNumber));
 			}
 		}
-		// 마지막ㅇ ㅅ
-
 		answerLabel.setText(inputNumberDTO.get());
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 		mainFrame.requestFocus();

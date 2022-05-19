@@ -54,6 +54,11 @@ public class ExtraButtonListener implements ActionListener
 		
 		else if (((JButton)e.getSource()).getText().equals("CE")) // CE버튼은 최근 입력삭제....? -> 예외처리 추가해야함
 		{
+			if (formulaLabel.getText().contains("=")) // 좌측 오퍼랜드 초기화, 상단에 수식 초기화, 인풋넘버 초기화
+			{
+				operandDTO.setLeftOperand(null);
+				formulaLabel.setText(" ");
+			}
 			answerDTO.set("0");
 			inputNumberDTO.set("");
 			answerLabel.setText("0");
@@ -63,15 +68,20 @@ public class ExtraButtonListener implements ActionListener
 		{
 
 			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
-			if (inputNumberDTO.get().length() > 0)
+			if (inputNumberDTO.get().length() > 0 && !formulaLabel.getText().equals("  "))
 			{
 				inputNumberDTO.set(inputNumberDTO.get().substring(0, inputNumberDTO.get().length()-1));
 				if(inputNumberDTO.get().equals("") || inputNumberDTO.get().equals("-")) // 공백까지 지워지면 0으로 셋팅
 					answerLabel.setText("0");
 				else
 					answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(inputNumberDTO.get()));
+				inputNumberDTO.set(answerLabel.getText());
 			}
-			inputNumberDTO.set(answerLabel.getText());
+			else
+			{
+				formulaLabel.setText("  ");
+				inputNumberDTO.set("");
+			}
 			DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 		}
 		
