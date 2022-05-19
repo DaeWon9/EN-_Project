@@ -52,7 +52,7 @@ public class ExtraButtonListener implements ActionListener
 			formulaLabel.setText(" ");
 		}
 		
-		else if (((JButton)e.getSource()).getText().equals("CE")) // CE버튼은 최근 입력삭제....? -> 예외처리 추가해야함
+		else if (((JButton)e.getSource()).getText().equals("CE"))
 		{
 			if (formulaLabel.getText().contains("=")) // 좌측 오퍼랜드 초기화, 상단에 수식 초기화, 인풋넘버 초기화
 			{
@@ -64,11 +64,11 @@ public class ExtraButtonListener implements ActionListener
 			answerLabel.setText("0");
 		}
 		
-		else if (((JButton)e.getSource()).getText().equals("⌫")) // <-버튼은 숫자입력값에서 하나 지우기
+		else if (((JButton)e.getSource()).getText().equals("⌫"))
 		{
 
 			inputNumberDTO.set(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get()));
-			if (inputNumberDTO.get().length() > 0 && !formulaLabel.getText().equals("  "))
+			if (inputNumberDTO.get().length() > 0 && !formulaLabel.getText().equals("  "))//여기 수정
 			{
 				inputNumberDTO.set(inputNumberDTO.get().substring(0, inputNumberDTO.get().length()-1));
 				if(inputNumberDTO.get().equals("") || inputNumberDTO.get().equals("-")) // 공백까지 지워지면 0으로 셋팅
@@ -79,7 +79,7 @@ public class ExtraButtonListener implements ActionListener
 			}
 			else
 			{
-				formulaLabel.setText("  ");
+				formulaLabel.setText("  "); //여기 수정
 				inputNumberDTO.set("");
 			}
 			DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
@@ -97,7 +97,11 @@ public class ExtraButtonListener implements ActionListener
 					answerDTO.set(answerDTO.get().substring(1));
 				else // -가 아니면 -붙여주기
 					answerDTO.set("-" + answerDTO.get());
-				answerLabel.setText(answerDTO.get());		 
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answerDTO.get())));	
+				if (formulaLabel.getText().contains("negate"))
+					formulaLabel.setText("negate(" + formulaLabel.getText().replace("-","") + ")");
+				else
+					formulaLabel.setText("negate(" + answerDTO.get().replace("-","") + ")");
 			}
 			else
 			{
@@ -105,7 +109,7 @@ public class ExtraButtonListener implements ActionListener
 					inputNumberDTO.set(inputNumberDTO.get().substring(1));
 				else // -가 아니면 -붙여주기
 					inputNumberDTO.set("-" + inputNumberDTO.get());
-				answerLabel.setText(inputNumberDTO.get());				
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get())));				
 				DataProcessing.getDataProcessing().resizeLabel(mainFrame, answerLabel);
 			}
 		}
