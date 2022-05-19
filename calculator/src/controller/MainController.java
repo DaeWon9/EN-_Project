@@ -106,10 +106,11 @@ public class MainController implements KeyListener, ComponentListener
 					mainFrame.getContentPane().add(mainFrame.textPanel, BorderLayout.NORTH);
 					mainFrame.getContentPane().add(logPanel, BorderLayout.CENTER);
 					
+					scrollPane.setBorder(null);
 					scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);		
 					scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10,100));
 					scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-
+					
 					logPanel.add(scrollPane);
 
 					mainFrame.revalidate();
@@ -267,6 +268,7 @@ public class MainController implements KeyListener, ComponentListener
 			leftPanel.add(mainFrame.textPanel, BorderLayout.NORTH);
 			leftPanel.add(mainFrame.buttonPanel, BorderLayout.CENTER);
 		
+			scrollPane.setBorder(null);
 			scrollPane.setAlignmentX(logPanel.logButtonPanel.RIGHT_ALIGNMENT);
 			scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10,100));
 			scrollPane.getVerticalScrollBar().setUnitIncrement(20);

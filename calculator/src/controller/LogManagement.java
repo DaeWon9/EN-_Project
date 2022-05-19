@@ -1,10 +1,13 @@
 package controller;
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.util.Random;
 
@@ -64,13 +67,28 @@ public class LogManagement
 		logButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		logButton.setFont(buttonFont);
 		logButton.setMinimumSize(new Dimension(350,60));
+		logButton.setBackground(new Color(232,234,240));
 		logButton.setFocusPainted(false); 
 		logButton.setContentAreaFilled(false);
-		//logButton.setBorderPainted(false);
-		logButton.addActionListener(new ActionListener() {
+		logButton.setBorderPainted(false);
+		logButton.addMouseListener(new MouseListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseReleased(MouseEvent e) {
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}	
+			@Override
+			public void mouseExited(MouseEvent e) {
+				logButton.setContentAreaFilled(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				logButton.setContentAreaFilled(true);
+			}	
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + operator + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
 				formula = DataProcessing.getDataProcessing().deleteComma(formula);
 				formulaLabel.setText(formula + "=");
@@ -82,7 +100,6 @@ public class LogManagement
 				//inputNumberDTO.set(logString);
 			}
 		});
-		
 		
 		logPanel.logButtonPanel.add(logButton,1);
 		if (logPanel.getComponentCount()>21) // 로그패널의 요소 개수가 21개가 넘어가면 (상단에 텍스트가 포함되어서 21)
