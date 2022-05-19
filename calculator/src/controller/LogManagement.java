@@ -102,11 +102,11 @@ public class LogManagement
 		});
 		
 		logPanel.logButtonPanel.add(logButton,1);
-		if (logPanel.getComponentCount()>21) // 로그패널의 요소 개수가 21개가 넘어가면 (상단에 텍스트가 포함되어서 21)
-			logPanel.remove(logPanel.getComponent(21)); // 가장 아래요소 제거
+		if (logPanel.logButtonPanel.getComponentCount()>21) // 로그패널의 요소 개수가 21개가 넘어가면 (상단에 텍스트가 포함되어서 21)
+			logPanel.logButtonPanel.remove(logPanel.logButtonPanel.getComponent(21)); // 가장 아래요소 제거
 		
-		logPanel.repaint();
-		logPanel.revalidate();
+		logPanel.logButtonPanel.repaint();
+		logPanel.logButtonPanel.revalidate();
 		
 	}
 }
