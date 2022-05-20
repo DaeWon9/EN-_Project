@@ -6,7 +6,7 @@ public class Constant
 	
 	public static final String EXCEPTION_TYPE_KOREAN = ".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*";
 	
-	public static final String LOG_STRING_FORM = "<HTML><body><p style='font-size:11px;text-align:right;'> %s</p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
+	public static final String LOG_STRING_FORM = "<HTML><body><p style='font-size:11px;text-align:right;'>%s</p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
 	
 	public enum ButtonIndex
 	{ 

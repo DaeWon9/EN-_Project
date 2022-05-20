@@ -35,11 +35,12 @@ public class MainController implements KeyListener, ComponentListener
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO("", "");
+	private LogManagement logManagement = new LogManagement(logPanel, operandDTO, operatorDTO, answerDTO, inputNumberDTO, formulaDTO);
 	
 	public void start()
 	{
-		NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame, inputNumberDTO);
-		OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, logPanel, answerDTO, inputNumberDTO, operatorDTO, operandDTO, formulaDTO);
+		NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame, logManagement, formulaDTO, inputNumberDTO);
+		OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, logManagement, answerDTO, inputNumberDTO, operatorDTO, operandDTO, formulaDTO);
 		ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame, answerDTO, inputNumberDTO, operatorDTO, operandDTO, formulaDTO);
 		
 		mainFrame.showFrame();

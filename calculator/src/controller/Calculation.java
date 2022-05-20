@@ -15,18 +15,26 @@ public class Calculation
 	@SuppressWarnings("deprecation")
 	public String calculate(OperandDTO operandDTO, OperatorDTO operatorDTO) //계산하는 함수
 	{
+		int leftOperandNegateCount = 0;
+		int rightOperandNegateCount = 0;
 		BigDecimal leftOperand, rightOperand;
 		BigDecimal calculateResult = new BigDecimal("0");
 		if (operandDTO.getLeftOperand() == "")
 			operandDTO.setLeftOperand("0");
-		/*
-		operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand().toString())));
-		operandDTO.setRightOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand().toString()))); 
-		*/
+
+		if(operandDTO.getLeftOperand().contains("negate"))
+			leftOperandNegateCount = DataProcessing.getDataProcessing().countChar(operandDTO.getLeftOperand(), ')');
+		if(operandDTO.getRightOperand().contains("negate"))
+			rightOperandNegateCount = DataProcessing.getDataProcessing().countChar(operandDTO.getRightOperand(), ')');
 		
-		leftOperand = new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand()));
-		rightOperand = new BigDecimal(DataProcessing.getDataProcessing().deleteComma(operandDTO.getRightOperand()));
-		
+		leftOperand = new BigDecimal(DataProcessing.getDataProcessing().deleteNegateMark(operandDTO.getLeftOperand()));
+		rightOperand = new BigDecimal(DataProcessing.getDataProcessing().deleteNegateMark(operandDTO.getRightOperand()));
+			
+		if (leftOperandNegateCount%2 == 1) // 홀수면
+			leftOperand = leftOperand.negate();
+		if (rightOperandNegateCount%2 == 1) // 홀수면
+			rightOperand = rightOperand.negate();
+
 		try
 		{
 			switch (operatorDTO.getLast())
@@ -36,6 +44,8 @@ public class Calculation
 					break; 
 				case "x":
 					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);//.setScale(15, RoundingMode.HALF_EVEN);
+					if (calculateResult.toString().length()>15)
+						calculateResult = calculateResult.setScale(15, RoundingMode.HALF_EVEN);
 					break;
 				case "-":
 					calculateResult = leftOperand.subtract(rightOperand);

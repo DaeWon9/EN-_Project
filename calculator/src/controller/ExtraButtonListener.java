@@ -66,8 +66,8 @@ public class ExtraButtonListener implements ActionListener
 		inputNumberDTO.setLast("");
 		operatorDTO.set("");
 		operatorDTO.setLast("");
-		operandDTO.setLeftOperand(null);
-		operandDTO.setRightOperand(null);
+		operandDTO.setLeftOperand("");
+		operandDTO.setRightOperand("");
 		mainFrame.textPanel.answer.setText("0");
 		mainFrame.textPanel.formula.setText(" ");
 	}
@@ -105,44 +105,73 @@ public class ExtraButtonListener implements ActionListener
 	
 	private void actionNegateButton()
 	{
-		switch (inputNumberDTO.get())
+		if (inputNumberDTO.get().equals("")) // inputnumber가 없음
 		{
-		case "0":
-			mainFrame.textPanel.answer.setText("0");
-		case "": // 기능완성하고 함수로 빼기
-			if (answerDTO.get().equals("0"))
+			if (!operatorDTO.getLast().equals(""))
 			{
-				mainFrame.textPanel.answer.setText("0");	
-				break;
+				if (formulaDTO.get().contains("="))
+				{
+					inputNumberDTO.set("negate( " + answerDTO.get() + " )");
+					mainFrame.textPanel.formula.setText(inputNumberDTO.get());
+				}
+				else
+				{
+					if (inputNumberDTO.get().contains("negate"))
+					{
+						inputNumberDTO.set("negate( " + inputNumberDTO.get() + " )");
+					}
+					else
+					{
+						inputNumberDTO.set("negate( " + operandDTO.getLeftOperand() + " )");
+					}
+					mainFrame.textPanel.formula.setText(operandDTO.getLeftOperand()+ " " + operatorDTO.getLast() + " " + inputNumberDTO.get());
+				}
+				
+				//////////
+				if (answerDTO.get().equals("0"))
+					answerDTO.set("0");
+				else if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
+					answerDTO.set(answerDTO.get().substring(1));
+				else // -가 아니면 -붙여주기
+					answerDTO.set("-" + answerDTO.get());
+				//////////
+				mainFrame.textPanel.answer.setText(answerDTO.get());
 			}
-			else if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
-				answerDTO.set(answerDTO.get().substring(1));
-			else // -가 아니면 -붙여주기
-				answerDTO.set("-" + answerDTO.get());
-			mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answerDTO.get())));	
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			if (mainFrame.textPanel.formula.getText().contains("negate"))
-				mainFrame.textPanel.formula.setText("negate(" + mainFrame.textPanel.formula.getText().replace("-","") + ")");
-			else
-				mainFrame.textPanel.formula.setText("negate(" + answerDTO.get().replace("-","") + ")");
-			break;
-		default: // 기능완성하고 함수로 빼기 
-			if (inputNumberDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
+		}
+		else // inputnumber가 있음
+		{
+			if (inputNumberDTO.get().contains("negate"))
+			{		
+				inputNumberDTO.set("negate( " + inputNumberDTO.get() + " )");
+				if (formulaDTO.get().contains("="))
+					mainFrame.textPanel.formula.setText(inputNumberDTO.get());
+				else
+					mainFrame.textPanel.formula.setText(operandDTO.getLeftOperand() + " " + operatorDTO.getLast() + " " +inputNumberDTO.get());
+				//////////
+				
+				if (answerDTO.get().equals("0"))
+					answerDTO.set("0");
+				else if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
+					answerDTO.set(answerDTO.get().substring(1));
+				else // -가 아니면 -붙여주기
+					answerDTO.set("-" + answerDTO.get());
+				//////////
+				mainFrame.textPanel.answer.setText(answerDTO.get());
+			}
+			else if (inputNumberDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
+			{
 				inputNumberDTO.set(inputNumberDTO.get().substring(1));
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
+			}
 			else // -가 아니면 -붙여주기
+			{
 				inputNumberDTO.set("-" + inputNumberDTO.get());
-			mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get())));				
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
+			}
+							
 			DataProcessing.getDataProcessing().resizeLabel(mainFrame);
-			break;
-			
+
+
 		}
 	}
 

@@ -103,6 +103,11 @@ public class DataProcessing
 	{
 		return str.replace(",", "");
 	}
+	
+	public String deleteNegateMark(String str)
+	{
+		return str.replace("negate(", "").replace(")", "").replace(",", "").replace(" ", "");
+	}
 
 	public void resizeLabel(MainFrame mainFrame)
 	{
