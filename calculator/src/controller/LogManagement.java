@@ -50,18 +50,18 @@ public class LogManagement
 		this.formulaDTO = formulaDTO;
 	}
 	
-	public void addLog(MainFrame mainFrame, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
+	public void addLog(MainFrame mainFrame)
 	{ 
 		logPanel.topLabel.setText(" ");
 		logPanel.deleteButton.setVisible(true);
-		String log_string_form;
 		String logString;
-		String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + " " + operator + " " + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
-		formula = DataProcessing.getDataProcessing().deleteComma(formula);
+		String formula = formulaDTO.get();
+		String answer = answerDTO.get();
+		String operator = operatorDTO.getLast();
+		BigDecimal leftOperand = operandDTO.getLeftOperand();
+		BigDecimal rightOperand = operandDTO.getRightOperand();
 
-		log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
-		logString = String.format(log_string_form, formula, DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
-
+		logString = String.format(Constant.LOG_STRING_FORM, formula, answerDTO.get());
 
 		JButton logButton = new JButton(logString);
 		logButton.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -90,17 +90,14 @@ public class LogManagement
 			}	
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + operator + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
-				formula = DataProcessing.getDataProcessing().deleteComma(formula);
-				mainFrame.textPanel.formula.setText(formula + "=");
-				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
-				operandDTO.setLeftOperand(new BigDecimal(answer));
-				operandDTO.setRightOperand(RightOperand);
+				mainFrame.textPanel.formula.setText(formula);
+				mainFrame.textPanel.answer.setText(answer);
+				operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(answer)));
+				operandDTO.setRightOperand(rightOperand);
 				operatorDTO.setLast(operator);			
 				answerDTO.set(answer);	
 				DataProcessing.getDataProcessing().resizeLabel(mainFrame);
 				DataProcessing.getDataProcessing().setArrowButtonVisible(mainFrame);
-				//inputNumberDTO.set(logString);
 			}
 		});
 		
