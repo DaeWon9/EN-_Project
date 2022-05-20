@@ -50,7 +50,7 @@ public class DataProcessing
 		else if (numberString.equals("오버플로"))
 			return "오버플로";
 		String formatResult= "";
-		BigDecimal bigDeciaml = new BigDecimal(numberString);
+		BigDecimal bigDeciaml = new BigDecimal(deleteComma(numberString));
 		DecimalFormat decimalFormat = new DecimalFormat(",###.################");
 		DecimalFormat exponentialFormat = new DecimalFormat("0.###############E0");
 

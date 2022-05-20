@@ -63,7 +63,7 @@ public class OperatorButtonListener implements ActionListener
 			if (operatorDTO.get().equals("=") && operatorDTO.getLast().equals("")) // 라스트 오퍼레이터 없이 =만 입력된경우
 			{
 				formulaString = DataProcessing.getDataProcessing().numberFormat(answerDTO.get()) + operatorDTO.get();
-				mainFrame.textPanel.formula.setText(formulaString);
+				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 			}
 			
 			else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 라스트 오퍼레이터가 있고 = 가 입력된경우
@@ -77,13 +77,13 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
 					logManagement.addLog(mainFrame.textPanel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
-				mainFrame.textPanel.formula.setText(formulaString);
+				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				mainFrame.textPanel.answer.setText(answerDTO.get());
 			}
 			else // 다른오퍼레이터
 			{ 
-				formulaString = DataProcessing.getDataProcessing().numberFormat(answerDTO.get()) + operatorDTO.get();
-				mainFrame.textPanel.formula.setText(formulaString);
+				formulaString = DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answerDTO.get())) + operatorDTO.get();
+				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				operatorDTO.setLast(operatorDTO.get());
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
 					operandDTO.setRightOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(answerDTO.get())));
@@ -97,7 +97,7 @@ public class OperatorButtonListener implements ActionListener
 				inputNumberDTO.setLast(inputNumberDTO.get());
 				operandDTO.setLeftOperand(new BigDecimal(inputNumberDTO.get()));
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.get();
-				mainFrame.textPanel.formula.setText(formulaString);
+				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			}
 			
@@ -113,7 +113,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
 					logManagement.addLog(mainFrame.textPanel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
-				mainFrame.textPanel.formula.setText(formulaString);
+				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				mainFrame.textPanel.answer.setText(answerDTO.get()); 
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
 					operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(answerDTO.get())));
@@ -127,7 +127,7 @@ public class OperatorButtonListener implements ActionListener
 				inputNumberDTO.setLast(inputNumberDTO.get());
 				operatorDTO.setLast(operatorDTO.get());
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.get();
-				mainFrame.textPanel.formula.setText(formulaString);
+				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 			}
 			
 			else if (!operatorDTO.get().equals("=") && !inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라스트 인풋값이 존재하면 -> 즉 두번째로 입력 -> 계산 
@@ -146,7 +146,7 @@ public class OperatorButtonListener implements ActionListener
 					operatorDTO.setLast(operatorDTO.get());
 					inputNumberDTO.setLast(inputNumberDTO.get());
 					formulaString = DataProcessing.getDataProcessing().numberFormat(answerDTO.get()) + operatorDTO.get();
-					mainFrame.textPanel.formula.setText(formulaString);
+					mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				}	
 				mainFrame.textPanel.answer.setText(answerDTO.get());
 
@@ -161,7 +161,7 @@ public class OperatorButtonListener implements ActionListener
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
 					logManagement.addLog(mainFrame.textPanel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
-				mainFrame.textPanel.formula.setText(formulaString);
+				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				mainFrame.textPanel.answer.setText(answerDTO.get());
 			}
 		}	

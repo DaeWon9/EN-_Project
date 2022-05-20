@@ -47,8 +47,8 @@ public class TextPanel extends JPanel
 		JPanel formulaPanel = new JPanel();
 		formulaPanel.setLayout(new BorderLayout());
 		formulaPanel.setBackground(new Color(241, 243, 249));
-		formulaPanel.setPreferredSize(new Dimension(10000,30));
-		formulaPanel.setMaximumSize(new Dimension(10000,30));
+		formulaPanel.setPreferredSize(new Dimension(10000,21));
+		formulaPanel.setMaximumSize(new Dimension(10000,21));
 		formulaPanel.setAlignmentX(RIGHT_ALIGNMENT);
 		
 		formula = new JLabel(" ");
@@ -56,8 +56,8 @@ public class TextPanel extends JPanel
 		formula.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		formulaScroll = new JScrollPane(formula);
-		formulaScroll.setMaximumSize(new Dimension(10000,30));
-		formulaScroll.setMinimumSize(new Dimension(215,30));
+		formulaScroll.setMaximumSize(new Dimension(10000,20));
+		formulaScroll.setMinimumSize(new Dimension(215,20));
 		JScrollBar jScrollBar = formulaScroll.getHorizontalScrollBar();
 		jScrollBar.setPreferredSize(new Dimension(400,0));
 		jScrollBar.setUnitIncrement(20);

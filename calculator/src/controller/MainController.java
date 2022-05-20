@@ -175,45 +175,58 @@ public class MainController implements KeyListener, ComponentListener
 	    switch (e.getKeyCode()) 
 	    {
 	    case KeyEvent.VK_0: 
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD0:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.ZERO.getIndex()].doClick(); 
 	        break;
-	    case KeyEvent.VK_NUMPAD1:
 	    case KeyEvent.VK_1:
+	    	if (e.isShiftDown()){break;}
+	    case KeyEvent.VK_NUMPAD1:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.ONE.getIndex()].doClick();   
 	        break;
 	    case KeyEvent.VK_2:
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD2:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.TWO.getIndex()].doClick();   
 	        break;
 	    case KeyEvent.VK_3:
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD3:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.THREE.getIndex()].doClick();   
 	        break;
 	    case KeyEvent.VK_4:
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD4:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.FOUR.getIndex()].doClick();   
 	        break;
 	    case KeyEvent.VK_5:
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD5:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.FIVE.getIndex()].doClick();   
 	        break;
 	    case KeyEvent.VK_6:
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD6:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.SIX.getIndex()].doClick();   
 	        break;
 	    case KeyEvent.VK_7:
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD7:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.SEVEN.getIndex()].doClick();   
 	        break;
 	    case KeyEvent.VK_8:
+	    	if (e.isShiftDown()){
+	    		mainFrame.buttonPanel.button[Constant.ButtonIndex.MULTIPLY.getIndex()].doClick();
+	    		break;
+	    	}
 	    case KeyEvent.VK_NUMPAD8:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.EIGHT.getIndex()].doClick();   
 	        break;
 	    case KeyEvent.VK_9:
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD9:
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.NINE.getIndex()].doClick();   
-	        break;
+	        break;    
 	    case KeyEvent.VK_PERIOD :
 	    case KeyEvent.VK_DECIMAL : 
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.POINT.getIndex()].doClick();   
@@ -225,9 +238,15 @@ public class MainController implements KeyListener, ComponentListener
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.MULTIPLY.getIndex()].doClick();   
 	    	break;
 	    case KeyEvent.VK_MINUS :
+	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_SUBTRACT : 
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.SUBTRACTION.getIndex()].doClick();   
 	    	break;
+	    case KeyEvent.VK_EQUALS:
+	    	if (e.isShiftDown()){
+	    		mainFrame.buttonPanel.button[Constant.ButtonIndex.CALCULATION.getIndex()].doClick();
+	    		break;
+	    	}
 	    case KeyEvent.VK_ADD : 
 	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.PLUS.getIndex()].doClick();   
 	        break;
