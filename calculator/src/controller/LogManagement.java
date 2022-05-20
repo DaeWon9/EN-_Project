@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.xml.crypto.Data;
 
 import Utility.Constant;
 import Utility.DataProcessing;
@@ -60,7 +61,7 @@ public class LogManagement
 		else
 		{
 			log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
-			logString = String.format(log_string_form, formula, DataProcessing.getDataProcessing().numberFormat(answer));
+			logString = String.format(log_string_form, formula, DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
 		}
 
 		JButton logButton = new JButton(logString);
@@ -92,7 +93,7 @@ public class LogManagement
 				String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + operator + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
 				formula = DataProcessing.getDataProcessing().deleteComma(formula);
 				formulaLabel.setText(formula + "=");
-				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(answer));
+				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
 				operandDTO.setLeftOperand(new BigDecimal(answer));
 				operandDTO.setRightOperand(RightOperand);
 				operatorDTO.setLast(operator);			

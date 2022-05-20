@@ -47,6 +47,8 @@ public class DataProcessing
 			return "0으로 나눌 수 없습니다";
 		else if (numberString.equals("정의되지 않은 결과입니다."))
 			return "정의되지 않은 결과입니다.";
+		else if (numberString.equals("오버플로"))
+			return "오버플로";
 		String formatResult= "";
 		BigDecimal bigDeciaml = new BigDecimal(numberString);
 		DecimalFormat decimalFormat = new DecimalFormat(",###.################");
@@ -99,16 +101,6 @@ public class DataProcessing
 	{
 		return str.replace(",", "");
 	}
-	
-	/*
-	public String deleteUnnecessaryDecimalPoint(double doubleValue) // 불필요 소수점 제거하는 함수
-	{
-	    if(doubleValue == (long) doubleValue)
-	        return String.format("%d",(long)doubleValue);
-	    else
-	        return String.format("%s",doubleValue);
-	}
-	*/
 
 	public void resizeLabel(JFrame frame, JLabel label)
 	{
@@ -159,7 +151,8 @@ public class DataProcessing
 			mainFrame.textPanel.leftArrowButton.setVisible(false);
 			mainFrame.textPanel.rightArrowButton.setVisible(false);
 		}
-
+		mainFrame.revalidate();
+		mainFrame.repaint();
 	}
 	
 	
