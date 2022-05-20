@@ -253,7 +253,7 @@ public class MainController implements KeyListener, ComponentListener
 
 	@Override
 	public void componentResized(ComponentEvent e) {
-		DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
+		DataProcessing.getDataProcessing().resizeLabel(mainFrame);
 		showMainPanels();
 		if (mainFrame.getSize().width > 580)
 		{

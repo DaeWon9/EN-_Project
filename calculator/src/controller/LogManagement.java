@@ -25,6 +25,7 @@ import model.InputNumberDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
 import view.LogPanel;
+import view.TextPanel;
 
 
 public class LogManagement
@@ -45,7 +46,7 @@ public class LogManagement
 		this.inputNumberDTO = inputNumberDTO;
 	}
 	
-	public void addLog(JLabel formulaLabel, JLabel answerLabel, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
+	public void addLog(TextPanel textPanel, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
 	{ 
 		logPanel.topLabel.setText(" ");
 		logPanel.deleteButton.setVisible(true);
@@ -92,8 +93,8 @@ public class LogManagement
 			public void mouseClicked(MouseEvent e) {
 				String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + operator + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
 				formula = DataProcessing.getDataProcessing().deleteComma(formula);
-				formulaLabel.setText(formula + "=");
-				answerLabel.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
+				textPanel.formula.setText(formula + "=");
+				textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
 				operandDTO.setLeftOperand(new BigDecimal(answer));
 				operandDTO.setRightOperand(RightOperand);
 				operatorDTO.setLast(operator);			

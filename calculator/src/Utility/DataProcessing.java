@@ -102,45 +102,39 @@ public class DataProcessing
 		return str.replace(",", "");
 	}
 
-	public void resizeLabel(JFrame frame, JLabel label)
+	public void resizeLabel(MainFrame mainFrame)
 	{
 		int minimumSize;
-		minimumSize = setMininumTextSize(frame);
-		label.setFont(new Font("맑은 고딕", 0, 45));
+		minimumSize = setMininumTextSize(mainFrame);
+		mainFrame.textPanel.answer.setFont(new Font("맑은 고딕", 0, 45));
 				
-		if (label.getText().matches(Constant.EXCEPTION_TYPE_KOREAN))
+		while (mainFrame.textPanel.answer.getPreferredSize().width > minimumSize)
 		{
-			label.setFont(new Font("맑은 고딕", 0, 25));
-			return;
-		}
-		while (label.getFont().getSize()/2 * label.getText().length() > minimumSize)
-		{
-			label.setFont(new Font("맑은 고딕", 0, label.getFont().getSize() - 1));
-			if (label.getFont().getSize() < 1)
+			mainFrame.textPanel.answer.setFont(new Font("맑은 고딕", 0, mainFrame.textPanel.answer.getFont().getSize() - 1));
+			if (mainFrame.textPanel.answer.getFont().getSize() < 1)
 				break;
 		}
 	}
 	
-	private int setMininumTextSize(JFrame frame)
+	private int setMininumTextSize(MainFrame mainFame)
 	{
 		int minimumSize;
-		if (frame.getWidth() > 580)
-			minimumSize = frame.getWidth() - 300 - 70; 
+		if (mainFame.getWidth() > 580)
+			minimumSize = mainFame.getSize().width - 280 - 20; 
 		else
-			minimumSize = frame.getWidth() - 70;
+			minimumSize = mainFame.getSize().width - 20;
 		
 		return minimumSize;
 	}
 	
 	
-	private boolean isScrollbarVisible(MainFrame mainFrame)
-	{
-		return mainFrame.textPanel.formulaScroll.getHorizontalScrollBar().isVisible();
-	}
-	
+
 	public void setArrowButtonVisible(MainFrame mainFrame)
 	{
-		if (isScrollbarVisible(mainFrame))
+		int formulaStringWidth = mainFrame.textPanel.formula.getPreferredSize().width;
+		int textPanelWidth = mainFrame.textPanel.getSize().width;
+
+		if (formulaStringWidth > textPanelWidth)
 		{
 			mainFrame.textPanel.leftArrowButton.setVisible(true);
 			mainFrame.textPanel.rightArrowButton.setVisible(true);
@@ -151,13 +145,5 @@ public class DataProcessing
 			mainFrame.textPanel.leftArrowButton.setVisible(false);
 			mainFrame.textPanel.rightArrowButton.setVisible(false);
 		}
-		mainFrame.revalidate();
-		mainFrame.repaint();
 	}
-	
-	
-	
-	
-	
-	
 }

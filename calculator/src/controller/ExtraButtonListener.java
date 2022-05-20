@@ -51,7 +51,7 @@ public class ExtraButtonListener implements ActionListener
 		default:
 			break;
 		}
-		DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
+		DataProcessing.getDataProcessing().resizeLabel(mainFrame);
 		DataProcessing.getDataProcessing().setArrowButtonVisible(mainFrame);
 		mainFrame.requestFocus();
 	}
@@ -125,7 +125,7 @@ public class ExtraButtonListener implements ActionListener
 			else // -가 아니면 -붙여주기
 				inputNumberDTO.set("-" + inputNumberDTO.get());
 			mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get())));				
-			DataProcessing.getDataProcessing().resizeLabel(mainFrame, mainFrame.textPanel.answer);
+			DataProcessing.getDataProcessing().resizeLabel(mainFrame);
 			break;
 			
 		}
