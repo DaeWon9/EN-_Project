@@ -58,7 +58,9 @@ public class DataProcessing
 			formatResult = "오버플로";
 		else if (bigDeciaml.compareTo(new BigDecimal("10000000000000000")) > 0 || bigDeciaml.compareTo(new BigDecimal("-10000000000000000")) < 0)
 			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E", "e+");
-		else if ((bigDeciaml.compareTo(new BigDecimal("0.0000000000000001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) > 0 ) || (bigDeciaml.compareTo(new BigDecimal("-0.0000000000000001")) > 0 && bigDeciaml.compareTo(BigDecimal.ZERO) < 0 ))
+		else if ((bigDeciaml.compareTo(new BigDecimal("0.0000000000000001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) > 0 ) || (bigDeciaml.compareTo(new BigDecimal("-0.00000000000000001")) > 0 && bigDeciaml.compareTo(BigDecimal.ZERO) < 0 ))
+			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E-", "e-");
+		else if (((bigDeciaml.compareTo(new BigDecimal("0.001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) > 0 ) || (bigDeciaml.compareTo(new BigDecimal("-0.001")) > 0) && bigDeciaml.compareTo(BigDecimal.ZERO) < 0 ) && bigDeciaml.toString().length() > 16)
 			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E-", "e-");
 		else
 			formatResult = decimalFormat.format(bigDeciaml).replace("E", "e");

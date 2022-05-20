@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 
 import Utility.DataProcessing;
 import model.AnswerDTO;
+import model.FormulaDTO;
 import model.InputNumberDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
@@ -22,14 +23,16 @@ public class ExtraButtonListener implements ActionListener
 	private InputNumberDTO inputNumberDTO;
 	private OperatorDTO operatorDTO;
 	private OperandDTO operandDTO;
-
-	public ExtraButtonListener(MainFrame mainFrame, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
+	private FormulaDTO formulaDTO;
+	
+	public ExtraButtonListener(MainFrame mainFrame, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO, FormulaDTO formulaDTO)
 	{
 		this.mainFrame = mainFrame;
 		this.answerDTO = answerDTO;
 		this.inputNumberDTO = inputNumberDTO;
 		this.operatorDTO = operatorDTO;
 		this.operandDTO = operandDTO;
+		this.formulaDTO = formulaDTO;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -108,7 +111,10 @@ public class ExtraButtonListener implements ActionListener
 			mainFrame.textPanel.answer.setText("0");
 		case "": // 기능완성하고 함수로 빼기
 			if (answerDTO.get().equals("0"))
+			{
 				mainFrame.textPanel.answer.setText("0");	
+				break;
+			}
 			else if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
 				answerDTO.set(answerDTO.get().substring(1));
 			else // -가 아니면 -붙여주기

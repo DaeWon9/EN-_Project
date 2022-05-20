@@ -2,6 +2,7 @@ package controller;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 
 import javax.swing.JPanel;
 
@@ -11,6 +12,7 @@ import model.OperatorDTO;
 
 public class Calculation
 {
+	@SuppressWarnings("deprecation")
 	public String calculate(OperandDTO operandDTO, OperatorDTO operatorDTO) //계산하는 함수
 	{
 		BigDecimal leftOperand, rightOperand;
@@ -29,10 +31,10 @@ public class Calculation
 			switch (operatorDTO.getLast())
 			{
 				case "÷":
-					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL128);
-					break;
+					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL128); 
+					break; 
 				case "x":
-					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);
+					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);//.setScale(15, RoundingMode.HALF_EVEN);
 					break;
 				case "-":
 					calculateResult = leftOperand.subtract(rightOperand);

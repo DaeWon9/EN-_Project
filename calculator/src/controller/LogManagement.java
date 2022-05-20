@@ -21,10 +21,12 @@ import javax.xml.crypto.Data;
 import Utility.Constant;
 import Utility.DataProcessing;
 import model.AnswerDTO;
+import model.FormulaDTO;
 import model.InputNumberDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
 import view.LogPanel;
+import view.MainFrame;
 import view.TextPanel;
 
 
@@ -36,17 +38,19 @@ public class LogManagement
 	private OperatorDTO operatorDTO;
 	private AnswerDTO answerDTO;
 	private InputNumberDTO inputNumberDTO;
+	private FormulaDTO formulaDTO;
 	
-	public LogManagement(LogPanel logPanel, OperandDTO operandDTO, OperatorDTO operatorDTO, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO)
+	public LogManagement(LogPanel logPanel, OperandDTO operandDTO, OperatorDTO operatorDTO, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, FormulaDTO formulaDTO)
 	{
 		this.logPanel = logPanel;
 		this.operandDTO = operandDTO;
 		this.operatorDTO = operatorDTO;
 		this.answerDTO = answerDTO;
 		this.inputNumberDTO = inputNumberDTO;
+		this.formulaDTO = formulaDTO;
 	}
 	
-	public void addLog(TextPanel textPanel, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
+	public void addLog(MainFrame mainFrame, BigDecimal leftOperand, String operator, BigDecimal RightOperand, String answer)
 	{ 
 		logPanel.topLabel.setText(" ");
 		logPanel.deleteButton.setVisible(true);
@@ -54,21 +58,16 @@ public class LogManagement
 		String logString;
 		String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + " " + operator + " " + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
 		formula = DataProcessing.getDataProcessing().deleteComma(formula);
-		if (formula.length() > 25)
-		{
-			log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'>%s</p><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
-			logString = String.format(log_string_form, DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + " " + operator, DataProcessing.getDataProcessing().numberFormat(RightOperand.toString()), DataProcessing.getDataProcessing().numberFormat(answer));
-		}
-		else
-		{
-			log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
-			logString = String.format(log_string_form, formula, DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
-		}
+
+		log_string_form = "<HTML><body><p style='font-size:11px;text-align:right;'> %s = </p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
+		logString = String.format(log_string_form, formula, DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
+
 
 		JButton logButton = new JButton(logString);
 		logButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		logButton.setFont(buttonFont);
-		logButton.setMinimumSize(new Dimension(350,60));
+		logButton.setMinimumSize(new Dimension(350,70));
+		logButton.setPreferredSize(new Dimension(250,70));
 		logButton.setBackground(new Color(232,234,240));
 		logButton.setFocusPainted(false); 
 		logButton.setContentAreaFilled(false);
@@ -93,12 +92,14 @@ public class LogManagement
 			public void mouseClicked(MouseEvent e) {
 				String formula = DataProcessing.getDataProcessing().numberFormat(leftOperand.toString()) + operator + DataProcessing.getDataProcessing().numberFormat(RightOperand.toString());
 				formula = DataProcessing.getDataProcessing().deleteComma(formula);
-				textPanel.formula.setText(formula + "=");
-				textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
+				mainFrame.textPanel.formula.setText(formula + "=");
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answer)));
 				operandDTO.setLeftOperand(new BigDecimal(answer));
 				operandDTO.setRightOperand(RightOperand);
 				operatorDTO.setLast(operator);			
 				answerDTO.set(answer);	
+				DataProcessing.getDataProcessing().resizeLabel(mainFrame);
+				DataProcessing.getDataProcessing().setArrowButtonVisible(mainFrame);
 				//inputNumberDTO.set(logString);
 			}
 		});

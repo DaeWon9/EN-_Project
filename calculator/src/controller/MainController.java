@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import Utility.Constant;
 import Utility.DataProcessing;
 import model.AnswerDTO;
+import model.FormulaDTO;
 import model.InputNumberDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
@@ -36,6 +37,7 @@ public class MainController implements KeyListener, ComponentListener
 	private LogPanel logPanel = new LogPanel();	
 	private JScrollPane scrollPane = new JScrollPane(logPanel.logButtonPanel);
 	private AnswerDTO answerDTO = new AnswerDTO("0");
+	private FormulaDTO formulaDTO = new FormulaDTO("");
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
 	private OperandDTO operandDTO = new OperandDTO();
@@ -43,8 +45,8 @@ public class MainController implements KeyListener, ComponentListener
 	public void start()
 	{
 		NumberButtonListener numberButtonListener = new NumberButtonListener(mainFrame, inputNumberDTO);
-		OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, logPanel, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
-		ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame, answerDTO, inputNumberDTO, operatorDTO, operandDTO);
+		OperatorButtonListener operatorButtonListener = new OperatorButtonListener(mainFrame, logPanel, answerDTO, inputNumberDTO, operatorDTO, operandDTO, formulaDTO);
+		ExtraButtonListener extraButtonListener = new ExtraButtonListener(mainFrame, answerDTO, inputNumberDTO, operatorDTO, operandDTO, formulaDTO);
 		
 		mainFrame.showFrame();
 		setNumberButtonListener(numberButtonListener);
@@ -273,6 +275,7 @@ public class MainController implements KeyListener, ComponentListener
 	@Override
 	public void componentResized(ComponentEvent e) {
 		DataProcessing.getDataProcessing().resizeLabel(mainFrame);
+		//DataProcessing.getDataProcessing().setArrowButtonVisible(mainFrame);
 		showMainPanels();
 		if (mainFrame.getSize().width > 580)
 		{

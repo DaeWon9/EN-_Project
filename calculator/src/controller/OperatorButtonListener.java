@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import Utility.Constant;
 import Utility.DataProcessing;
 import model.AnswerDTO;
+import model.FormulaDTO;
 import model.OperatorDTO;
 import view.ButtonPanel;
 import view.LogPanel;
@@ -24,22 +25,24 @@ public class OperatorButtonListener implements ActionListener
 	private MainFrame mainFrame;
 	private LogPanel logPanel;
 	private AnswerDTO answerDTO;
+	private FormulaDTO formulaDTO;
 	private InputNumberDTO inputNumberDTO;
 	private OperatorDTO operatorDTO;
 	private OperandDTO operandDTO;
 	private Calculation calculation;
 	private LogManagement logManagement;
 	
-	public OperatorButtonListener(MainFrame mainFrame, LogPanel logpanel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO)
+	public OperatorButtonListener(MainFrame mainFrame, LogPanel logpanel, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, OperatorDTO operatorDTO, OperandDTO operandDTO, FormulaDTO formulaDTO)
 	{
 		this.mainFrame = mainFrame;
 		this.logPanel = logpanel;
 		this.answerDTO = answerDTO;
+		this.formulaDTO = formulaDTO;
 		this.inputNumberDTO = inputNumberDTO;
 		this.operatorDTO = operatorDTO;
 		this.operandDTO = operandDTO;
 		this.calculation = new Calculation();
-		this.logManagement = new LogManagement(logPanel, operandDTO, operatorDTO, answerDTO, inputNumberDTO);
+		this.logManagement = new LogManagement(logPanel, operandDTO, operatorDTO, answerDTO, inputNumberDTO, formulaDTO);
 	}
 	 
 	@Override
@@ -76,7 +79,7 @@ public class OperatorButtonListener implements ActionListener
 				answerDTO.set(DataProcessing.getDataProcessing().numberFormat(calculationResult));
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
-					logManagement.addLog(mainFrame.textPanel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
+					logManagement.addLog(mainFrame, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				mainFrame.textPanel.answer.setText(answerDTO.get());
 			}
@@ -112,7 +115,7 @@ public class OperatorButtonListener implements ActionListener
 				inputNumberDTO.setLast("");
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
-					logManagement.addLog(mainFrame.textPanel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
+					logManagement.addLog(mainFrame, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				mainFrame.textPanel.answer.setText(answerDTO.get()); 
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
@@ -139,7 +142,7 @@ public class OperatorButtonListener implements ActionListener
 				inputNumberDTO.setLast("");
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN)) 
 				{
-					logManagement.addLog(mainFrame.textPanel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
+					logManagement.addLog(mainFrame, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 					operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(answerDTO.get())));
 
 					operandDTO.setRightOperand(null);
@@ -160,7 +163,7 @@ public class OperatorButtonListener implements ActionListener
 				inputNumberDTO.setLast("");
 				formulaString = DataProcessing.getDataProcessing().numberFormat(operandDTO.getLeftOperand().toString()) + operatorDTO.getLast() + DataProcessing.getDataProcessing().numberFormat(operandDTO.getRightOperand().toString()) + operatorDTO.get();
 				if (!answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
-					logManagement.addLog(mainFrame.textPanel, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
+					logManagement.addLog(mainFrame, operandDTO.getLeftOperand(), operatorDTO.getLast(), operandDTO.getRightOperand(), answerDTO.get());
 				mainFrame.textPanel.formula.setText(DataProcessing.getDataProcessing().deleteComma(formulaString));
 				mainFrame.textPanel.answer.setText(answerDTO.get());
 			}
