@@ -62,6 +62,38 @@ public class DataProcessing
 			formatResult = decimalFormat.format(bigDeciaml).replace("E", "e");
 		return formatResult;
 	}
+	
+	public String inputNumberFormat(String inputNumberString)
+	{
+		String integerPart;
+		String decimalPointPart;
+		String resultString = "";
+		if (inputNumberString.split("\\.").length == 2) // point로 쪼갰을 때 정수부와 실수부로 쪼개진다면, 나눠서 ,포멧 처리후 합쳐주기 (정수부가 0이면 소수부는 16자리까지, 그외에는 합쳐서 16자리)
+		{
+			integerPart = inputNumberString.split("\\.")[0];
+			decimalPointPart = inputNumberString.split("\\.")[1];
+			if ((integerPart.equals("0") && inputNumberString.length() <= Constant.MAX_LONG_LENGTH + 2) || (!integerPart.equals("0") && inputNumberString.length() <= Constant.MAX_LONG_LENGTH + 1))
+			{
+				integerPart = DataProcessing.getDataProcessing().appendCommaInLong(Long.parseLong(integerPart));
+				resultString = integerPart + "." + decimalPointPart;
+			}
+		}
+		else if (inputNumberString.contains(".") && inputNumberString.length() <= Constant.MAX_LONG_LENGTH + 1)
+		{
+			integerPart = inputNumberString.substring(0, inputNumberString.length()-1);
+			integerPart = DataProcessing.getDataProcessing().appendCommaInLong(Long.parseLong(integerPart)); 
+			resultString = integerPart + ".";
+		}
+		else
+		{
+			if (inputNumberString.length() <= Constant.MAX_LONG_LENGTH)
+			{
+				resultString = numberFormat(inputNumberString);
+			}
+		}
+		return resultString;
+	}
+	
 
 	public String deleteComma(String str) // 문자열 숫자에 ,제거하는 함수
 	{

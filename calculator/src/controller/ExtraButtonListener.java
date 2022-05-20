@@ -71,7 +71,7 @@ public class ExtraButtonListener implements ActionListener
 				if(inputNumberDTO.get().equals("") || inputNumberDTO.get().equals("-")) // 공백까지 지워지면 0으로 셋팅
 					mainFrame.textPanel.answer.setText("0");
 				else
-					mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(inputNumberDTO.get()));
+					mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().inputNumberFormat(inputNumberDTO.get()));
 				inputNumberDTO.set(mainFrame.textPanel.answer.getText());
 			}
 			else
