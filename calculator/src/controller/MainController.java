@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.math.BigDecimal;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import Utility.Constant;
@@ -32,7 +34,7 @@ public class MainController implements KeyListener, ComponentListener
 	private FormulaDTO formulaDTO = new FormulaDTO("");
 	private InputNumberDTO inputNumberDTO = new InputNumberDTO("", "");
 	private OperatorDTO operatorDTO = new OperatorDTO("", "");
-	private OperandDTO operandDTO = new OperandDTO();
+	private OperandDTO operandDTO = new OperandDTO("", "");
 	
 	public void start()
 	{
@@ -47,6 +49,7 @@ public class MainController implements KeyListener, ComponentListener
 		setTextPanelEventListner();
 		mainFrame.addKeyListener(this);
 		mainFrame.addComponentListener(this);
+		
 	}
 	
 	private void setTextPanelEventListner()

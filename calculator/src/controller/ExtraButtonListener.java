@@ -120,6 +120,15 @@ public class ExtraButtonListener implements ActionListener
 			else // -가 아니면 -붙여주기
 				answerDTO.set("-" + answerDTO.get());
 			mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(answerDTO.get())));	
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			if (mainFrame.textPanel.formula.getText().contains("negate"))
 				mainFrame.textPanel.formula.setText("negate(" + mainFrame.textPanel.formula.getText().replace("-","") + ")");
 			else

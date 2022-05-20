@@ -58,8 +58,8 @@ public class LogManagement
 		String formula = formulaDTO.get();
 		String answer = answerDTO.get();
 		String operator = operatorDTO.getLast();
-		BigDecimal leftOperand = operandDTO.getLeftOperand();
-		BigDecimal rightOperand = operandDTO.getRightOperand();
+		String leftOperand = operandDTO.getLeftOperand();
+		String rightOperand = operandDTO.getRightOperand();
 
 		logString = String.format(Constant.LOG_STRING_FORM, formula, answerDTO.get());
 
@@ -92,7 +92,7 @@ public class LogManagement
 			public void mouseClicked(MouseEvent e) {
 				mainFrame.textPanel.formula.setText(formula);
 				mainFrame.textPanel.answer.setText(answer);
-				operandDTO.setLeftOperand(new BigDecimal(DataProcessing.getDataProcessing().deleteComma(answer)));
+				operandDTO.setLeftOperand(answer);
 				operandDTO.setRightOperand(rightOperand);
 				operatorDTO.setLast(operator);			
 				answerDTO.set(answer);	
