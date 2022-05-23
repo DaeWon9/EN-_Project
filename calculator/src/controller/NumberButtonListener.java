@@ -35,7 +35,6 @@ public class NumberButtonListener implements ActionListener
 		
 		if (inputNumberDTO.get().contains("negate"))
 		{
-			logManagement.addLog(mainFrame); 
 			inputNumberDTO.set("");
 			formulaDTO.set(" ");
 			mainFrame.textPanel.formula.setText(" ");

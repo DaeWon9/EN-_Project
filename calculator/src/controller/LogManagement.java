@@ -67,7 +67,7 @@ public class LogManagement
 		logButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		logButton.setFont(buttonFont);
 		logButton.setMinimumSize(new Dimension(350,70));
-		logButton.setPreferredSize(new Dimension(250,70));
+		logButton.setPreferredSize(new Dimension(250,70)); 
 		logButton.setBackground(new Color(232,234,240));
 		logButton.setFocusPainted(false); 
 		logButton.setContentAreaFilled(false);
