@@ -117,13 +117,9 @@ public class ExtraButtonListener implements ActionListener
 				else
 				{
 					if (inputNumberDTO.get().contains("negate"))
-					{
 						inputNumberDTO.set("negate( " + inputNumberDTO.get() + " )");
-					}
 					else
-					{
-						inputNumberDTO.set("negate( " + DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand()) + " )");
-					}
+						inputNumberDTO.set("negate( " + DataProcessing.getDataProcessing().deleteNegateMark(operandDTO.getLeftOperand()) + " )");
 					mainFrame.textPanel.formula.setText(operandDTO.getLeftOperand()+ " " + operatorDTO.getLast() + " " + inputNumberDTO.get());
 				}
 				
@@ -131,9 +127,9 @@ public class ExtraButtonListener implements ActionListener
 				if (answerDTO.get().equals("0"))
 					answerDTO.set("0");
 				else if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
-					answerDTO.set(answerDTO.get().substring(1));
+					answerDTO.set(DataProcessing.getDataProcessing().deleteNegateMark(answerDTO.get()).substring(1));
 				else // -가 아니면 -붙여주기
-					answerDTO.set("-" + answerDTO.get());
+					answerDTO.set("-" + DataProcessing.getDataProcessing().deleteNegateMark(answerDTO.get()));
 				//////////
 				mainFrame.textPanel.answer.setText(answerDTO.get());
 			}
@@ -169,10 +165,7 @@ public class ExtraButtonListener implements ActionListener
 				mainFrame.textPanel.answer.setText(inputNumberDTO.get());
 				//mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
 			}
-							
 			DataProcessing.getDataProcessing().resizeLabel(mainFrame);
-
-
 		}
 	}
 

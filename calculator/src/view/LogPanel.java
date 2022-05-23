@@ -60,9 +60,7 @@ public class LogPanel extends JPanel
 				logButtonPanel.repaint();
 				logButtonPanel.revalidate();
 			}
-		});
-		
-		
+		});	
 		deleteButton.setVisible(false);
 		add(deleteButton, BorderLayout.SOUTH);
 	}
