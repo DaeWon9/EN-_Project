@@ -2,12 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.FormulaDTO;
@@ -141,7 +136,7 @@ public class ExtraButtonListener implements ActionListener
 				else // -가 아니면 -붙여주기
 					answerDTO.set("-" + DataProcessing.getDataProcessing().deleteNegateMark(answerDTO.get()));
 				//////////
-				mainFrame.textPanel.answer.setText(answerDTO.get());
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			}
 		}
 		else // inputnumber가 있음
@@ -164,7 +159,7 @@ public class ExtraButtonListener implements ActionListener
 				else // -가 아니면 -붙여주기
 					answerDTO.set("-" + answerDTO.get());
 				//////////
-				mainFrame.textPanel.answer.setText(answerDTO.get());
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			}
 			else if (inputNumberDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
 			{

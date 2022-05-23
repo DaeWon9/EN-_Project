@@ -3,9 +3,6 @@ package controller;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-
-import javax.swing.JPanel;
-
 import Utility.DataProcessing;
 import model.OperandDTO;
 import model.OperatorDTO;
@@ -42,7 +39,7 @@ public class Calculation
 					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL128); 
 					break; 
 				case "x":
-					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);//.setScale(15, RoundingMode.HALF_EVEN);
+					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);
 					if (calculateResult.toString().length()>15)
 						calculateResult = calculateResult.setScale(15, RoundingMode.HALF_EVEN);
 					break;

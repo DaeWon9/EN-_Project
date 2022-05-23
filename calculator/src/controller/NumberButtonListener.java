@@ -3,8 +3,6 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import Utility.Constant;
 import Utility.DataProcessing;
 import model.FormulaDTO;
@@ -35,6 +33,7 @@ public class NumberButtonListener implements ActionListener
 		
 		if (inputNumberDTO.get().contains("negate"))
 		{
+			logManagement.addLog(mainFrame);
 			inputNumberDTO.set("");
 			formulaDTO.set(" ");
 			mainFrame.textPanel.formula.setText(" ");

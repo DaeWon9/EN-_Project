@@ -11,7 +11,6 @@ import Utility.Constant;
 import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.FormulaDTO;
-import model.InputNumberDTO;
 import model.OperandDTO;
 import model.OperatorDTO;
 import view.LogPanel;
@@ -24,16 +23,14 @@ public class LogManagement
 	private OperandDTO operandDTO;
 	private OperatorDTO operatorDTO;
 	private AnswerDTO answerDTO;
-	private InputNumberDTO inputNumberDTO;
 	private FormulaDTO formulaDTO;
 	
-	public LogManagement(LogPanel logPanel, OperandDTO operandDTO, OperatorDTO operatorDTO, AnswerDTO answerDTO, InputNumberDTO inputNumberDTO, FormulaDTO formulaDTO)
+	public LogManagement(LogPanel logPanel, OperandDTO operandDTO, OperatorDTO operatorDTO, AnswerDTO answerDTO, FormulaDTO formulaDTO)
 	{
 		this.logPanel = logPanel;
 		this.operandDTO = operandDTO;
 		this.operatorDTO = operatorDTO;
 		this.answerDTO = answerDTO;
-		this.inputNumberDTO = inputNumberDTO;
 		this.formulaDTO = formulaDTO;
 	}
 	
@@ -53,14 +50,7 @@ public class LogManagement
 			JButton logButton = new JButton(logString);
 			logButton.setHorizontalAlignment(SwingConstants.RIGHT);
 			logButton.setFont(buttonFont);
-
-			
-
-			logButton.setPreferredSize(new Dimension(250,(formula.length()/30)*20 + 50)); 	
-			
-			System.out.println(logButton.getPreferredSize());
-			
-			
+			logButton.setPreferredSize(new Dimension(250,(formula.length()/30)*20 + 50)); 				
 			logButton.setBackground(new Color(232,234,240));
 			logButton.setFocusPainted(false); 
 			logButton.setContentAreaFilled(false);

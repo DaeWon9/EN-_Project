@@ -2,20 +2,12 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import Utility.Constant;
 import Utility.DataProcessing;
 import model.AnswerDTO;
 import model.FormulaDTO;
 import model.OperatorDTO;
-import view.ButtonPanel;
-import view.LogPanel;
 import view.MainFrame;
 import model.InputNumberDTO;
 import model.OperandDTO;
@@ -53,7 +45,7 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 		if (!inputNumberDTO.get().equals(""))
 		{
 			if (inputNumberDTO.get().contains("negate"))
-				mainFrame.textPanel.answer.setText(answerDTO.get());
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			else
 				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get())));
 		}	

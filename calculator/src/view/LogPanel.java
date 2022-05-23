@@ -12,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 public class LogPanel extends JPanel
@@ -46,7 +45,6 @@ public class LogPanel extends JPanel
 		ImageIcon deleteButtonIcon = new ImageIcon(LogPanel.class.getResource("/Image/deleteIcon.png"));	
 		deleteButton = new JButton(deleteButtonIcon);	
 		deleteButton.setSize(deleteButtonIcon.getIconWidth(), deleteButtonIcon.getIconHeight());
-		
 		deleteButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		deleteButton.setBorderPainted(false);
 		deleteButton.setContentAreaFilled(false);
