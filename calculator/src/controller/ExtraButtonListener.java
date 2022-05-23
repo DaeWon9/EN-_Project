@@ -161,12 +161,14 @@ public class ExtraButtonListener implements ActionListener
 			else if (inputNumberDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
 			{
 				inputNumberDTO.set(inputNumberDTO.get().substring(1));
-				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
+				mainFrame.textPanel.answer.setText(inputNumberDTO.get());
+				//mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
 			}
 			else // -가 아니면 -붙여주기
 			{
 				inputNumberDTO.set("-" + inputNumberDTO.get());
-				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
+				mainFrame.textPanel.answer.setText(inputNumberDTO.get());
+				//mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
 			}
 							
 			DataProcessing.getDataProcessing().resizeLabel(mainFrame);

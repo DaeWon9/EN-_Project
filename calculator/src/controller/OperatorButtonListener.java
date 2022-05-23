@@ -133,7 +133,10 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 			operatorDTO.setLast(operatorDTO.get());
 			formulaString = getFormulaString(Constant.FORMULA_TYPE_HALF);
 			refreshFormulaLabel(formulaString);
-			mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
+			if (answerDTO.get().contains("negate"))
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().deleteNegateMark(answerDTO.get()));
+			else
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 		}
 		
 		else if (!operatorDTO.get().equals("=") && !inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라스트 인풋값이 존재하면 -> 즉 두번째로 입력 -> 계산
