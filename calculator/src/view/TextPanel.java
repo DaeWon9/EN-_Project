@@ -38,7 +38,6 @@ public class TextPanel extends JPanel
 		logButton.setContentAreaFilled(false);
 		add(logButton);
 		
-		
 		JPanel formulaPanel = new JPanel();
 		formulaPanel.setLayout(new BorderLayout());
 		formulaPanel.setBackground(new Color(241, 243, 249));
@@ -58,8 +57,7 @@ public class TextPanel extends JPanel
 		jScrollBar.setUnitIncrement(20);
 		formulaScroll.getViewport().setBackground(new Color(241, 243, 249));
 		formulaScroll.setBorder(null);	
-
-		
+	
 		ImageIcon leftArrowIcon = new ImageIcon(TextPanel.class.getResource("/Image/leftArrow.png"));	
 		leftArrowButton = new JButton(leftArrowIcon);	
 		leftArrowButton.setAlignmentX(LEFT_ALIGNMENT);
@@ -90,20 +88,16 @@ public class TextPanel extends JPanel
 			}
 		});
 		
-		
 		formulaPanel.add(leftArrowButton, BorderLayout.WEST);
 		formulaPanel.add(formulaScroll, BorderLayout.CENTER);
 		formulaPanel.add(rightArrowButton, BorderLayout.EAST);
 		add(formulaPanel);
-	
-		
+
 		answer = new JLabel("0");
 		answer.setFont(new Font("맑은 고딕", 0, 45));
 		answer.setAlignmentX(RIGHT_ALIGNMENT);
 		answer.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(answer);
-		
 		setPreferredSize(new Dimension(322, 140));
-		
 	}
 }

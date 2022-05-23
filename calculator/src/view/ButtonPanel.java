@@ -20,12 +20,10 @@ public class ButtonPanel extends JPanel
 		Color operatorButtonColor = new Color(248, 249, 252);
 		Color blueButtonColor = new Color(0, 103, 192);
 
-		
 		button = new JButton[20]; //버튼 20개임
 		setLayout(new GridLayout(5,4,3,3)); // 5행4열로 배치하고 간격 3으로 설정
 		setBackground(new Color(241, 243, 249)); 
-		
-		
+	
 		button[Constant.ButtonIndex.CE.getIndex()] = new JButton("CE");
 		button[Constant.ButtonIndex.C.getIndex()] = new JButton("C");
 		button[Constant.ButtonIndex.BACK_SPACE.getIndex()] = new JButton("⌫");
@@ -80,6 +78,5 @@ public class ButtonPanel extends JPanel
 			button[repeat].setFocusPainted(false); 
 			add(button[repeat]);
 		} 
-		
 	}
 }

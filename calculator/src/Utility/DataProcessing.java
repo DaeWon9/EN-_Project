@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,7 +32,6 @@ public class DataProcessing
 		return count;
 	}
 	
-
 	public String appendCommaInLong(Long number) // 숫자에 ,추가하는 함수
 	{
 		String formatResult= "";
@@ -52,6 +52,7 @@ public class DataProcessing
 	
 	public String numberFormat(String numberString)
 	{
+		String decimalFormatFormString;
 		if (numberString.equals("0으로 나눌 수 없습니다"))
 			return "0으로 나눌 수 없습니다";
 		else if (numberString.equals("정의되지 않은 결과입니다."))
@@ -65,14 +66,26 @@ public class DataProcessing
 
 		if (bigDeciaml.compareTo(new BigDecimal("9.999999999999999e+9999")) > 0 || bigDeciaml.compareTo(new BigDecimal("-9.999999999999999e+9999")) < 0 || (bigDeciaml.compareTo(new BigDecimal("1e-9999")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) > 0) || (bigDeciaml.compareTo(new BigDecimal("-1e-9999")) > 0 && bigDeciaml.compareTo(BigDecimal.ZERO) < 0))
 			formatResult = "오버플로";
-		else if (bigDeciaml.compareTo(new BigDecimal("10000000000000000")) > 0 || bigDeciaml.compareTo(new BigDecimal("-10000000000000000")) < 0)
+		else if (bigDeciaml.compareTo(new BigDecimal("10000000000000000")) >= 0 || bigDeciaml.compareTo(new BigDecimal("-10000000000000000")) <= 0)
 			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E", "e+");
-		else if ((bigDeciaml.compareTo(new BigDecimal("0.0000000000000001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) > 0 ) || (bigDeciaml.compareTo(new BigDecimal("-0.00000000000000001")) > 0 && bigDeciaml.compareTo(BigDecimal.ZERO) < 0 ))
-			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E-", "e-");
-		else if (((bigDeciaml.compareTo(new BigDecimal("0.001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) > 0 ) || (bigDeciaml.compareTo(new BigDecimal("-0.001")) > 0) && bigDeciaml.compareTo(BigDecimal.ZERO) < 0 ) && bigDeciaml.toString().length() > 16)
+		else if (((bigDeciaml.compareTo(new BigDecimal("0.001")) < 0 && bigDeciaml.compareTo(BigDecimal.ZERO) > 0 ) || (bigDeciaml.compareTo(new BigDecimal("-0.001")) > 0) && bigDeciaml.compareTo(BigDecimal.ZERO) < 0 ) && bigDeciaml.toPlainString().replace("-","").length() > 18)
 			formatResult = (exponentialFormat.format(bigDeciaml)).replace("E-", "e-");
 		else
-			formatResult = decimalFormat.format(bigDeciaml).replace("E", "e");
+		{
+			if(bigDeciaml.toPlainString().length() > 18)
+			{
+				decimalFormatFormString = ",###.";
+				for (int repeat = 0; repeat < 18 - 1 - bigDeciaml.toPlainString().split("\\.")[0].length(); repeat++)
+				{
+					decimalFormatFormString += "#";
+				}
+				decimalFormat = new DecimalFormat(decimalFormatFormString);
+			}
+			formatResult = decimalFormat.format(bigDeciaml);
+		}
+		
+		if (formatResult.contains("e") && !formatResult.contains("."))
+			formatResult = formatResult.replace("e", ".e");
 		return formatResult;
 	}
 	
@@ -100,9 +113,7 @@ public class DataProcessing
 		else
 		{
 			if (inputNumberString.length() <= Constant.MAX_LONG_LENGTH)
-			{
 				resultString = numberFormat(inputNumberString);
-			}
 		}
 		return resultString;
 	}
@@ -152,7 +163,6 @@ public class DataProcessing
 			mainFrame.textPanel.leftArrowButton.setVisible(true);
 			mainFrame.textPanel.rightArrowButton.setVisible(true);
 		}
-
 		else
 		{
 			mainFrame.textPanel.leftArrowButton.setVisible(false);

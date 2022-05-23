@@ -193,7 +193,7 @@ public class MainController implements KeyListener, ComponentListener
 	    case KeyEvent.VK_4:
 	    	if (e.isShiftDown()){break;}
 	    case KeyEvent.VK_NUMPAD4:
-	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.FOUR.getIndex()].doClick();   
+	    	mainFrame.buttonPanel.button[Constant.ButtonIndex.FOUR.getIndex()].doClick();  
 	        break;
 	    case KeyEvent.VK_5:
 	    	if (e.isShiftDown()){break;}

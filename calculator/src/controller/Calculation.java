@@ -36,12 +36,10 @@ public class Calculation
 			switch (operatorDTO.getLast())
 			{
 				case "÷":
-					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL128); 
+					calculateResult = leftOperand.divide(rightOperand, MathContext.DECIMAL128);
 					break; 
 				case "x":
-					calculateResult = leftOperand.multiply(rightOperand, MathContext.DECIMAL128);
-					if (calculateResult.toString().length()>15)
-						calculateResult = calculateResult.setScale(15, RoundingMode.HALF_EVEN);
+					calculateResult = roundHalfEven(leftOperand.multiply(rightOperand, MathContext.DECIMAL128));
 					break;
 				case "-":
 					calculateResult = leftOperand.subtract(rightOperand);
@@ -61,6 +59,18 @@ public class Calculation
 				return "정의되지 않은 결과입니다.";
 		}
 
-		return calculateResult.toString();	
+		return calculateResult.toPlainString();	
+	}
+	
+	private BigDecimal roundHalfEven(BigDecimal calculateResult)
+	{
+		String splitString;
+		if (calculateResult.toString().contains("."))
+		{
+			splitString = calculateResult.toString().split("\\.")[1];
+			if (splitString.length()>15)
+				calculateResult = calculateResult.setScale(15, RoundingMode.HALF_EVEN);
+		}
+		return calculateResult;
 	}
 } 
