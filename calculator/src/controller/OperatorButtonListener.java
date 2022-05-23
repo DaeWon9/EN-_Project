@@ -47,15 +47,8 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 	{	
 		if (answerDTO.get().matches(Constant.EXCEPTION_TYPE_KOREAN))
 			return;
-		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
 		operatorDTO.set(((JButton)e.getSource()).getText());
-		if (!inputNumberDTO.get().equals(""))
-		{
-			if (inputNumberDTO.get().contains("negate"))
-				mainFrame.textPanel.answer.setText(answerDTO.get());
-			else
-				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get())));
-		}	
+		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
 		if (inputNumberDTO.get().equals("")) // 숫자가 입력되지 않고 오퍼레이터가 입력된경우
 			actionOperatorButtonWhenInputNumberNotExist();
 		else // 숫자가 입력되고 오퍼레이터가 입력된 경우
@@ -66,7 +59,7 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 		mainFrame.requestFocus();
 	}
 
-	private void actionOperatorButtonWhenInputNumberNotExist()
+	private void actionOperatorButtonWhenInputNumberNotExist() // 숫자가 입력되지 않은 상태에서의 오퍼레이터 버튼의 엑션
 	{
 		String formulaString = "", calculationResult;
 		if (operatorDTO.get().equals("=") && operatorDTO.getLast().equals("")) // 라스트 오퍼레이터 없이 =만 입력된경우
@@ -101,7 +94,7 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 		}
 	}
 	
-	private void actionOperatorButtonWhenInputNumberExist()
+	private void actionOperatorButtonWhenInputNumberExist() // 숫자가 입력된 상태에서의 오퍼레이터 버튼의 엑션
 	{
 		String formulaString = "", calculationResult;
 		if (operatorDTO.get().equals("=") && operatorDTO.getLast().equals("")) // 라스트오퍼레이터가 없는상태에서 = 입력받음
@@ -112,6 +105,7 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 			formulaString = getFormulaString(Constant.FORMULA_TYPE_HALF);
 			refreshFormulaLabel(formulaString);
 			mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
+			logManagement.addLog(mainFrame);
 		}
 		
 		else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 오퍼레이터가 = 리고 라스트 오퍼레이터가있음 -> 평범한 계산
@@ -139,6 +133,7 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 			operatorDTO.setLast(operatorDTO.get());
 			formulaString = getFormulaString(Constant.FORMULA_TYPE_HALF);
 			refreshFormulaLabel(formulaString);
+			mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 		}
 		
 		else if (!operatorDTO.get().equals("=") && !inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라스트 인풋값이 존재하면 -> 즉 두번째로 입력 -> 계산
