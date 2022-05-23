@@ -96,14 +96,21 @@ public class ExtraButtonListener implements ActionListener
 				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().inputNumberFormat(inputNumberDTO.get()));
 			inputNumberDTO.set(mainFrame.textPanel.answer.getText());
 		}
-		else
+		else if (isContainOperator(formulaDTO.get()))// 계산식에 = 만 있는경우는 제외해야함
 		{
 			mainFrame.textPanel.formula.setText(" ");
 			inputNumberDTO.set("");
 		}
 	}
 	
-	private void actionNegateButton()
+	private boolean isContainOperator(String formula)
+	{
+		if (formula.contains("+") || formula.contains("-") || formula.contains("x") || formula.contains("/"))
+			return true;
+		return false;
+	}
+	
+	private void actionNegateButton() //if 문 딥한거 기능 완성후에 빼기
 	{
 		if (inputNumberDTO.get().equals("")) // inputnumber가 없음
 		{
