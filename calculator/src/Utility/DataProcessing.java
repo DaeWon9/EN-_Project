@@ -40,6 +40,15 @@ public class DataProcessing
 		return formatResult;
 	}
 
+	public String formatFormulaOperand(String operandString)
+	{
+		String formatString = "";
+		if (operandString.contains("negate"))
+			formatString = deleteComma(operandString);
+		else
+			formatString = numberFormat(operandString);
+		return formatString;
+	}
 	
 	public String numberFormat(String numberString)
 	{

@@ -1,7 +1,4 @@
 package model;
-
-import java.math.BigDecimal;
-
 public class OperandDTO 
 {
 	private String leftOperand;

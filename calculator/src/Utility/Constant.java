@@ -8,6 +8,10 @@ public class Constant
 	
 	public static final String LOG_STRING_FORM = "<HTML><body><p style='font-size:11px;text-align:right;'>%s</p><p style='font-size:13px;text-align:right;'><strong>%s</strong></p></body></HTML>";
 	
+	public static final int FORMULA_TYPE_FULL = 1;
+	public static final int FORMULA_TYPE_HALF = 2;
+	
+	
 	public enum ButtonIndex
 	{ 
 		CE(0), C(1), BACK_SPACE(2), DIVISON(3), 

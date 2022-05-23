@@ -12,7 +12,6 @@ import model.OperatorDTO;
 
 public class Calculation
 {
-	@SuppressWarnings("deprecation")
 	public String calculate(OperandDTO operandDTO, OperatorDTO operatorDTO) //계산하는 함수
 	{
 		int leftOperandNegateCount = 0;
