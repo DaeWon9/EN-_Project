@@ -53,8 +53,14 @@ public class LogManagement
 			JButton logButton = new JButton(logString);
 			logButton.setHorizontalAlignment(SwingConstants.RIGHT);
 			logButton.setFont(buttonFont);
-			logButton.setMinimumSize(new Dimension(350,70));
-			logButton.setPreferredSize(new Dimension(250,70)); 
+
+			
+
+			logButton.setPreferredSize(new Dimension(250,(formula.length()/30)*20 + 50)); 	
+			
+			System.out.println(logButton.getPreferredSize());
+			
+			
 			logButton.setBackground(new Color(232,234,240));
 			logButton.setFocusPainted(false); 
 			logButton.setContentAreaFilled(false);

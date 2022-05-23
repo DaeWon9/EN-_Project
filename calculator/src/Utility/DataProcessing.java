@@ -107,7 +107,6 @@ public class DataProcessing
 		return resultString;
 	}
 	
-
 	public String deleteComma(String str) // 문자열 숫자에 ,제거하는 함수
 	{
 		return str.replace(",", "");
@@ -143,8 +142,6 @@ public class DataProcessing
 		return minimumSize;
 	}
 	
-	
-
 	public void setArrowButtonVisible(MainFrame mainFrame)
 	{
 		int formulaStringWidth = mainFrame.textPanel.formula.getPreferredSize().width;
