@@ -148,7 +148,7 @@ public class ExtraButtonListener implements ActionListener
 				if (answerDTO.get().equals("0"))
 					answerDTO.set("0");
 				else if (answerDTO.get().charAt(0) == '-') // 첫글자가 -면 삭제
-					answerDTO.set(answerDTO.get().substring(1));
+					answerDTO.set(answerDTO.get().replace("-",""));
 				else // -가 아니면 -붙여주기
 					answerDTO.set("-" + answerDTO.get());
 				//////////

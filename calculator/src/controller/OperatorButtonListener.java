@@ -50,6 +50,14 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 		operatorDTO.set(((JButton)e.getSource()).getText());
 		checkLastCharIsPoint(); // 숫자입력값 마지막이 . 이면 없애주기 
 	
+		if (!inputNumberDTO.get().equals(""))
+		{
+			if (inputNumberDTO.get().contains("negate"))
+				mainFrame.textPanel.answer.setText(answerDTO.get());
+			else
+				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteComma(inputNumberDTO.get())));
+		}	
+		
 		if (inputNumberDTO.get().equals("")) // 숫자가 입력되지 않고 오퍼레이터가 입력된경우
 			actionOperatorButtonWhenInputNumberNotExist();
 		else // 숫자가 입력되고 오퍼레이터가 입력된 경우
@@ -128,10 +136,6 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 	
 		else if (!operatorDTO.get().equals("=") && inputNumberDTO.getLast().equals("")) // 오퍼레이터가 =가 아니고, 라이스인풋값이 없으면 -> 즉 처음입력
 		{					 
-			if (answerDTO.get().contains("negate"))
-				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().deleteNegateMark(answerDTO.get()));
-			else
-				mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			operandDTO.setLeftOperand(inputNumberDTO.get());
 			answerDTO.set(operandDTO.getLeftOperand()); 
 			inputNumberDTO.setLast(inputNumberDTO.get());
