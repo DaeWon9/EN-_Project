@@ -111,7 +111,7 @@ public class ExtraButtonListener implements ActionListener
 			{
 				if (formulaDTO.get().contains("="))
 				{
-					inputNumberDTO.set("negate( " + answerDTO.get() + " )");
+					inputNumberDTO.set("negate( " + DataProcessing.getDataProcessing().deleteComma(answerDTO.get()) + " )");
 					mainFrame.textPanel.formula.setText(inputNumberDTO.get());
 				}
 				else
@@ -122,7 +122,7 @@ public class ExtraButtonListener implements ActionListener
 					}
 					else
 					{
-						inputNumberDTO.set("negate( " + operandDTO.getLeftOperand() + " )");
+						inputNumberDTO.set("negate( " + DataProcessing.getDataProcessing().deleteComma(operandDTO.getLeftOperand()) + " )");
 					}
 					mainFrame.textPanel.formula.setText(operandDTO.getLeftOperand()+ " " + operatorDTO.getLast() + " " + inputNumberDTO.get());
 				}
@@ -162,7 +162,6 @@ public class ExtraButtonListener implements ActionListener
 			{
 				inputNumberDTO.set(inputNumberDTO.get().substring(1));
 				mainFrame.textPanel.answer.setText(inputNumberDTO.get());
-				//mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
 			}
 			else // -가 아니면 -붙여주기
 			{
