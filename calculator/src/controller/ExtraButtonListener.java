@@ -119,7 +119,10 @@ public class ExtraButtonListener implements ActionListener
 					if (inputNumberDTO.get().contains("negate"))
 						inputNumberDTO.set("negate( " + inputNumberDTO.get() + " )");
 					else
-						inputNumberDTO.set("negate( " + DataProcessing.getDataProcessing().deleteNegateMark(operandDTO.getLeftOperand()) + " )");
+					{
+						inputNumberDTO.set("negate( " + mainFrame.textPanel.answer.getText() + " )");
+						answerDTO.set(mainFrame.textPanel.answer.getText());
+					}
 					mainFrame.textPanel.formula.setText(operandDTO.getLeftOperand()+ " " + operatorDTO.getLast() + " " + inputNumberDTO.get());
 				}
 				
@@ -136,6 +139,8 @@ public class ExtraButtonListener implements ActionListener
 		}
 		else // inputnumber가 있음
 		{
+			if (inputNumberDTO.get().equals("0"))
+				return;
 			if (inputNumberDTO.get().contains("negate"))
 			{		
 				inputNumberDTO.set("negate( " + inputNumberDTO.get() + " )");
@@ -163,7 +168,6 @@ public class ExtraButtonListener implements ActionListener
 			{
 				inputNumberDTO.set("-" + inputNumberDTO.get());
 				mainFrame.textPanel.answer.setText(inputNumberDTO.get());
-				//mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(DataProcessing.getDataProcessing().deleteNegateMark(inputNumberDTO.get())));
 			}
 			DataProcessing.getDataProcessing().resizeLabel(mainFrame);
 		}
