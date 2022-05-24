@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,6 +42,8 @@ public class LogPanel extends JPanel
 		
 		add(logButtonPanel, BorderLayout.CENTER);
 		
+		JPanel deleteButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		deleteButtonPanel.setBackground(new Color(241, 243, 249));
 		ImageIcon deleteButtonIcon = new ImageIcon(LogPanel.class.getResource("/Image/deleteIcon.png"));	
 		deleteButton = new JButton(deleteButtonIcon);	
 		deleteButton.setSize(deleteButtonIcon.getIconWidth(), deleteButtonIcon.getIconHeight());
@@ -57,8 +60,10 @@ public class LogPanel extends JPanel
 				logButtonPanel.repaint();
 				logButtonPanel.revalidate();
 			}
-		});	
+		});
+		deleteButtonPanel.add(deleteButton);
 		deleteButton.setVisible(false);
-		add(deleteButton, BorderLayout.SOUTH);
+		
+		add(deleteButtonPanel, BorderLayout.SOUTH);
 	}
 }
