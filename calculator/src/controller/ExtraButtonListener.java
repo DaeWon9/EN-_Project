@@ -71,7 +71,7 @@ public class ExtraButtonListener implements ActionListener
 	{
 		if (mainFrame.textPanel.formula.getText().contains("=")) // 좌측 오퍼랜드 초기화, 상단에 수식 초기화, 인풋넘버 초기화
 		{
-			operandDTO.setLeftOperand(null);
+			operandDTO.setLeftOperand("");
 			mainFrame.textPanel.formula.setText(" ");
 		}
 		answerDTO.set("0");
