@@ -107,6 +107,7 @@ public class OperatorButtonListener implements ActionListener // 함수로 뺄�
 			refreshFormulaLabel(formulaString);
 			mainFrame.textPanel.answer.setText(DataProcessing.getDataProcessing().numberFormat(answerDTO.get()));
 			logManagement.addLog(mainFrame);
+			inputNumberDTO.setLast("");
 		}
 		
 		else if (operatorDTO.get().equals("=") && !operatorDTO.getLast().equals("")) // 오퍼레이터가 = 리고 라스트 오퍼레이터가있음 -> 평범한 계산
