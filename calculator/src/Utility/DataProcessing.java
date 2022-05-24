@@ -156,15 +156,17 @@ public class DataProcessing
 	
 	public void setArrowButtonVisible(MainFrame mainFrame)
 	{
-		JScrollBar formulaScroll = mainFrame.textPanel.formulaScroll.getHorizontalScrollBar();
+		JScrollBar formulaScroll;
 		int formulaStringWidth = mainFrame.textPanel.formula.getPreferredSize().width;
 		int textPanelWidth = mainFrame.textPanel.getSize().width;
 
 		if (formulaStringWidth > textPanelWidth)
 		{
-			formulaScroll.setValue(formulaScroll.getMaximum());
 			mainFrame.textPanel.leftArrowButton.setVisible(true);
 			mainFrame.textPanel.rightArrowButton.setVisible(true);
+			mainFrame.revalidate();
+			formulaScroll = mainFrame.textPanel.formulaScroll.getHorizontalScrollBar();
+			formulaScroll.setValue(formulaScroll.getMaximum());
 		}
 		else
 		{
