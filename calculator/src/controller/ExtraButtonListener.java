@@ -30,7 +30,7 @@ public class ExtraButtonListener implements ActionListener
 		this.formulaDTO = formulaDTO;
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e)
 	{
 		switch (((JButton)e.getSource()).getText())
 		{
@@ -122,7 +122,7 @@ public class ExtraButtonListener implements ActionListener
 						inputNumberDTO.set("negate( " + inputNumberDTO.get() + " )");
 					else
 					{
-						inputNumberDTO.set("negate( " + mainFrame.textPanel.answer.getText() + " )");
+						inputNumberDTO.set("negate( " + DataProcessing.getDataProcessing().deleteComma(mainFrame.textPanel.answer.getText()) + " )");
 						answerDTO.set(mainFrame.textPanel.answer.getText());
 					}
 					mainFrame.textPanel.formula.setText(operandDTO.getLeftOperand()+ " " + operatorDTO.getLast() + " " + inputNumberDTO.get());

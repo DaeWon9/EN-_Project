@@ -13,7 +13,7 @@ import javax.swing.JScrollBar;
 import view.MainFrame;
 
 
-public class DataProcessing 
+public class DataProcessing //final
 {
 	private static DataProcessing dataProcessing = new DataProcessing();
 	
@@ -151,7 +151,7 @@ public class DataProcessing
 		else
 			minimumSize = mainFame.getSize().width - 20;
 		
-		return minimumSize;
+		return minimumSize; //return 위에서 가능
 	}
 	
 	public void setArrowButtonVisible(MainFrame mainFrame)

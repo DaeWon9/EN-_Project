@@ -18,7 +18,7 @@ public class Calculation
 		if (operandDTO.getLeftOperand() == "")
 			operandDTO.setLeftOperand("0");
 
-		if(operandDTO.getLeftOperand().contains("negate"))
+		if(operandDTO.getLeftOperand().contains("negate")) // 모듈화
 			leftOperandNegateCount = DataProcessing.getDataProcessing().countChar(operandDTO.getLeftOperand(), ')');
 		if(operandDTO.getRightOperand().contains("negate"))
 			rightOperandNegateCount = DataProcessing.getDataProcessing().countChar(operandDTO.getRightOperand(), ')');
