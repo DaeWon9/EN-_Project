@@ -9,6 +9,11 @@ public class Message
 		System.out.print(message);
 	}
 	
+	public void printError(String inputString)
+	{
+		System.out.print(String.format(Constant.ERROR_MESSAGE_FORM, inputString));
+	}
+	
 	public void printVersion()
 	{
 		System.out.println("Microsoft Windows [Version 10.0.22000.675]");
@@ -19,10 +24,4 @@ public class Message
 	{
 		System.out.print(path + ">");
 	}
-	
-	public void printHelpMessage()
-	{
-		System.out.print(Constant.HELP_COMMAND_STRING);
-	}
-
 }

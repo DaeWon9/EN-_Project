@@ -27,27 +27,33 @@ public class Dir implements CmdAction
 	
 	private void getFileList()
 	{
-		File file = new File(userPath.get());
-		/*
-        String[] fileList;
+		int DirCount = 0,fileCount = 0;
+        String DirString = "";
+        File[] fileList;
         File file = new File(userPath.get());
-        fileList = file.list();
-        for (String fileName : fileList) {
-            System.out.println(fileName);
+        fileList = file.listFiles();
+        for (File fileName : fileList) 
+        {
+        	if (fileName.isDirectory())
+        	{
+        		DirString = "<DIR>";
+        		DirCount++;
+        	}
+        	if (fileName.isFile())
+        	{
+        		DirString = "";
+        		fileCount++;
+        	}
+            System.out.println(getLastModified(file) + "\t" + DirString + "\t" + fileName.getName());
         }
-        */
-
-		
-		//System.out.println(file.getFreeSpace());
-		//System.out.println(file.getUsableSpace());
-		//System.out.println(file.lastModified());
-		System.out.println(file.isDirectory());
+        System.out.println("\t\t" + fileCount + "개 파일\t\t" + file.length() + "바이트");
+		System.out.println("\t\t" + DirCount + "개 디렉터리 " + file.getUsableSpace() + "바이트 남음");
 	}
 	
-	private void getLastModified(File file)
+	private String getLastModified(File file)
 	{
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
-        System.out.println(simpleDateFormat.format(file.lastModified()));
+        return simpleDateFormat.format(file.lastModified());
 	}
 	
 	

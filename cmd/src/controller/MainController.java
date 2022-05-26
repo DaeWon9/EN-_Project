@@ -1,6 +1,9 @@
 package controller;
 
+import controller.command.Cd;
+import controller.command.Copy;
 import controller.command.Dir;
+import controller.command.Move;
 import model.UserPath;
 import utility.Constant;
 import utility.Constant.CommandKey;
@@ -14,17 +17,14 @@ public class MainController
 	private CmdView cmdView = new CmdView();
 	private UserPath userPath = new UserPath(System.getProperty("user.home"));
 	private Dir dir = new Dir(userPath);
+	private Cd cd = new Cd();
+	private Copy copy = new Copy();
+	private Move move = new Move();
 	
 	public void start()
 	{
 		message.printVersion();
 		commandListener();
-		//System.out.println(classifyCommand("qweoqwekoq dir   ser"));
-		//dir.actionCommand();
-		
-		//System.out.println(DataProcessing.get().getInputString());
-		//message.print(Constant.CLS_COMMAND_STRING);
-
 	}
 	
 	private void commandListener()
@@ -34,7 +34,7 @@ public class MainController
 		while(!isExit)
 		{
 			message.printCurrentPath(userPath.get());
-			inputCommand = DataProcessing.get().getInputString();
+			inputCommand = DataProcessing.get().getInputString(); 
 			CommandKey commandKey = CommandKey.values()[classifyCommand(inputCommand)];
 			switch (commandKey)	
 			{
@@ -42,17 +42,22 @@ public class MainController
 				dir.actionCommand();
 				break;
 			case CD:
+				cd.actionCommand();
 				break;
 			case COPY:
+				copy.actionCommand();
 				break;
 			case MOVE:
+				move.actionCommand();
 				break;
 			case HELP:
-				message.printHelpMessage();
+				message.print(Constant.HELP_COMMAND_STRING);
 				break;
 			case CLS:
 				message.print(Constant.CLS_COMMAND_STRING);
 				break;
+			case ERROR:
+				message.printError(inputCommand);
 			default:
 				break;
 			}
@@ -65,11 +70,9 @@ public class MainController
 		String[] commandKey = {"dir", "cd", "copy", "move", "help", "cls"};	
 		for (int keyNumber = 0; keyNumber < commandKey.length; keyNumber++)
 		{
-			System.out.println(inputCommand);
-			System.out.println(commandKey[keyNumber]);
 			if (inputCommand.contains(commandKey[keyNumber]))
-				return keyNumber;
+				return keyNumber + 1;
 		}
-		return -1;
+		return Constant.CommandKey.ERROR.getIndex();
 	}
 }
