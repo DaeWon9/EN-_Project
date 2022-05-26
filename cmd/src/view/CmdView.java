@@ -1,6 +1,14 @@
 package view;
 
-public interface CmdView 
+public class CmdView 
 {
-	abstract void printCommandResult();
+	public void printCommandResult(String commandResult)
+	{
+		System.out.println(commandResult);
+	}
+	
+	public void printHelp()
+	{
+		
+	}
 }

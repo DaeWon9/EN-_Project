@@ -1,6 +1,6 @@
 package controller;
 
-public interface ActionCmd 
+public interface CmdAction 
 {
 	abstract void actionPerformed();
 }

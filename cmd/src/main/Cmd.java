@@ -1,5 +1,4 @@
 package main;
-
 import controller.MainController;
 
 public class Cmd 
