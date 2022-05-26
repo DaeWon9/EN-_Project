@@ -3,6 +3,7 @@ package controller;
 import controller.command.Dir;
 import model.UserPath;
 import utility.Constant;
+import utility.Constant.CommandKey;
 import utility.DataProcessing;
 import view.CmdView;
 import view.Message;
@@ -34,21 +35,22 @@ public class MainController
 		{
 			message.printCurrentPath(userPath.get());
 			inputCommand = DataProcessing.get().getInputString();
-			switch (classifyCommand(inputCommand))	
+			CommandKey commandKey = CommandKey.values()[classifyCommand(inputCommand)];
+			switch (commandKey)	
 			{
-			case 0:
+			case DIR:
 				dir.actionCommand();
 				break;
-			case 1:
+			case CD:
 				break;
-			case 2:
+			case COPY:
 				break;
-			case 3:
+			case MOVE:
 				break;
-			case 4:
+			case HELP:
 				message.printHelpMessage();
 				break;
-			case 5:
+			case CLS:
 				message.print(Constant.CLS_COMMAND_STRING);
 				break;
 			default:

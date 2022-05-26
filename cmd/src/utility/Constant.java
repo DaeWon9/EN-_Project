@@ -2,6 +2,14 @@ package utility;
 
 public class Constant 
 {
+	public enum CommandKey
+	{
+		DIR(0), CD(1), COPY(2), MOVE(3), HELP(4), CLS(5);
+	    private final int index;
+		private CommandKey(int index) {this.index = index;}  
+	    public int getIndex() {return index;}
+	}
+	
 	public static final String HELP_COMMAND_STRING = String.join(
 			"\n",
 			"\n특정 명령어에 대한 자세한 내용이 필요하면 HELP 명령어 이름을 입력하십시오.",
@@ -103,6 +111,5 @@ public class Constant
 			" ",
 			"도구에 대한 자세한 내용은 온라인 도움말의 명령줄 참조를 참조하십시오.\n"
 			);
-
 	public static final String CLS_COMMAND_STRING = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
