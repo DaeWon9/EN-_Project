@@ -104,4 +104,5 @@ public class Constant
 			"도구에 대한 자세한 내용은 온라인 도움말의 명령줄 참조를 참조하십시오.\n"
 			);
 
+	public static final String CLS_COMMAND_STRING = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }

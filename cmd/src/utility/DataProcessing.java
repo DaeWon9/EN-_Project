@@ -16,7 +16,7 @@ public class DataProcessing
 		String inputString = "";
 		Scanner scanner = new Scanner(System.in);
 		inputString = scanner.nextLine();
-		scanner.close();
+		//scanner.close();
 		return inputString;
 	}
 }

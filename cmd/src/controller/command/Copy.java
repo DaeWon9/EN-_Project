@@ -5,7 +5,7 @@ import controller.CmdAction;
 public class Copy implements CmdAction
 {
 	@Override
-	public void actionPerformed() 
+	public void actionCommand() 
 	{
 		// TODO Auto-generated method stub
 	}
