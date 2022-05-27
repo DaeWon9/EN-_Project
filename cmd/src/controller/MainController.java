@@ -17,7 +17,7 @@ public class MainController
 	private CmdView cmdView = new CmdView();
 	private UserPath userPath = new UserPath(System.getProperty("user.home"));
 	private Dir dir = new Dir(userPath);
-	private Cd cd = new Cd(userPath);
+	private Cd cd = new Cd(userPath, message);
 	private Copy copy = new Copy();
 	private Move move = new Move();
 	
