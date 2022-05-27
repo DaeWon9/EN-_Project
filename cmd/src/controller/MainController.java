@@ -13,17 +13,16 @@ import view.Message;
 
 public class MainController 
 {
-	private Message message = new Message();
 	private CmdView cmdView = new CmdView();
 	private UserPath userPath = new UserPath(System.getProperty("user.home"));
-	private Dir dir = new Dir(userPath, message);
-	private Cd cd = new Cd(userPath, message);
+	private Dir dir = new Dir(userPath, cmdView);
+	private Cd cd = new Cd(userPath, cmdView);
 	private Copy copy = new Copy();
 	private Move move = new Move();
 	
 	public void start()
 	{
-		message.printVersion();
+		cmdView.printVersion();
 		commandListener();
 	}
 	
@@ -33,7 +32,7 @@ public class MainController
 		boolean isExit = false;
 		while(!isExit)
 		{
-			message.printCurrentPath(userPath.get());
+			cmdView.printCurrentPath(userPath.get());
 			inputCommand = DataProcessing.get().getInputString(); 
 			inputCommand = inputCommand.replace(" ", "");
 			lowerCommand = inputCommand.toLowerCase();
@@ -53,13 +52,13 @@ public class MainController
 				move.actionCommand(inputCommand);
 				break;
 			case HELP:
-				message.print(Constant.HELP_COMMAND_STRING);
+				cmdView.print(Constant.HELP_COMMAND_STRING);
 				break;
 			case CLS:
-				message.print(Constant.CLS_COMMAND_STRING);
+				cmdView.print(Constant.CLS_COMMAND_STRING);
 				break;
 			case ERROR:
-				message.printError(inputCommand);
+				cmdView.printError(inputCommand);
 			default:
 				break;
 			}

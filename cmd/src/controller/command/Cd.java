@@ -4,18 +4,18 @@ import java.io.File;
 import controller.CmdAction;
 import model.UserPath;
 import utility.DataProcessing;
-import view.Message;
+import view.CmdView;
 import utility.Constant.CdCommandType;
 
 
 public class Cd implements CmdAction
 {
 	private UserPath userPath;
-	private Message message;
-	public Cd(UserPath userPath, Message message)
+	private CmdView cmdView;
+	public Cd(UserPath userPath, CmdView cmdView)
 	{
 		this.userPath = userPath;
-		this.message = message;
+		this.cmdView = cmdView;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ public class Cd implements CmdAction
 			shiftPath(inputCommand, cdCommandType);
 			break;
 		case CD:
-			message.print(userPath.get() + "\n");
+			cmdView.print(userPath.get() + "\n");
 			break;
 		case MOVE_START_PATH:
 			shiftToStartPath();
@@ -54,7 +54,7 @@ public class Cd implements CmdAction
 		if (DataProcessing.get().isValidPath(targetPath))
 			userPath.set(targetPath);
 		else
-			message.print("지정된 경로를 찾을 수 없습니다.\n");
+			cmdView.print("지정된 경로를 찾을 수 없습니다.\n");
 	}
 	
 	private String getShiftPath(String inputCommand, CdCommandType cdCommandType)

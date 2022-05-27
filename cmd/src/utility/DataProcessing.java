@@ -1,6 +1,7 @@
 package utility;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -49,4 +50,11 @@ public class DataProcessing
 		File file = new File(inputPath);
 		return file.exists();
 	}
+	
+	public String getLastModified(File file)
+	{
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
+        return simpleDateFormat.format(file.lastModified());
+	}
+	
 }
