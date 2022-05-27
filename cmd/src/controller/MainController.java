@@ -9,7 +9,6 @@ import utility.Constant;
 import utility.Constant.CommandKey;
 import utility.DataProcessing;
 import view.CmdView;
-import view.Message;
 
 public class MainController 
 {
@@ -17,8 +16,8 @@ public class MainController
 	private UserPath userPath = new UserPath(System.getProperty("user.home"));
 	private Dir dir = new Dir(userPath, cmdView);
 	private Cd cd = new Cd(userPath, cmdView);
-	private Copy copy = new Copy();
-	private Move move = new Move();
+	private Move move = new Move(userPath, cmdView);
+	private Copy copy = new Copy(userPath, cmdView);
 	
 	public void start()
 	{
@@ -35,21 +34,20 @@ public class MainController
 			cmdView.printCurrentPath(userPath.get());
 			inputCommand = DataProcessing.get().getInputString();
 			lowerCommand = inputCommand.toLowerCase();
-			inputCommand = inputCommand.replace(" ", "");
 			CommandKey commandKey = CommandKey.values()[classifyCommand(lowerCommand)];
 			switch (commandKey)	
 			{
 			case DIR:
-				dir.actionCommand(inputCommand);
+				dir.actionCommand(lowerCommand);
 				break;
 			case CD:
-				cd.actionCommand(inputCommand);
+				cd.actionCommand(lowerCommand.replace(" ", ""));
 				break;
 			case COPY:
-				copy.actionCommand(inputCommand);
+				copy.actionCommand(lowerCommand);
 				break;
 			case MOVE:
-				move.actionCommand(inputCommand);
+				move.actionCommand(lowerCommand);
 				break;
 			case HELP:
 				cmdView.print(Constant.HELP_COMMAND_STRING);
@@ -58,7 +56,7 @@ public class MainController
 				cmdView.print(Constant.CLS_COMMAND_STRING);
 				break;
 			case ERROR:
-				cmdView.printError(inputCommand);
+				cmdView.printError(lowerCommand);
 			default:
 				break;
 			}
