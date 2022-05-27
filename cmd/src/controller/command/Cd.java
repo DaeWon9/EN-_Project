@@ -27,13 +27,13 @@ public class Cd implements CmdAction
 		switch (cdCommandType)
 		{
 		case SHIFT:
-			shiftPath(inputCommand);
+			shiftPath(inputCommand, cdCommandType);
 			break;
 		case CD:
 			message.print(userPath.get() + "\n");
 			break;
 		case MOVE_START_PATH:
-			moveStartPath();
+			shiftToStartPath();
 			break;
 		case UP_STAGE:
 			moveUpPathStage(1);
@@ -42,7 +42,7 @@ public class Cd implements CmdAction
 			moveUpPathStage(2);
 			break;
 		case MOVE_INPUT_PATH:
-			movePath(inputCommand);
+			shiftPath(inputCommand, cdCommandType);
 			break;
 		default:
 			break;
@@ -55,28 +55,36 @@ public class Cd implements CmdAction
 		return file.exists();
 	}
 	
-	private void shiftPath(String inputCommand)
+	private String getShiftPath(String inputCommand, CdCommandType cdCommandType)
 	{
-		String targetPath = userPath.get() + "\\" + inputCommand.split("cd")[1];
+		String ShiftedPath = "";
+		switch (cdCommandType)
+		{
+		case SHIFT:
+			ShiftedPath = (userPath.get() + "\\" + inputCommand.split("cd")[1]).replace("\\\\", "\\");
+			break;
+		case MOVE_INPUT_PATH:
+			ShiftedPath = inputCommand.split("cd")[1];
+			break;
+		default:
+			break;
+		}
+		return ShiftedPath;
+	}
+	
+	private void shiftPath(String inputCommand, CdCommandType cdCommandType)
+	{
+		String targetPath = getShiftPath(inputCommand, cdCommandType);
 		if (isValidPath(targetPath))
 			userPath.set(targetPath);
 		else
 			message.print("지정된 경로를 찾을 수 없습니다.\n");
 	}
 	
-	private void moveStartPath()
+	private void shiftToStartPath()
 	{
 		String currentPath = userPath.get();
 		userPath.set(currentPath.substring(0, 3));
-	}
-	
-	private void movePath(String inputCommand)
-	{
-		String targetPath = inputCommand.split("cd")[1];
-		if (isValidPath(targetPath))
-			userPath.set(targetPath);
-		else
-			message.print("지정된 경로를 찾을 수 없습니다.\n");
 	}
 	
 	private void moveUpPathStage(int stage)
@@ -102,7 +110,7 @@ public class Cd implements CmdAction
 				if (inputCommand.equals(cdCommandKey[keyNumber]))
 					return keyNumber + 1;
 			}
-			return Constant.CommandKey.ERROR.getIndex();
+			return 0;
 		}
 	}
 	
