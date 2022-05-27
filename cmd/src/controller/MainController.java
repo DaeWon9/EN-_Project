@@ -29,15 +29,15 @@ public class MainController
 	
 	private void commandListener()
 	{
-		String inputCommand;
+		String inputCommand, lowerCommand;
 		boolean isExit = false;
 		while(!isExit)
 		{
 			message.printCurrentPath(userPath.get());
 			inputCommand = DataProcessing.get().getInputString(); 
-			inputCommand = inputCommand.toLowerCase();
 			inputCommand = inputCommand.replace(" ", "");
-			CommandKey commandKey = CommandKey.values()[classifyCommand(inputCommand)];
+			lowerCommand = inputCommand.toLowerCase();
+			CommandKey commandKey = CommandKey.values()[classifyCommand(lowerCommand)];
 			switch (commandKey)	
 			{
 			case DIR:

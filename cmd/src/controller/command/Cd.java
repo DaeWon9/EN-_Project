@@ -6,6 +6,8 @@ import controller.CmdAction;
 import model.UserPath;
 import utility.Constant;
 import utility.DataProcessing;
+import utility.Constant.CdCommandType;
+import utility.Constant.CommandKey;
 
 public class Cd implements CmdAction
 {
@@ -18,32 +20,37 @@ public class Cd implements CmdAction
 	@Override
 	public void actionCommand(String inputCommand) 
 	{
-		//System.out.println(inputCommand);
-		int cdCommandType = classifyCdCommand(inputCommand);
-		//System.out.println(System.getProperty("user.home"));
+		int CommandType = classifyCdCommand(inputCommand);
+		CdCommandType cdCommandType = CdCommandType.values()[CommandType];
 		switch (cdCommandType)
 		{
-		case 0:
+		case ERROR:
 			System.out.println("ERROR");
 			break;
-		case 1: //cd
+		case CD:
 			System.out.println(userPath.get() + "\n");
 			break;
-		case 2: //cd..
-			moveUpPathStage(1);
-			break;
-		case 3: //cd\
+		case MOVE_START_PATH:
 			System.out.println("cd\\");
 			break;
-		case 4: // cd..\..
+		case UP_STAGE:
+			moveUpPathStage(1);
+			break;
+		case DOUBLE_UP_STAGE:
 			moveUpPathStage(2);
 			break;
-		case 5: // cd c:~~
-			System.out.println("cd c:");
+		case MOVE_INPUT_PATH:
+			movePath(inputCommand);
 			break;
 		default:
 			break;
 		}
+	}
+	
+	private void movePath(String inputCommand)
+	{
+		String targetPath = inputCommand.split("cd")[1];
+		userPath.set(targetPath);
 	}
 	
 	private void moveUpPathStage(int stage)
@@ -54,10 +61,9 @@ public class Cd implements CmdAction
 		userPath.set(DataProcessing.get().mergePath(splitedPath, pathLenght + 1 - stage));
 	}
 	
-	
 	private int classifyCdCommand(String inputCommand)
 	{
-		String[] cdCommandKey = {"cd", "cd..", "cd\\", "cd..\\.."};	
+		String[] cdCommandKey = {"cd", "cd\\", "cd..", "cd..\\.."};	
 		if (isCommandContainPath(inputCommand))
 			return cdCommandKey.length + 1;
 		else
@@ -73,7 +79,7 @@ public class Cd implements CmdAction
 	
 	private boolean isCommandContainPath(String inputCommand)
 	{
-		if (inputCommand.contains("c:"))
+		if (inputCommand.contains(":"))
 			return true;
 		return false;
 	}
