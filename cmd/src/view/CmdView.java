@@ -9,9 +9,9 @@ public class CmdView extends Message
 	{
 		String dirString = "";
 		int dirCount = 0, fileCount = 0;
-		printDirCommandLabel(filePath);
 		if (file != null)
 		{
+			printDirCommandLabel(filePath);
 	        File[] fileList = file.listFiles();
 	        for (File fileName : fileList) 
 	        {
