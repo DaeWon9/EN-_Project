@@ -3,7 +3,6 @@ package controller.command;
 import java.io.File;
 import controller.CmdAction;
 import model.UserPath;
-import utility.Constant;
 import utility.DataProcessing;
 import view.Message;
 import utility.Constant.CdCommandType;
@@ -49,10 +48,13 @@ public class Cd implements CmdAction
 		}
 	}
 	
-	private boolean isValidPath(String movePath)
+	private void shiftPath(String inputCommand, CdCommandType cdCommandType)
 	{
-		File file = new File(movePath);
-		return file.exists();
+		String targetPath = getShiftPath(inputCommand, cdCommandType);
+		if (DataProcessing.get().isValidPath(targetPath))
+			userPath.set(targetPath);
+		else
+			message.print("지정된 경로를 찾을 수 없습니다.\n");
 	}
 	
 	private String getShiftPath(String inputCommand, CdCommandType cdCommandType)
@@ -72,19 +74,10 @@ public class Cd implements CmdAction
 		return ShiftedPath;
 	}
 	
-	private void shiftPath(String inputCommand, CdCommandType cdCommandType)
-	{
-		String targetPath = getShiftPath(inputCommand, cdCommandType);
-		if (isValidPath(targetPath))
-			userPath.set(targetPath);
-		else
-			message.print("지정된 경로를 찾을 수 없습니다.\n");
-	}
-	
 	private void shiftToStartPath()
 	{
 		String currentPath = userPath.get();
-		userPath.set(currentPath.substring(0, 3));
+		userPath.set(currentPath.substring(0, 3)); //시작 경로 set
 	}
 	
 	private void moveUpPathStage(int stage)

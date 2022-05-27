@@ -5,50 +5,64 @@ import java.text.SimpleDateFormat;
 
 import controller.CmdAction;
 import model.UserPath;
+import utility.DataProcessing;
+import view.Message;
 
 public class Dir implements CmdAction
 {
 	private UserPath userPath;
-	public Dir(UserPath userPath)
+	private Message message;
+	public Dir(UserPath userPath, Message message)
 	{
 		this.userPath = userPath;
+		this.message = message;
 	}
 	
 	@Override
 	public void actionCommand(String inputCommand)
 	{
-		getFileList();
+		getFileList(inputCommand);
 	}
-	
-	private void getDirCommandResult()
+		
+	private String getFilePath(String inputCommand)
 	{
+		String filePath;
+		if (inputCommand.equals("dir"))
+			filePath =  userPath.get();
+		else
+			filePath = inputCommand.split("dir")[1];
+		return filePath;
 		
 	}
 	
-	
-	private void getFileList()
+	private void getFileList(String inputCommand)
 	{
-		int DirCount = 0,fileCount = 0;
-        String DirString = "";
-        File[] fileList;
-        File file = new File(userPath.get());
-        fileList = file.listFiles();
+		int dirCount = 0,fileCount = 0;
+        String dirString = "";
+        String pathString = getFilePath(inputCommand);
+        if (!DataProcessing.get().isValidPath(pathString))
+        {
+        	message.print("파일을 찾을 수 없습니다.\n\n");
+        	return;
+        }
+        File file = new File(pathString);
+        File[] fileList = file.listFiles();
         for (File fileName : fileList) 
         {
         	if (fileName.isDirectory())
         	{
-        		DirString = "<DIR>";
-        		DirCount++;
+        		dirString = "<DIR>";
+        		dirCount++;
         	}
         	if (fileName.isFile())
         	{
-        		DirString = "";
+        		dirString = "";
         		fileCount++;
         	}
-            System.out.println(getLastModified(file) + "\t" + DirString + "\t" + fileName.getName());
+            System.out.println(getLastModified(fileName) + "\t" + dirString + "\t" + fileName.getName());
         }
-        System.out.println("\t\t" + fileCount + "개 파일\t\t" + file.length() + "바이트");
-		System.out.println("\t\t" + DirCount + "개 디렉터리 " + file.getUsableSpace() + "바이트 남음");
+        System.out.println("\t\t" + fileCount + "개 파일\t\t" + file.length() + " 바이트");
+		System.out.println("\t\t" + dirCount + "개 디렉터리 " + file.getUsableSpace() + " 바이트 남음");
 	}
 	
 	private String getLastModified(File file)

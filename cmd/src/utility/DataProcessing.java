@@ -1,5 +1,6 @@
 package utility;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -41,5 +42,11 @@ public class DataProcessing
 			mergedPath.append(splitedPath[index]);
 		}
 		return mergedPath.toString();
+	}
+	
+	public boolean isValidPath(String inputPath)
+	{
+		File file = new File(inputPath);
+		return file.exists();
 	}
 }
