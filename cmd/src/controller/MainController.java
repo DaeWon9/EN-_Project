@@ -71,7 +71,7 @@ public class MainController
 		String[] commandKey = {"dir", "cd", "copy", "move", "help", "cls"};	
 		for (int keyNumber = 0; keyNumber < commandKey.length; keyNumber++)
 		{
-			if (inputCommand.equals(commandKey[keyNumber]))
+			if (inputCommand.contains(commandKey[keyNumber]))
 				return keyNumber + 1;
 		}
 		return Constant.CommandKey.ERROR.getIndex();

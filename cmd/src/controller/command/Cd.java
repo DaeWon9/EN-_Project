@@ -1,6 +1,5 @@
 package controller.command;
 
-import java.io.File;
 import controller.CmdAction;
 import model.UserPath;
 import utility.DataProcessing;
