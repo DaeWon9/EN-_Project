@@ -11,8 +11,8 @@ import view.CmdView;
 
 public class Move implements CmdAction
 {
-	private UserPath userPath;
-	private CmdView cmdView;
+	protected UserPath userPath;
+	protected CmdView cmdView;
 	public Move(UserPath userPath, CmdView cmdView)
 	{
 		this.userPath = userPath;
@@ -50,13 +50,13 @@ public class Move implements CmdAction
 		}
 	}
 	
-	private String getBeforeFileName(String inputCommand)
+	protected String getBeforeFileName(String inputCommand)
 	{
 		String[] splitedPath = inputCommand.split(" ")[1].split("\\\\");
 		return "\\" + splitedPath[splitedPath.length - 1];
 	}
 
-	private String getAfterFileName(String inputCommand)
+	protected String getAfterFileName(String inputCommand)
 	{
 		String[] splitedPath;
 		if (inputCommand.split(" ").length > 2)
@@ -66,7 +66,7 @@ public class Move implements CmdAction
 		return "\\" + splitedPath[splitedPath.length - 1];
 	}
 	
-	private String getBeforePath(String inputCommand, String fileName)
+	protected String getBeforePath(String inputCommand, String fileName)
 	{
 		inputCommand = inputCommand.split(" ")[1];
 		if (!inputCommand.contains(":"))
@@ -74,7 +74,7 @@ public class Move implements CmdAction
 		return inputCommand.replace(fileName, "");
 	}
 	
-	private String getAfterPath(String inputCommand, String fileName)
+	protected String getAfterPath(String inputCommand, String fileName)
 	{
 		if (inputCommand.split(" ").length > 2)
 		{
