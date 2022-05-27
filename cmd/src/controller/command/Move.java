@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import controller.CmdAction;
 import model.UserPath;
+import utility.DataProcessing;
 import view.CmdView;
 
 public class Move implements CmdAction
@@ -23,16 +21,19 @@ public class Move implements CmdAction
 	@Override
 	public void actionCommand(String inputCommand) 
 	{
+		String beforePath;
+		String afterPath;
 		if (inputCommand.split(" ").length < 2)
 		{
 			cmdView.print("명령 구문이 올바르지 않습니다.\n");
 			return;
 		}
-		System.out.println(getBeforePath(inputCommand, getBeforeFileName(inputCommand)) + getBeforeFileName(inputCommand));
-		System.out.println("to");
-		System.out.println(getAfterPath(inputCommand, getAfterFileName(inputCommand)) + getAfterFileName(inputCommand));
-		
-		//moveFile(getBeforePath(inputCommand) + getBeforeFileName(inputCommand), getAfterPath(inputCommand) + getAfterFileName(inputCommand));
+		beforePath = getBeforePath(inputCommand, getBeforeFileName(inputCommand)) + getBeforeFileName(inputCommand);
+		afterPath = getAfterPath(inputCommand, getAfterFileName(inputCommand)) + getAfterFileName(inputCommand);
+		if (DataProcessing.get().isValidPath(beforePath))
+			moveFile(beforePath, afterPath);
+		else
+			cmdView.print("지정된 파일을 찾을 수 없습니다.\n");
 	}
 	
 	private void moveFile(String beforePath, String afterPath)
@@ -40,6 +41,7 @@ public class Move implements CmdAction
 		try 
 		{
 			Files.move(new File(beforePath).toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+			cmdView.print("\t1개 파일을 이동했습니다.\n");
 		} 
 		catch (IOException e)
 		{
