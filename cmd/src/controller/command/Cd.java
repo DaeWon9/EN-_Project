@@ -1,8 +1,11 @@
 package controller.command;
 
+import java.util.Arrays;
+
 import controller.CmdAction;
 import model.UserPath;
 import utility.Constant;
+import utility.DataProcessing;
 
 public class Cd implements CmdAction
 {
@@ -23,25 +26,34 @@ public class Cd implements CmdAction
 		case 0:
 			System.out.println("ERROR");
 			break;
-		case 1:
-			System.out.println(userPath.get());
+		case 1: //cd
+			System.out.println(userPath.get() + "\n");
 			break;
-		case 2:
-			System.out.println("cd..");
+		case 2: //cd..
+			moveUpPathStage(1);
 			break;
-		case 3:
+		case 3: //cd\
 			System.out.println("cd\\");
 			break;
-		case 4:
-			System.out.println("cd..\\..");
+		case 4: // cd..\..
+			moveUpPathStage(2);
 			break;
-		case 5:
+		case 5: // cd c:~~
 			System.out.println("cd c:");
 			break;
 		default:
 			break;
 		}
 	}
+	
+	private void moveUpPathStage(int stage)
+	{
+		String currentPath = userPath.get();
+		String[] splitedPath = currentPath.split("\\\\");
+		int pathLenght = DataProcessing.get().countChar(currentPath, '\\');
+		userPath.set(DataProcessing.get().mergePath(splitedPath, pathLenght + 1 - stage));
+	}
+	
 	
 	private int classifyCdCommand(String inputCommand)
 	{
