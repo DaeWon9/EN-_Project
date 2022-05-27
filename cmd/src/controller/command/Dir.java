@@ -13,8 +13,9 @@ public class Dir implements CmdAction
 	{
 		this.userPath = userPath;
 	}
+	
 	@Override
-	public void actionCommand()
+	public void actionCommand(String inputCommand)
 	{
 		getFileList();
 	}
