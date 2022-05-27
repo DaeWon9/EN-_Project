@@ -33,9 +33,9 @@ public class MainController
 		while(!isExit)
 		{
 			cmdView.printCurrentPath(userPath.get());
-			inputCommand = DataProcessing.get().getInputString(); 
-			inputCommand = inputCommand.replace(" ", "");
+			inputCommand = DataProcessing.get().getInputString();
 			lowerCommand = inputCommand.toLowerCase();
+			inputCommand = inputCommand.replace(" ", "");
 			CommandKey commandKey = CommandKey.values()[classifyCommand(lowerCommand)];
 			switch (commandKey)	
 			{
@@ -67,10 +67,11 @@ public class MainController
 	
 	private int classifyCommand(String inputCommand)
 	{
+		inputCommand = inputCommand.split(" ")[0];
 		String[] commandKey = {"dir", "cd", "copy", "move", "help", "cls"};	
 		for (int keyNumber = 0; keyNumber < commandKey.length; keyNumber++)
 		{
-			if (inputCommand.contains(commandKey[keyNumber]))
+			if (inputCommand.equals(commandKey[keyNumber]))
 				return keyNumber + 1;
 		}
 		return Constant.CommandKey.ERROR.getIndex();

@@ -19,7 +19,7 @@ public class Dir implements CmdAction
 	@Override
 	public void actionCommand(String inputCommand)
 	{
-		cmdView.printDirCommandResult(getFileList(inputCommand));
+		cmdView.printDirCommandResult(getFileList(inputCommand), getFilePath(inputCommand));
 	}
 		
 	private String getFilePath(String inputCommand)
