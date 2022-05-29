@@ -2,44 +2,48 @@ package view;
 
 import java.io.File;
 import java.io.FileFilter;
-
 import utility.DataProcessing;
 
 public class CmdView extends Message
 {
+	private FileFilter hiddenFileFilter = new FileFilter() 
+    {
+		@Override
+		public boolean accept(File pathname) 
+		{
+        	 if (pathname.isHidden())
+        		 return false;
+        	 return true;
+		}
+	};
+	
 	public void printDirCommandResult(File file, String filePath)
 	{
-		String dirString = "";
-		int dirCount = 0, fileCount = 0;
-		FileFilter fileFilter = new FileFilter()
-        {
-            @Override
-            public boolean accept(File entry)
-            {
-                if (entry.isHidden()) return false;
-                return true;
-            }
-        };
+		String dirString = "", fileLengthString = "";
+		Long dirCount = (long) 0, fileCount = (long) 0, fileLengthSum = (long) 0;	
 		if (file != null)
 		{
 			printDirCommandLabel(filePath);
-	        File[] fileList = file.listFiles(fileFilter);
+	        File[] fileList = file.listFiles(hiddenFileFilter);
 	        for (File fileName : fileList) 
 	        {
 	        	if (fileName.isDirectory())
 	        	{
 	        		dirString = "<DIR>";
+	        		fileLengthString = "";
 	        		dirCount++;
 	        	}
 	        	if (fileName.isFile())
 	        	{
 	        		dirString = "";
+	        		fileLengthString = DataProcessing.get().appendComma(Long.toString(fileName.length()));
+	        		fileLengthSum = fileLengthSum + fileName.length();
 	        		fileCount++;
 	        	}
-	            System.out.println(DataProcessing.get().getLastModified(fileName) + "\t" + dirString + "\t" + fileName.getName());
+	        	System.out.println(String.format("%s\t%s\t%6s %s", DataProcessing.get().getLastModified(fileName), dirString, fileLengthString, fileName.getName()));
 	        }
-	        System.out.println("\t\t" + fileCount + "개 파일\t\t" + file.length() + " 바이트");
-			System.out.println("\t\t" + dirCount + "개 디렉터리 " + file.getUsableSpace() + " 바이트 남음");
+	        System.out.println("\t\t" + fileCount + "개 파일\t\t" + DataProcessing.get().appendComma(Long.toString(fileLengthSum)) + " 바이트");
+			System.out.println("\t\t" + dirCount + "개 디렉터리 " + DataProcessing.get().appendComma(Long.toString(file.getUsableSpace())) + " 바이트 남음");
 		}
 	}
 	

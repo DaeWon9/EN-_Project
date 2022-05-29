@@ -1,8 +1,12 @@
 package utility;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class DataProcessing 
 {
@@ -21,7 +25,19 @@ public class DataProcessing
 		return inputString;
 	}
 	
-	public int countChar(String targetString, char targetChar) // 문자열에서 특정문자의 개수를 반환하는 함수
+	public String appendComma(String numberString)
+	{
+		if (Pattern.matches(Constant.EXCEPTION_TYPE_NUMBER, numberString))
+		{
+			BigDecimal bigDeciaml = new BigDecimal(numberString);
+			DecimalFormat decimalFormat = new DecimalFormat(",###");
+			return decimalFormat.format(bigDeciaml);
+		}
+		return numberString;
+	}
+	
+	
+	public int countChar(String targetString, char targetChar)
 	{
 		int count = 0;
 		for (int index = 0; index < targetString.length(); index++)
@@ -52,8 +68,9 @@ public class DataProcessing
 	
 	public String getLastModified(File file)
 	{
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  a hh:mm");
         return simpleDateFormat.format(file.lastModified());
 	}
+	
 	
 }
