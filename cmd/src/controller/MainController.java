@@ -21,7 +21,7 @@ public class MainController
 	
 	public void start()
 	{
-		cmdView.printVersion();
+		cmdView.printWindowVersion();
 		commandListener();
 	}
 	

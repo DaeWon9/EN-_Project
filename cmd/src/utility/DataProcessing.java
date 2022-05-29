@@ -3,12 +3,10 @@ package utility;
 import java.io.File;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import model.UserPath;
 
 public class DataProcessing 
 {

@@ -1,5 +1,8 @@
 package view;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import utility.Constant;
 
 public class Message 
@@ -14,12 +17,23 @@ public class Message
 		System.out.print(String.format(Constant.ERROR_MESSAGE_FORM, inputString));
 	}
 	
-	public void printVersion()
+	public void printWindowVersion()
 	{
-		System.out.println("Microsoft Windows [Version 10.0.22000.675]");
-		System.out.println("(c) Microsoft Corporation. All rights reserved.\n");
+		try
+		{
+		    Process process = Runtime.getRuntime().exec("cmd");
+		    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		    System.out.println(reader.readLine());
+		    System.out.println(reader.readLine() + "\n");
+		    reader.close();
+		    process.destroy();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
-	
+		
 	public void printCurrentPath(String path)
 	{
 		System.out.print(path + ">");
