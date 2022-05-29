@@ -4,6 +4,7 @@ import controller.CmdService;
 import model.UserPath;
 import utility.DataProcessing;
 import view.CmdView;
+import utility.Constant;
 import utility.Constant.CdCommandType;
 
 public class Cd implements CmdService
@@ -90,7 +91,7 @@ public class Cd implements CmdService
 				if (inputCommand.equals(cdCommandKey[keyNumber]))
 					return keyNumber + 1;
 			}
-			return 0;
+			return Constant.CdCommandType.SHIFT.getIndex();
 		}
 	}
 	

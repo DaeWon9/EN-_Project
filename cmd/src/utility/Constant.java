@@ -12,7 +12,10 @@ public class Constant
 	
 	public enum CdCommandType
 	{
-		SHIFT, CD, MOVE_START_PATH, UP_STAGE, DOUBLE_UP_STAGE, MOVE_INPUT_PATH
+		SHIFT(0), CD(1), MOVE_START_PATH(1), UP_STAGE(2), DOUBLE_UP_STAGE(3), MOVE_INPUT_PATH(4);
+	    private final int index;
+		private CdCommandType(int index) {this.index = index;}  
+	    public int getIndex() {return index;}
 	}
 	
 	public static final String REGEX_PATTERN_YES_OR_ALL = "^[y|ye|yes|a|al|all](.*)*$";
