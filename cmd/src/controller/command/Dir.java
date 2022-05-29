@@ -45,7 +45,7 @@ public class Dir implements CmdService
 		if (inputCommand.equals("dir"))
 			filePath =  userPath.get();
 		else
-			filePath = inputCommand.split("dir")[1];
+			filePath = inputCommand.split("dir")[1].replace(" ", "");
 		return filePath;
 	}
 	
@@ -67,9 +67,7 @@ public class Dir implements CmdService
         File[] fileList = file.listFiles(fileFilter);
         ArrayList<File> fileArrayList = new ArrayList<File>(); 
         for (File fileName : fileList) 
-        {
         	fileArrayList.add(fileName);
-        }
         
         if (filePath.equals(filePath.substring(0, 3)))
         	return fileArrayList;
