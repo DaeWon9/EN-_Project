@@ -11,12 +11,9 @@ public class CmdView extends Message
 	{
 		String fileNameString = "", dirString = "", fileLengthString = "";
 		Long dirCount = (long)0, fileCount = (long)0, fileLengthSum = (long)0;	
-
 		if (file == null)
 			return;
-		
         printDirCommandLabel(filePath); // 상단부 라벨 출력
-
         for (File fileName : fileArrayList) 
         {
         	if (fileName.getPath().equals(filePath))
@@ -43,7 +40,6 @@ public class CmdView extends Message
         }
         System.out.println("\t\t" + fileCount + "개 파일\t\t" + DataProcessing.get().appendComma(Long.toString(fileLengthSum)) + " 바이트");
 		System.out.println("\t\t" + dirCount + "개 디렉터리 " + DataProcessing.get().appendComma(Long.toString(file.getUsableSpace())) + " 바이트 남음");
-		
 	}
 	
 	private void printDirCommandLabel(String filePath)

@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.regex.Pattern;
+
 import controller.CmdService;
 import model.UserPath;
+import utility.Constant;
 import utility.DataProcessing;
 import view.CmdView;
 
@@ -38,14 +41,32 @@ public class Move implements CmdService
 	
 	private void moveFile(String beforePath, String afterPath)
 	{
-		try 
+		try
 		{
-			Files.move(new File(beforePath).toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+			Files.move(new File(beforePath).toPath(), new File(afterPath).toPath());
 			cmdView.print("\t1개 파일을 이동했습니다.\n");
 		} 
 		catch (IOException e)
 		{
-			System.out.println(e);
+			if (e.toString().contains("FileAlreadyExistsException"))
+			{
+				if (isReplaceIfExistFile(afterPath))
+					moveFileOnReplaceOption(beforePath, afterPath);
+				else
+					cmdView.print("\t0개 파일을 이동했습니다.\n");
+			}
+		}
+	}
+	
+	private void moveFileOnReplaceOption(String beforePath, String afterPath)
+	{
+		try
+		{
+			Files.move(new File(beforePath).toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+			cmdView.print("\t1개 파일을 이동했습니다.\n");
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -84,6 +105,25 @@ public class Move implements CmdService
 			return inputCommand.replace(fileName, "");
 		}
 		return userPath.get();
+	}
+	
+	protected Boolean isReplaceIfExistFile(String path)
+	{
+		String userAnswer;
+		boolean isValidAnswer = false, isReplace = false;
+		while(!isValidAnswer)
+		{
+			cmdView.printReplaceIfExist(path);
+			userAnswer = DataProcessing.get().getInputString();
+			if (Pattern.matches(Constant.REGEX_PATTERN_YES_OR_ALL, userAnswer))
+			{
+				isReplace = true;
+				isValidAnswer =  true;
+			}
+			else if (Pattern.matches(Constant.REGEX_PATTERN_NO, userAnswer))
+				isValidAnswer = true;
+		}
+		return isReplace;
 	}
 	
 }

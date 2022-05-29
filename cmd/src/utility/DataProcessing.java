@@ -29,7 +29,7 @@ public class DataProcessing
 	
 	public String appendComma(String numberString)
 	{
-		if (Pattern.matches(Constant.EXCEPTION_TYPE_NUMBER, numberString))
+		if (Pattern.matches(Constant.REGEX_PATTERN_NUMBER, numberString))
 		{
 			BigDecimal bigDeciaml = new BigDecimal(numberString);
 			DecimalFormat decimalFormat = new DecimalFormat(",###");
