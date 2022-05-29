@@ -15,9 +15,9 @@ public class Constant
 		SHIFT, CD, MOVE_START_PATH, UP_STAGE, DOUBLE_UP_STAGE, MOVE_INPUT_PATH
 	}
 	
-	public static final String REGEX_PATTERN_YES_OR_ALL = "^[y|ye|yes|a|al|all]*$";
+	public static final String REGEX_PATTERN_YES_OR_ALL = "^[y|ye|yes|a|al|all](.*)*$";
 	
-	public static final String REGEX_PATTERN_NO = "^[n|no]*$";
+	public static final String REGEX_PATTERN_NO = "^[n|no](.*)*$";
 	
 	public static final String REGEX_PATTERN_NUMBER = "^[0-9]*$";
 	

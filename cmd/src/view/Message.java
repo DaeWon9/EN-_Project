@@ -27,6 +27,6 @@ public class Message
 	
 	public void printReplaceIfExist(String path)
 	{
-		System.out.print(path + "을(를) 덮어쓰시겠습니까? (Yes/No/ALL): ");
+		System.out.print(path + "을(를) 덮어쓰시겠습니까? (Yes/No/All): ");
 	}
 }

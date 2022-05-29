@@ -39,12 +39,30 @@ public class Copy extends Move implements CmdService
 	{
 		try 
 		{
-			Files.copy(new File(beforePath).toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(new File(beforePath).toPath(), new File(afterPath).toPath());
 			cmdView.print("\t1개 파일이 복사되었습니다.\n");
 		} 
 		catch (IOException e)
 		{
-			System.out.println(e);
+			if (e.toString().contains("FileAlreadyExistsException"))
+			{
+				if (isReplaceIfExistFile(afterPath))
+					copyFileOnReplaceOption(beforePath, afterPath);
+				else
+					cmdView.print("\t0개 파일이 복사되었습니다.\n");
+			}
+		}
+	}
+	
+	private void copyFileOnReplaceOption(String beforePath, String afterPath)
+	{
+		try
+		{
+			Files.copy(new File(beforePath).toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+			cmdView.print("\t1개 파일이 복사되었습니다.\n");
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
