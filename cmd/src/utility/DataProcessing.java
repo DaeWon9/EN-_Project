@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import model.UserPath;
+
 public class DataProcessing 
 {
 	private static final DataProcessing dataProcessing = new DataProcessing();
@@ -35,7 +37,6 @@ public class DataProcessing
 		}
 		return numberString;
 	}
-	
 	
 	public int countChar(String targetString, char targetChar)
 	{
@@ -72,5 +73,14 @@ public class DataProcessing
         return simpleDateFormat.format(file.lastModified());
 	}
 	
-	
+	public String moveUpPathStage(String path, int stage)
+	{
+		String mergedPath;
+		String[] splitedPath = path.split("\\\\");
+		int pathLenght = DataProcessing.get().countChar(path, '\\');
+		mergedPath = DataProcessing.get().mergePath(splitedPath, pathLenght + 1 - stage);
+		if (mergedPath.length() < 3)
+			mergedPath  = mergedPath + "\\";
+		return mergedPath;
+	}	
 }

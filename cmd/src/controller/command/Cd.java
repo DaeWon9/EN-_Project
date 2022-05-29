@@ -34,10 +34,10 @@ public class Cd implements CmdService
 			shiftToStartPath();
 			break;
 		case UP_STAGE:
-			moveUpPathStage(1);
+			userPath.set(DataProcessing.get().moveUpPathStage(userPath.get(), 1));
 			break;
 		case DOUBLE_UP_STAGE:
-			moveUpPathStage(2);
+			userPath.set(DataProcessing.get().moveUpPathStage(userPath.get(), 2));
 			break;
 		case MOVE_INPUT_PATH:
 			shiftPath(inputCommand, cdCommandType);
@@ -77,17 +77,6 @@ public class Cd implements CmdService
 	{
 		String currentPath = userPath.get();
 		userPath.set(currentPath.substring(0, 3)); //시작 경로 set
-	}
-	
-	private void moveUpPathStage(int stage)
-	{
-		String mergedPath;
-		String[] splitedPath = userPath.get().split("\\\\");
-		int pathLenght = DataProcessing.get().countChar(userPath.get(), '\\');
-		mergedPath = DataProcessing.get().mergePath(splitedPath, pathLenght + 1 - stage);
-		if (mergedPath.length() < 3)
-			mergedPath  = mergedPath + "\\";
-		userPath.set(mergedPath);
 	}
 	
 	private int classifyCdCommand(String inputCommand)

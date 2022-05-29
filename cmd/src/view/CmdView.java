@@ -1,50 +1,49 @@
 package view;
 
 import java.io.File;
-import java.io.FileFilter;
+import java.util.ArrayList;
+
 import utility.DataProcessing;
 
 public class CmdView extends Message
-{
-	private FileFilter hiddenFileFilter = new FileFilter() 
-    {
-		@Override
-		public boolean accept(File pathname) 
-		{
-        	 if (pathname.isHidden())
-        		 return false;
-        	 return true;
-		}
-	};
-	
-	public void printDirCommandResult(File file, String filePath)
+{	
+	public void printDirCommandResult(File file, String filePath, ArrayList<File> fileArrayList)
 	{
-		String dirString = "", fileLengthString = "";
-		Long dirCount = (long) 0, fileCount = (long) 0, fileLengthSum = (long) 0;	
-		if (file != null)
-		{
-			printDirCommandLabel(filePath);
-	        File[] fileList = file.listFiles(hiddenFileFilter);
-	        for (File fileName : fileList) 
-	        {
-	        	if (fileName.isDirectory())
-	        	{
-	        		dirString = "<DIR>";
-	        		fileLengthString = "";
-	        		dirCount++;
-	        	}
-	        	if (fileName.isFile())
-	        	{
-	        		dirString = "";
-	        		fileLengthString = DataProcessing.get().appendComma(Long.toString(fileName.length()));
-	        		fileLengthSum = fileLengthSum + fileName.length();
-	        		fileCount++;
-	        	}
-	        	System.out.println(String.format("%s\t%s\t%6s %s", DataProcessing.get().getLastModified(fileName), dirString, fileLengthString, fileName.getName()));
-	        }
-	        System.out.println("\t\t" + fileCount + "개 파일\t\t" + DataProcessing.get().appendComma(Long.toString(fileLengthSum)) + " 바이트");
-			System.out.println("\t\t" + dirCount + "개 디렉터리 " + DataProcessing.get().appendComma(Long.toString(file.getUsableSpace())) + " 바이트 남음");
-		}
+		String fileNameString = "", dirString = "", fileLengthString = "";
+		Long dirCount = (long)0, fileCount = (long)0, fileLengthSum = (long)0;	
+
+		if (file == null)
+			return;
+		
+        printDirCommandLabel(filePath); // 상단부 라벨 출력
+
+        for (File fileName : fileArrayList) 
+        {
+        	if (fileName.getPath().equals(filePath))
+        		fileNameString = ".";
+        	else if (fileName.getPath().equals(DataProcessing.get().moveUpPathStage(filePath, 1)))
+        		fileNameString = "..";
+        	else
+        		fileNameString = fileName.getName();
+        	
+        	if (fileName.isDirectory())
+        	{
+        		dirString = "<DIR>";
+        		fileLengthString = "";
+        		dirCount++;
+        	}
+        	else if (fileName.isFile())
+        	{
+        		dirString = "";
+        		fileLengthString = DataProcessing.get().appendComma(Long.toString(fileName.length()));
+        		fileLengthSum = fileLengthSum + fileName.length();
+        		fileCount++;
+        	}
+        	System.out.println(String.format("%s\t%s\t%6s %s", DataProcessing.get().getLastModified(fileName), dirString, fileLengthString, fileNameString));
+        }
+        System.out.println("\t\t" + fileCount + "개 파일\t\t" + DataProcessing.get().appendComma(Long.toString(fileLengthSum)) + " 바이트");
+		System.out.println("\t\t" + dirCount + "개 디렉터리 " + DataProcessing.get().appendComma(Long.toString(file.getUsableSpace())) + " 바이트 남음");
+		
 	}
 	
 	private void printDirCommandLabel(String filePath)

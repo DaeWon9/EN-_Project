@@ -1,6 +1,11 @@
 package controller.command;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import controller.CmdService;
 import model.UserPath;
 import utility.DataProcessing;
@@ -10,6 +15,17 @@ public class Dir implements CmdService
 {
 	private UserPath userPath;
 	private CmdView cmdView;
+	private FileFilter fileFilter = new FileFilter() 
+    {
+		@Override
+		public boolean accept(File pathname) 
+		{
+			if (pathname.isHidden() || (!Files.isReadable(Paths.get(pathname.getPath())) && pathname.isDirectory()))
+				return false;
+			return true;
+		}
+	};
+	
 	public Dir(UserPath userPath, CmdView cmdView)
 	{
 		this.userPath = userPath;
@@ -19,7 +35,8 @@ public class Dir implements CmdService
 	@Override
 	public void actionCommand(String inputCommand)
 	{
-		cmdView.printDirCommandResult(getFileList(inputCommand), getFilePath(inputCommand));
+		ArrayList<File> fileArrayList = getFileArrayList(getFile(inputCommand), getFilePath(inputCommand));
+		cmdView.printDirCommandResult(getFile(inputCommand), getFilePath(inputCommand), fileArrayList);
 	}
 		
 	private String getFilePath(String inputCommand)
@@ -32,7 +49,7 @@ public class Dir implements CmdService
 		return filePath;
 	}
 	
-	private File getFileList(String inputCommand)
+	private File getFile(String inputCommand)
 	{
 		File file = null;
         String pathString = getFilePath(inputCommand);
@@ -43,4 +60,27 @@ public class Dir implements CmdService
         return file;
 	}
 
+	private ArrayList<File> getFileArrayList(File file, String filePath)
+	{
+		if (file == null)
+			return null;
+        File[] fileList = file.listFiles(fileFilter);
+        ArrayList<File> fileArrayList = new ArrayList<File>(); 
+        for (File fileName : fileList) 
+        {
+        	fileArrayList.add(fileName);
+        }
+        
+        if (filePath.equals(filePath.substring(0, 3)))
+        	return fileArrayList;
+        
+        if (DataProcessing.get().moveUpPathStage(filePath, 1).equals(filePath.substring(0, 3)))
+        	fileArrayList.add(0, new File(filePath));
+        else
+        {
+        	fileArrayList.add(0, new File(DataProcessing.get().moveUpPathStage(filePath, 1)));
+            fileArrayList.add(0, new File(filePath));
+        }
+        return fileArrayList;
+	}
 }
