@@ -1,6 +1,6 @@
 package controller;
 
-public interface CmdAction 
+public interface CmdService 
 {
 	abstract void actionCommand(String inputCommand);
 }

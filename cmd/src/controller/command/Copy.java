@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-import controller.CmdAction;
+import controller.CmdService;
 import model.UserPath;
 import utility.DataProcessing;
 import view.CmdView;
 
-public class Copy extends Move implements CmdAction
+public class Copy extends Move implements CmdService
 {
 	public Copy(UserPath userPath, CmdView cmdView) 
 	{

@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import controller.CmdAction;
+import controller.CmdService;
 import model.UserPath;
 import utility.DataProcessing;
 import view.CmdView;
 
-public class Move implements CmdAction
+public class Move implements CmdService
 {
 	protected UserPath userPath;
 	protected CmdView cmdView;

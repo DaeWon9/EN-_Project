@@ -1,6 +1,8 @@
 package view;
 
 import java.io.File;
+import java.io.FileFilter;
+
 import utility.DataProcessing;
 
 public class CmdView extends Message
@@ -9,10 +11,19 @@ public class CmdView extends Message
 	{
 		String dirString = "";
 		int dirCount = 0, fileCount = 0;
+		FileFilter fileFilter = new FileFilter()
+        {
+            @Override
+            public boolean accept(File entry)
+            {
+                if (entry.isHidden()) return false;
+                return true;
+            }
+        };
 		if (file != null)
 		{
 			printDirCommandLabel(filePath);
-	        File[] fileList = file.listFiles();
+	        File[] fileList = file.listFiles(fileFilter);
 	        for (File fileName : fileList) 
 	        {
 	        	if (fileName.isDirectory())

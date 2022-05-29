@@ -1,12 +1,12 @@
 package controller.command;
 
 import java.io.File;
-import controller.CmdAction;
+import controller.CmdService;
 import model.UserPath;
 import utility.DataProcessing;
 import view.CmdView;
 
-public class Dir implements CmdAction
+public class Dir implements CmdService
 {
 	private UserPath userPath;
 	private CmdView cmdView;
