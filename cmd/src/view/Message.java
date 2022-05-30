@@ -1,6 +1,7 @@
 package view;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 
 import utility.Constant;
@@ -42,5 +43,13 @@ public class Message
 	public void printReplaceIfExist(String path)
 	{
 		System.out.print(path + "을(를) 덮어쓰시겠습니까? (Yes/No/All): ");
+	}
+	
+	public void printMoveSuccessMessage(File file, int movedFileCount)
+	{
+		if (file.isFile())
+			System.out.println(String.format("\t%d개 파일을 이동했습니다.", movedFileCount));
+		if (file.isDirectory())
+			System.out.println(String.format("\t%d개의 디렉터리를 이동했습니다.", movedFileCount));
 	}
 }

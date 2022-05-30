@@ -41,10 +41,11 @@ public class Move implements CmdService
 	
 	private void moveFile(String beforePath, String afterPath)
 	{
+		File beforeFile = new File(beforePath);
 		try
 		{
 			Files.move(new File(beforePath).toPath(), new File(afterPath).toPath());
-			cmdView.print("\t1개 파일을 이동했습니다.\n");
+			cmdView.printMoveSuccessMessage(beforeFile, 1);
 		} 
 		catch (IOException e)
 		{
@@ -53,7 +54,7 @@ public class Move implements CmdService
 				if (isReplaceIfExistFile(afterPath) == Constant.ReplaceOption.YES.getIndex() || isReplaceIfExistFile(afterPath) == Constant.ReplaceOption.ALL.getIndex())
 					moveFileOnReplaceOption(beforePath, afterPath);
 				else
-					cmdView.print("\t0개 파일을 이동했습니다.\n");
+					cmdView.printMoveSuccessMessage(beforeFile, 2);
 			}
 		}
 	}
@@ -62,8 +63,9 @@ public class Move implements CmdService
 	{
 		try
 		{
-			Files.move(new File(beforePath).toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
-			cmdView.print("\t1개 파일을 이동했습니다.\n");
+			File beforeFile = new File(beforePath);
+			Files.move(beforeFile.toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+			cmdView.printMoveSuccessMessage(beforeFile, 1);
 		}
 		catch (IOException e)
 		{
