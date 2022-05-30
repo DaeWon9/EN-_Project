@@ -1,7 +1,10 @@
 package utility;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
@@ -81,4 +84,15 @@ public class DataProcessing
 			mergedPath  = mergedPath + "\\";
 		return mergedPath;
 	}	
+	
+	public FileFilter fileFilter = new FileFilter() 
+    {
+		@Override
+		public boolean accept(File pathname) 
+		{
+			if (pathname.isHidden() || (!Files.isReadable(Paths.get(pathname.getPath())) && pathname.isDirectory()))
+				return false;
+			return true;
+		}
+	};
 }

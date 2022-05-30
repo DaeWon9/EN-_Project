@@ -50,7 +50,7 @@ public class Move implements CmdService
 		{
 			if (e.toString().contains("FileAlreadyExistsException"))
 			{
-				if (isReplaceIfExistFile(afterPath))
+				if (isReplaceIfExistFile(afterPath) == Constant.ReplaceOption.YES.getIndex() || isReplaceIfExistFile(afterPath) == Constant.ReplaceOption.ALL.getIndex())
 					moveFileOnReplaceOption(beforePath, afterPath);
 				else
 					cmdView.print("\t0개 파일을 이동했습니다.\n");
@@ -73,7 +73,11 @@ public class Move implements CmdService
 	
 	protected String getBeforeFileName(String inputCommand)
 	{
-		String[] splitedPath = inputCommand.split(" ")[1].split("\\\\");
+		String[] splitedPath;
+		if (inputCommand.contains(" "))
+			splitedPath = inputCommand.split(" ")[1].split("\\\\");
+		else
+			splitedPath = inputCommand.split("\\\\");
 		return "\\" + splitedPath[splitedPath.length - 1];
 	}
 
@@ -107,21 +111,30 @@ public class Move implements CmdService
 		return userPath.get();
 	}
 	
-	protected Boolean isReplaceIfExistFile(String path)
+	protected int isReplaceIfExistFile(String path)
 	{
 		String userAnswer;
-		boolean isValidAnswer = false, isReplace = false;
+		boolean isValidAnswer = false;
+		int isReplace = 0;
 		while(!isValidAnswer)
 		{
 			cmdView.printReplaceIfExist(path);
 			userAnswer = DataProcessing.get().getInputString();
-			if (Pattern.matches(Constant.REGEX_PATTERN_YES_OR_ALL, userAnswer))
+			if (Pattern.matches(Constant.REGEX_PATTERN_YES, userAnswer))
 			{
-				isReplace = true;
+				isReplace = Constant.ReplaceOption.YES.getIndex();
 				isValidAnswer =  true;
 			}
 			else if (Pattern.matches(Constant.REGEX_PATTERN_NO, userAnswer))
+			{
+				isReplace = Constant.ReplaceOption.NO.getIndex();
+				isValidAnswer =  true;
+			}
+			else if (Pattern.matches(Constant.REGEX_PATTERN_ALL, userAnswer))
+			{
+				isReplace = Constant.ReplaceOption.ALL.getIndex();
 				isValidAnswer = true;
+			}
 		}
 		return isReplace;
 	}

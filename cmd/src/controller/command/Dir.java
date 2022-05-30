@@ -15,16 +15,6 @@ public class Dir implements CmdService
 {
 	private UserPath userPath;
 	private CmdView cmdView;
-	private FileFilter fileFilter = new FileFilter() 
-    {
-		@Override
-		public boolean accept(File pathname) 
-		{
-			if (pathname.isHidden() || (!Files.isReadable(Paths.get(pathname.getPath())) && pathname.isDirectory()))
-				return false;
-			return true;
-		}
-	};
 	
 	public Dir(UserPath userPath, CmdView cmdView)
 	{
@@ -64,7 +54,7 @@ public class Dir implements CmdService
 	{
 		if (file == null)
 			return null;
-        File[] fileList = file.listFiles(fileFilter);
+        File[] fileList = file.listFiles(DataProcessing.get().fileFilter);
         ArrayList<File> fileArrayList = new ArrayList<File>(); 
         for (File fileName : fileList) 
         	fileArrayList.add(fileName);
