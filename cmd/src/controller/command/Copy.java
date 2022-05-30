@@ -50,7 +50,7 @@ public class Copy extends Move implements CmdService
 		{
 			if (e.toString().contains("FileAlreadyExistsException"))
 			{
-				if (isReplaceIfExistFile(afterPath) == Constant.ReplaceOption.YES.getIndex() || isReplaceIfExistFile(afterPath) == Constant.ReplaceOption.ALL.getIndex())
+				if (getReplaceOption(afterPath) == Constant.ReplaceOption.YES.getIndex() || getReplaceOption(afterPath) == Constant.ReplaceOption.ALL.getIndex())
 				{
 					copyFileOnReplaceOption(beforePath, afterPath);
 					cmdView.print("\t1개 파일이 복사되었습니다.\n");
@@ -87,7 +87,7 @@ public class Copy extends Move implements CmdService
 			{
 				if (e.toString().contains("FileAlreadyExistsException"))
 				{
-					replaceOption = isReplaceIfExistFile(afterPath);
+					replaceOption = getReplaceOption(afterPath);
 					if (replaceOption == Constant.ReplaceOption.YES.getIndex())
 					{
 						copyFileOnReplaceOption(fileName.getPath(), afterPath);

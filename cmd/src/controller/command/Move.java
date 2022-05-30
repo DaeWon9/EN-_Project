@@ -24,15 +24,20 @@ public class Move implements CmdService
 	@Override
 	public void actionCommand(String inputCommand) 
 	{
-		String beforePath;
-		String afterPath;
+		String beforePath, afterPath;
+		String beforeFileName, afterFileName;
 		if (inputCommand.split(" ").length < 2)
 		{
 			cmdView.print("명령 구문이 올바르지 않습니다.\n");
 			return;
 		}
-		beforePath = getBeforePath(inputCommand, getBeforeFileName(inputCommand)) + getBeforeFileName(inputCommand);
-		afterPath = getAfterPath(inputCommand, getAfterFileName(inputCommand)) + getAfterFileName(inputCommand);
+		beforeFileName = getBeforeFileName(inputCommand);
+		afterFileName = getAfterFileName(inputCommand);
+		beforePath = getBeforePath(inputCommand, beforeFileName) + beforeFileName;
+		afterPath = getAfterPath(inputCommand, afterFileName) + afterFileName;
+		if (new File(afterPath).isDirectory())
+			afterPath = getAfterPath(inputCommand, beforeFileName) + beforeFileName;
+			
 		if (DataProcessing.get().isValidPath(beforePath))
 			moveFile(beforePath, afterPath);
 		else
@@ -41,31 +46,36 @@ public class Move implements CmdService
 	
 	private void moveFile(String beforePath, String afterPath)
 	{
-		File beforeFile = new File(beforePath);
+		boolean isDirectory = new File(beforePath).isDirectory();
 		try
 		{
 			Files.move(new File(beforePath).toPath(), new File(afterPath).toPath());
-			cmdView.printMoveSuccessMessage(beforeFile, 1);
+			cmdView.printMoveSuccessMessage(beforePath, isDirectory, 1);
 		} 
 		catch (IOException e)
 		{
 			if (e.toString().contains("FileAlreadyExistsException"))
 			{
-				if (isReplaceIfExistFile(afterPath) == Constant.ReplaceOption.YES.getIndex() || isReplaceIfExistFile(afterPath) == Constant.ReplaceOption.ALL.getIndex())
+				if (getReplaceOption(afterPath) == Constant.ReplaceOption.YES.getIndex() || getReplaceOption(afterPath) == Constant.ReplaceOption.ALL.getIndex())
 					moveFileOnReplaceOption(beforePath, afterPath);
 				else
-					cmdView.printMoveSuccessMessage(beforeFile, 2);
+					cmdView.printMoveSuccessMessage(beforePath, isDirectory, 0);
 			}
 		}
 	}
 	
 	private void moveFileOnReplaceOption(String beforePath, String afterPath)
 	{
+		if (new File(afterPath).isDirectory())
+		{
+			cmdView.print("액세스가 거부되었습니다.\n");
+			return;
+		}
+		boolean isDirectory = new File(beforePath).isDirectory();
 		try
 		{
-			File beforeFile = new File(beforePath);
-			Files.move(beforeFile.toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
-			cmdView.printMoveSuccessMessage(beforeFile, 1);
+			Files.move(new File(beforePath).toPath(), new File(afterPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+			cmdView.printMoveSuccessMessage(beforePath, isDirectory, 1);
 		}
 		catch (IOException e)
 		{
@@ -93,12 +103,24 @@ public class Move implements CmdService
 		return "\\" + splitedPath[splitedPath.length - 1];
 	}
 	
+	protected String getPath(String inputCommand, String fileName)
+	{
+		if (!inputCommand.contains("\\")) // 파일명만 입력된 경우
+			return userPath.get();
+		else
+		{
+			if (inputCommand.contains(":")) //절대경로
+				inputCommand = inputCommand.replace(fileName, "");
+			else // 상대경로
+				inputCommand = userPath.get() + inputCommand.replace(fileName, "");
+		}
+		return inputCommand;
+	}
+	
 	protected String getBeforePath(String inputCommand, String fileName)
 	{
 		inputCommand = inputCommand.split(" ")[1];
-		if (!inputCommand.contains(":"))
-			inputCommand = userPath.get();
-		return inputCommand.replace(fileName, "");
+		return getPath(inputCommand,fileName);
 	}
 	
 	protected String getAfterPath(String inputCommand, String fileName)
@@ -106,14 +128,12 @@ public class Move implements CmdService
 		if (inputCommand.split(" ").length > 2)
 		{
 			inputCommand = inputCommand.split(" ")[2];
-			if (!inputCommand.contains(":"))
-				inputCommand = userPath.get();
-			return inputCommand.replace(fileName, "");
+			return getPath(inputCommand,fileName);
 		}
 		return userPath.get();
 	}
 	
-	protected int isReplaceIfExistFile(String path)
+	protected int getReplaceOption(String path)
 	{
 		String userAnswer;
 		boolean isValidAnswer = false;
