@@ -32,14 +32,13 @@ public class Dir implements CmdService
 			filePath =  userPath.get();
 		else
 			filePath = (userPath.get() + "\\" + inputCommand.split("dir")[1]).replace("\\\\", "\\");
-		return filePath.replace(" ", "");
+		return DataProcessing.get().getCanonicalPath(filePath.replace(" ", ""));
 	}
 	
 	private File getFile(String inputCommand)
 	{
 		File file = null;
         String pathString = getFilePath(inputCommand);     
-        pathString = DataProcessing.get().getCanonicalPath(pathString);
         if (!DataProcessing.get().isValidPath(pathString))
         	cmdView.print("파일을 찾을 수 없습니다.\n\n");
         else
