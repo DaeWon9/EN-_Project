@@ -71,11 +71,6 @@ public class Copy extends Move implements CmdService
 		File beforeFile = new File(beforePath);
 		File[] fileList = beforeFile.listFiles(DataProcessing.get().fileFilter);
 		
-		if (fileList.length == 0)
-		{
-			cmdView.print(beforeFileName.replace("\\","") + "\\*\n");
-			cmdView.print("지정된 파일을 찾을 수 없습니다.\n");
-		}
 		for (File fileName : fileList)
 		{	
 			afterPath = setAfterPathIfIsDirectory(beforePath, afterPath, beforeFileName, afterFileName, fileName);
@@ -107,6 +102,11 @@ public class Copy extends Move implements CmdService
 					}
 				}
 			}
+		}
+		if (fileList.length == 0)
+		{
+			cmdView.print(beforeFileName.replace("\\","") + "\\*\n");
+			cmdView.print("지정된 파일을 찾을 수 없습니다.\n");
 		}
 		cmdView.print("\t" + movedFileCount + "개 파일이 복사되었습니다.\n");
 	}

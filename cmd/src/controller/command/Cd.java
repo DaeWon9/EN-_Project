@@ -50,6 +50,7 @@ public class Cd implements CmdService
 	private void shiftPath(String inputCommand, CdCommandType cdCommandType)
 	{
 		String targetPath = getShiftPath(inputCommand, cdCommandType);
+		targetPath = targetPath.replace(" ", "");
 		if (DataProcessing.get().isValidPath(targetPath))
 			userPath.set(targetPath);
 		else
