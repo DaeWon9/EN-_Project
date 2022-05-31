@@ -62,10 +62,10 @@ public class Cd implements CmdService
 		String ShiftedPath = "";
 		switch (cdCommandType)
 		{
-		case SHIFT:
+		case SHIFT: // cd 명령어 뒤에 입력된 위치로 이동
 			ShiftedPath = (userPath.get() + "\\" + inputCommand.split("cd")[1]).replace("\\\\", "\\");
 			break;
-		case MOVE_INPUT_PATH:
+		case MOVE_INPUT_PATH: // 입력된 절대경로로 이동
 			ShiftedPath = inputCommand.split("cd")[1];
 			break;
 		default:
@@ -83,7 +83,7 @@ public class Cd implements CmdService
 	private int classifyCdCommand(String inputCommand)
 	{
 		String[] cdCommandKey = {"cd", "cd\\", "cd..", "cd..\\.."};	
-		if (isCommandContainPath(inputCommand))
+		if (isCommandContainPath(inputCommand)) // 절대경로를 포함하고 있을경우
 			return cdCommandKey.length + 1;
 		else
 		{

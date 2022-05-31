@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.regex.Pattern;
-
 import controller.CmdService;
 import model.UserPath;
 import utility.Constant;
 import utility.DataProcessing;
+import utility.Constant.ReplaceOption;
 import view.CmdView;
 
 public class Move implements CmdService
@@ -37,7 +37,7 @@ public class Move implements CmdService
 		afterPath = getAfterPath(inputCommand, afterFileName) + afterFileName;
 		if (new File(afterPath).isDirectory())
 			afterPath = getAfterPath(inputCommand, beforeFileName) + beforeFileName;
-			
+		// path 및 fileName설정 후 move 명령어 수행
 		if (DataProcessing.get().isValidPath(beforePath))
 			moveFile(beforePath, afterPath);
 		else
@@ -54,19 +54,28 @@ public class Move implements CmdService
 		} 
 		catch (IOException e)
 		{
-			if (e.toString().contains("FileAlreadyExistsException"))
+			if (e.toString().contains("FileAlreadyExistsException")) // 중복파일이면
 			{
-				if (getReplaceOption(afterPath) == Constant.ReplaceOption.YES.getIndex() || getReplaceOption(afterPath) == Constant.ReplaceOption.ALL.getIndex())
+				ReplaceOption replaceOption = ReplaceOption.values()[getReplaceOption(afterPath)]; // 중복옵션 입력받기
+				switch (replaceOption) // 옵션에따라 처리
+				{
+				case ALL:
+				case YES:	
 					moveFileOnReplaceOption(beforePath, afterPath);
-				else
+					break;
+				case NO:
 					cmdView.printMoveSuccessMessage(beforePath, isDirectory, 0);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
 	
 	private void moveFileOnReplaceOption(String beforePath, String afterPath)
 	{
-		if (new File(afterPath).isDirectory())
+		if (new File(afterPath).isDirectory()) // move 명령어 수행 시 이후경로가 디렉터리일경우 엑세스 거부 출력
 		{
 			cmdView.print("액세스가 거부되었습니다.\n");
 			return;
@@ -134,7 +143,7 @@ public class Move implements CmdService
 		return userPath.get();
 	}
 	
-	protected int getReplaceOption(String path)
+	protected int getReplaceOption(String path) // 덮어쓰기 옵션을 user로 부터 받아옴
 	{
 		String userAnswer;
 		boolean isValidAnswer = false;

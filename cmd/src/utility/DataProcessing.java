@@ -10,9 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import model.UserPath;
-
-
 public class DataProcessing 
 {
 	private static final DataProcessing dataProcessing = new DataProcessing();

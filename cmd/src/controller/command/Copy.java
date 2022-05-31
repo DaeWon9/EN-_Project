@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-
 import controller.CmdService;
 import model.UserPath;
-import utility.Constant;
 import utility.DataProcessing;
 import utility.Constant.ReplaceOption;
 import view.CmdView;
@@ -38,15 +36,17 @@ public class Copy extends Move implements CmdService
 		if (DataProcessing.get().isValidPath(beforePath) && beforeFile.isDirectory())
 			copyDirectory(beforePath, afterPath, beforeFileName, afterFileName);
 		else if (DataProcessing.get().isValidPath(beforePath) && beforeFile.isFile())
-			copyFile(beforePath, afterPath);
+			copyFile(beforePath, afterPath, beforeFileName, afterFileName);
 		else
 			cmdView.print("지정된 파일을 찾을 수 없습니다.\n");
 	}
 	
-	private void copyFile(String beforePath, String afterPath)
+	private void copyFile(String beforePath, String afterPath, String beforeFileName, String afterFileName)
 	{
 		try 
 		{
+			if (new File(afterPath).isDirectory())
+				afterPath = afterPath + beforeFileName;
 			Files.copy(new File(beforePath).toPath(), new File(afterPath).toPath());
 			cmdView.print("\t1개 파일이 복사되었습니다.\n");
 		} 
@@ -54,13 +54,20 @@ public class Copy extends Move implements CmdService
 		{
 			if (e.toString().contains("FileAlreadyExistsException"))
 			{
-				if (getReplaceOption(afterPath) == Constant.ReplaceOption.YES.getIndex() || getReplaceOption(afterPath) == Constant.ReplaceOption.ALL.getIndex())
+				ReplaceOption replaceOption = ReplaceOption.values()[getReplaceOption(afterPath)];
+				switch (replaceOption)
 				{
+				case ALL:
+				case YES:	
 					copyFileOnReplaceOption(beforePath, afterPath);
 					cmdView.print("\t1개 파일이 복사되었습니다.\n");
-				}
-				else
+					break;
+				case NO:
 					cmdView.print("\t0개 파일이 복사되었습니다.\n");
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
@@ -73,7 +80,7 @@ public class Copy extends Move implements CmdService
 		
 		for (File fileName : fileList)
 		{	
-			afterPath = setAfterPathIfIsDirectory(beforePath, afterPath, beforeFileName, afterFileName, fileName);
+			afterPath = setAfterPathInDirecotryCopy(beforePath, afterPath, beforeFileName, afterFileName, fileName);
 			cmdView.print(fileName.toString().replace(userPath.get() + "\\", "") + "\n");
 			try 
 			{
@@ -111,13 +118,15 @@ public class Copy extends Move implements CmdService
 		cmdView.print("\t" + movedFileCount + "개 파일이 복사되었습니다.\n");
 	}
 	
-	private String setAfterPathIfIsDirectory(String beforePath, String afterPath, String beforeFileName, String afterFileName, File fileName) 
+	private String setAfterPathInDirecotryCopy(String beforePath, String afterPath, String beforeFileName, String afterFileName, File fileName) 
 	{
 		if (beforeFileName.equals(afterFileName))
 		{
 			afterPath = DataProcessing.get().moveUpPathStage(afterPath, 1);
 			afterPath = afterPath + getBeforeFileName(fileName.getPath().replace("\\","\\\\"));
 		}
+		else
+			afterPath = afterPath + getBeforeFileName(fileName.getPath().replace("\\","\\\\"));
 		return afterPath;
 	}
 	

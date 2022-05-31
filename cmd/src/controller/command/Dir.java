@@ -62,9 +62,9 @@ public class Dir implements CmdService
         for (File fileName : fileList) 
         	fileArrayList.add(fileName);
         
-        if (filePath.equals(filePath.substring(0, 3)))
+        // dir 명령어 수행결과 최상단에 ., .. 처리부분
+        if (filePath.equals(filePath.substring(0, 3))) // root 경로일경우는 바로 return
         	return fileArrayList;
-        
         if (DataProcessing.get().moveUpPathStage(filePath, 1).equals(filePath.substring(0, 3)))
         	fileArrayList.add(0, new File(filePath));
         else
