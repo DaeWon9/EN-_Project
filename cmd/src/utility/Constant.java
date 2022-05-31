@@ -4,7 +4,7 @@ public class Constant
 {
 	public enum CommandKey
 	{
-		ERROR(0), DIR(1), CD(2), COPY(2), MOVE(3), HELP(4), CLS(5);
+		ERROR(0), DIR(1), CD(2), COPY(2), MOVE(3), HELP(4), CLS(5), NONE(6);
 	    private final int index;
 		private CommandKey(int index) {this.index = index;}  
 	    public int getIndex() {return index;}

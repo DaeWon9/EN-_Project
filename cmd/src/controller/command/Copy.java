@@ -9,6 +9,7 @@ import controller.CmdService;
 import model.UserPath;
 import utility.Constant;
 import utility.DataProcessing;
+import utility.Constant.ReplaceOption;
 import view.CmdView;
 
 public class Copy extends Move implements CmdService
@@ -21,18 +22,21 @@ public class Copy extends Move implements CmdService
 	@Override
 	public void actionCommand(String inputCommand) 
 	{
-		String beforePath;
-		String afterPath;
+		String beforeFileName, afterFileName;
+		String beforePath, afterPath;
 		if (inputCommand.split(" ").length < 2)
 		{
 			cmdView.print("명령 구문이 올바르지 않습니다.\n");
 			return;
 		}
-		beforePath = getBeforePath(inputCommand, getBeforeFileName(inputCommand)) + getBeforeFileName(inputCommand);
-		afterPath = getAfterPath(inputCommand, getAfterFileName(inputCommand)) + getAfterFileName(inputCommand);		
+		beforeFileName = getBeforeFileName(inputCommand);
+		afterFileName = getAfterFileName(inputCommand);
+		beforePath = getBeforePath(inputCommand, beforeFileName) + beforeFileName;
+		afterPath = getAfterPath(inputCommand, afterFileName) + afterFileName;		
+		
 		File beforeFile = new File(beforePath);
 		if (DataProcessing.get().isValidPath(beforePath) && beforeFile.isDirectory())
-			copyDirectory(beforePath, afterPath);
+			copyDirectory(beforePath, afterPath, beforeFileName, afterFileName);
 		else if (DataProcessing.get().isValidPath(beforePath) && beforeFile.isFile())
 			copyFile(beforePath, afterPath);
 		else
@@ -60,20 +64,21 @@ public class Copy extends Move implements CmdService
 			}
 		}
 	}
-	
-	private void copyDirectory(String beforePath, String afterPath)
+	private void copyDirectory(String beforePath, String afterPath, String beforeFileName, String afterFileName)
 	{
 		boolean isALLOption = false;
-		int movedFileCount = 0, replaceOption;
+		int movedFileCount = 0;
 		File beforeFile = new File(beforePath);
 		File[] fileList = beforeFile.listFiles(DataProcessing.get().fileFilter);
-		for (File fileName : fileList)
+		
+		if (fileList.length == 0)
 		{
-			if(beforePath.equals(afterPath))
-			{
-				afterPath = DataProcessing.get().moveUpPathStage(afterPath, 1);
-				afterPath = afterPath + getBeforeFileName(fileName.getPath().replace("\\","\\\\"));
-			}
+			cmdView.print(beforeFileName.replace("\\","") + "\\*\n");
+			cmdView.print("지정된 파일을 찾을 수 없습니다.\n");
+		}
+		for (File fileName : fileList)
+		{	
+			afterPath = setAfterPathIfIsDirectory(beforePath, afterPath, beforeFileName, afterFileName, fileName);
 			cmdView.print(fileName.toString().replace(userPath.get() + "\\", "") + "\n");
 			try 
 			{
@@ -87,22 +92,33 @@ public class Copy extends Move implements CmdService
 			{
 				if (e.toString().contains("FileAlreadyExistsException"))
 				{
-					replaceOption = getReplaceOption(afterPath);
-					if (replaceOption == Constant.ReplaceOption.YES.getIndex())
+					ReplaceOption replaceOption = ReplaceOption.values()[getReplaceOption(afterPath)];
+					switch (replaceOption)
 					{
-						copyFileOnReplaceOption(fileName.getPath(), afterPath);
-						movedFileCount++;
-					}
-					else if (replaceOption == Constant.ReplaceOption.ALL.getIndex())
-					{
-						copyFileOnReplaceOption(fileName.getPath(), afterPath);
-						movedFileCount++;
+					case ALL:
 						isALLOption = true;
+					case YES:	
+						copyFileOnReplaceOption(fileName.getPath(), afterPath);
+						movedFileCount++;
+						break;
+					case NO:
+					default:
+						break;
 					}
 				}
 			}
 		}
 		cmdView.print("\t" + movedFileCount + "개 파일이 복사되었습니다.\n");
+	}
+	
+	private String setAfterPathIfIsDirectory(String beforePath, String afterPath, String beforeFileName, String afterFileName, File fileName) 
+	{
+		if (beforeFileName.equals(afterFileName))
+		{
+			afterPath = DataProcessing.get().moveUpPathStage(afterPath, 1);
+			afterPath = afterPath + getBeforeFileName(fileName.getPath().replace("\\","\\\\"));
+		}
+		return afterPath;
 	}
 	
 	private void copyFileOnReplaceOption(String beforePath, String afterPath)

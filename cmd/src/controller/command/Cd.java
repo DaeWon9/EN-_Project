@@ -28,7 +28,7 @@ public class Cd implements CmdService
 			shiftPath(inputCommand, cdCommandType);
 			break;
 		case CD:
-			cmdView.print(userPath.get() + "\n\n");
+			cmdView.print(userPath.get() + "\n");
 			break;
 		case MOVE_START_PATH:
 			shiftToStartPath();

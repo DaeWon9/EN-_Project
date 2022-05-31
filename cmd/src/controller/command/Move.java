@@ -71,6 +71,7 @@ public class Move implements CmdService
 			cmdView.print("액세스가 거부되었습니다.\n");
 			return;
 		}
+		
 		boolean isDirectory = new File(beforePath).isDirectory();
 		try
 		{

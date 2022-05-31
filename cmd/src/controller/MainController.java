@@ -41,7 +41,7 @@ public class MainController
 				dir.actionCommand(lowerCommand);
 				break;
 			case CD:
-				cd.actionCommand(lowerCommand.replace(" ", ""));
+				cd.actionCommand(lowerCommand);
 				break;
 			case COPY:
 				copy.actionCommand(lowerCommand);
@@ -65,6 +65,8 @@ public class MainController
 	
 	private int classifyCommand(String inputCommand)
 	{
+		if (inputCommand.equals(""))
+			return Constant.CommandKey.NONE.getIndex() + 1;
 		inputCommand = inputCommand.split(" ")[0];
 		String[] commandKey = {"dir", "cd", "copy", "move", "help", "cls"};	
 		for (int keyNumber = 0; keyNumber < commandKey.length; keyNumber++)

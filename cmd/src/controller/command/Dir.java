@@ -1,11 +1,7 @@
 package controller.command;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-
 import controller.CmdService;
 import model.UserPath;
 import utility.DataProcessing;
@@ -35,14 +31,21 @@ public class Dir implements CmdService
 		if (inputCommand.equals("dir"))
 			filePath =  userPath.get();
 		else
+		{
 			filePath = inputCommand.split("dir")[1].replace(" ", "");
-		return filePath;
+			if (!filePath.contains("\\")) // 파일명만 입력된 경우
+				filePath = userPath.get();
+			else if (!filePath.contains(":")) //절대경로
+				filePath = userPath.get() + filePath;
+		}
+		return filePath.replace(".\\", "\\");
 	}
 	
 	private File getFile(String inputCommand)
 	{
 		File file = null;
-        String pathString = getFilePath(inputCommand);
+        String pathString = getFilePath(inputCommand);     
+		System.out.println(pathString);
         if (!DataProcessing.get().isValidPath(pathString))
         	cmdView.print("파일을 찾을 수 없습니다.\n\n");
         else
