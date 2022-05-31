@@ -2,6 +2,7 @@ package utility;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -83,6 +84,20 @@ public class DataProcessing
 			mergedPath  = mergedPath + "\\";
 		return mergedPath;
 	}	
+	
+	public String getCanonicalPath(String path)
+	{
+		File file = new File(path);
+		try 
+		{
+			path = file.getCanonicalPath();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		return path;
+	}
 	
 	public FileFilter fileFilter = new FileFilter() 
     {

@@ -55,25 +55,11 @@ public class Cd implements CmdService
 	{
 		String targetPath = getShiftPath(inputCommand, cdCommandType);
 		targetPath = targetPath.replace(" ", "");
-		targetPath = getCanonicalPath(targetPath);
+		targetPath = DataProcessing.get().getCanonicalPath(targetPath);
 		if (DataProcessing.get().isValidPath(targetPath))
 			userPath.set(targetPath);
 		else
 			cmdView.print("지정된 경로를 찾을 수 없습니다.\n");
-	}
-	
-	private String getCanonicalPath(String path)
-	{
-		File file = new File(path);
-		try 
-		{
-			path = file.getCanonicalPath();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		return path;
 	}
 	
 	private String getShiftPath(String inputCommand, CdCommandType cdCommandType)

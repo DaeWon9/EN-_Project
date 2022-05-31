@@ -29,7 +29,7 @@ public class Constant
 	public static final String REGEX_PATTERN_NO = "^[n|no](.*)*$";
 	public static final String REGEX_PATTERN_ALL = "^[a|al|all](.*)*$";	
 	public static final String REGEX_PATTERN_NUMBER = "^[0-9]*$";
-	public static final String ERROR_MESSAGE_FORM = "'%s'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는\n배치 파일이 아닙니다.\n";
+	public static final String ERROR_MESSAGE_FORM = "'%s'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는\n배치 파일이 아닙니다.\n\n";
 	public static final String HELP_COMMAND_STRING = String.join(
 			"\n",
 			"\n특정 명령어에 대한 자세한 내용이 필요하면 HELP 명령어 이름을 입력하십시오.",

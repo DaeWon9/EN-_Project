@@ -3,6 +3,7 @@ package view;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import model.UserPath;
 import utility.Constant;
 
 public class Message 
@@ -39,9 +40,9 @@ public class Message
 		System.out.print(path + ">");
 	}
 	
-	public void printReplaceIfExist(String path)
+	public void printReplaceIfExist(UserPath userPath, String path)
 	{
-		path = path.replace(".\\", "\\");
+		path = path.replace(userPath.get() + "\\", "").replace(".\\", "\\");
 		System.out.print(path + "을(를) 덮어쓰시겠습니까? (Yes/No/All): ");
 	}
 	

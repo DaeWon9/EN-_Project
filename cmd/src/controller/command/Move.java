@@ -150,7 +150,7 @@ public class Move implements CmdService
 		int isReplace = 0;
 		while(!isValidAnswer)
 		{
-			cmdView.printReplaceIfExist(path);
+			cmdView.printReplaceIfExist(userPath, path);
 			userAnswer = DataProcessing.get().getInputString();
 			if (Pattern.matches(Constant.REGEX_PATTERN_YES, userAnswer))
 			{
