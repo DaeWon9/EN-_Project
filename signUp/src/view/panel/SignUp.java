@@ -23,7 +23,7 @@ public class SignUp extends JPanel
 	public JPasswordField passwordFiled, passwordCheckFiled;
 	public JTextField nameFiled, idFiled, emailFiled, lastEmailFiled, addressFiled, middlePhoneNumberFiled, lastPhoneNumberFiled;
 	public JComboBox<String> birthYear, birthMonth, birthDay, firstPhoneNumber;
-	private JButton passwordInvisibleButton, passwordVisibleButton, passwordCheckInvisibleButton, passwordCheckVisibleButton;
+	public JButton passwordInvisibleButton, passwordVisibleButton, passwordCheckInvisibleButton, passwordCheckVisibleButton;
 	
 	public SignUp()
 	{

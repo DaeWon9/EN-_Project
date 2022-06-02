@@ -1,15 +1,9 @@
 package view;
 
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import view.frame.MainFrame;
-import view.panel.Login;
 
 public class ImageButton extends JButton
 {
@@ -24,7 +18,7 @@ public class ImageButton extends JButton
 		button.setBorderPainted(false);
 		button.setFocusPainted(false); 
 		button.setContentAreaFilled(false);	
-		
+		button.setFocusable(false);
 		button.addMouseListener(new MouseListener() {
 			
 			@Override

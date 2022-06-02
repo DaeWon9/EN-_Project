@@ -1,5 +1,6 @@
 package utility;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DataProcessing 
@@ -11,4 +12,15 @@ public class DataProcessing
 		return dataProcessing;
 	}
 	
+	public boolean isRegisteredId(ArrayList<String> userIdList, String userId)
+	{	
+		for (int repeat = 0; repeat < userIdList.size(); repeat++)
+		{
+			if (userIdList.get(repeat).equals(userId))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

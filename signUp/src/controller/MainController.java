@@ -2,20 +2,20 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
+import model.UserData;
+import utility.DataProcessing;
 import view.frame.MainFrame;
 
 public class MainController 
 {
+	private UserData userData = new UserData();
+	
 	public void start()
 	{
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.ShowFrame();
 		setButtonListener(mainFrame);
-		
-
 	}
 	
 	private void setButtonListener(MainFrame mainFrame)
@@ -40,8 +40,16 @@ public class MainController
 				mainFrame.revalidate();
 				mainFrame.repaint();
 			}
-		});
+		});	
 		
+		mainFrame.signUpPanel.idCheckButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String userInputId = mainFrame.signUpPanel.idFiled.getText();
+				System.out.println(DataProcessing.get().isRegisteredId(userData.GetUserIdList(), userInputId));
+			}
+		});
 	}
 
 }

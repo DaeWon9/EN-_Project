@@ -18,7 +18,7 @@ public class Login extends JPanel
 	public JButton loginButton, signUpButton, findIdButton, findPwButton;
 	public JTextField idTextFiled;
 	public JPasswordField pwTextFiled;
-	private JButton passwordInvisibleButton, passwordVisibleButton;
+	public JButton passwordInvisibleButton, passwordVisibleButton;
 	
 	public Login()
 	{
