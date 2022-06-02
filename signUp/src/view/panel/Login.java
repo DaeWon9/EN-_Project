@@ -37,7 +37,7 @@ public class Login extends JPanel
 		ImageIcon findIdButtonImage = new ImageIcon(Login.class.getResource("/image/findIdButton.png"));		
 		findIdButton = new JButton(findIdButtonImage);
 		findIdButton.setBorderPainted(false);
-		findIdButton.setSize(loginButtonImage.getIconWidth(), loginButtonImage.getIconHeight());
+		findIdButton.setSize(findIdButtonImage.getIconWidth(), findIdButtonImage.getIconHeight());
 		findIdButton.setLocation(434, 412);
 		findIdButton.setBorderPainted(false);
 		findIdButton.setFocusPainted(false); 
@@ -47,7 +47,7 @@ public class Login extends JPanel
 		ImageIcon findPwButtonImage = new ImageIcon(Login.class.getResource("/image/findPwButton.png"));		
 		findPwButton = new JButton(findPwButtonImage);
 		findPwButton.setBorderPainted(false);
-		findPwButton.setSize(loginButtonImage.getIconWidth(), loginButtonImage.getIconHeight());
+		findPwButton.setSize(findPwButtonImage.getIconWidth(), findPwButtonImage.getIconHeight());
 		findPwButton.setLocation(531, 412);
 		findPwButton.setBorderPainted(false);
 		findPwButton.setFocusPainted(false); 
@@ -57,7 +57,7 @@ public class Login extends JPanel
 		ImageIcon signUpButtonImage = new ImageIcon(Login.class.getResource("/image/signUpButton.png"));		
 		signUpButton = new JButton(signUpButtonImage);
 		signUpButton.setBorderPainted(false);
-		signUpButton.setSize(loginButtonImage.getIconWidth(), loginButtonImage.getIconHeight());
+		signUpButton.setSize(signUpButtonImage.getIconWidth(), signUpButtonImage.getIconHeight());
 		signUpButton.setLocation(628, 412);
 		signUpButton.setBorderPainted(false);
 		signUpButton.setFocusPainted(false); 

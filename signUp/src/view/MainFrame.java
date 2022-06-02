@@ -5,22 +5,24 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import view.panel.Login;
+import view.panel.SignUp;
 
 public class MainFrame extends JFrame
 {
 	Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public Login loginPanel = new Login();
+	public SignUp signUpPanel = new SignUp(); 
 
 	public void ShowFrame()
 	{		
 		//ImageIcon iconImage = new ImageIcon(MainFrame.class.getResource("/Image/Ryan.png"));		
 		//setIconImage(iconImage.getImage());
 		setTitle("EN# FRIENDS");
-		setSize(800, 500);
+		setSize(800, 539);
 		setLocation((windowSize.width - 800) / 2,
-                (windowSize.height - 500) / 2); 
+                (windowSize.height - 539) / 2); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		add(loginPanel);
+		add(signUpPanel);
 		setResizable(false);
 		setVisible(true);	
 	}	
