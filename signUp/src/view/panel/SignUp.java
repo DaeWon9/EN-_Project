@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.text.NumberFormatter;
 
 import view.ImageButton;
 
@@ -19,7 +21,7 @@ public class SignUp extends JPanel
 {
 	public JButton idCheckButton, signUpButton, backStageButton;
 	public JPasswordField passwordFiled, passwordCheckFiled;
-	public JTextField nameFiled, idFiled, emailFiled, lastEmailFiled, middlePhoneNumberFiled, lastPhoneNumberFiled, addressFiled;
+	public JTextField nameFiled, idFiled, emailFiled, lastEmailFiled, addressFiled, middlePhoneNumberFiled, lastPhoneNumberFiled;
 	public JComboBox<String> birthYear, birthMonth, birthDay, firstPhoneNumber;
 	private JButton passwordInvisibleButton, passwordVisibleButton, passwordCheckInvisibleButton, passwordCheckVisibleButton;
 	
@@ -47,7 +49,7 @@ public class SignUp extends JPanel
 		
 		// 비밀번호 visible 버튼
 		ImageIcon passwordVisibleButtonImage = new ImageIcon(SignUp.class.getResource("/image/visible.png"));		
-		passwordVisibleButton = new ImageButton(passwordVisibleButtonImage, 394, 147).get();
+		passwordVisibleButton = new ImageButton(passwordVisibleButtonImage, null, 394, 147).get();
 		passwordVisibleButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -61,7 +63,7 @@ public class SignUp extends JPanel
 		add(passwordVisibleButton);		
 		
 		ImageIcon passwordInvisibleButtonImage = new ImageIcon(SignUp.class.getResource("/image/invisible.png"));		
-		passwordInvisibleButton = new ImageButton(passwordInvisibleButtonImage, 394, 147).get();
+		passwordInvisibleButton = new ImageButton(passwordInvisibleButtonImage, null, 394, 147).get();
 		passwordInvisibleButton.setVisible(false);
 		passwordInvisibleButton.addActionListener(new ActionListener() 
 		{
@@ -84,7 +86,7 @@ public class SignUp extends JPanel
 		add(passwordCheckFiled);
 		
 		// 비밀번호 체크 visible 버튼	
-		passwordCheckVisibleButton = new ImageButton(passwordVisibleButtonImage, 394, 204).get();
+		passwordCheckVisibleButton = new ImageButton(passwordVisibleButtonImage, null, 394, 204).get();
 		passwordCheckVisibleButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -97,7 +99,7 @@ public class SignUp extends JPanel
 		});
 		add(passwordCheckVisibleButton);		
 	
-		passwordCheckInvisibleButton = new ImageButton(passwordInvisibleButtonImage, 394, 204).get();
+		passwordCheckInvisibleButton = new ImageButton(passwordInvisibleButtonImage, null, 394, 204).get();
 		passwordCheckInvisibleButton.setVisible(false);
 		passwordCheckInvisibleButton.addActionListener(new ActionListener() 
 		{
@@ -202,17 +204,20 @@ public class SignUp extends JPanel
 		
 		// 뒤로가기 버튼 설정
 		ImageIcon backStageButtonImage = new ImageIcon(SignUp.class.getResource("/image/backStage.png"));		
-		backStageButton = new ImageButton(backStageButtonImage, 750, 4).get();
+		ImageIcon backStageButtonImage2 = new ImageIcon(SignUp.class.getResource("/image/s_backStage.png"));	
+		backStageButton = new ImageButton(backStageButtonImage, backStageButtonImage2, 750, 4).get();
 		add(backStageButton);
 		
 		// 아이디 체크 버튼 설정
 		ImageIcon idCheckButtonImage = new ImageIcon(SignUp.class.getResource("/image/idCheckButton.png"));		
-		idCheckButton = new ImageButton(idCheckButtonImage, 396, 84).get();
+		ImageIcon idCheckButtonImage2 = new ImageIcon(SignUp.class.getResource("/image/s_idCheckButton.png"));	
+		idCheckButton = new ImageButton(idCheckButtonImage, idCheckButtonImage2, 396, 84).get();
 		add(idCheckButton);
 		
 		// 회원가입 버튼 설정
 		ImageIcon signUpButtonImage = new ImageIcon(SignUp.class.getResource("/image/signUpButton_2.png"));		
-		signUpButton = new ImageButton(signUpButtonImage, 389, 453).get();
+		ImageIcon signUpButtonImage2 = new ImageIcon(SignUp.class.getResource("/image/s_signUpButton_2.png"));		
+		signUpButton = new ImageButton(signUpButtonImage, signUpButtonImage2, 389, 453).get();
 		add(signUpButton);
 		
 		// 회원가입 배경이미지 설정

@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import view.panel.Login;
 import view.panel.SignUp;
 
-public class Main extends JFrame
+public class MainFrame extends JFrame
 {
 	Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public Login loginPanel = new Login();

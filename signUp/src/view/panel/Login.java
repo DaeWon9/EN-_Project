@@ -36,7 +36,7 @@ public class Login extends JPanel
 		
 		// 비밀번호 visible 버튼
 		ImageIcon passwordVisibleButtonImage = new ImageIcon(SignUp.class.getResource("/image/visible.png"));		
-		passwordVisibleButton = new ImageButton(passwordVisibleButtonImage, 630, 370).get();
+		passwordVisibleButton = new ImageButton(passwordVisibleButtonImage, null, 630, 370).get();
 		passwordVisibleButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -50,7 +50,7 @@ public class Login extends JPanel
 		add(passwordVisibleButton);		
 		
 		ImageIcon passwordInvisibleButtonImage = new ImageIcon(SignUp.class.getResource("/image/invisible.png"));		
-		passwordInvisibleButton = new ImageButton(passwordInvisibleButtonImage, 630, 370).get();
+		passwordInvisibleButton = new ImageButton(passwordInvisibleButtonImage, null, 630, 370).get();
 		passwordInvisibleButton.setVisible(false);
 		passwordInvisibleButton.addActionListener(new ActionListener() 
 		{
@@ -65,19 +65,23 @@ public class Login extends JPanel
 		add(passwordInvisibleButton);		
 
 		ImageIcon loginButtonImage = new ImageIcon(Login.class.getResource("/image/loginButton.png"));		
-		loginButton = new ImageButton(loginButtonImage, 628, 324).get();
+		ImageIcon loginButtonImage2 = new ImageIcon(Login.class.getResource("/image/s_loginButton.png"));	
+		loginButton = new ImageButton(loginButtonImage, loginButtonImage2, 628, 324).get();
 		add(loginButton);
 
 		ImageIcon findIdButtonImage = new ImageIcon(Login.class.getResource("/image/findIdButton.png"));
-		findIdButton = new ImageButton(findIdButtonImage, 434, 412).get();
+		ImageIcon findIdButtonImage2 = new ImageIcon(Login.class.getResource("/image/s_findIdButton.png"));
+		findIdButton = new ImageButton(findIdButtonImage, findIdButtonImage2, 434, 412).get();
 		add(findIdButton);
 		
 		ImageIcon findPwButtonImage = new ImageIcon(Login.class.getResource("/image/findPwButton.png"));	
-		findPwButton = new ImageButton(findPwButtonImage, 531, 412).get();
+		ImageIcon findPwButtonImage2 = new ImageIcon(Login.class.getResource("/image/s_findPwButton.png"));	
+		findPwButton = new ImageButton(findPwButtonImage, findPwButtonImage2, 531, 412).get();
 		add(findPwButton);
 		
 		ImageIcon signUpButtonImage = new ImageIcon(Login.class.getResource("/image/signUpButton.png"));
-		signUpButton = new ImageButton(signUpButtonImage, 628, 412).get();
+		ImageIcon signUpButtonImage2 = new ImageIcon(Login.class.getResource("/image/s_signUpButton.png"));
+		signUpButton = new ImageButton(signUpButtonImage, signUpButtonImage2, 628, 412).get();
 		add(signUpButton);
 		
 		ImageIcon imageIcon = new ImageIcon(Login.class.getResource("/image/loginScreen.jpg"));
