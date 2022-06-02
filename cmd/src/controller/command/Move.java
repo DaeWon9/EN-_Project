@@ -75,6 +75,7 @@ public class Move implements CmdService
 	
 	private void moveFileOnReplaceOption(String beforePath, String afterPath)
 	{
+		// 조건문안에 로직 xxxxxx 오류날 확률 높음
 		if (new File(afterPath).isDirectory()) // move 명령어 수행 시 이후경로가 디렉터리일경우 엑세스 거부 출력
 		{
 			cmdView.print("액세스가 거부되었습니다.\n");

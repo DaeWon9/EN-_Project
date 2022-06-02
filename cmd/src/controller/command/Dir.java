@@ -30,6 +30,8 @@ public class Dir implements CmdService
 		String filePath;
 		if (inputCommand.equals("dir"))
 			filePath =  userPath.get();
+		else if (inputCommand.contains(":"))
+			filePath = inputCommand.split("dir")[1].replace(" ", "");
 		else
 			filePath = (userPath.get() + "\\" + inputCommand.split("dir")[1]).replace("\\\\", "\\");
 		return DataProcessing.get().getCanonicalPath(filePath.replace(" ", ""));

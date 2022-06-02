@@ -95,6 +95,7 @@ public class Copy extends Move implements CmdService
 				if (e.toString().contains("FileAlreadyExistsException")) // 중복파일일경우
 				{
 					ReplaceOption replaceOption = ReplaceOption.values()[getReplaceOption(afterPath)]; // 덮어쓰기 옵션 받기
+					
 					switch (replaceOption)
 					{
 					case ALL:
@@ -121,12 +122,8 @@ public class Copy extends Move implements CmdService
 	private String setAfterPathInDirecotryCopy(String beforePath, String afterPath, String beforeFileName, String afterFileName, File fileName) 
 	{
 		if (beforeFileName.equals(afterFileName))
-		{
 			afterPath = DataProcessing.get().moveUpPathStage(afterPath, 1);
-			afterPath = afterPath + getBeforeFileName(fileName.getPath().replace("\\","\\\\"));
-		}
-		else
-			afterPath = afterPath + getBeforeFileName(fileName.getPath().replace("\\","\\\\"));
+		afterPath = afterPath + getBeforeFileName(fileName.getPath().replace("\\","\\\\"));
 		return afterPath;
 	}
 	
