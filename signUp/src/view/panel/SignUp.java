@@ -1,6 +1,8 @@
 package view.panel;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -8,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import view.ImageButton;
@@ -15,8 +18,11 @@ import view.ImageButton;
 public class SignUp extends JPanel
 {
 	public JButton idCheckButton, signUpButton, backStageButton;
-	public JTextField nameFiled, idFiled, passwordFiled, passwordCheckFiled, emailFiled, lastEmailFiled, middlePhoneNumberFiled, lastPhoneNumberFiled, addressFiled;
+	public JPasswordField passwordFiled, passwordCheckFiled;
+	public JTextField nameFiled, idFiled, emailFiled, lastEmailFiled, middlePhoneNumberFiled, lastPhoneNumberFiled, addressFiled;
 	public JComboBox<String> birthYear, birthMonth, birthDay, firstPhoneNumber;
+	private JButton passwordInvisibleButton, passwordVisibleButton, passwordCheckInvisibleButton, passwordCheckVisibleButton;
+	
 	public SignUp()
 	{
 		setLayout(null);	
@@ -33,16 +39,77 @@ public class SignUp extends JPanel
 		add(idFiled);
 		
 		// 비밀번호 텍스트필드 설정
-		passwordFiled = new JTextField();
+		passwordFiled = new JPasswordField();
 		passwordFiled.setSize(201,30);
 		passwordFiled.setLocation(184,141);
+		passwordFiled.setEchoChar('\u25cf');
 		add(passwordFiled);
 		
+		// 비밀번호 visible 버튼
+		ImageIcon passwordVisibleButtonImage = new ImageIcon(SignUp.class.getResource("/image/visible.png"));		
+		passwordVisibleButton = new ImageButton(passwordVisibleButtonImage, 394, 147).get();
+		passwordVisibleButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				passwordFiled.setEchoChar((char)0);
+				passwordVisibleButton.setVisible(false);
+				passwordInvisibleButton.setVisible(true);
+			}
+		});
+		add(passwordVisibleButton);		
+		
+		ImageIcon passwordInvisibleButtonImage = new ImageIcon(SignUp.class.getResource("/image/invisible.png"));		
+		passwordInvisibleButton = new ImageButton(passwordInvisibleButtonImage, 394, 147).get();
+		passwordInvisibleButton.setVisible(false);
+		passwordInvisibleButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				passwordFiled.setEchoChar('\u25cf');
+				passwordInvisibleButton.setVisible(false);
+				passwordVisibleButton.setVisible(true);
+			}
+		});
+		add(passwordInvisibleButton);		
+		
+		
 		// 비밀번호 체크 텍스트필드 설정
-		passwordCheckFiled = new JTextField();
+		passwordCheckFiled = new JPasswordField();
 		passwordCheckFiled.setSize(201,30);
 		passwordCheckFiled.setLocation(184,198);
+		passwordCheckFiled.setEchoChar('\u25cf');
 		add(passwordCheckFiled);
+		
+		// 비밀번호 체크 visible 버튼	
+		passwordCheckVisibleButton = new ImageButton(passwordVisibleButtonImage, 394, 204).get();
+		passwordCheckVisibleButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				passwordCheckFiled.setEchoChar((char)0);
+				passwordCheckVisibleButton.setVisible(false);
+				passwordCheckInvisibleButton.setVisible(true);
+			}
+		});
+		add(passwordCheckVisibleButton);		
+	
+		passwordCheckInvisibleButton = new ImageButton(passwordInvisibleButtonImage, 394, 204).get();
+		passwordCheckInvisibleButton.setVisible(false);
+		passwordCheckInvisibleButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				passwordCheckFiled.setEchoChar('\u25cf');
+				passwordCheckInvisibleButton.setVisible(false);
+				passwordCheckVisibleButton.setVisible(true);
+			}
+		});
+		add(passwordCheckInvisibleButton);
 		
 		// 생년월일 필드 설정 -> 콤보박스로
 		ArrayList<String> yearList = new ArrayList<String>();
