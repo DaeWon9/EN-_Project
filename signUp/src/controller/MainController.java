@@ -1,12 +1,12 @@
 package controller;
 
-import view.MainFrame;
+import view.frame.Main;
 
 public class MainController 
 {
 	public void start()
 	{
-		MainFrame mainFrame = new MainFrame();
+		Main mainFrame = new Main();
 		mainFrame.ShowFrame();
 	}
 

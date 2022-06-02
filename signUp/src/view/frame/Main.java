@@ -1,4 +1,4 @@
-package view;
+package view.frame;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import view.panel.Login;
 import view.panel.SignUp;
 
-public class MainFrame extends JFrame
+public class Main extends JFrame
 {
 	Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public Login loginPanel = new Login();
@@ -22,7 +22,7 @@ public class MainFrame extends JFrame
 		setLocation((windowSize.width - 800) / 2,
                 (windowSize.height - 539) / 2); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		add(signUpPanel);
+		add(loginPanel);
 		setResizable(false);
 		setVisible(true);	
 	}	
