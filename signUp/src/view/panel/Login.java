@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import view.ImageButton;
+
 public class Login extends JPanel
 {
 	public JButton loginButton, signUpButton, findIdButton, findPwButton;
@@ -25,43 +27,19 @@ public class Login extends JPanel
 		add(pwTextFiled);
 
 		ImageIcon loginButtonImage = new ImageIcon(Login.class.getResource("/image/loginButton.png"));		
-		loginButton = new JButton(loginButtonImage);
-		loginButton.setBorderPainted(false);
-		loginButton.setSize(loginButtonImage.getIconWidth(), loginButtonImage.getIconHeight());
-		loginButton.setLocation(628, 324);
-		loginButton.setBorderPainted(false);
-		loginButton.setFocusPainted(false); 
-		loginButton.setContentAreaFilled(false);
+		loginButton = new ImageButton(loginButtonImage, 628, 324).get();
 		add(loginButton);
 
-		ImageIcon findIdButtonImage = new ImageIcon(Login.class.getResource("/image/findIdButton.png"));		
-		findIdButton = new JButton(findIdButtonImage);
-		findIdButton.setBorderPainted(false);
-		findIdButton.setSize(findIdButtonImage.getIconWidth(), findIdButtonImage.getIconHeight());
-		findIdButton.setLocation(434, 412);
-		findIdButton.setBorderPainted(false);
-		findIdButton.setFocusPainted(false); 
-		findIdButton.setContentAreaFilled(false);
+		ImageIcon findIdButtonImage = new ImageIcon(Login.class.getResource("/image/findIdButton.png"));
+		findIdButton = new ImageButton(findIdButtonImage, 434, 412).get();
 		add(findIdButton);
 		
-		ImageIcon findPwButtonImage = new ImageIcon(Login.class.getResource("/image/findPwButton.png"));		
-		findPwButton = new JButton(findPwButtonImage);
-		findPwButton.setBorderPainted(false);
-		findPwButton.setSize(findPwButtonImage.getIconWidth(), findPwButtonImage.getIconHeight());
-		findPwButton.setLocation(531, 412);
-		findPwButton.setBorderPainted(false);
-		findPwButton.setFocusPainted(false); 
-		findPwButton.setContentAreaFilled(false);
+		ImageIcon findPwButtonImage = new ImageIcon(Login.class.getResource("/image/findPwButton.png"));	
+		findPwButton = new ImageButton(findPwButtonImage, 531, 412).get();
 		add(findPwButton);
 		
-		ImageIcon signUpButtonImage = new ImageIcon(Login.class.getResource("/image/signUpButton.png"));		
-		signUpButton = new JButton(signUpButtonImage);
-		signUpButton.setBorderPainted(false);
-		signUpButton.setSize(signUpButtonImage.getIconWidth(), signUpButtonImage.getIconHeight());
-		signUpButton.setLocation(628, 412);
-		signUpButton.setBorderPainted(false);
-		signUpButton.setFocusPainted(false); 
-		signUpButton.setContentAreaFilled(false);
+		ImageIcon signUpButtonImage = new ImageIcon(Login.class.getResource("/image/signUpButton.png"));
+		signUpButton = new ImageButton(signUpButtonImage, 628, 412).get();
 		add(signUpButton);
 		
 		ImageIcon imageIcon = new ImageIcon(Login.class.getResource("/image/loginScreen.jpg"));

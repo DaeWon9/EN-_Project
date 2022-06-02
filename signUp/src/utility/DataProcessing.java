@@ -1,5 +1,7 @@
 package utility;
 
+import java.util.Scanner;
+
 public class DataProcessing 
 {
 	private static final DataProcessing dataProcessing = new DataProcessing();
@@ -8,4 +10,5 @@ public class DataProcessing
 	{
 		return dataProcessing;
 	}
+	
 }

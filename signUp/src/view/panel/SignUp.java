@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import view.ImageButton;
+
 public class SignUp extends JPanel
 {
 	public JButton idCheckButton, signUpButton, backStageButton;
@@ -19,7 +21,7 @@ public class SignUp extends JPanel
 	{
 		setLayout(null);	
 		// 이름 텍스트필드 설정
-		nameFiled = new JTextField();
+		nameFiled = new JTextField(10);
 		nameFiled.setSize(201,30);
 		nameFiled.setLocation(184,28);
 		add(nameFiled);
@@ -133,34 +135,19 @@ public class SignUp extends JPanel
 		
 		// 뒤로가기 버튼 설정
 		ImageIcon backStageButtonImage = new ImageIcon(SignUp.class.getResource("/image/backStage.png"));		
-		backStageButton = new JButton(backStageButtonImage);
-		backStageButton.setBorderPainted(false);
-		backStageButton.setSize(backStageButtonImage.getIconWidth(), backStageButtonImage.getIconHeight());
-		backStageButton.setLocation(750, 4);
-		backStageButton.setBorderPainted(false);
-		backStageButton.setFocusPainted(false); 
-		backStageButton.setContentAreaFilled(false);
+		backStageButton = new ImageButton(backStageButtonImage, 750, 4).get();
 		add(backStageButton);
+		
 		// 아이디 체크 버튼 설정
 		ImageIcon idCheckButtonImage = new ImageIcon(SignUp.class.getResource("/image/idCheckButton.png"));		
-		idCheckButton = new JButton(idCheckButtonImage);
-		idCheckButton.setBorderPainted(false);
-		idCheckButton.setSize(idCheckButtonImage.getIconWidth(), idCheckButtonImage.getIconHeight());
-		idCheckButton.setLocation(396, 84);
-		idCheckButton.setBorderPainted(false);
-		idCheckButton.setFocusPainted(false); 
-		idCheckButton.setContentAreaFilled(false);
+		idCheckButton = new ImageButton(idCheckButtonImage, 396, 84).get();
 		add(idCheckButton);
+		
 		// 회원가입 버튼 설정
 		ImageIcon signUpButtonImage = new ImageIcon(SignUp.class.getResource("/image/signUpButton_2.png"));		
-		signUpButton = new JButton(signUpButtonImage);
-		signUpButton.setBorderPainted(false);
-		signUpButton.setSize(signUpButtonImage.getIconWidth(), signUpButtonImage.getIconHeight());
-		signUpButton.setLocation(389, 453);
-		signUpButton.setBorderPainted(false);
-		signUpButton.setFocusPainted(false); 
-		signUpButton.setContentAreaFilled(false);
+		signUpButton = new ImageButton(signUpButtonImage, 389, 453).get();
 		add(signUpButton);
+		
 		// 회원가입 배경이미지 설정
 		ImageIcon imageIcon = new ImageIcon(Login.class.getResource("/image/signUpScreen.jpg"));
 		Image image = imageIcon.getImage().getScaledInstance(800, 500, Image.SCALE_SMOOTH);
