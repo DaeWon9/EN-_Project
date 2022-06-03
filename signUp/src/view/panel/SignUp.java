@@ -220,6 +220,13 @@ public class SignUp extends JPanel
 		signUpButton = new ImageButton(signUpButtonImage, signUpButtonImage2, 389, 453).get();
 		add(signUpButton);
 		
+		
+		ImageIcon okRyanIcon = new ImageIcon(SignUp.class.getResource("/image/okRyan.png"));	
+		JLabel okRyan = new JLabel(okRyanIcon);
+		okRyan.setSize(okRyanIcon.getIconWidth(), okRyanIcon.getIconHeight());
+		okRyan.setLocation(394, 23);
+		add(okRyan);
+		
 		// 회원가입 배경이미지 설정
 		ImageIcon imageIcon = new ImageIcon(Login.class.getResource("/image/signUpScreen.jpg"));
 		Image image = imageIcon.getImage().getScaledInstance(800, 500, Image.SCALE_SMOOTH);

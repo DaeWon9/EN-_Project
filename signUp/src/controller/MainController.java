@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JComboBox;
+
 import model.UserData;
 import utility.DataProcessing;
 import view.frame.MainFrame;
@@ -10,10 +12,12 @@ import view.frame.MainFrame;
 public class MainController 
 {
 	private UserData userData = new UserData();
+	MainFrame mainFrame = new MainFrame();
+	private controller.SignUp signUp = new SignUp(mainFrame.signUpPanel, userData);
+	private controller.Login login = new Login(mainFrame.signUpPanel, userData);
 	
 	public void start()
 	{
-		MainFrame mainFrame = new MainFrame();
 		mainFrame.ShowFrame();
 		setButtonListener(mainFrame);
 	}
@@ -47,9 +51,57 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String userInputId = mainFrame.signUpPanel.idFiled.getText();
-				System.out.println(DataProcessing.get().isRegisteredId(userData.GetUserIdList(), userInputId));
+				
+				if(!userInputId.equals(""))
+				{
+					System.out.println("userId : " + userInputId);
+					if (DataProcessing.get().isRegisteredId(userData.getUserIdList(), userInputId))
+					{
+						System.out.println("사용불가능한 아이디입니다.");
+					}
+					else
+					{
+						System.out.println("사용가능한 아이디입니다.");
+					}
+				}
 			}
 		});
+		
+		mainFrame.signUpPanel.signUpButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				signUp.action();
+				// check all data input and validate
+				// if not -> alert Message (please input "" data)
+				// all data input -> confirm message (Would you like to sign up with this information?)
+				// -> insert dataBase
+			}
+		});
+		
+		
+		mainFrame.loginPanel.loginButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				String userId = mainFrame.loginPanel.idTextFiled.getText();
+				@SuppressWarnings("deprecation")
+				String userPassword = mainFrame.loginPanel.pwTextFiled.getText();
+				System.out.println(userId);
+				System.out.println(userPassword);
+				if (login.isLoginSucess(userId, userPassword))
+				{
+					System.out.println("로그인완료");
+				}
+				else
+				{
+					System.out.println("로그인실패");
+				}
+			}
+		});
+		
 	}
 
 }
