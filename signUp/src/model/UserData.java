@@ -31,13 +31,13 @@ public class UserData
 		try 
 		{
 			connection = getConnection();
-			sqlCommand = String.format(Constant.SELECT_QUERY, Constant.USER_FILED_PASSWORD);
+			sqlCommand = String.format(Constant.SELECT_QUERY, Constant.USER_FIELD_PASSWORD);
 			sqlCommand = sqlCommand + " WHERE id = '" + userId + "'";
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sqlCommand);
 			while(resultSet.next())
 			{
-				userPassword =  resultSet.getString(Constant.USER_FILED_PASSWORD);
+				userPassword =  resultSet.getString(Constant.USER_FIELD_PASSWORD);
 			}
 			resultSet.close();
 		} 
@@ -87,12 +87,12 @@ public class UserData
 		try 
 		{
 			connection = getConnection();
-			sqlCommand = String.format(Constant.SELECT_QUERY, Constant.USER_FILED_ID);
+			sqlCommand = String.format(Constant.SELECT_QUERY, Constant.USER_FIELD_ID);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sqlCommand);
 			while(resultSet.next())
 			{
-				userIdList.add(resultSet.getString(Constant.USER_FILED_ID));
+				userIdList.add(resultSet.getString(Constant.USER_FIELD_ID));
 			}
 			resultSet.close();
 		} 

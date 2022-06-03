@@ -1,22 +1,26 @@
 package view.panel;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
+
 
 import utility.Constant;
 import view.ImageButton;
@@ -30,10 +34,14 @@ public class SignUp extends JPanel
 	public JTextField nameFiled, idFiled, emailFiled, lastEmailFiled, addressFiled, middlePhoneNumberFiled, lastPhoneNumberFiled;
 	public JComboBox<String> birthYear, birthMonth, birthDay, lastEmailComboBox, firstPhoneNumber;
 	public JButton passwordInvisibleButton, passwordVisibleButton, passwordCheckInvisibleButton, passwordCheckVisibleButton;
+	public boolean isIdCheck = false;
+	public boolean isPasswordCheck = false;
 	
 	public SignUp()
 	{
 		setLayout(null);	
+		ImageIcon noApeachIcon = new ImageIcon(SignUp.class.getResource("/image/noApeach.png"));
+		
 		// 이름 텍스트필드 설정
 		nameFiled = new LimitedJTextField(Constant.REGEX_PATTERN_NAME, 10).get();
 		nameFiled.setBounds(184, 28, 201, 30);
@@ -45,9 +53,49 @@ public class SignUp extends JPanel
 		add(idFiled);
 		
 		// 비밀번호 텍스트필드 설정
-		passwordFiled = new LimitedJPasswordTextField(Constant.REGEX_PATTERN_PASSWORD, 16).get();
+		passwordFiled = new JPasswordField();
 		passwordFiled.setBounds(184, 141, 201, 30);
 		passwordFiled.setEchoChar('\u25cf');
+		passwordFiled.addKeyListener(new KeyListener() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(passwordFiled.getText().length() >= 16)
+				{
+					e.consume();
+				}
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(passwordFiled.getText().matches(Constant.REGEX_PATTERN_PASSWORD))
+				{
+					passwordFiled.setForeground(Color.BLUE);
+				}
+				else
+				{
+					passwordFiled.setForeground(Color.RED);
+				}
+				
+				// pw & pwCheck 가 같은지 확인
+				if(passwordCheckFiled.getText().equals(passwordFiled.getText()))
+				{
+					passwordCheckFiled.setForeground(Color.BLUE);
+					isPasswordCheck = true;
+				}
+				else
+				{
+					passwordCheckFiled.setForeground(Color.RED);
+					isPasswordCheck = false;
+				}
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		add(passwordFiled);
 		
 		// 비밀번호 visible 버튼
@@ -100,10 +148,12 @@ public class SignUp extends JPanel
 				if(passwordCheckFiled.getText().equals(passwordFiled.getText()))
 				{
 					passwordCheckFiled.setForeground(Color.BLUE);
+					isPasswordCheck = true;
 				}
 				else
 				{
 					passwordCheckFiled.setForeground(Color.RED);
+					isPasswordCheck = false;
 				}
 			}
 			
@@ -224,7 +274,7 @@ public class SignUp extends JPanel
 		add(middlePhoneNumberFiled);
 		
         // 세번째 핸드폰번호 필드 설정
-		lastPhoneNumberFiled = new LimitedJTextField(Constant.REGEX_PATTERN_PHONE_NUMBER, 4).get();
+		lastPhoneNumberFiled = new LimitedJTextField(Constant.REGEX_PATTERN_LAST_PHONE_NUMBER, 4).get();
 		lastPhoneNumberFiled.setBounds(322, 345, 63, 30);
 		add(lastPhoneNumberFiled);
 		
@@ -249,6 +299,17 @@ public class SignUp extends JPanel
 		ImageIcon searchAddressButtonImage = new ImageIcon(SignUp.class.getResource("/image/searchAddressButton.png"));		
 		ImageIcon searchAddressButtonImage2 = new ImageIcon(SignUp.class.getResource("/image/s_searchAddressButton.png"));	
 		searchAddressButton = new ImageButton(searchAddressButtonImage, searchAddressButtonImage2, 426, 389).get();
+		searchAddressButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://www.juso.go.kr//"));
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, "서버오류! 관리자에게 문의하세요", "ERROR", JOptionPane.PLAIN_MESSAGE, noApeachIcon);
+				} catch (URISyntaxException e1) {
+					JOptionPane.showMessageDialog(null, "서버오류! 관리자에게 문의하세요", "ERROR", JOptionPane.PLAIN_MESSAGE, noApeachIcon);
+				}	
+			}
+		});
 		add(searchAddressButton);
 		
 		// 회원가입 버튼 설정
@@ -257,14 +318,6 @@ public class SignUp extends JPanel
 		signUpButton = new ImageButton(signUpButtonImage, signUpButtonImage2, 389, 453).get();
 		add(signUpButton);
 		
-		
-		/*
-		ImageIcon okRyanIcon = new ImageIcon(SignUp.class.getResource("/image/okRyan.png"));	
-		JLabel okRyan = new JLabel(okRyanIcon);
-		okRyan.setSize(okRyanIcon.getIconWidth(), okRyanIcon.getIconHeight());
-		okRyan.setLocation(394, 23);
-		add(okRyan);
-		*/
 		
 		// 회원가입 배경이미지 설정
 		ImageIcon imageIcon = new ImageIcon(Login.class.getResource("/image/signUpScreen.jpg"));

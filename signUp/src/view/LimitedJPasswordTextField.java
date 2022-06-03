@@ -35,7 +35,7 @@ public class LimitedJPasswordTextField
 				{
 					jPasswordField.setForeground(Color.RED);
 				}
-				
+			
 			}
 			
 			@Override

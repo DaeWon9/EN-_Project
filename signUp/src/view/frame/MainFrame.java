@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import view.panel.Login;
+import view.panel.MainPanel;
 import view.panel.SignUp;
 
 public class MainFrame extends JFrame
@@ -12,6 +13,7 @@ public class MainFrame extends JFrame
 	Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public Login loginPanel = new Login();
 	public SignUp signUpPanel = new SignUp(); 
+	public MainPanel mainPanel = new MainPanel();
 
 	public void ShowFrame()
 	{		

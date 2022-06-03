@@ -70,9 +70,9 @@ public class DataProcessing
 		regexList.add(Constant.REGEX_PATTERN_NAME);
 		regexList.add(Constant.REGEX_PATTERN_PASSWORD);
 		regexList.add(Constant.REGEX_PATTERN_ANY);
-		regexList.add(Constant.REGEX_PATTERN_LAST_EMAIL);
+		regexList.add(Constant.REGEX_PATTERN_EMAIL);
 		regexList.add(Constant.REGEX_PATTERN_PHONE_NUMBER); 
-		regexList.add(Constant.REGEX_PATTERN_ANY);
+		regexList.add(Constant.REGEX_PATTERN_ADDRESS);
 		
 		return regexList;
 	}
