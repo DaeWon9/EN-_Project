@@ -23,9 +23,14 @@ public class Constant
 	public static final String USER_FILED_ADDRESS = "address";
 	
 	// 정규식
+	public static final String REGEX_PATTERN_SPECIAL_CHAR = "^[!@#$%^&*()-=_+]$";
+	public static final String REGEX_PATTERN_ENGLISTH_NUMBER = "^[0-9a-zA-Z]*$";
 	public static final String REGEX_PATTERN_ANY = "^[a-zA-Z0-9ㄱ-ㅎ가-힣\\s!@#$%^&*()-=_+]*$";
 	public static final String REGEX_PATTERN_NAME = "^([가-힣]{2,5}|[a-zA-Z]{2,10})$";
 	public static final String REGEX_PATTERN_ID = "^[0-9a-zA-Z]{6,16}$";
 	public static final String REGEX_PATTERN_PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$";
-	public static final String REGEX_PATTERN_PHONE_NUMBER = "^(01[0|1|6|7|8|9]|02|03[1-3]|04[1-4]|05[1-5]|06[1-4])([0-9]{3,4})([0-9]{4})$";
+	public static final String REGEX_PATTERN_MIDDLE_PHONE_NUMBER = "^[0-9]{3,4}$";
+	public static final String REGEX_PATTERN_PHONE_NUMBER = "^[0-9]{4}$";
+	public static final String REGEX_PATTERN_LAST_EMAIL = "^[a-zA-Z]*\\.[a-z]{2,3}$";
+	public static final String REGEX_PATTERN_ADDRESS = "^([가-힣]*(시)\\s[가-힣]*(군|구)\\s|[가-힣]*(도)\\s[가-힣]*(시)\\s[가-힣]*(구)\\s)([가-힣0-9]*(읍|면|동)|[가-힣0-9]*(로|길))[가-힣-0-9\\s(),-]*$";
 }

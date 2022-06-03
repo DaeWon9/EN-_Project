@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 import model.UserData;
 import utility.DataProcessing;
@@ -51,18 +52,19 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String userInputId = mainFrame.signUpPanel.idFiled.getText();
-				
-				if(!userInputId.equals(""))
+
+				System.out.println("userId : " + userInputId);
+				if (userInputId.equals(""))
 				{
-					System.out.println("userId : " + userInputId);
-					if (DataProcessing.get().isRegisteredId(userData.getUserIdList(), userInputId))
-					{
-						System.out.println("사용불가능한 아이디입니다.");
-					}
-					else
-					{
-						System.out.println("사용가능한 아이디입니다.");
-					}
+					JOptionPane.showConfirmDialog(null, "아이디를 입력해주세요.","ID CHECK",JOptionPane.DEFAULT_OPTION);
+				}
+				else if (DataProcessing.get().isRegisteredId(userData.getUserIdList(), userInputId))
+				{
+					JOptionPane.showConfirmDialog(null, "이미 사용중인 아이디입니다.","ID CHECK",JOptionPane.DEFAULT_OPTION);
+				}
+				else
+				{
+					JOptionPane.showConfirmDialog(null, "사용가능한 아이디입니다.","ID CHECK",JOptionPane.DEFAULT_OPTION);
 				}
 			}
 		});
