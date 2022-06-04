@@ -110,6 +110,26 @@ public class UserData
 			System.out.println("서버오류 관리자에게 문의하세요");
 		}
 	}
+	
+	public void updateUserData(String targetUserData, String userId, String field)
+	{
+		try 
+		{
+			connection = getConnection();
+			sqlCommand = String.format(Constant.UPDATE_QUERY, field, targetUserData, userId);
+
+			Statement statement = connection.createStatement();
+			System.out.println(sqlCommand);
+			statement.execute(sqlCommand);
+			connection.close();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			//e.printStackTrace();
+			System.out.println("서버오류 관리자에게 문의하세요");
+		}
+	}
+	//UPDATE `daewonsignup`.`user` SET `pw` = 'asd123!2' WHERE (`id` = 'dudghks12');
 
 	public ArrayList<String> getUserIdList()
 	{

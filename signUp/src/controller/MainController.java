@@ -22,6 +22,7 @@ public class MainController
 	private MainFrame mainFrame = new MainFrame();
 	private controller.SignUp signUp = new SignUp(mainFrame.signUpPanel, userData);
 	private controller.Login login = new Login(mainFrame.signUpPanel, userData);
+	private controller.Editer editer = new Editer(mainFrame.editPanel, userData);
 	
 	public void start()
 	{
@@ -157,28 +158,8 @@ public class MainController
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<String> userDataList = userData.getLoginedUserDataList(login.userId);
 				
-				// 정보수정 패널 들어가기전 field값들 설정
-				mainFrame.editPanel.nameFiled.setText(userDataList.get(0)); // 이름 필드 셋팅
-				mainFrame.editPanel.idFiled.setText(userDataList.get(1)); // 아이디 필드 셋팅
-				mainFrame.editPanel.passwordFiled.setText(userDataList.get(2)); // 비밀번호 필드 셋팅
-				mainFrame.editPanel.passwordCheckFiled.setText(userDataList.get(3)); // 비밀번호 체크 필드 셋팅
-				
-				mainFrame.editPanel.birthYear.setSelectedItem(userDataList.get(4).substring(0, 4)); // 생년월일 중 년도 필드 셋팅
-				mainFrame.editPanel.birthMonth.setSelectedItem(userDataList.get(4).substring(4, 6)); // 생년월일 중 월 필드 셋팅
-				mainFrame.editPanel.birthDay.setSelectedItem(userDataList.get(4).substring(6, 8)); // 생년월일 중 일 필드 셋팅
-				
-				mainFrame.editPanel.emailFiled.setText(userDataList.get(5).split("@")[0]); // 앞쪽 이메일 필드 셋팅
-				mainFrame.editPanel.lastEmailFiled.setText(userDataList.get(5).split("@")[1]); // 뒷쪽 이메일 필드 셋팅
-				
-				mainFrame.editPanel.firstPhoneNumber.setSelectedItem(userDataList.get(6).substring(0, 3)); // 핸드폰번호 필드 셋팅
-				mainFrame.editPanel.middlePhoneNumberFiled.setText(userDataList.get(6).substring(3, userDataList.get(6).length() - 4));
-				mainFrame.editPanel.lastPhoneNumberFiled.setText(userDataList.get(6).substring(userDataList.get(6).length() - 4
-																								, userDataList.get(6).length())); // 마지막
-				
-				mainFrame.editPanel.addressFiled.setText(userDataList.get(7)); // 주소 필드 셋팅
-				
+				refreshUserDataInEditPanel();
 				mainFrame.getContentPane().removeAll();
 				mainFrame.getContentPane().add(mainFrame.editPanel);
 				mainFrame.revalidate();
@@ -213,9 +194,52 @@ public class MainController
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "준비중입니다...","EN# FRIENDS",JOptionPane.DEFAULT_OPTION, noApeachIcon);
-				
+				editer.action(login.userId);
+				refreshUserDataInEditPanel();
+				if (editer.isEditExecuted())
+				{
+					JOptionPane.showMessageDialog(null, "정보수정 완료!!","EN# FRIENDS",JOptionPane.DEFAULT_OPTION, okRyanIcon);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "수정할 정보가 없습니다","EN# FRIENDS",JOptionPane.DEFAULT_OPTION, noApeachIcon);
+				}
 			}
 		});
+	}
+	
+	private void refreshUserDataInEditPanel() 
+	{
+		ArrayList<String> userDataList = userData.getLoginedUserDataList(login.userId);
+		
+		// 정보수정 패널 들어가기전 field의 폰트 색상 black 으로 설정
+		mainFrame.editPanel.nameFiled.setForeground(Color.black);
+		mainFrame.editPanel.passwordFiled.setForeground(Color.black);
+		mainFrame.editPanel.passwordCheckFiled.setForeground(Color.black);
+		mainFrame.editPanel.emailFiled.setForeground(Color.black);
+		mainFrame.editPanel.lastEmailFiled.setForeground(Color.black);
+		mainFrame.editPanel.middlePhoneNumberFiled.setForeground(Color.black);
+		mainFrame.editPanel.middlePhoneNumberFiled.setForeground(Color.black);
+		mainFrame.editPanel.addressFiled.setForeground(Color.black);
+		
+		// 정보수정 패널 들어가기전 field값들 설정
+		mainFrame.editPanel.nameFiled.setText(userDataList.get(0)); // 이름 필드 셋팅
+		mainFrame.editPanel.idFiled.setText(userDataList.get(1)); // 아이디 필드 셋팅
+		mainFrame.editPanel.passwordFiled.setText(userDataList.get(2)); // 비밀번호 필드 셋팅
+		mainFrame.editPanel.passwordCheckFiled.setText(userDataList.get(3)); // 비밀번호 체크 필드 셋팅
+		
+		mainFrame.editPanel.birthYear.setSelectedItem(userDataList.get(4).substring(0, 4)); // 생년월일 중 년도 필드 셋팅
+		mainFrame.editPanel.birthMonth.setSelectedItem(userDataList.get(4).substring(4, 6)); // 생년월일 중 월 필드 셋팅
+		mainFrame.editPanel.birthDay.setSelectedItem(userDataList.get(4).substring(6, 8)); // 생년월일 중 일 필드 셋팅
+		
+		mainFrame.editPanel.emailFiled.setText(userDataList.get(5).split("@")[0]); // 앞쪽 이메일 필드 셋팅
+		mainFrame.editPanel.lastEmailFiled.setText(userDataList.get(5).split("@")[1]); // 뒷쪽 이메일 필드 셋팅
+		
+		mainFrame.editPanel.firstPhoneNumber.setSelectedItem(userDataList.get(6).substring(0, 3)); // 핸드폰번호 필드 셋팅
+		mainFrame.editPanel.middlePhoneNumberFiled.setText(userDataList.get(6).substring(3, userDataList.get(6).length() - 4));
+		mainFrame.editPanel.lastPhoneNumberFiled.setText(userDataList.get(6).substring(userDataList.get(6).length() - 4
+																						, userDataList.get(6).length())); // 마지막
+		
+		mainFrame.editPanel.addressFiled.setText(userDataList.get(7)); // 주소 필드 셋팅
 	}
 }

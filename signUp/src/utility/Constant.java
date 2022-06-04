@@ -2,11 +2,12 @@ package utility;
 
 public class Constant 
 {
-	//DB Info
+	// DB Info
 	public static final String DATABASE_CONNECTION_INFORMATION = "jdbc:mysql://localhost:3307/daewonSignUp";
 	public static final String DATABASE_USER_NAME = "root";
 	public static final String DATABASE_PASSWORD = "0000";
 	
+	// QUERY
 	public static final String INSERT_QUERY = "INSERT INTO user VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
 	public static final String SELECT_QUERY = "SELECT %s FROM user";
 	public static final String DELETE_QUERY = "DELETE FROM user WHERE id = '%s'";
