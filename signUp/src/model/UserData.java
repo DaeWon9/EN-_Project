@@ -48,6 +48,37 @@ public class UserData
 		return userPassword;
 	}
 	
+	public ArrayList<String> getLoginedUserDataList(String userId)
+	{
+		ArrayList<String> userDataList = new ArrayList<String>();
+		
+		try 
+		{
+			connection = getConnection();
+			sqlCommand = String.format(Constant.SELECT_QUERY, Constant.USER_FIELD_ALL);
+			sqlCommand = sqlCommand + " WHERE id = '" + userId + "'";
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sqlCommand);
+			while(resultSet.next())
+			{
+				userDataList.add(resultSet.getString(Constant.USER_FIELD_NAME));
+				userDataList.add(resultSet.getString(Constant.USER_FIELD_ID));
+				userDataList.add(resultSet.getString(Constant.USER_FIELD_PASSWORD));
+				userDataList.add(resultSet.getString(Constant.USER_FIELD_PASSWORD));
+				userDataList.add(resultSet.getString(Constant.USER_FIELD_BIRTH));
+				userDataList.add(resultSet.getString(Constant.USER_FIELD_EMAIL));
+				userDataList.add(resultSet.getString(Constant.USER_FIELD_PHONE_NUMBER));
+				userDataList.add(resultSet.getString(Constant.USER_FIELD_ADDRESS));
+			}
+			resultSet.close();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			System.out.println("서버오류 관리자에게 문의하세요");
+		}
+		return userDataList;
+	}
+	
 	public void insertUserData(ArrayList<String> userInputDataList)
 	{
 		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -42,9 +42,9 @@ public class DataProcessing
 		String userName = signUpPanel.nameFiled.getText();
 		@SuppressWarnings("deprecation")
 		String userPassword = signUpPanel.passwordFiled.getText();
-		String userBirth = signUpPanel.birthYear.getSelectedItem().toString() 
-							+ signUpPanel.birthMonth.getSelectedItem().toString()
-							+ signUpPanel.birthDay.getSelectedItem().toString();
+		String userBirth = String.format("%s%02d%02d", signUpPanel.birthYear.getSelectedItem().toString() 
+													 , Integer.parseInt(signUpPanel.birthMonth.getSelectedItem().toString())
+													 , Integer.parseInt(signUpPanel.birthDay.getSelectedItem().toString()));
 		String userEmail = signUpPanel.emailFiled.getText() + "@" + signUpPanel.lastEmailFiled.getText();
 		String userPhoneNumber = signUpPanel.firstPhoneNumber.getSelectedItem().toString()
 								 + signUpPanel.middlePhoneNumberFiled.getText()
@@ -76,5 +76,4 @@ public class DataProcessing
 		
 		return regexList;
 	}
-	
 }

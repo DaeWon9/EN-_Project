@@ -10,6 +10,7 @@ public class Login
 {
 	private view.panel.SignUp signUpPanel;
 	private UserData userData;
+	public String userId;
 	
 	public Login(view.panel.SignUp signUpPanel, UserData userData)
 	{
@@ -17,8 +18,9 @@ public class Login
 		this.userData = userData;
 	}
 	
-	public boolean isLoginSucess(String userId, String userPassword)
+	public boolean isLoginSucess(String id, String password)
 	{	
+		userId = id;
 		ImageIcon noApeachIcon = new ImageIcon(MainController.class.getResource("/image/noApeach.png"));
 		
 		if (userId.equals(""))
@@ -29,7 +31,7 @@ public class Login
 		
 		if (DataProcessing.get().isRegisteredId(userData.getUserIdList(), userId)) // 등록되어있는 아이디
 		{
-			if (userData.getUserPassword(userData, userId).equals(userPassword))
+			if (userData.getUserPassword(userData, userId).equals(password))
 			{
 				return true;
 			}

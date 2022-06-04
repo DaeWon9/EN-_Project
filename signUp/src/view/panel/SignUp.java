@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,11 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-
 import utility.Constant;
 import view.ImageButton;
-import view.LimitedJPasswordTextField;
 import view.LimitedJTextField;
 
 public class SignUp extends JPanel
@@ -204,7 +200,7 @@ public class SignUp extends JPanel
 		ArrayList<String> monthList = new ArrayList<String>();
 		for (int month = 1; month <= 12; month++)
 		{
-			monthList.add(Integer.toString(month));
+			monthList.add(String.format("%02d",month));
 		}
 		birthMonth = new JComboBox<String>(monthList.toArray(new String[monthList .size()]));
 		birthMonth.setBounds(253, 257, 63, 30);
@@ -233,7 +229,7 @@ public class SignUp extends JPanel
 		 */
 		for (int day = 1; day <= 31; day++)
 		{
-			dayList.add(Integer.toString(day));
+			dayList.add(String.format("%02d",day));
 		}
 		birthDay = new JComboBox<String>(dayList.toArray(new String[dayList .size()]));
 		birthDay.setBounds(322, 257, 63, 30);
