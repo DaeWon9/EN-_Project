@@ -4,11 +4,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-
 import model.UserData;
 import utility.Constant;
 import utility.DataProcessing;
@@ -21,7 +18,7 @@ public class MainController
 	private UserData userData = new UserData();
 	private MainFrame mainFrame = new MainFrame();
 	private controller.SignUp signUp = new SignUp(mainFrame.signUpPanel, userData);
-	private controller.Login login = new Login(mainFrame.signUpPanel, userData);
+	private controller.Login login = new Login(userData);
 	private controller.Editer editer = new Editer(mainFrame.editPanel, userData);
 	
 	public void start()
@@ -109,22 +106,22 @@ public class MainController
 				mainFrame.signUpPanel.isIdCheck = false;
 				if (userInputId.equals(""))
 				{
-					JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.","ID CHECK",JOptionPane.DEFAULT_OPTION, noApeachIcon);
+					JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, noApeachIcon);
 				}
 				
 				else if (!mainFrame.signUpPanel.idFiled.getText().matches(Constant.REGEX_PATTERN_ID))
 				{
-					JOptionPane.showMessageDialog(null, "형식에 맞는 아이디를 입력해주세요.","ID CHECK",JOptionPane.DEFAULT_OPTION, noApeachIcon);
+					JOptionPane.showMessageDialog(null, "형식에 맞는 아이디를 입력해주세요.", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, noApeachIcon);
 				}
 				
 				else if (DataProcessing.get().isRegisteredId(userData.getUserIdList(), userInputId))
 				{
-					JOptionPane.showMessageDialog(null, "이미 사용중인 아이디입니다.","ID CHECK",JOptionPane.DEFAULT_OPTION, noApeachIcon);
+					JOptionPane.showMessageDialog(null, "이미 사용중인 아이디입니다.", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, noApeachIcon);
 					mainFrame.signUpPanel.idFiled.setForeground(Color.RED);
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "사용가능한 아이디입니다.","ID CHECK",JOptionPane.DEFAULT_OPTION, okRyanIcon);
+					JOptionPane.showMessageDialog(null, "사용가능한 아이디입니다.", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, okRyanIcon);
 					mainFrame.signUpPanel.isIdCheck = true;
 				}
 			}
@@ -135,7 +132,10 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				signUp.action();
+				if(signUp.isAction())
+				{
+					mainFrame.signUpPanel.backStageButton.doClick();
+				}
 			}
 		});
 	}
@@ -171,8 +171,12 @@ public class MainController
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "준비중입니다...","EN# FRIENDS",JOptionPane.DEFAULT_OPTION, noApeachIcon);
-				
+				int dialogResult = JOptionPane.showConfirmDialog(null, "정말로 탈퇴하시겠습니까??", "EN# FRIENDS", JOptionPane.YES_NO_OPTION);
+				if (dialogResult == JOptionPane.YES_OPTION)
+				{
+					userData.deleteUserData(login.userId);
+					mainFrame.mainPanel.backStageButton.doClick();
+				}
 			}
 		});
 	}
@@ -195,14 +199,14 @@ public class MainController
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				editer.action(login.userId);
-				refreshUserDataInEditPanel();
 				if (editer.isEditExecuted())
 				{
-					JOptionPane.showMessageDialog(null, "정보수정 완료!!","EN# FRIENDS",JOptionPane.DEFAULT_OPTION, okRyanIcon);
+					refreshUserDataInEditPanel();
+					JOptionPane.showMessageDialog(null, "정보수정 완료!!", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, okRyanIcon);
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "수정할 정보가 없습니다","EN# FRIENDS",JOptionPane.DEFAULT_OPTION, noApeachIcon);
+					JOptionPane.showMessageDialog(null, "수정가능한 정보가 없습니다", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, noApeachIcon);
 				}
 			}
 		});

@@ -1,14 +1,15 @@
 package controller;
 
 import java.util.ArrayList;
-
 import model.UserData;
 import utility.Constant;
+import utility.DataProcessing;
 
 public class Editer 
 {
 	private view.panel.Edit editPanel;
 	private UserData userData;
+
 	private int editCount;
 	
 	public Editer(view.panel.Edit editPanel, UserData userData)
@@ -19,6 +20,12 @@ public class Editer
 	
 	public void action(String loginedUserId)
 	{
+		ArrayList<String> userInputDataList = DataProcessing.get().getUserInputDataList(editPanel); 
+		
+		if (!DataProcessing.get().isAllInputDataValidate(userInputDataList))
+		{
+			return;
+		}
 		editCount = 0;
 		editName(loginedUserId);
 		editPassword(loginedUserId);

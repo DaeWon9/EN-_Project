@@ -2,8 +2,6 @@ package utility;
 
 import java.util.ArrayList;
 
-import model.UserData;
-
 public class DataProcessing 
 {
 	private static final DataProcessing dataProcessing = new DataProcessing();
@@ -34,7 +32,7 @@ public class DataProcessing
 		return false;
 	}
 	
-	public ArrayList<String> getUserInputDataList(view.panel.SignUp signUpPanel)
+	public ArrayList<String> getUserInputDataList(view.panel.SignUp signUpPanel) // 회원가입시 유저가 입력한 정보들의 리스트 반환
 	{
 		ArrayList<String> userInputDataList = new ArrayList<String>();
 		
@@ -62,6 +60,35 @@ public class DataProcessing
 		return userInputDataList;
 	}
 	
+	
+	public ArrayList<String> getUserInputDataList(view.panel.Edit editPanel) // 수정창에 입력되어있는 유저의 데이터 반환
+	{
+		ArrayList<String> userInputDataList = new ArrayList<String>();
+		
+		String userId = editPanel.idFiled.getText();
+		String userName = editPanel.nameFiled.getText();
+		@SuppressWarnings("deprecation")
+		String userPassword = editPanel.passwordFiled.getText();
+		String userBirth = String.format("%s%02d%02d", editPanel.birthYear.getSelectedItem().toString() 
+													 , Integer.parseInt(editPanel.birthMonth.getSelectedItem().toString())
+													 , Integer.parseInt(editPanel.birthDay.getSelectedItem().toString()));
+		String userEmail = editPanel.emailFiled.getText() + "@" + editPanel.lastEmailFiled.getText();
+		String userPhoneNumber = editPanel.firstPhoneNumber.getSelectedItem().toString()
+								 + editPanel.middlePhoneNumberFiled.getText()
+								 + editPanel.lastPhoneNumberFiled.getText();
+		String userAddress = editPanel.addressFiled.getText();
+		
+		userInputDataList.add(userId);
+		userInputDataList.add(userName);
+		userInputDataList.add(userPassword);
+		userInputDataList.add(userBirth);
+		userInputDataList.add(userEmail);
+		userInputDataList.add(userPhoneNumber);
+		userInputDataList.add(userAddress);
+		
+		return userInputDataList;
+	}
+	
 	public ArrayList<String> getRegexList() // id, name, pw, birth, email, phoneNumber, address 순서대로 해당 정규식을 리스트에 추가하여 반환
 	{
 		ArrayList<String> regexList = new ArrayList<String>();
@@ -75,5 +102,19 @@ public class DataProcessing
 		regexList.add(Constant.REGEX_PATTERN_ADDRESS);
 		
 		return regexList;
+	}
+	
+	public boolean isAllInputDataValidate(ArrayList<String> userInputDataList) // 입력되어있는 모든 데이터들이 올바른 형식으로 입력되었는지 체크
+	{
+		ArrayList<String> regexFormList = DataProcessing.get().getRegexList();
+		
+		for (int index = 0;  index < userInputDataList.size(); index++)
+		{
+			if (!DataProcessing.get().isValidateInputData(userInputDataList.get(index), regexFormList.get(index)))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }

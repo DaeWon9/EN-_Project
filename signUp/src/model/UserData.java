@@ -8,11 +8,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import utility.Constant;
-import view.frame.MainFrame;
-import view.panel.SignUp;
-
 
 public class UserData 
 {
@@ -25,7 +21,7 @@ public class UserData
 		return connection;
 	}
 	
-	public String SelectPassword(String userId)
+	public String SelectPassword(String userId) // 해당 유저의 비밀번호 받아오기
 	{
 		String userPassword = "";
 		try 
@@ -48,7 +44,7 @@ public class UserData
 		return userPassword;
 	}
 	
-	public ArrayList<String> getLoginedUserDataList(String userId)
+	public ArrayList<String> getLoginedUserDataList(String userId) // 로그인되어있는 유저의 정보 받아오기
 	{
 		ArrayList<String> userDataList = new ArrayList<String>();
 		
@@ -79,7 +75,7 @@ public class UserData
 		return userDataList;
 	}
 	
-	public void insertUserData(ArrayList<String> userInputDataList)
+	public void insertUserData(ArrayList<String> userInputDataList) // 입력된 유저데이터를 데이터베이스에 insert
 	{
 		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date today = new Date();
@@ -110,12 +106,30 @@ public class UserData
 		}
 	}
 	
-	public void updateUserData(String targetUserData, String userId, String field)
+	public void updateUserData(String targetUserData, String userId, String field) // 수정할 유저의 데이터를 db에 update
 	{
 		try 
 		{
 			connection = getConnection();
 			sqlCommand = String.format(Constant.UPDATE_QUERY, field, targetUserData, userId);
+
+			Statement statement = connection.createStatement();
+			statement.execute(sqlCommand);
+			connection.close();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			//e.printStackTrace();
+			System.out.println("서버오류 관리자에게 문의하세요");
+		}
+	}
+	
+	public void deleteUserData(String userId) // 회원탈퇴한 유저의 정보를 db에서 삭제
+	{
+		try 
+		{
+			connection = getConnection();
+			sqlCommand = String.format(Constant.DELETE_QUERY, userId);
 
 			Statement statement = connection.createStatement();
 			System.out.println(sqlCommand);
@@ -128,9 +142,8 @@ public class UserData
 			System.out.println("서버오류 관리자에게 문의하세요");
 		}
 	}
-	//UPDATE `daewonsignup`.`user` SET `pw` = 'asd123!2' WHERE (`id` = 'dudghks12');
 
-	public ArrayList<String> getUserIdList()
+	public ArrayList<String> getUserIdList() // db에 저장되어있는 유저들의 id 리스트 반환
 	{
 		ArrayList<String> userIdList = new ArrayList<String>();
 
@@ -153,7 +166,7 @@ public class UserData
 		return userIdList;
 	}
 	
-	public String getUserPassword(UserData userData, String userId)
+	public String getUserPassword(UserData userData, String userId) // 해당 유저의 비밀번호 반환
 	{
 		String userPassword = SelectPassword(userId);
 		return userPassword;

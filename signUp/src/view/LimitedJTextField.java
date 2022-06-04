@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 
-import utility.Constant;
 
 public class LimitedJTextField extends JTextField
 {

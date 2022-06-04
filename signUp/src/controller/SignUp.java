@@ -19,7 +19,7 @@ public class SignUp
 		this.userData = userData;
 	}
 	
-	public void action()
+	public boolean isAction()
 	{
 		ImageIcon okRyanIcon = new ImageIcon(MainController.class.getResource("/image/okRyan.png"));	
 		ImageIcon noApeachIcon = new ImageIcon(MainController.class.getResource("/image/noApeach.png"));
@@ -27,34 +27,23 @@ public class SignUp
 		
 		if (!signUpPanel.isIdCheck)
 		{
-			JOptionPane.showMessageDialog(null, "ID 체크를 진행해주세요","회원가입",JOptionPane.DEFAULT_OPTION, noApeachIcon);
+			JOptionPane.showMessageDialog(null, "ID 체크를 진행해주세요", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, noApeachIcon);
 		}
 		else if (!signUpPanel.isPasswordCheck)
 		{
-			JOptionPane.showMessageDialog(null, "PW 체크가 일치하지 않습니다","회원가입",JOptionPane.DEFAULT_OPTION, noApeachIcon);
+			JOptionPane.showMessageDialog(null, "PW 체크가 일치하지 않습니다", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, noApeachIcon);
 		}
-		else if(isAllDataValidate(userInputDataList))
+		else if(DataProcessing.get().isAllInputDataValidate(userInputDataList))
 		{
 			userData.insertUserData(userInputDataList);
-			JOptionPane.showMessageDialog(null, "회원가입 완료!!","회원가입",JOptionPane.DEFAULT_OPTION, okRyanIcon);
+			JOptionPane.showMessageDialog(null, "회원가입 완료!!", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, okRyanIcon);
+			return true;
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, "모든데이터를 형식에 맞게 입력해주세요","회원가입",JOptionPane.DEFAULT_OPTION, noApeachIcon);
+			JOptionPane.showMessageDialog(null, "모든데이터를 형식에 맞게 입력해주세요", "EN# FRIENDS", JOptionPane.DEFAULT_OPTION, noApeachIcon);
 		}
+		return false;
 	}
-	
-	private boolean isAllDataValidate(ArrayList<String> userInputDataList)
-	{
-		ArrayList<String> regexFormList = DataProcessing.get().getRegexList();
-		
-		for (int index = 0;  index < userInputDataList.size(); index++)
-		{
-			if (!DataProcessing.get().isValidateInputData(userInputDataList.get(index), regexFormList.get(index)))
-			{
-				return false;
-			}
-		}
-		return true;
-	}
+
 }
