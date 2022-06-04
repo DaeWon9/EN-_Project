@@ -74,8 +74,6 @@ public class MainController
 				String userId = mainFrame.loginPanel.idTextFiled.getText();
 				@SuppressWarnings("deprecation")
 				String userPassword = mainFrame.loginPanel.pwTextFiled.getText();
-				System.out.println(userId);
-				System.out.println(userPassword);
 				if (login.isLoginSucess(userId, userPassword))
 				{
 					mainFrame.getContentPane().removeAll();
@@ -94,6 +92,7 @@ public class MainController
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				deleteInputDataInLoginPanel();
 				mainFrame.getContentPane().removeAll();
 				mainFrame.getContentPane().add(mainFrame.loginPanel);
 				mainFrame.revalidate();
@@ -147,6 +146,7 @@ public class MainController
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				deleteInputDataInLoginPanel();
 				mainFrame.getContentPane().removeAll();
 				mainFrame.getContentPane().add(mainFrame.loginPanel);
 				mainFrame.revalidate();
@@ -239,7 +239,12 @@ public class MainController
 		mainFrame.editPanel.middlePhoneNumberFiled.setText(userDataList.get(6).substring(3, userDataList.get(6).length() - 4));
 		mainFrame.editPanel.lastPhoneNumberFiled.setText(userDataList.get(6).substring(userDataList.get(6).length() - 4
 																						, userDataList.get(6).length())); // 마지막
-		
 		mainFrame.editPanel.addressFiled.setText(userDataList.get(7)); // 주소 필드 셋팅
+	}
+	
+	private void deleteInputDataInLoginPanel()
+	{
+		mainFrame.loginPanel.idTextFiled.setText("");
+		mainFrame.loginPanel.pwTextFiled.setText("");
 	}
 }

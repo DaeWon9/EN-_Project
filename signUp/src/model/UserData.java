@@ -100,7 +100,6 @@ public class UserData
 															, userPhoneNumber, userAddress, signUpDate);
 
 			Statement statement = connection.createStatement();
-			System.out.println(sqlCommand);
 			statement.execute(sqlCommand);
 			connection.close();
 		} 
